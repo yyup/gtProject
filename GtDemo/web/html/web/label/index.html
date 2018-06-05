@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>    
+</head>
+<body> 
+    
+        <a class="offline-button" href="../index.html">Back</a>   
+        <div id="example" class="k-content">
+            <div class="demo-section">
+                <div>
+                   <h3></h3>
+                    <p>                       
+						<label class="joy-label" value="2" dataTextField="text" dataValueField="value" dataSource="{data:[{ text: 'zhanwang', value: '1' },{ text: 'Joyone', value: '2'}]}"></label>
+						<label class="joy-label" value="您好" ></label>
+						<label id="dateLabel" class="joy-label"  dataFormat="yyyy-MM-dd" dataBind="value:dateValue"></label>
+						<label class="joy-label" dataFormat="n2" value="123.456" ></label>
+					</p>
+                </div> 
+            </div>
+        </div>       
+	
+		<script>
+		$().ready(function(){	
+			var viewModel = joy.observable({
+				dateValue:"2010-12-23"
+			});
+			joy.bind($("#dateLabel"), viewModel);			
+		})
+				
+		</script>
+			
+</body>
+</html>

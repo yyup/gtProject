@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="menu"></script>    
+</head>
+<body>
+    
+        <a class="offline-button" href="../index.html">Back</a>
+    
+    	<div id="example" class="k-content">
+        <div id="megaStore">
+            <ul class="joy-menu" dataSource='type: "odata",transport: {read: {url: "./data/menuData.js",}}'>
+                
+            </ul>
+        </div>
+        <style scoped>
+            #megaStore {
+                width: 600px;
+                margin: 30px auto;
+                padding-top: 120px;
+                background: url('./image/header.jpg') no-repeat 0 0;
+            }
+            #menu h2 {
+                font-size: 1em;
+                text-transform: uppercase;
+                padding: 5px 10px;
+            }
+            #template img {
+                margin: 5px 20px 0 0;
+                float: left;
+            }
+            #template {
+                width: 380px;
+            }
+            #template ol {
+                float: left;
+                margin: 0 0 0 30px;
+                padding: 10px 10px 0 10px;
+            }
+            #template:after {
+                content: ".";
+                display: block;
+                height: 0;
+                clear: both;
+                visibility: hidden;
+            }
+            #template .k-button {
+                float: left;
+                clear: left;
+                margin: 5px 0 5px 12px;
+            }
+        </style>
+        <!--
+        <script>
+            $(document).ready(function(){
+                $("#menu").joyMenu({
+                    dataSource:
+                            [{
+                                text: "Item 1",
+                                cssClass: "myClass",                         // Add custom CSS class to the item, optional, added 2012 Q3 SP1.
+                                url: "http://www.kendoui.com"                // Link URL if navigation is needed, optional.
+                            },
+                                {
+                                    text: "Item 2",
+                                    encoded: false,                              // Allows use of HTML for item text
+                                    content: "text"                              // content within an item
+                                },
+                                {
+                                    text: "Item 3",
+                                    imageUrl: "http://www.kendoui.com/test.jpg", // Item image URL, optional.
+                                    items: [{                                    // Sub item collection
+                                        text: "Sub Item 1"
+                                    },
+                                        {
+                                            text: "Sub Item 2"
+                                        }]
+                                },
+                                {
+                                    text: "Item 4",
+                                    spriteCssClass: "imageClass3"                // Item image sprite CSS class, optional.
+                                }]
+                });
+            });
+        </script>
+        -->
+    </div>
+
+</body>
+</html>

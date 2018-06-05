@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="menu,form,dataview"></script>   
+    <style type="text/css">
+    	#example{
+    		margin-top:10px;
+    	}
+    	#edit{
+    		margin-top:10px;
+    	}
+    </style>
+</head> 
+<body> 
+      <div id="search">
+	   <label>姓名:<input dataBind="value: name"   /></label>
+	   <label>地址:<input dataBind="value: address" /></label>  
+	   <button dataBind="click: doSearch" >查询</button>  
+	  </div> 
+	  	
+	  	<div id="edit">
+	  	<button class="joy-button"  onclick="getChecked">获取选中ID数组</button>   
+	  	</div>
+	  
+        <div id="example" class="k-content"> 
+        	 <table id="grid"  class="joy-grid"
+    		 pageOptions="{buttonCount: 5,  input: true,  refresh: true}" 
+        	 resizable = "true"
+        	 selectable = "multiple" 
+        	 showColMenu = "true"  
+        	 filterable = "true"
+        	 reorderable = "true"
+        	 navigatable = "true"
+        	 groupable = "true"
+        	 autoBind="false"
+        	 batch ="true" 
+        	 pageSize = "10" 
+        	 sortable = "true"> 
+        	 
+                <thead>  
+                    <tr>
+                    	<th field="id" templateType="checkbox" colWidth="35px" >选择框</th>
+                        <th field="name" dataType="string" colWidth="100">姓名</th>
+                        <th field="birthday" dataFormat="yyyy-M-d"  dataType="date"  colWidth="100">生日</th>
+                        <th field="mobile" dataType="number"  dataFormat="n3" colWidth="100">精确到3位小数</th> 
+                        <th field="address" colWidth="100" dataType="string"  >地址</th> 
+                        <th field="sex" enumData="sexEnum"  align="left"  colWidth="100" dataType="string" >性别</th>
+                        <th field="depid" colWidth="100"  dataType="string" >所属组织机构</th> 
+                        <th field="postcode" colWidth="100" dataFormat="e4" dataType="number"  >科学计数法精确到4位小数</th> 
+                    </tr>
+                </thead>
+        	</table> 
+        	   
+        </div>
+	
+		<script>   
+		  // pkfield 初始化绑定
+		  var map = {sexEnum:[{text:'男4', value: '男'}, {text: '女4', value: '女'}],depid:[{text:'厦门展网', value: '1'}]}; 
+		  var grid ; 
+		  $(document).ready(function() {
+			 grid = $("#grid").data("joyGrid");
+			 grid.fetch(map,"http://192.168.1.154:9090/QJCJ/base/testtableAction.do?action=getAll");
+          });
+		  
+		  //搜索
+		  var searchMode = joy.observable({
+		      doSearch:function() {
+		    	 var search = joy.stringify(this.get());
+		    	 grid.fetch(map,"http://192.168.1.154:9090/QJCJ/base/testtableAction.do?action=getAll", search);
+		      }
+		   });
+		   joy.bind($("#search"), searchMode); 
+		  
+		   //获取checkbox选中条目ID
+		   function getChecked(){
+			  var ids =  grid.getChecked(); 
+			  alert(ids);
+		   }
+		 
+		   
+		</script>
+ 
+			
+</body>
+</html>

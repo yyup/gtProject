@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+	  <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form"></script>    
+    
+</head>
+<body> 
+
+    <div id="dataForm" class="joy-form" autoValidatable="true"> 
+    
+      <input class="joy-numerictextbox" label="测试"  required="true" subject="测试"   value="100000"    dataType="int" /> 
+      <input class="joy-numerictextbox"  value="100000"    dataType="+int" /> 
+      <input class="joy-numerictextbox"  value="-100000"   dataType="-int" /> 
+   	  <input class="joy-numerictextbox"  value="100000"    dataType="float" /> 
+      <input class="joy-numerictextbox"  value="1000"  decimals="3" dataFormat="n3" min="1" max="10000000" step="1" /> 
+      <input class="joy-numerictextbox" value="100222" dataFormat="e"  step="1" />
+       <input class="joy-numerictextbox" value="100222" dataFormat="e2"  step="1" />
+   </div>
+   
+</body>
+</html>

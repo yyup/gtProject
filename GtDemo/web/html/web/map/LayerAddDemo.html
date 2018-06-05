@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic usage</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.1.23:8080/arcgis_js_api/library/3.9/js/esri/css/esri.css" />
+<link rel="stylesheet" type="text/css" href="http://192.168.1.23:8080/arcgis_js_api/library/3.9/js/dojo/dijit/themes/claro/claro.css">
+<link rel="stylesheet" type="text/css" href="../../../style/joy.common.map.css" />
+
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/joy.loader.js" modules="mapcontrol,form"></script>
+
+<script src="http://192.168.1.23:8080/arcgis_js_api/library/3.9/"></script>
+</head> 
+
+<!-- class='claro'是arcgis api样式 -->
+<body  class=claro>
+
+	<div id="map" class="joy-mapcontrol map" 
+		 style="width: 1000px; height: 400px;"
+		 onLayerAdd="layerAdd"  
+		 onLayerRemove="layerRemove" 
+		 onPan="mapPan" 
+		 urls="{topo: 'http://www.haicang.gov.cn:8137/arcgis/rest/services/XM_Autonavi/MapServer', satellite: 'http://www.haicang.gov.cn:8137/arcgis/rest/services/XM_GoogleS/MapServer'}"
+		 mapParts="logo,scalebar, zoomslider, maptoggle, navicontrol", 
+		 onLayerIndexChange="layerIndexChange">
+	</div>
+	
+	<div id="tocDiv" style="position: absolute;top: 20px; right: 230px; width: 100px"></div>
+	
+	<textarea id="jsonDiv" style="position: absolute;right: 0;top: 0;width: 200px;height: 100%;"></textarea>
+	
+	<div class="joy-button" onClick="addToc">添加TOC</div>
+	<div class="joy-button" onClick="addDynamic">添加Dynamic图层</div>
+	<div class="joy-button" onClick="addImage">添加Image图层</div>
+	<div class="joy-button" onClick="addTield">添加瓦片图层</div>
+	<div class="joy-button" onClick="addWebTield">添加Web瓦片图层</div>
+	<div class="joy-button" onClick="addPointGraphics">添加点图层</div>
+	<div class="joy-button" onClick="addPolylineGraphics">添加线图层</div>
+	<div class="joy-button" onClick="addPolygonGraphics">添加面图层</div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+function addToc() {
+	//添加TOC
+	var toc = $("#map").getJoyMapcontrol().createToc("tocDiv");
+}
+
+function addDynamic() {
+	var url = "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer";
+	var type = "arcgisDynamic";
+	var jsonData = {url:url, type:type, name:"ESRIMAP", text:"ESRI地图"};
+	$("#map").getJoyMapcontrol().addLayer(jsonData);
+	$("#jsonDiv").val("{url:'"+jsonData.url+"', type:'"+jsonData.type+"', name:'"+jsonData.name+"',text:'"+jsonData.text+"'}");
+}
+
+function addImage() {
+	var url = "";
+	var jsonData = {url:url, type:"arcgisImage", name:"ESRIIMAGE", text:"ESRI影像"};
+	$("#map").getJoyMapcontrol().addLayer(jsonData);
+	$("#jsonDiv").val("{url:'"+jsonData.url+"', type:'"+jsonData.type+"', name:'"+jsonData.name+"',text:'"+jsonData.text+"'}");
+}
+
+function addTield() {
+	var url = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer";
+	var jsonData = {url:url, type:"arcgisTield", name:"HAICANG", text:"ARCGIS", index:0};
+	$("#map").getJoyMapcontrol().addLayer(jsonData);
+	$("#jsonDiv").val("{url:'"+jsonData.url+"', type:'"+jsonData.type+"', name:'"+jsonData.name+"',text:'"+jsonData.text+"'}");
+}
+
+function addWebTield() {
+	var url = "http://mt3.google.cn/vt/lyrs=m@262000000&hl=zh-CN&gl=CN&src=app&x=${col}&y=${row}&z=${level}&s=Gal";
+	var jsonData = {url:url, type:"webTield", name:"GOOGLE", text:"谷歌", index:0};
+	$("#map").getJoyMapcontrol().addLayer(jsonData);
+	$("#jsonDiv").val("{url:'"+jsonData.url+"', type:'"+jsonData.type+"', name:'"+jsonData.name+"',text:'"+jsonData.text+"'}");
+}
+
+function addPointGraphics() {
+	$.getJSON("data/data.json", function(data){
+			data.name = "point";
+			data.text = "点";
+			data.type = "graphics";
+			data.url = "";
+			data.icon = {url:"image/cycling.png", width:32, height:32};
+			data.title = "属性";
+			data.content = "<table><tr><td>monitornumber</td><td>${monitornumber}</td></tr></table>";
+			$("#map").getJoyMapcontrol().addGraphicsLayer(data);
+		});
+}
+
+function addPolylineGraphics() {
+	$.getJSON("data/polylineData.json", function(data){
+			data.name = "section";
+			data.text = "线";
+			data.type = "graphics";
+			data.url = "";
+			$("#map").getJoyMapcontrol().addGraphicsLayer(data);
+		});
+}
+
+function addPolygonGraphics() {
+	$.getJSON("data/polygonData.json", function(data){
+		data.name = "polygon";
+		data.text = "面";
+		data.type = "graphics";
+		data.url = "";
+		data.title = "航次编号：${monitortype}";
+		data.content = "<table><tr><td>id</td><td>${id}</td></tr></table>";
+		$("#map").getJoyMapcontrol().addGraphicsLayer(data);
+	});
+}
+</script>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<!-- A：对spring的context进行初设置，以实现Sc.getBean的操作 -->
+	<bean class="org.joyone.spring.Sc" />  
+
+	<!-- C：Hibernate参数设置，包括数据源、数据类、Model包 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean" parent="databaseSessionFactory">
+		<property name="dataSource">
+			<ref bean="dataSource" /> 
+		</property>
+		<property name="packagesToScan">
+			<value>classpath*:resources/spring/*Model.xml</value>						
+		</property>		
+		<property name="entityInterceptor">
+			<ref bean="sendStateIntercept" />
+		</property>
+	</bean>
+
+	<!-- D：定义事务管理器（声明式的事务） -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<!-- E：配置事务管理属性 -->
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager" />
+
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="set*">PROPAGATION_REQUIRED</prop>
+				<prop key="import*">PROPAGATION_REQUIRED</prop>	
+				<prop key="create*">PROPAGATION_REQUIRED</prop>				
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="search*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="validate*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>	
+	
+  	<!-- F：配置事务拦截机制,设置成Service层进行事务管理 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="proxyTargetClass" value="true" />
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>			
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- G：配置一个hibernate数据库拦截器，实现对数据表的hibernate修改操作时，对数据交换传输状态置位 -->
+	<bean id="sendStateIntercept" class="org.joyone.dao.intercept.SendStateInterceptor" />
+	
+	  <!-- B：设置数据绑定初始类，实现数值、日期型数据绑定的改造 -->
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+		<property name="webBindingInitializer">
+        	<bean class="org.joyone.spring.bind.WebBinding"/>
+    	</property>
+    	<property name="customArgumentResolver"> 
+    		<bean class="org.joyone.spring.bind.WebArgument"/>
+    	</property>	
+    </bean>
+    
+    <!-- C：配置Action异常的解决类 -->
+    <bean class="org.joyone.spring.exception.ActionExceptionResolver" />  
+</beans>

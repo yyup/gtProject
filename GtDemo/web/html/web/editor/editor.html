@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview,editor"></script>    
+</head> 
+<body> 
+    <div id="example" >
+    
+    <!--  toolbarOptions="['bold','italic','underline','strikethrough','justifyLeft','justifyCenter','justifyRight','justifyFull','insertUnorderedList','insertOrderedList','indent','outdent','createLink','unlink','insertImage','subscript','superscript','createTable','addRowAbove','addRowBelow','addColumnLeft','addColumnRight','deleteRow','deleteColumn','viewHtml','formatting','fontName','fontSize', 'foreColor','backColor']"
+                -->
+     <div id="dataForm" class="joy-form" autoValidatable="true">
+                
+                  <textarea 
+                class="joy-editor"  
+                maxByte="100" 
+                minByte="10" 
+                required="true" 
+                 toolbarOptions="['bold','italic','underline','strikethrough','justifyLeft','justifyCenter','justifyRight','justifyFull','insertUnorderedList','insertOrderedList','indent','outdent','createLink','unlink','insertImage','subscript','superscript','createTable','addRowAbove','addRowBelow','addColumnLeft','addColumnRight','deleteRow','deleteColumn','viewHtml','formatting','fontName','fontSize', 'foreColor','backColor']"
+              
+                rows="10" 
+                cols="30" 
+                style="height:440px">  
+                </textarea>
+           </div>     
+            
+        </div>
+    
+</body>
+</html>

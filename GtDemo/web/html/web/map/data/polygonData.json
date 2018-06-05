@@ -1,0 +1,16 @@
+{
+    "resultObject": [
+        {
+            "departmentId": 308,
+            "id": 1001,
+            "monitortype": "航次",
+            "remarks": "",
+            "sectionnumber": "",
+            "sequ": 0,
+            "voyageid": 2,
+            "voyagenumber": "",
+            "type": "polygon",
+            "geometry": [[118.12,24.47],[118.13,24.47],[118.14,24.47],[118.15,24.47],[118.15,24.57],[118.12,24.47]]
+        }
+   ]
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>    
+</head>
+<body> 
+    
+        <a class="offline-button" href="../index.html">Back</a>   
+        <div id="example" class="k-content">
+            <div class="demo-section"> 
+                <div>
+                   <h3><label class="joy-lang" code="infoLabel" ></label></h3>
+                    <p>                  
+                        <button id="kendoIconTextButton" class="joy-button joy-power" height="10"  icon="funnel-clear" onClick="doRun" label="lg:testBtn"></button>
+						<button id="kendoIconTextButton2">Clear Filter2</button>
+						
+					</p>
+                </div> 
+            </div>
+        </div>
+       
+	
+		<script>
+
+		$().ready(function(){			
+			var button=$("#kendoIconTextButton2").joyButton({
+							spriteCssClass: "k-icon k-i-funnel",
+                            btnType:"importantBtn"
+						}).getJoyButton();
+			button.bind("onClick",doRun);
+			
+		})
+
+		function doRun(joyButton,pa1,pa2){	
+			joy.bind($("#example"), viewModel);
+			var joyLang=joy.getLang();
+			alert(joyLang.msg);
+			alert(pa1);
+			alert(pa2);
+			var button=$("#kendoIconTextButton").getJoyButton();
+			button.enable(false);
+		}
+
+			
+		</script>
+			
+</body>
+</html>

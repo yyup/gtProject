@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>    
+</head>
+<body> 
+    
+        <a class="offline-button" href="../index.html">Back</a>
+        <div id="example" class="k-content">
+            <div class="demo-section">
+                <div>
+                   <h3></h3>
+                    <p>                  
+                        <input id="fabric1" class="joy-multiselect"  value="['01','02']"  placeholder="Select fabric..." dataTextField="text" dataValueField="value" dataSource="{data:[{ text: 'Cotton', value: '01' },{ text: 'Polyester', value: '02'},{ text: 'xiamen', value: '03'},{ text: 'longyan', value: '4'}]}"/>
+                   		
+                    </p>
+                    <button id="kendoIconTextButton" class="joy-button joy-power" icon="funnel-clear" onClick="doRun" ></button>
+                </div> 
+            </div>
+        </div>
+       
+	
+		<script>
+			function doRun(){
+				var mls=$("#fabric1").getJoyMultiSelect();
+				alert(mls.value());				
+			}
+		
+			
+		</script>
+			
+</body>
+</html>

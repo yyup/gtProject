@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+	  <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form"></script>    
+    <style type="text/css" >
+    	li{
+    		height:80px;
+    		line-height:80px;
+    		width:400px;
+    	}
+    
+    </style>
+</head>
+<body> 
+        <div id="dataForm" class="joy-form" autoValidatable="true">
+    <ul>
+    <li>
+  	  <input class="joy-textbox"  
+  	  required="true" 
+  	  maxByte="100"  
+  	  label="E-mail"
+  	  dataType =""    
+  	  placeholder="请输入E-mail"  
+  	  subject="E-mail"
+  	  dataRule="/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/" 
+  	  dataRuleInfo="您输入的E-mail不正确"  /> 
+  	  </li>
+  	  
+  	  <li>
+  	  <input class="joy-textbox"  
+  	  required="true" 
+  	  maxByte="100"  
+  	  dataType ="postCode"    
+  	  placeholder="请输入邮政编码"  
+  	  subject="邮政编码" /> 
+  	  </li>
+  	  
+  	   <li>
+  	  <input class="joy-textbox"  
+  	  required="true" 
+  	  maxByte="100"  
+  	  dataType ="tel"    
+  	  placeholder="请输入电话号码"  
+  	  subject="电话号码" /> 
+  	  </li>
+  	  
+  	    <li>
+  	  <input class="joy-textbox"  
+  	  required="true" 
+  	  maxByte="100"  
+  	  dataType ="mobileTel"    
+  	  placeholder="请输入手机号"  
+  	  subject="手机号" /> 
+  	  </li>
+  	  
+  	    <li>
+  	  <input class="joy-textbox"  
+  	  required="true" 
+  	  maxByte="100"  
+  	  dataType ="idCard"    
+  	  placeholder="请输入身份证"  
+  	  subject="身份证" /> 
+  	  </li>
+  	   
+  	    <li>
+  	  <input class="joy-textbox"  
+  	  required="true" 
+  	  maxByte="100"  
+  	  dataType ="entCode"    
+  	  placeholder="请输入法人代码"  
+  	  subject="法人代码" /> 
+  	  </li>
+  	  
+  	   
+  	    <li>
+  	  <input class="joy-textbox"  
+  	  required="true" 
+  	  maxByte="100"  
+  	  dataType ="IP"    
+  	  placeholder="请输入IP"  
+  	  subject="IP" /> 
+  	  </li>
+  	  
+  	  
+  	  <li>
+  	 <input class="joy-textbox"  
+  	  required="true"  
+  	  value="5551234525"
+  	  placeholder="请输入电话号码" 
+  	  dataFormat="(999) 000-0000"  
+  	  subject="电话号码"  /> 
+  	  </li>
+  	  </ul>
+      </div>
+</body>
+</html>

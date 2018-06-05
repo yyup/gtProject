@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="dataview"></script>    
+</head>
+<body>
+    
+         <a class="offline-button" href="../index.html">Back</a>
+    
+    
+        <div id="example" class="k-content">
+            <div class="demo-section">
+                <ul id="treeview">
+                </ul>
+            </div>
+ 
+            <script>
+                $(document).ready(function() {
+                    $("#treeview").joyTreeView({
+                        dataSource: [
+                            { text: "foo", items: [
+                                { text: "bar" }
+                            ] }
+                        ]
+                    });
+                });
+            </script>
+ 
+            <style scoped>
+                .demo-section {
+                    width: 200px;
+                }
+ 
+                #treeview .k-sprite {
+                    background-image: url("./image/coloricons-sprite.png");
+                }
+ 
+                .rootfolder { background-position: 0 0; }
+                .folder { background-position: 0 -16px; }
+                .pdf { background-position: 0 -32px; }
+                .html { background-position: 0 -48px; }
+                .image { background-position: 0 -64px; }
+ 
+            </style>
+        </div>
+
+
+</body>
+</html>

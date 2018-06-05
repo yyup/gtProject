@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script> 
+    <script src="../../../js/joy.loader.js" modules="menu,form,dataview"></script>   
+ 
+</head> 
+<body> 
+      <div id="result"></div>
+      <button  class="joy-button" onclick="doWebservice">执行提交webservice</button>
+       <button   onclick="webserviceForIe9()">执行提交IE8</button>
+	<script>
+	var url = "http://192.168.1.154:9090/QJCJ/base/testtableAction.do";
+	//  var url = "http://192.168.1.107/oilmapwebservice20/Login.asmx";
+
+function doWebservice(){
+	
+$.ajax({ 
+	type:"POST",
+	contentType:"text/xml",
+	url:url,
+	data:getPostData(),//这里不该用JSON格式
+	dataType:'XML',//这里设成XML或者不设。设成JSON格式会让返回值变成NULL
+	success: function(xml) { 
+		
+		alert(joy.stringify(xml));
+	  
+	},
+	error: function(x, e) {
+		alert('error:'+x.responseText);
+	},
+	complete: function(x) {
+		
+		//alert('complete:'+x.responseText);
+	}
+	}); 
+	
+	
+
+}
+//定义满足SOAP协议的参数。
+function getPostData()
+{
+//根据WSDL分析sayHelloWorld是方法名，parameters是传入参数名
+var postdata='<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><SOAP-ENV:Body><tns:LoginCheckNew xmlns:tns="http://map.asascience.com/oilmapwebservice20"><tns:userName>tio_admin</tns:userName><tns:passWord>test</tns:passWord><tns:lang_id>-999</tns:lang_id></tns:LoginCheckNew></SOAP-ENV:Body></SOAP-ENV:Envelope>';
+
+return postdata;
+}  
+
+function webserviceForIe9(){ 
+	var xdr;
+	function err() {
+	    alert('Error');
+	}
+	function timeo() {
+	    alert('Time off');
+	}
+	function loadd() {
+	    alert('Response: ' +xdr.responseText);
+	}
+	function stopdata() {
+	    xdr.abort();
+	}   
+	xdr = new XDomainRequest();
+	
+	if (xdr) {
+	    xdr.onerror = err;
+	    xdr.ontimeout = timeo;
+	    xdr.onload = loadd;
+	    xdr.timeout = 10000;
+	    xdr.open('POST',url);
+	    xdr.send("action=getAll");
+	    //xdr.send('foo=<?php echo $foo; ?>'); to send php variable
+	} else {
+	    alert('XDR undefined');
+	}
+	
+} 
+</script>
+ 
+			
+</body>
+</html>

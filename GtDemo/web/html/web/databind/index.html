@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>    
+</head>
+<body> 
+    
+        <a class="offline-button" href="../index.html">Back</a>   
+        <div id="example" class="k-content">
+            <div class="demo-section">
+                <div>
+                   <h3></h3>
+                    <p>                  
+                        <button id="kendoIconTextButton" class="joy-button joy-power" icon="funnel-clear" onClick="doRun" dataBind="enable:isManageAut">无效按钮</button>       
+						<input id="fabric" class="joy-combobox joy-type"  dataTextField="text" dataValueField="value" value="2" dataBind="source:cbxData,value:cbxValue"/>
+						<label class="joy-label joy-type" value="2" dataTextField="text" dataValueField="value" dataBind="source:cbxData,value:cbxValue"></label>
+						<li id="colType" class="joy-type" dataBind="data:{source: typeData}">
+					</p>
+                </div> 
+            </div>
+        </div>
+       
+	
+		<script>
+
+		$().ready(function(){	
+			var viewModel = joy.observable({
+				isManageAut:false,
+				cbxData:[{ text: 'Cotton', value: '1' },{ text: 'Polyester', value: '2'}],
+				typeData:[{ text: 'Cotton', value: '1' },{ text: 'Polyester', value: '2'}]
+			});
+			joy.bind($(".joy-power,.joy-type"), viewModel);
+			var cbxData=$("#colType").data("source");
+			alert(cbxData[0].text);
+		})
+
+		function doRun(joyButton,pa1,pa2){	
+			var viewModel = joy.observable({
+				cbxValue:"1"
+			});
+			joy.bind($("#example"), viewModel);			
+		}			
+		</script>
+			
+</body>
+</html>

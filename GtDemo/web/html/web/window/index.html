@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>
+</head>
+<body>
+    
+        <a class="offline-button" href="../index.html">Back</a>
+    
+    	<div id="windowContainer" style="height:200px; width:400px; border:solid"/>
+
+        <span id="undo" class="joy-button">Click here to open the window.</span>
+
+        <div id="example" class="k-content">
+            <div id="editWindow" class="joy-window" width="760px" center="true" title="用户信息">
+                <form id="dataForm" class="joy-form" >
+                    <table cellspacing=1 cellpadding=3 width="90%" align="center" border=0>
+                        <tbody>
+                        <tr >
+                            <td width="430px" height="25"  align=left>
+                                <input class="joy-textbox" label="lg:name"  required="true"  maxByte="20" databind="value:name">
+                            </td>
+                            <td align=left>
+                                <input class="joy-combobox joy-enum" label="lg:sex"  required="true"  databind="value:sex,source:sexEnum">
+                            </td>
+                        </tr>
+                        <tr >
+                            <td  align=left>
+                                <input class="joy-datepicker"  label="lg:birthday"   databind="value:birthday"></td>
+                            <td align=left>
+                                <input class="joy-datepicker"  label="lg:graduateYear"   depth="year" databind="value:graduateYear"></td>
+                        </tr>
+                        <tr >
+                            <td align="left">
+                                <input class="joy-datepicker"  label="lg:joinWorkMonth"  depth="month"   databind="value:joinWorkMonth">
+                            </td>
+                            <td align="left">
+                                <input class="joy-timepicker"  label="lg:applyTime"  databind="value:applyTime">
+                            </td>
+                        </tr>
+                        <tr >
+                            <td align="left">
+                                <input class="joy-datetimepicker"  label="lg:registerDateTime"   databind="value:registerDateTime">
+                            </td>
+                            <td align="left">
+                                <input class="joy-numerictextbox"  label="lg:age"  databind="value:age">
+                            </td>
+                        </tr>
+                        <tr >
+                            <td align="left">
+                                <input class="joy-multiselect joy-enum" style="width:22.4em" label="lg:hobby" databind="value:hobby,source:hobbyEnum">
+                            </td>
+                            <td align="left">
+                                <input class="joy-textbox"  label="lg:identityCard"  databind="value:identityCard">
+                            </td>
+                        </tr>
+                        <tr >
+                            <td align="left">
+                                <input class="joy-combobox joy-enum"  label="lg:deptId"  databind="value:deptId,source:deptIdEnum">
+                            </td>
+
+                            <td align="left">
+                                <input class="joy-textbox"  label="lg:tel"  databind="value:tel">
+                            </td>
+                        </tr>
+                        <tr >
+                            <td align="left" colspan=2>
+                                <textarea class="joy-textarea" style="width:47.5em" label="lg:explain"  databind="value:explain"></textarea>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td height="50" align="right" valign="bottom">
+                                <button class="joy-button" icon="tick" onClick="addData" >保存</button>
+                                <button class="joy-button joy-window-cancel" icon="cancel">取消</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+ 
+            <script>
+                $(document).ready(function() {
+                    var window = $("#editWindow"),
+                        undo = $("#undo")
+                                .bind("click", function() {
+                                    window.data("joyWindow").open();
+                                    //undo.hide();
+                                });
+ 
+                    var onClose = function() {
+                        undo.show();
+                    }
+ 
+                    if (!window.data("joyWindow")) {
+                        window.joyWindow({
+                            /*width: "600px",
+                            title: "About Alvar Aalto",
+                            actions: [
+                                "Pin",
+                                "Minimize",
+                                "Maximize",
+                                "Close"
+                            ],*/
+                            onClose: onClose
+                        });
+                    }
+                });
+            </script>
+ 
+            <style scoped>
+ 
+                #example 
+                {
+                    height:500px;
+                    width: 500px;
+                }
+ 
+                #undo {
+                    text-align: center;
+                    position: absolute;
+                    white-space: nowrap;
+                    padding: 1em;
+                    cursor: pointer;
+                }
+                .armchair {
+                	float: left;
+                	margin: 30px 30px 120px 30px;
+                	text-align: center;
+                }
+                .armchair img {
+                    display: block;
+                    margin-bottom: 10px;
+                }
+            </style>
+        </div>
+
+</body>
+</html>

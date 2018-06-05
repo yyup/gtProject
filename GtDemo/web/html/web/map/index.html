@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic usage</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.1.23:8080/arcgis_js_api/library/3.9/js/esri/css/esri.css" />
+<link rel="stylesheet" type="text/css" href="http://192.168.1.23:8080/arcgis_js_api/library/3.9/js/dojo/dijit/themes/claro/claro.css">
+<link rel="stylesheet" type="text/css" href="../../../style/joy.common.map.css" />
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/joy.loader.js" modules="mapcontrol,form"></script>
+
+<script src="http://192.168.1.23:8080/arcgis_js_api/library/3.9/"></script>
+<script type="text/javascript">
+
+	function btnClick() {
+		var mapcontrol = $("#map").getJoyMapcontrol();
+		//移除所有图层
+		//mapcontrol.removeAllLayers();
+
+		//删除指定图层
+		//mapcontrol.removeLayer("GOOGLE");
+
+		//获取图层的index
+		//mapcontrol.getLayerIndex("GOOGLE");
+
+		//设置地图上鼠标样式
+		//mapcontrol.setMapCursor("pointer");
+
+		//坐标转换
+		//var mapPoint = mapcontrol.toMap([2, 5]);
+		//alert(mapPoint);
+		//var screenPoint = mapcontrol.toScreen([118.128319,24.495272]);
+		//alert(screenPoint);
+
+		//设置图层是否可见
+		//mapcontrol.setLayerVisible(["GOOGLE", "HAICANG"], false);
+
+		//在地图上添加点
+		//mapcontrol.addPoint([13151319.830431316,2815071.323492334], "image/cycling.png", 32, 32);
+
+		//添加自定义图层
+		//添加点图层
+// 		$.getJSON("data/data.json", function(data){
+// 			data.name = "section";
+// 			data.text = "断面";
+// 			data.type = "graphics";
+// 			data.url = "";
+// 			data.icon = {url:"image/cycling.png", width:32, height:32};
+// 			mapcontrol.addGraphicsLayer(data);
+// 		});
+		
+		//添加线图层
+// 		$.getJSON("data/polylineData.json", function(data){
+// 			data.name = "section";
+// 			data.text = "线";
+// 			data.type = "graphics";
+// 			data.url = "";
+// 			mapcontrol.addGraphicsLayer(data);
+// 		});
+		
+		//添加面图层
+		$.getJSON("data/polygonData.json", function(data){
+			data.name = "polygon";
+			data.text = "面";
+			data.type = "graphics";
+			data.url = "";
+			data.title = "航次编号：${monitortype}";
+			data.content = "<table><tr><td>id</td><td>${id}</td></tr></table>";
+			mapcontrol.addGraphicsLayer(data);
+		});
+		
+		//添加wms图层
+// 		var json = {url:"http://service.fjmap.net/BoundaryWMS/wms", type:"wms", name:"WMS", text:"WMS地图", index:-1,
+// 				extent:[118.125,25.3125,120.9375,28.125], layers:['CITY_LINE', 'TOWN_LINE']};
+// 		var asajson = {url:"http://192.168.1.107/oilmapwebservice20/drawmap.aspx", type: "asawms", name: "wms", text: "asa地图", index: -1,
+// 				extent:[-13122524.848350734,-2077183.5804729417,9967572.65602915,7374102.092930011], layers:['1004'], userid:1, sessionid:"1_iieq38755ii387", wkid:3857}
+// 		mapcontrol.addLayer(asajson);
+
+		//添加drawtool
+		var drawtool = mapcontrol.createDrawTool("drawtoolDiv");
+		drawtool.bind("onDrawEnd", function(e){
+			//alert(drawtool.getDrawResult());
+		});
+// 		drawtool.bind("onEditEnd", function(e){
+			
+// 		});
+
+		//添加measuretool
+		var measuretool = mapcontrol.createMeasureTool("measureDiv", "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Utilities/Geometry/GeometryServer");
+		
+		//添加缩放工具
+		var zoomtool = mapcontrol.createZoomTool("zoomDiv");
+		
+		//alert(mapcontrol.getLayerIndex("GOOGLE"));
+		
+		//获取所有图层基本信息
+		//alert(mapcontrol.getMapLayersInfo());
+		
+		//创建TOC
+		mapcontrol.createToc("tocDiv");
+	}
+	
+	function addLayer() {
+		var mapcontrol = $("#map").getJoyMapcontrol();
+		//addDynamicLayer(mapcontrol);
+		addWebTield(mapcontrol);
+	}
+
+	function mapClick(mapPoint, screenPoint, evt) {
+		//alert(mapPoint);
+	}
+
+	function extentChange(levelChange, extent) {
+		//alert(extent);
+	}
+	
+	function layerAdd(name, text, index, url) {
+		//alert(name);
+		//alert(url);
+	}
+	
+	function layerRemove(name, text, index, url) {
+		//alert(name);
+	}
+	
+	function mapPan(extent) {
+		//alert(extent);
+	}
+
+	function load(e) {
+		var mapcontrol = $("#map").getJoyMapcontrol();
+		//addDynamicLayer(mapcontrol);
+		//addImageLayer(mapcontrol);
+		//addTieldLayer(mapcontrol);
+		//addWebTield(mapcontrol);
+
+		//mapcontrol.centerAndZoom([ 118.128319, 24.495272 ], 12);
+	}
+
+	//添加arcgis动态图层
+	function addDynamicLayer(mapcontrol) {
+		var url = "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Demographics/ESRI_Population_World/MapServer";
+		var type = "arcgisDynamic";
+		var jsonData = {url:url, type:type, name:"ESRIMAP", text:"ESRI地图"};
+		mapcontrol.addLayer(jsonData);
+	}
+
+	//添加arcgis影像图层
+	function addImageLayer(mapcontrol) {
+		var url = "http://sampleserver6.arcgisonline.com/arcgis/rest/services/Toronto/ImageServer";
+		mapcontrol.addLayer({url:url, type:"arcgisImage", name:"ESRIIMAGE", text:"ESRI影像"});
+	}
+
+	//添加arcgis瓦片地图
+	function addTieldLayer(mapcontrol) {
+		var url = "http://www.haicang.gov.cn:8137/arcgis/rest/services/XM_Autonavi/MapServer";
+		var jsonData = {url:url, type:"arcgisTield", name:"HAICANG", text:"海沧", index:0};
+		mapcontrol.addLayer(jsonData);
+	}
+
+	//添加瓦片地图，google，百度，天地图
+	function addWebTield(mapcontrol) {
+		var url = "http://mt3.google.cn/vt/lyrs=m@262000000&hl=zh-CN&gl=CN&src=app&x=${col}&y=${row}&z=${level}&s=Gal";
+		var jsonData = {url:url, type:"webTield", name:"GOOGLE", text:"谷歌", index:0};
+		mapcontrol.addLayer(jsonData);
+	}
+	
+	//图层index值改变
+	function layerIndexChange(e){
+		//alert();
+	}
+</script>
+
+</head> 
+<body  class=claro>
+	<div id="map" class="joy-mapcontrol map" onLoad="load" style="width: 1000px; height: 400px;"
+		onMapClick="mapClick" onExtentChange="extentChange" onLayerAdd="layerAdd"  onLayerRemove="layerRemove" 
+		onPan="mapPan" urls="{topo: 'http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer', satellite: 'http://server.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer'}"
+		mapParts="logo,overview,scalebar, zoomslider, maptoggle, navicontrol", onLayerIndexChange="layerIndexChange">
+	</div>
+	<div class="joy-button" onClick="btnClick">测试</div>
+	<div class="joy-button" onClick="addLayer">添加图层</div>
+	<div id="drawtoolDiv" style="position: absolute; right: 20px; top: 20px;"></div>
+	<div id="measureDiv" style="position: absolute; right: 20px; top: 80px;"></div>
+	<div id="zoomDiv" style="position: absolute; right: 20px; top: 120px;"></div>
+	<div id="tocDiv" style="width:120px; position: absolute; right: 20px; top: 160px;"></div>
+	
+</body>
+</html>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+	<!-- A：设置数据源参数 -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" >
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/GTDEMO</value>
+		</property>
+	</bean>
+	 
+	
+	<!-- B：设置Hibernate 参数 --> 
+	<bean id="databaseSessionFactory" abstract="true">
+		<property name="hibernateProperties">
+			<props>				
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

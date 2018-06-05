@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+	  <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>    
+    
+</head>
+<body> 
+    
+    
+        <div id="example" class="k-content">
+        <div id="dataForm" class="joy-form" autoValidatable="true"> 
+        	 <input dataSource="['Spain','Sweden','Switzerland','Turkey','Ukraine','United Kingdom','Vatican City']" 
+                            class="joy-autocomplete" filter="startswith" placeholder="选择国家" separator=","  />
+                            
+           <input dataSource="{transport: {read:{dataType: 'jsonp',url: 'http://demos.telerik.com/kendo-ui/service/Customers'}}}" 
+                       dataTextField="ContactName" class="joy-autocomplete" filter="startswith" placeholder="选择姓名" separator=","  />
+        </div> 
+        </div>
+ 
+</body> 
+</html>

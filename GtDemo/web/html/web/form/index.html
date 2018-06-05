@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+	  <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>    
+    
+</head>
+<body>
+    
+        <a class="offline-button" href="../index.html">Back</a>
+    
+    
+        <div id="example" class="k-content">
+        <div id="dataForm" class="joy-form" autoValidatable="true" style="width:600px">
+            <h3>Book Tickets</h3>
+            <ul>
+            	<li>                	
+                    <label >出生年份*</label>
+                    <input id="yearpicker" class="joy-datepicker" required="true"   depth="year" subject="出生年份" min="2014" max="2016" dataBind="value:yearValue"/>
+                    <span id="yearpicker_msg2" ></span>
+                </li>
+                <li>                	
+                    	年月：<input id="monthpicker" class="joy-datepicker"   depth="month" style="width:150px" min="2014-1" max="2016-12" dataBind="value:monthValue"/>
+    
+                </li>
+                <li>         
+                       	日期：   <input id="datepicker" class="joy-datepicker"   style="width:150px;" value="2014-1-1" min="2014-1-1" max="2016-12-1" dataBind="value:dayValue"/>
+                </li>
+                <li>
+                   		 时间*：<input id="timepicker"  class="joy-timepicker" required="true" step="30" dataBind="value:timeValue"/>
+                </li>
+                <li>
+                     	日期时间*：<input id="datetimepicker"  class="joy-datetimepicker" required="true"  step="15" min="2014-1-1 9:00" max="2014-2-1 12:00" dataBind="value:daytimeValue"/>
+                </li>
+                <li>
+                		地区*：<input id="fabric3" class="joy-combobox" required="true" minByte="5" maxByte="10"   selfDefinable="true"  placeholder="Select fabric..."  dataSource="{data:[{ text: 'Cotton', value: '1' },{ text: 'Polyester2', value: '2'}]}"/>
+                
+                </li>
+                 </ul> 
+                 <br>
+               <table>
+		           <tr>
+		           	<td>地区多选*：</td><td><input id="fabric1" class="joy-multiselect"  required="true" value="['1','2']" style="width:300px;display:inline-block"  placeholder="Select fabric..." dataTextField="text" dataValueField="value" dataSource="{data:[{ text: 'Cotton', value: '1' },{ text: 'Polyester', value: '2'},{ text: 'xiamen', value: '3'},{ text: 'longyan', value: '4'}]}"/></td>
+		           	<td><span id="fabric1_msg" ></span></td>
+		           </tr>
+		           </table>  
+                             
+               
+                	<button id="kendoIconTextButton" class="joy-button"  onClick="load">加载</button> 
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="validate" >验证</button>  
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="reset">重置</button> 
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="clear">清除</button> 
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="submit">提交</button> 
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="setValue">设置值</button> 
+                
+           
+        </div>
+
+           
+        </div>
+
+	
+			
+</body>
+<script>
+
+function load(){
+	dataModel = {
+			yearValue:2014,
+			monthValue:"2014-6",
+			dayValue:"2014-6-10",
+			timeValue:"",
+			daytimeValue:""
+	};	
+	
+	//viewModel=joy.observable(dataModel);
+	//joy.bind($("#dataForm"), viewModel);
+	
+	var form=$("#dataForm").getJoyForm();
+	form.load(dataModel);
+}
+
+function validate(){
+	var form=$("#dataForm").getJoyForm();
+	form.validate();
+}
+
+function reset(){
+	var form=$("#dataForm").getJoyForm();
+	form.reset();
+}
+
+function clear(){
+	var form=$("#dataForm").getJoyForm();
+	form.clear();
+}
+
+function submit(){
+	//alert(joy.stringify(viewModel.toJSON()));
+	var form=$("#dataForm").getJoyForm();
+	form.submit("http://127.0.0.1:8080/Java/base/baseUserAction.do?action=test","post");
+}
+
+function setValue(){
+	var formDataModel=$("#dataForm").getJoyForm().getDataModel();
+	formDataModel.set("monthValue","2015-01");
+}
+</script>
+</html>

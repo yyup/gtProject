@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>       
+  
+</head>
+<body> 
+      
+       
+           <div id="dataForm" class="joy-form" autoValidatable="true"> 
+            	 <div class="joy-radio" id="radio" required="true" label="测试"  subject="测试" style="width:300px;height:60px"  name="radiotest"  dataSource="[{text:'选项1',value:'值1'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项3',value:'值3'}]" value="值3" > 
+             	</div>  
+             	
+        		 <button class="joy-button" onclick="getvalue">获取值</button>
+         
+          </div> 
+         <script type="text/javascript">
+	         
+         	function getvalue(){
+         		  
+         		 alert($("input[name='radiotest']").val());
+         		 alert($("#radio").attr("value"));
+         		 return $("#radio").attr("value"); 
+         		
+         	}
+         </script>
+</body>
+</html>

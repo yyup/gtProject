@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>    
+</head>
+<body> 
+    
+        <a class="offline-button" href="../index.html">Back</a>
+        <div id="example" class="k-content">
+            <div class="demo-section">
+                <div>
+                   <h3></h3>
+                    <p>                  
+                        <input id="fabric1" class="joy-combobox" value="2"  placeholder="Select fabric..." dataTextField="text" dataValueField="value" dataSource="{data:[{ text: 'Cotton', value: '1' },{ text: 'Polyester', value: '2'}]}"/>
+                   		<input id="fabric2" class="joy-combobox" text="Polyester2"  placeholder="Select fabric..."  dataSource="{data:[{ text: 'Cotton', value: '1' },{ text: 'Polyester2', value: '2'}]}"/>
+                   		<input id="fabric3" class="joy-combobox"  selfDefinable="true"  placeholder="Select fabric..."  dataSource="{data:[{ text: 'Cotton', value: '1' },{ text: 'Polyester2', value: '2'}]}"/>
+                    </p>
+                    <button id="kendoIconTextButton" class="joy-button joy-power" icon="funnel-clear" onClick="doRun" ></button>
+                </div> 
+            </div>
+        </div>
+       
+	
+		<script>
+			function doRun(){
+				var cbx=$("#fabric2").getJoyComboBox();
+				alert(cbx.value());
+				cbx=$("#fabric3").getJoyComboBox();
+				alert(cbx.value());
+			}
+		
+			
+		</script>
+			
+</body>
+</html>

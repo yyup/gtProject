@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic usage</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css"
+	href="http://192.168.1.23:8080/arcgis_js_api/library/3.9/js/esri/css/esri.css" />
+<link rel="stylesheet" type="text/css" href="http://192.168.1.23:8080/arcgis_js_api/library/3.9/js/dojo/dijit/themes/claro/claro.css">
+<link rel="stylesheet" type="text/css" href="../../../style/joy.common.map.css" />
+
+<script src="../../../js/jquery.min.js"></script>
+<script src="../../../js/joy.loader.js" modules="mapcontrol,form"></script>
+
+<script src="http://192.168.1.23:8080/arcgis_js_api/library/3.9/"></script>
+</head> 
+
+<!-- class='claro'是arcgis api样式 -->
+<body  class=claro>
+
+	<div id="map" class="joy-mapcontrol map" 
+		 style="width: 1000px; height: 400px;"
+		 urls="{topo: 'http://server.arcgisonline.com/ArcGIS/rest/services/Ocean_Basemap/MapServer', satellite: 'http://server.arcgisonline.com/arcgis/rest/services/NatGeo_World_Map/MapServer'}"
+		 mapParts="logo,overview,scalebar, zoomslider, maptoggle, navicontrol">
+	</div>
+	
+	<div id="drawtoolDiv" style="position: absolute;top: 20px; left: 100px; z-index: 30"></div>
+	
+	<div class="joy-button" onClick="addDrawTool">添加绘制工具</div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+function addDrawTool() {
+	//添加绘制工具
+	var drawtool = $("#map").getJoyMapcontrol().createDrawTool('drawtoolDiv');
+}
+
+</script>

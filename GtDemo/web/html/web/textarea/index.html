@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+	  <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>    
+    
+</head>
+<body> 
+    
+    
+        <div id="example" class="k-content">
+        <div id="dataForm" class="joy-form" autoValidatable="true">
+           
+            <ul> 
+                <li> 
+                    <textarea class="joy-textarea" label="文本框"  name="document" placeholder="请输入..."  required="true" maxByte="100" minByte="10" ></textarea>
+                </li>
+               
+               
+                	<button id="kendoIconTextButton" class="joy-button"  onClick="load">加载</button> 
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="validate" >验证</button>  
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="reset">重置</button> 
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="clear">清除</button> 
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="submit">提交</button> 
+                    <button id="kendoIconTextButton" class="joy-button"  onClick="setValue">设置值</button> 
+                
+            </ul>
+        </div>
+
+           
+        </div>
+
+	
+			
+</body>
+<script>
+
+function load(){
+	dataModel = {
+			yearValue:2014,
+			monthValue:"2014-6",
+			dayValue:new Date()
+	};	
+	
+	//viewModel=joy.observable(dataModel);
+	//joy.bind($("#dataForm"), viewModel);
+	
+	var form=$("#dataForm").getJoyForm();
+	form.load(dataModel);
+}
+
+function validate(){
+	var form=$("#dataForm").getJoyForm();
+	form.validate();
+}
+
+function reset(){
+	var form=$("#dataForm").getJoyForm();
+	form.reset();
+}
+
+function clear(){
+	var form=$("#dataForm").getJoyForm();
+	form.clear();
+}
+
+function submit(){
+	//alert(joy.stringify(viewModel.toJSON()));
+	var form=$("#dataForm").getJoyForm();
+	form.submit("http://127.0.0.1:8080/Java/base/baseUserAction.do?action=test","post");
+}
+
+function setValue(){
+	var formDataModel=$("#dataForm").getJoyForm().getDataModel();
+	formDataModel.set("monthValue","2015-01");
+}
+</script>
+</html>

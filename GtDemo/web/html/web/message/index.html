@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="common"></script>    
+</head>
+<body id="kkk">
+        <a class="offline-button" onclick="clickTest();return false" href="#">Back</a>
+       <div id="test" style="height:100px;width:500px"></div>
+        <script>
+        $(document).ready(function(){
+            joy.showMessage("hello","error");
+
+            joy.showMessageDialog("hello","error","yes,no",function(e){
+             alert(e.btnName);
+             if(e.btnName == "yes"){
+             alert("你成功了！");
+             }
+             });
+        });
+        </script>
+</body>
+</html>

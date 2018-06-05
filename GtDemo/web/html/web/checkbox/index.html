@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Basic usage</title>
+    <meta charset="utf-8">
+    <script src="../../../js/jquery.min.js"></script>
+    <script src="../../../js/joy.loader.js" modules="form,dataview"></script>       
+  
+</head>
+<body> 
+      
+           <div id="dataForm" class="joy-form" autoValidatable="true"> 
+            	 <div id="checkbox" required="true" label="测试"  subject="测试" style="width:300px;height:60px" class="joy-checkbox" formname="checkbox"  dataSource="[{text:'选项1',value:'值1'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项3',value:'值3'}]" value="值3" > 
+             	</div> 
+             	<hr>
+             	  <div id="checkbox2" required="true" label="测试"  subject="测试" style="width:300px;height:60px"  dataSource="[{text:'选项1',value:'值1'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项2',value:'值2'},{text:'选项3',value:'值3'}]" value="值3" > 
+             	</div> 
+        		 <button class="joy-button" onclick="getvalue">获取值</button>
+          <button class="joy-button" onclick="changeItems">改变选项</button>
+          </div> 
+         <script type="text/javascript">
+         		var dataSource1 = [{text:'选项5',value:'值4'},{text:'选项7',value:'值2'},{text:'选项8',value:'值3'}];
+              var dataSource = [{text:'选项4',value:'值4'},{text:'选项2',value:'值2'},{text:'选项3',value:'值3'}];
+              
+              var checkbox2;
+              $().ready(function(){	
+            	  checkbox2 = $("#checkbox2").joyCheckbox({
+            		  dataSource:dataSource1,
+            		  value:"值3,值4",
+            		  formname:"checkbox2"
+            	  }).getJoyCheckbox();  
+             });
+         	
+             function changeItems(){
+            	   
+            	 checkbox2.setDataSource(dataSource);
+            	 
+             };
+         	
+         
+         	function getvalue(){ 
+         		
+         		
+         			alert(checkbox2.value());
+         			
+         		 return checkbox2.value(); 
+         		
+         	}
+         </script>
+		
+</body>
+</html>
