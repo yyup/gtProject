@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="layout,form,dataview"></script> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+
+</head>
+<body> 
+<!-- 工具栏 开始-->
+	<div class="k-page-toolbar"> 
+			
+			<span class="joy-lang" label="lg:wmOutTypeEk" style="font-weight:bold;"></span>: 							
+		    <input id="wmOutTypeEk"  class="joy-combobox joy-enum" 
+				   placeholder="lgc:pleaseToSelect"  databind="value:wmOutTypeEk,source:WM_OUT_TYPE_EKEnum" style="width:23%;">					
+		      <span class="joy-lang" label="lg:from" style="font-weight:bold;"></span>: 							
+		    	<input class="joy-datepicker" dataFormat="yyyy-MM-dd"  id="txtDate_begin" style="width:23%;"> 
+		    	
+			 <span class="joy-lang" label="lg:to"" style="font-weight:bold;"></span>						
+		    	<input class="joy-datepicker"   dataFormat="yyyy-MM-dd"  id="txtDate_end" style="width:23%;" >         
+	</div>
+	
+	<div class="k-page-toolbar"> 
+			<span class="joy-lang" label="lg:storageName" style="font-weight:bold;"></span>: 							
+		    <input id="storageId" label="lg:storageName" class="joy-combobox joy-enum" 
+					placeholder="lgc:pleaseToSelect" dataTextField="storageName" dataValueField="storageId" 
+					databind="value:storageId,source:allStorageEnum" style="width:23%;">	
+				   			
+		     <span class="joy-lang" label="lg:itemCd" style="font-weight:bold;"></span>: 									    	
+	         <input
+				id="itemCd"  class="joy-textbox" 	style="width:23%;"	databind="value:itemCd" >
+					 							
+			 <span class="joy-lang" label="lg:itemName" style="font-weight:bold;"></span>: 									      	
+				 <input id="itemName"  class="joy-textbox" style="width:23%;" databind="value:itemName" >	 			
+		     
+	</div>
+		<div class="k-page-toolbar"> 				
+			 <span class="joy-lang" label="lg:spec" style="font-weight:bold;"></span>: 							
+		     <input id="spec"  class="joy-textbox" style="width:20%;" databind="value:spec" >
+		      <span class="joy-lang" label="lg:orgName" style="font-weight:bold;"></span>: 							
+		      <input id="searchOrgId"  class="joy-combobox joy-enum" style="width:23%;"  dataTextField="orgName" dataValueField="orgId" 
+		      databind="value:orgId,source:orgEnum"  >	
+		      <span class="joy-lang" label="lg:consignee" style="font-weight:bold;"></span>: 							
+		     <input id="consignee"  class="joy-textbox" style="width:20%;" databind="value:consignee" >		 	
+		        <div class="fit1024" style="float: right; ">
+			<button class="joy-button" icon="search" onClick="searchData"
+				label="lgc:search"></button>	
+				</div>
+	</div>
+		<!-- 工具栏 结束-->
+		<!-- 列表 -->
+	<div class="listContent" >
+	<table id="grid" class="joy-grid"   reorderable="false"   showPageControl="false"    >
+		<thead>
+			<tr>  
+				<th field="storageName" dataType="string"  label="lg:storageName"	colWidth="15%"></th>
+				<th field="wmOutTypeEk" dataType="string" align="center" label="lg:wmOutTypeEk" enumData="WM_OUT_TYPE_EKEnum"	colWidth="10%"></th>   
+				<th field="itemCd" dataType="string" label="lg:itemCd" colWidth="11%"></th>   
+				<th field="itemName" dataType="string" label="lg:itemName" colWidth="16%"></th>   				
+				<th field="spec" dataType="string" label="lg:spec"  colWidth="10%"></th>   							
+				<th field="outTotal" dataType="string" label="lg:outTotal" align="right" colWidth="8%"></th>   				
+			</tr>
+		</thead>
+	</table>
+	<table width="100%">
+    <tbody>
+      <tr>
+        <td id="totalCount" align="right" style="padding-right:20px;font-weight:bold;"></td>
+      </tr>
+    </tbody> 
+  </table>
+</div>
+	
+</body>
+<script>
+var lgc,lg,grid;
+var searchUrl="../../wl/wm/wlWmStoreOutTotalAction.do?action=findOutDetailTotalList";
+var wmOutTypeEkComboBox,txtDateBeginDatePicker,txtDateEndDatePicker,storageIdComboBox,itemCdTextBox,itemNameTextBox,specTextBox;
+var orgIdComboBox,consigneeTextBox;
+$().ready(function() {
+	lgc = joy.getCommonLang();
+	lg = joy.getLang();
+	wmOutTypeEkComboBox=$("#wmOutTypeEk").getJoyComboBox();
+	txtDateBeginDatePicker=$("#txtDate_begin").getJoyDatePicker();
+	txtDateEndDatePicker=$("#txtDate_end").getJoyDatePicker();
+	storageIdComboBox=$("#storageId").getJoyComboBox();
+	itemCdTextBox=$("#itemCd").getJoyTextBox();
+    itemNameTextBox=$("#itemName").getJoyTextBox();
+	 specTextBox=$("#spec").getJoyTextBox();
+	 orgIdComboBox=$("#searchOrgId").getJoyComboBox();
+	 consigneeTextBox=$("#consignee").getJoyTextBox(); 
+		grid = $("#grid").getJoyGrid();	
+     var date=new Date();
+     txtDateBeginDatePicker.value(date.Format("yyyy-MM-dd"));
+     txtDateEndDatePicker.value(date.Format("yyyy-MM-dd"));
+
+	joy.getJSON("../../wl/wm/wlWmStoreOutTotalAction.do?action=init",{enumTypes:['WM_OUT_TYPE_EK']},function(resultObject) {
+		initResult = resultObject;
+	    var viewModel = joy.observable(initResult);    
+        joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+		//searchForm.load();
+    	//grid.fetch(initResult, searchUrl); 
+	});
+})
+/**
+	*搜索数据
+	*/
+    function searchData(){
+		var obj=new Object();		
+	     obj.beginDate=txtDateBeginDatePicker.value();
+		 obj.endDate=txtDateEndDatePicker.value();
+		 if(obj.beginDate==""){
+				joy.showMessage(lg.pleaseEnterStartDate, "warning");
+               return;
+		 }
+         if(obj.endDate==""){
+				joy.showMessage(lg.pleaseEnterEndDate, "warning");
+              return ;
+		 }
+ 		obj.storageId=storageIdComboBox.value();
+         if(obj.storageId==""){
+        		joy.showMessage(lg.pleaseEnteStorageName, "warning");
+                return ;
+         }
+        obj.wmOutTypeEk=wmOutTypeEkComboBox.value();
+		obj.itemCdAsLike=itemCdTextBox.value();
+		obj.itemName=itemNameTextBox.value();
+		obj.spec=specTextBox.value();
+		obj.orgId=orgIdComboBox.value();
+		obj.consignee=consigneeTextBox.value();
+		var paraMap=joy.getParaMap(obj);
+		joy.postJSON(searchUrl,paraMap,function(resultObject) {
+	    	//grid.fetch(initResult, searchUrl); 
+	    	grid.load(initResult,resultObject.outTotalList); 
+	    	$("#totalCount").html(lg.totalCount+resultObject.outQty);
+		});
+	}
+</script>
+</html>

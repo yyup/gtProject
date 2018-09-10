@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export>
+	<wlEsStoreOut code = "orderNo" name = "订单号"/>
+	<wlEsStoreOut code = "orderTime" name = "下单时间"/>
+	<wlEsStoreOut code = "amt" name = "订单金额（元）"/>
+	<wlEsStoreOut code = "payAmt" name = "支付金额（元）"/>
+	<wlEsStoreOut code = "goodNum" name = "总数量"/>
+	<wlEsStoreOut code = "memberName" name = "买家"/>
+	<wlEsStoreOut code = "payModeEkName" name = "支付方式"/>
+	<wlEsStoreOut code = "orderStateEkName" name = "订单状态"/>
+</export>

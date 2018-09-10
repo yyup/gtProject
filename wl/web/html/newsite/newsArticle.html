@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="Generator" content="waterrower Team">
+<meta name="Author" content="waterrowerTeam">
+<meta name="Keywords"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<meta name="Description"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<script src="../../js/newsite/jquery.min.js"></script>
+<script src="../../js/newsite/bootstrap.js"></script>
+<script src="../../js/newsite/getSystemPlatform.js"></script>
+<script src="../../js/newsite/wlcommon.js"></script>
+<script src="../../js/newsite/cnzz.js"></script>
+<link rel="stylesheet" href="../../style/prj/newsite/header.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/footer.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/newsArticle.css" />
+<script src="../../js/joy.loader.js" modules=""></script>
+</head>
+
+<body>
+	<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+	<!-- 内容 -->
+	<div id="wlBody">
+		<div class="container ">
+
+			<div class="">
+				<div id="articleTitle" class="titleMargin"></div>
+				<p id="date" class="contentTextColor"></p>
+				<div id="articleContent" style="font-family: 'Microsoft Yahei';"></div>
+			</div>
+
+		</div>
+	</div>
+	<!-- 内容结束 -->
+	<!--尾部开始-->
+	<div id="footerPart">
+		
+	</div>
+
+	<script>
+		$(function() {
+			initTop();
+			initClick();
+			initBottom();
+			var infoId = getParam("infoId");
+			/* if(infoId==null){
+			 var columnId=getParam("columnId");
+			joy.getJSON(contentPath+"/wl/cm/wlCmInfoAction.dox?action=getData", {
+					key : "columnId",
+					value : columnId
+				}, function(resultObject) {
+					if(resultObject!=null){
+					infoId=resultObject.infoId;
+					}else{
+						infoId="";
+					}
+					showContent(infoId);
+				});
+			}else{	 
+			showContent(infoId);
+			}	 */
+			showContent(infoId);
+		});
+		
+		function showContent(infoId){
+			   var txt = "";
+				joy.getJSON("../../wl/cm/wlCmInfoAction.dox?action=getData",
+						{key:"infoId",value:infoId},function(result){
+							if(result!=null){
+							$("#articleTitle").html(result.title);		
+						    	if(result.issueStateEk=='2'){//已发布
+								 	txt = result.content;
+								}else{
+									txt='<div class="noContent"></div>';
+								}
+						    	$("#articleContent").append(txt);//issueTime
+						    	  var type=getParam("type");//文章类型
+						    	   if(type==="new"){//如果文章是新闻，显示时间
+						    		   $("#date").html(result.issueTime.substr(0,10));
+						    	   }else{
+						    		   $("#date").hide();
+						    		   /* $("#articleTitle .articleTitle").attr("style","width:100%;"); */
+						    	   }
+							}
+				});
+				
+		}
+
+		var getParam = function(name) {
+			var search = document.location.search;
+			var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+			var matcher = pattern.exec(search);
+			var items = null;
+			if (null != matcher) {
+				try {
+					items = decodeURIComponent(decodeURIComponent(matcher[1]));
+				} catch (e) {
+					try {
+						items = decodeURIComponent(matcher[1]);
+					} catch (e) {
+						items = matcher[1];
+					}
+				}
+			}
+			return items;
+		};
+	</script>
+
+</body>
+</html>
+<!--尾部结束-->

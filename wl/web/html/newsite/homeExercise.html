@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="Generator" content="waterrower Team">
+<meta name="Author" content="waterrowerTeam">
+<meta name="Keywords"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<meta name="Description"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<script src="../../js/newsite/jquery.min.js"></script>
+<script src="../../js/newsite/bootstrap.js"></script>
+<script src="../../js/newsite/getSystemPlatform.js"></script>
+<script src="../../js/newsite/wlcommon.js"></script>
+<script src="../../js/newsite/cnzz.js"></script>
+<link rel="stylesheet" href="../../style/prj/newsite/header.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/footer.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/homeExercise.css" />
+<script src="../../js/joy.loader.js" modules=""></script>
+</head>
+
+<body>
+	<!--头部开始-->
+	 	<div id="top">
+	 		<div id="commonpath" style="display: none;" commonpath=""></div>
+	 	</div>
+	<!--头部结束-->
+	<!-- 内容 -->
+	<div id="wlBody">
+		<!-- 小屏时显示 -->
+		<section id="big_section"></section>
+
+		<div class="container">
+
+			<section id="small_section">
+				<!-- 小屏内容1 -->
+			</section>
+
+			<div  id="divUpDown"></div>
+		</div>
+		<!-- <img src="http://120.27.107.19/wl/wl/cm/wlCmDocumentAction.dox?action=downloadFile&id=402881405141597201514169d314000c"  />
+		<img src="../../style/prj/images/weixin.png" class="img-responsive" /> -->
+	</div>
+	<!-- 内容结束 -->
+	<!--尾部开始-->
+	<div id="footerPart">
+		
+	</div>
+	<script>
+		$().ready(function() {
+			initTop();
+			initClick();
+			initBottom();
+			getLayout();
+		});
+
+		function getLayout() {
+			joy.getJSON("../../wl/cm/wlCmInfoAction.dox?action=findInfoList", {
+				columnId : "0110",
+				issueStateEk : "2"
+			}, function(resultObject) {
+				for ( var i = 0; i < resultObject.length; i++) {
+					var layoutTypeEk = resultObject[i].layoutTypeEk;
+					if (layoutTypeEk == "NORMAL") {
+						normalLayout(resultObject[i].title,
+								resultObject[i].content, resultObject[i].path);
+					} else if (layoutTypeEk == "") {
+						upDownLayout(resultObject[i].title,
+								resultObject[i].content, resultObject[i].path);
+					}
+				}
+			});
+		}
+
+		/**
+		 * 正常样式
+		 * @param title 标题
+		 * @param content 内容
+		 * @param img 图片
+		 */
+		function normalLayout(title, content, img) {
+			var txt = '';
+			txt += '<div class="row text-center hidden-xs hidden-sm hidden-md  content_background"><div class="col-md-4 image-block"><h2>';
+			txt += title + '</h2><br><p>';
+			txt += content + '</p></div>';
+			txt += '<img class="img-responsive" style="width:100%" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ img +'" alt="Responsive image"></div>';
+			$("#big_section").append(txt);
+
+			var hiddenTxt = '<div class="row hidden-lg"><div class="col-xs-12">';
+			hiddenTxt += '<img style="width: 100%" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ img +'" alt="">';
+			hiddenTxt += '<h2>' + title + '</h2></div><div class="col-xs-12">';
+			 hiddenTxt += '<p class="mobile-text">' + content
+					+ '</p></div></div>'
+			$("#small_section").append(hiddenTxt);
+		}
+
+		/**
+		 * 上下布局
+		 * @param title 标题
+		 * @param content 内容
+		 * @param img 图片
+		 */
+		function upDownLayout(title, content, img) {
+			var txt = '<div class="row"><div class="col-xs-12 text-center"><h2>' + title
+					+ '</h2>'
+			txt += '<div class="contentText text-left">' + content
+					+ '</div></div><div class="col-xs-12">';
+			txt += '<img style="width: 100%" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ img +'" alt=""> </div></div>'
+			$("#divUpDown").append(txt);
+		}
+	</script>
+</body>
+</html>
+<!--尾部结束-->

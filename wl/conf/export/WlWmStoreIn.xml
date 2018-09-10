@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export>
+	<WlWmStoreIn code = "billNo" name = "入库单号"/>
+	<WlWmStoreIn code = "itemName" name = "物料名称"/>
+	<WlWmStoreIn code = "totalQty" name = "数量"/>
+	<WlWmStoreIn code = "wmInTypeEkName" name = "业务类型"/>
+	<WlWmStoreIn code = "storageName" name = "仓库"/>
+	<WlWmStoreIn code = "inDate" name = "入库日期"/>
+	<WlWmStoreIn code = "createor" name = "经办人"/>
+	<WlWmStoreIn code = "lockFlagEkName" name = "状态"/>
+</export>

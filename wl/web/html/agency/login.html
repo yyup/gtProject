@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>经销商后台管理登录</title>
+	<script src="../../js/jquery.min.js"></script>
+    <script src="../../js/joy.loader.js" modules="dataview"></script>  
+    <link rel="stylesheet" type="text/css" href="../../style/prj/base.login.css" /> 
+      <script type="text/javascript" src="../../js/site/md5.js"></script> 
+</head>
+<body id="userlogin_body" >
+<div id=user_login> 
+    <div id=user_top>
+        <ul>
+			<li class=user_top_l></li>
+			<li class=user_top_c></li>
+			<li class=user_top_r></li>
+		</ul>
+        <div id=user_main>
+			<ul>
+				<li class=user_main_l></li>
+				<li class=user_main_c>
+					<div class=user_main_box>
+						<ul>
+						  <li class=user_main_text>用户名： </li>
+						  <li class=user_main_input><input class=TxtUserNameCssClass id="txt_user" maxLength=20 name=TxtUserName> </li>
+						</ul>
+						<ul>
+							<li class=user_main_text>密 码： </li>
+							<li class=user_main_input><input class=TxtPasswordCssClass id="txt_pwd" type=password name=TxtPassword> </li>
+						</ul>
+						<ul>
+							<li class=user_main_text>Cookie： </li>
+							<li class=user_main_input>
+							    <select id=DropExpiration name=DropExpiration> 								
+									<option value="None" selected>不保存</option> 
+									<option value="Day">保存一天</option> 
+									<option value="Month">保存一月</option> 
+									<option value="Year">保存一年</option>
+								</select> 
+							</li>
+						</ul>
+					<!---user_main_box结束-->
+					</div>
+                <!---user_main_c结束-->
+				</li>
+				<li class=user_main_r>
+				    <INPUT class=IbtnEnterCssClass id=IbtnEnter type=image src="../../style/prj/images/user_botton.gif" name=IbtnEnter onclick="getGlossary()"> 
+				</li>
+			</ul>
+            <div id=user_bottom>
+                <ul>
+					<li class=user_bottom_l></li>
+					<li class=user_bottom_c>
+					  <span>沃特罗伦网站经销商管理系统@2015</span>
+					</li>
+					<li class=user_bottom_r></li>
+	            </ul>
+	        </div>
+        <!---user_main结束-->
+	    </div>
+	</div>
+</div>
+
+
+<script type="text/javascript"> 
+
+    $(function (){
+    	var height=$(document).height();
+    	$(".content").height(height-57);    	
+    		
+    });
+    $(window).resize(function() {
+    	var height=$(document).height();
+    	$(".content").height(height-57);
+    	});
+     
+        $("body").keydown(function(e){
+        	   if(e.keyCode == 13)
+        	   {
+        		   $(".IbtnEnterCssClass").click();   
+        	   }
+        	});
+    
+
+    var lgfg=true;
+     function getGlossary(){
+           //if(!lgfg) return;
+           var pwd=$("#txt_pwd").val();
+           var user=$("#txt_user").val();
+           if(pwd==""||user==""){joy.showMessage("用户名和密码都不能为空！","success"); return;}
+           //$(".loginFormButton").css({"background":"url(../../style/prj/images/loginButton_Enable.png) no-repeat center bottom"});
+  			//lgfg=false;
+  			var url="../../noSecurity/wlCmLoginAction.do?action=agencyLogin";
+  			
+           	joy.getJSON(url,{username:user,pwd:MD5(pwd),lang_id:"-999"}, function(resultObject){
+		             joy.showMessage("登录成功！","success"); 
+		             joy.setCookie("user",joy.stringify(resultObject));//记录用户登录信息到cookie		             
+		             window.location="../agency/main.shtml";
+            	},function errorFunction(resultObject)
+            	{
+            		//lgfg=true;
+            		 //$(".loginFormButton").css({"background":"url(../../style/prj/images/loginButton.png) no-repeat center bottom"});
+            	});
+              
+            }
+
+     
+</script> 
+</body>
+</html>

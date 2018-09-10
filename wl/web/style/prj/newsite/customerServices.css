@@ -1,0 +1,109 @@
+  #agencyHead {
+  	max-width: 100%;
+  	margin: 0;
+  }
+  
+  .image-block {
+  	background: rgba(0, 0, 0, 0.4);
+  	color: #fff;
+  	font-size: 17px;
+  	line-height: 32px;
+  	margin-left: 33.5%;
+  	margin-right: auto;
+  	margin-top: 7%;
+  	position: absolute;
+  	z-index: 9;
+  }
+  
+  .divCenterWord {
+  	background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+  	margin-left: 17%;
+  	margin-right: 17%;
+  	padding: 4px;
+  }
+  
+  #divTab {
+  	margin: 20px 0px;
+  }
+  
+  .tabSelect {
+  	cursor:pointer;
+  	font-size: 17px;
+  	color: black;
+  	float: left;
+  	border-bottom: solid 2px black;
+  	width: 33.3%;
+  	padding: 15px 0;
+  }
+  
+  .divTabTitle {
+  	font-size: 17px;
+  	color: #898989;
+  	float: left;
+  	border-bottom: solid 1px #b2b2b2;
+  	width: 33.3%;
+  	padding: 15px 0;
+  	cursor:pointer;
+  }
+  
+  @media screen and (max-width: 992px) {
+  	#divContent1>div {
+  		text-align: center;
+  	}
+  }
+  
+  .caption span {
+  	text-decoration: none;
+
+  }
+  
+  .caption span:hover {
+  	color: #4581ca;
+  	cursor:pointer;
+  }
+  
+  .thumbnail img {
+  	/*width: 100%;*/
+  }
+  
+  .maintain {
+  	 cursor:pointer;
+  	 color:black;
+  }
+  
+  .maintain:hover{
+  	 cursor:pointer;
+  	 color:#5DB0FF;
+  }
+  
+  #divContent2>div {
+  	text-align: center;
+  }
+  
+  .divImg {
+  	position: relative;
+  	min-height: 137px;
+  }
+  
+  .divImg>img {
+  	position: absolute;
+  	bottom: 0px;
+  	max-height: 137px;
+  	left: 0;
+  	right: 0;
+  	/* top: 0; */
+  	bottom: 0;
+  	margin: auto;
+  }
+  
+  @media screen and (min-width: 992px) {
+  	#divContent1 .divImg>img {
+  		position: absolute;
+  		bottom: 0px;
+  		max-height: 137px;
+  		left: 0;
+  		right: 100%;
+  		bottom: 0;
+  		margin: auto;
+  	}
+  }

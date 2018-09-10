@@ -1,0 +1,40 @@
+#customerServiceBody{width:100%;}
+/**客户服务**/
+#customerServiceContainer,#customerServiceTop,#customerServiceBottom{width:1000px;display: table;}
+#customerServiceContainer{ background:#B8B8B8; margin:0 auto;margin-top:20px;
+ 
+ }
+#customerServiceTop{
+  border-bottom:1px solid #5D5D5D;
+}
+#customerServiceBottom{
+ border-top:1px solid #FFF;padding-top:20px;
+}
+.customerServiceTopContent,.customerServiceBottomContent{ width:770px;float:right;}
+.customerServiceTopContent{
+  padding-top:10px;padding-bottom:10px;
+}
+.customerServiceBottomContent{
+display: table;
+}
+#customerServiceBut{
+   width:110px;height:30px;background: url("../images/customerService.png");
+ 
+}
+.customerServiceProduct{
+ width:385px;float:left;padding-bottom:20px;
+}
+.customerServiceProduct a{
+  color:#000;
+  display:block;
+}
+.customerServiceProduct a,.customerServiceImg{
+	width:240px;
+}
+.customerServiceImg{
+ display:block; height:180px;
+} 
+.customerServiceProduct p{
+  line-height:25px;
+
+}

@@ -1,0 +1,35 @@
+.image-block {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 17px;
+    line-height: 32px;
+    margin-left: 33.5%;
+    margin-right: auto;
+    margin-top: 14%;
+    position: absolute;
+    z-index:9;
+}
+.contentText {
+    font-size: 17px;
+    line-height: 25px;
+    color: #717171;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.content_background{
+    background: #000;
+    max-width: 100%;
+    margin: 0;
+}
+.rowMargin{
+    margin-top: 50px;
+}
+ @media screen and (max-width: 768px) {
+    h1{
+    	font-size:30px;
+    }
+}
+  .homeExercise{
+	color:#337ab7 !important
+}

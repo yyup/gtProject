@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="Generator" content="waterrower Team">
+		<meta name="Author" content="waterrowerTeam">
+		<meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+		<meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+		<script src="../../js/newsite/jquery.min.js"></script>
+		<script src="../../js/joy.loader.js" modules="dataview,layout"></script> 
+		<script src="../../js/newsite/bootstrap.js"></script>
+		<script src="../../js/newsite/getSystemPlatform.js"></script>
+		<script src="../../js/engsite/wlcommon.js"></script>
+		 <script src="../../js/site/getParam.js"></script>
+		<link rel="stylesheet" href="../../style/prj/engsite/header.css" />
+		<link rel="stylesheet" href="../../style/prj/engsite/footer.css" />
+		<link rel="stylesheet" href="../../style/prj/engsite/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../style/prj/engsite/wlcommon.css" />
+		<link rel="stylesheet" href="../../style/prj/engsite/downloadCenter.css" />
+
+	</head>
+
+	<body style="background:#111111">
+		<!--头部开始-->
+		<div id="top">
+		 		<div id="commonpath" style="display: none;" commonpath=""></div>
+		 	</div>
+			<!--头部结束-->
+		<!-- 内容 -->
+		<div id="wlBody" clss="contentMargin">
+			<div class="container-fluid" style="padding-left: 0px; padding-right: 0px;">
+				<div class="divImg row" style="margin-right: 0px;margin-left:0px;position: absolute;">
+					<div class="col-lg-6 col-md-4 col-sm-4"></div>
+					<div class="col-lg-6 col-md-8 col-sm-8 col-xs-12 text-center">
+						<div class="divTab" id="divTab">
+						</div>
+					</div>
+				</div>
+				<img id="imgBg" src="../../style/prj/images/bg_mac.png" class="img-responsive" alt="Responsive image">
+			</div>
+		</div>
+			<!-- 内容结束 -->
+			<!--尾部开始-->
+			<div id="footerPart" style="position:relative">
+				
+			</div>
+			<!--尾部结束-->
+
+			<script>
+			//进行初始化出操作
+				$(function(){
+					initTop();
+					initClick();
+					initBottom();
+					var  columnId = getParam("columnId");
+					//加载tab的数据
+					initTabContent(columnId);
+				});
+				//显示和影藏
+				function showAndHide(obj,index){
+					if(index){
+						$("#imgBg").attr("src","../../style/prj/images/bg_mac2.png");
+					}else{
+						$("#imgBg").attr("src","../../style/prj/images/bg_mac.png");
+					}
+					$(".activeTab").removeClass("activeTab");
+					id = obj.attr("id");
+					obj.addClass("activeTab");
+					var index  = id.substring(id.length-1,id.length) //获取索引
+					var prefix = id.substring(0,id.length-1);//获取前缀
+					$("#"+prefix+"Content"+index).siblings().not("#agencyTabContain").hide();
+					$("#"+prefix+"Content"+index).show();
+				}
+				//去文章页
+				function goToArctical(infoId){
+					window.location = 'article.html?infoId='+infoId;
+				}
+				//加载tab的数据
+				function initTabContent(columnId){
+					var tabTitleTxt = "";
+					joy.getJSON("../../wl/cm/wlCmColumnEnAction.dox?action=getChildData",{columnId : columnId},function(resultObject){
+						tabTitleTxt += '<div id="agencyTabContain" class="clearfix">';
+						for(var i = 0 ; i < resultObject.length; i++ ){
+							if( i+ 1 == 1){
+								tabTitleTxt+= 
+									'<div id="detailTab'+(i+1)+'" onclick = "showAndHide($(this))" class="detailTab bold activeTab" style="right: 50%">'+resultObject[i]["columnName"]+'</div>';
+									
+							}else{
+								tabTitleTxt+= 
+									'<div id="specTab'+(i+1)+'" onclick = "showAndHide($(this),'+(i+1)+')" class="specTab bold" style="left: 50%">'+resultObject[i]["columnName"]+'</div>';
+							}
+						}
+						tabTitleTxt +='</div>';
+						var listTabContentTxt = '';//列表
+						var singleTabContentTxt = '';//单篇
+						$("#divTab").append(tabTitleTxt);
+						
+						for(var i = 0 ; i< resultObject.length; i++ ){
+							var data = resultObject[i]["infoList"]
+							var colTypeEk = resultObject[i]["colTypeEk"] ;//栏目类型
+							var infoList = resultObject[i]["infoList"];
+							if(i + 1 == 1 && "LIST" == colTypeEk){//第一个tab要显示
+								listTabContentTxt = 
+									'<div id="detailTabContent'+(i+1)+'" class="detailTabContent">'+
+										'<table class="table tableDownload" id="tableDownload'+(i+1)+'">'+
+											'<tr>';
+							}
+							else if(i + 1 == 1 && "SINGLE" == colTypeEk){//单数
+								singleTabContentTxt = '<div id="specTabContent'+(i+1)+'" class="specTabContent text-center" >';
+							}
+							else{
+								listTabContentTxt = 
+									'<div id="detailTabContent'+(i+1)+'"  class="detailTabContent" style="display: none;">'+
+										'<table class="table tableDownload" id="tableDownload'+(i+1)+'">'+
+											'<tr>';
+								singleTabContentTxt = '<div id="specTabContent'+(i+1)+'" class="specTabContent text-center" style="display: none;">';
+							}
+										
+									for(var  j = 0 ; j < data.length; j++){
+										if("LIST" == colTypeEk){//列表
+											if(j%2 == 1){//单数
+												listTabContentTxt+=
+																	'<td>'+
+																		'<a onclick="goToArctical(\''+infoList[j]["infoId"]+'\',\''+i+'\')" style="cursor:pointer;"  class="pull-left">'+
+																			'<img style="width:100px;height:100px;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+infoList[j]["path"]+'" class="img-responsive center-block imgIcon" alt="Responsive image">'+infoList[j]["title"]
+																		'</a>'+
+																	'</td>';
+											}else{
+												listTabContentTxt+=
+																	'<td>'+
+																		'<a onclick="goToArctical(\''+infoList[j]["infoId"]+'\',\''+i+'\')" style="cursor:pointer;"  class="pull-right">'+
+																			'<img style="width:100px;height:100px;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+infoList[j]["path"]+'" class="img-responsive center-block imgIcon" alt="Responsive image">'+infoList[j]["title"]
+																		'</a>'+
+																	'</td>';
+											}
+										}
+										if("SINGLE" == colTypeEk){//单篇
+											if(j%2 == 1){//单数
+												singleTabContentTxt += infoList[j]["content"]
+											}else{
+												singleTabContentTxt += infoList[j]["content"]
+											}
+										}
+									}
+									listTabContentTxt+='</tr>'+
+													'</table>'+
+												'</div>';
+									singleTabContentTxt += '</div>';
+									$("#divTab").append(listTabContentTxt);
+									$("#divTab").append(singleTabContentTxt);
+						}
+					});
+				}
+			</script>
+	</body>
+
+</html>

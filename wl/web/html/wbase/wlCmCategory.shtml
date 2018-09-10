@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css"
+	href="../../style/prj/wl.common.css" />
+</head>
+<body style="height: 100%">
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+		<button class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+			label="lgc:add" databind="visible:ADDSmc"></button>		
+	</div>
+
+	<!-- TreeGrid列表 -->
+	<table id="treeGrid" class="joy-treegrid" pkField="categoryId"
+		treeField="name" rowHeightFit="true">
+		<thead>
+			<tr>
+				
+				<th field="name" dataType="string" label="lg:name"
+					colWidth="75"></th>				
+				<th field="description" dataType="string" label="lg:description" colWidth="50"></th>
+				<th field="sequ" dataType="string" label="lg:sequ" colWidth="15"
+					align="center"></th>
+				<th field="isEnableFlag" enumData="STATEEnum" dataType="string"
+					label="lg:isEnableFlag" colWidth="15" align="center"></th>
+				<th field="none" templateType="template" colWidth="60px" align="center"
+					label="lgc:control">					
+					#if(initResult.ISENABLESmc){<!--启用禁用有权限 -->
+				         if(isEnableFlag=='0'){#
+					      <button class="k-button k-gridBtn k-button-icontext"  onClick="modifyStateEk('#:categoryId#','#:isEnableFlag#')"><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyLOCK#</button>
+				         #}else{# 
+				        	<button class="k-button k-gridBtn k-button-icontext"  onClick="modifyStateEk('#:categoryId#','#:isEnableFlag#')"><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyUSE#</button>
+				         # }	    
+					}else{<!-- 启用禁用没有权限 -->
+					      if(isEnableFlag==='0'){#
+					       <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyLOCK#</button>
+					      #}else{#
+				         	<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyUSE#</button>
+					     # }					
+					}#		
+																			
+					  #if(initResult.ADDSmc){#<!--编辑有权限 -->
+						<button class="k-button k-gridBtn k-button-icontext"  onClick="openEditWindow('#:categoryId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}else{#	<!--编辑没有权限 -->
+						<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}#	
+				
+			    	  #if(initResult.READSmc){#<!--详细有权限 -->
+						<button class="k-button k-gridBtn k-button-icontext"  onClick="openDetailWindow('#:categoryId#')"><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>	
+			    	#}else{#	<!--详细没有权限-->
+						<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>	
+			    	#}#		
+			</tr>
+		</thead>
+	</table>
+
+	<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:categoryId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left"><input class="joy-textbox" required="true"
+							label="lg:name" maxByte="60" databind="value:name">
+						</td>
+					</tr>
+					<tr>
+						<td align="left"><input id="parentCategoryId"
+							class="joy-textbox" onclick="openParentSelectWindow()"
+							onfocus="openParentSelectWindow()" style="cursor: pointer;"
+							label="lg:rootType" databind="value:parentName" /> <input
+							type="hidden" databind="value:parentCategoryId"></td>
+					</tr>
+					<tr>
+						<td align="left"><input class="joy-textbox" label="lg:description" maxByte="1024"
+							databind="value:description">
+						</td>
+					</tr>
+					<tr>
+						<td align="left"><input id="isLastFlag"
+							class="joy-combobox joy-enum" label="lg:isLastFlag"
+							placeholder="lgc:pleaseToSelect" required="true"
+							databind="value:isLastFlag,source:YESORNOEnum" /></td>
+					</tr>	
+					<tr >
+						<td  id="isShowAgencyTr" align="left"><input id="isShowAgency"
+							class="joy-combobox joy-enum" label="lg:isShowAgency" required="true"
+							placeholder="lgc:pleaseToSelect" 
+							databind="value:isShowAgency,source:YESORNOEnum" /></td>
+					</tr>					
+					<tr>
+						<td align="left"><input class="joy-numerictextbox"	label="lg:sequ" id="sequ" min="1" max="99999" databind="value:sequ">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+
+
+	<!-- 父级选择框 -->
+	<div id="parentselectWindow" class="joy-window" width="320px"
+		center="true" title="lg:paretWindowTitle">
+
+		<div id="smallTreeView" style="width: 300px; height: 300px;"></div>
+
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lgc:cancel"></button></td>
+			</tr>
+		</table>
+	</div>
+	<script id="small_tree" type="text/joy-ui-template">
+			 <input type="hidden" value="#=item.main.categoryId#" ><span class="itemName" onclick="treeviewclick('#=item.main.categoryId#','#=item.main.name#')" >#=item.main.name#</span>
+	 </script>
+
+
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail"  center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:name"></td>
+					<td width="230" class="joy-label" databind="value:name"></td>
+					<td width="100" class="joy-lang head" label="lg:rootType"></td>
+					<td  width="230" class="joy-label " databind="value:parentName"  ></td>
+				</tr> 		
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:description"></td>
+					<td width="230" class="joy-label" databind="value:description"></td>
+					<td width="100" class="joy-lang head" label="lg:sequ"></td>
+					<td  width="230" class="joy-label " databind="value:sequ"  ></td>
+				</tr> 			
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:isEnableFlag"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:isEnableFlag,source:STATEEnum"></td>
+					
+					<td width="100" class="joy-label head" ></td>
+					<td width="100" class="joy-label" ></td>
+				</tr> 							
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+     
+
+
+	<script type="text/javascript">
+	var dataForm, searchForm, treegrid, editWindow, lgc, lg, grid, parentselectWindow, smallTreeView, initResult, detailWindow;
+
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		treegrid = $("#treeGrid").getJoyTreegrid();
+		editWindow = $("#editWindow").getJoyWindow();
+		dataForm = $("#dataForm").getJoyForm();
+		parentselectWindow = $("#parentselectWindow").getJoyWindow();
+		detailWindow = $("#detailWindow").getJoyWindow();
+		//数据初始化
+		joy.getJSON("../../wl/cm/wlCmCategoryAction.do?action=init", {
+			enumTypes : [ 'STATE','YESORNO']
+		}, function(resultObject) {
+			initResult = resultObject;
+			//将后台action得到的枚举ENUM,和前台的databind的枚举,如果值相同进行绑定
+			var viewModel = joy.observable(initResult);
+			//测试veiwmodel
+			//alert(joy.stringify(viewModel));
+			joy.bind($(".joy-smc,.joy-enum"), viewModel); //class为smc enum时进行绑定
+			//$("#isShowAgency_title").after('<font class="k-form-required">&nbsp;*</font>');
+			treeviewBind();
+			smallTreeViewBild();
+		});
+	});
+	//treeview数据初始化   传入状态
+	function treeviewBind() {
+		joy.getJSON("../../wl/cm/wlCmCategoryAction.do?action=getTree", {
+			isEnableFlag : "",
+			isLastFlag : "",
+			rootId:"0"	
+		}, function(resultObject) {
+			treegrid.load(initResult, resultObject.items);
+		});
+	}
+	//父级选择框绑定树
+	function smallTreeViewBild() {
+		joy.getJSON("../../wl/cm/wlCmCategoryAction.do?action=getTree", {
+			isEnableFlag : "1",
+			isLastFlag : "0",
+			rootId:"0"
+		}, function(resultObject) {
+			smallTreeView = $("#smallTreeView").joyTreeView({
+				dataSource : [ resultObject ],
+				templateID : "small_tree"
+			});
+		});
+	}
+	//打开新增窗体
+	function openAddWindow() {
+		//isShowAgency("0");
+		dataForm.load({sequ:1});//编辑框form加载
+		editWindow.title(lgc.add);
+		editWindow.open();//编辑窗口打开
+		editWindow.center();//编辑窗口居中
+	}
+	/**
+	 *打开父节点选择窗体
+	 */
+	function openParentSelectWindow() {
+		parentselectWindow.open();
+		parentselectWindow.center();
+	}
+	//菜单点击事件
+	function treeviewclick(categoryId, name) {
+		//isShowAgency(categoryId);
+		var json = dataForm.getDataModel().toJSON();
+		json.parentCategoryId = categoryId;
+		json.parentName = name;
+		dataForm.load(json);
+		parentselectWindow.close();
+	}
+	//smallTree刷新数据
+	function smallTreeReflash(categoryId) {
+		if (!categoryId) {
+
+			joy
+					.getJSON(
+							"../../wl/cm/wlCmCategoryAction.do?action=getTree&isEnableFlag=1&isLastFlag=0&rootId=0",
+							function(resultObject) {
+								$("#smallTreeView").getJoyTreeView()
+										.setDataSource([ resultObject ]);
+							});
+		} else {
+			//获取父类型
+			joy
+					.getJSON(
+							"../../wl/cm/wlCmCategoryAction.do?action=getParentTree&isEnableFlag=1&isLastFlag=0&categoryId="
+									+ categoryId, function(resultObject) {
+								$("#smallTreeView").getJoyTreeView()
+										.setDataSource([ resultObject ]);
+							});
+		}
+	}
+
+	/*
+	 * 保存数据
+	 */
+	function saveData(buttonObject) {
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+
+		//如果form表单里的值校验不通过
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+
+		//点击保存调用保存action
+		dataForm.submit("../../wl/cm/wlCmCategoryAction.do?action=saveData",
+				buttonObject, function(resultObject) {
+					//重新刷新树		
+					if (resultObject === "") {
+						joy.showMessage(lgc.opSuccess, "success");
+						editWindow.close();
+						treeviewBind();
+						smallTreeReflash(false);	
+					} else {
+						joy.showMessage(resultObject, "warning");
+					}	
+						
+				});
+	}
+	/**
+	* 启用/锁定
+	**/
+	function modifyStateEk(categoryId,isEnableFlag){
+		var isEnableFlagModifyTitle;
+		if(isEnableFlag=="0"){
+			isEnableFlagModifyTitle=lg.isEnableFlagLOCKTitle;
+		}else{
+			isEnableFlagModifyTitle=lg.isEnableFlagkModifyUSETitle;
+		}
+		joy.showMessageDialog(isEnableFlagModifyTitle,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+				joy.getJSON("../../wl/cm/wlCmCategoryAction.do?action=updateOrgState",{categoryId:categoryId}, function(resultObject){	
+					joy.showMessage(lgc.opSuccess, "success");					
+					treeviewBind();
+					smallTreeReflash(false);
+				});
+			}
+		});			
+	}
+
+	/**
+	 * 打开编辑窗体
+	 */
+
+	function openEditWindow(categoryId) {
+		joy.getJSON("../../wl/cm/wlCmCategoryAction.do?action=getData", {
+			categoryId : categoryId
+		}, function(resultObject) {
+           //  isShowAgency(resultObject.parentCategoryId);
+			//resultObject返回值是getData方法的返回结果
+			dataForm.load(resultObject);
+			smallTreeReflash(categoryId);
+			editWindow.title(lgc.edit);
+			editWindow.open();
+			editWindow.center();
+		});
+	}
+	/**
+	 * 打开详细窗体
+	 */
+	function openDetailWindow(categoryId) {
+
+		joy.getJSON("../../wl/cm/wlCmCategoryAction.do?action=getData", {
+			categoryId : categoryId
+		}, function(resultObject) {
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#detailTable"), viewModel);
+			detailWindow.open();
+			detailWindow.center();
+		});
+	}
+	function isShowAgency(parentCategoryId){
+		 if("0"==parentCategoryId){//父节点是根节点
+        	 $("#isShowAgencyTr").show();
+        	  $("#isShowAgency").getJoyComboBox().options.required=true;
+         }else{
+       	     $("#isShowAgency").getJoyComboBox().options.required=false;
+        	 $("#isShowAgencyTr").hide();
+         }
+		
+	}
+</script>
+</body>
+
+</html>

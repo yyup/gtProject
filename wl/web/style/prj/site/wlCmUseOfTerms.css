@@ -1,0 +1,42 @@
+#useOfTermsBody{width:100%;}
+/*�˺���Ϣ*/
+#useOfTermsContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#useOfTermsMenu,#useOfTermsContent{margin-top: 15px;margin-bottom: 15px;}
+
+#useOfTermsMenu{
+float:left;width:235px;border-right:1px solid #fff;min-height:670px;
+}
+#useOfTermsContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.useOfTermsTitle{width:145px;height:20px;margin:0 auto;margin-top:20px;background:#000;
+height:20px;text-align:center;padding:8px 14px;letter-spacing:3px;font-weight:bold;border:1px solid #DFDFDF;border-radius: 9px;
+color:#fff;font-size:19px;line-height:20px;
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px;}
+.item p:not(.itemTitle){padding-bottom:4px;
+ }
+  .item a{
+    color:#000;
+	text-decoration:none;
+ }
+ /*��߹�������*/
+ #aboutuseOfTerms{
+   margin-top:65px;
+   margin-left:10px;
+ }

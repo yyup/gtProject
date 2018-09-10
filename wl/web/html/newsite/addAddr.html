@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="Generator" content="waterrower Team">
+<meta name="Author" content="waterrowerTeam">
+<meta name="Keywords"	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<meta name="Description"	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<script src="../../js/newsite/jquery.min.js"></script>
+<script src="../../js/newsite/bootstrap.js"></script>
+<script src="../../js/newsite/getSystemPlatform.js"></script>
+<script src="../../js/newsite/wlcommon.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<script src="../../js/newsite/cnzz.js"></script>
+<link rel="stylesheet" href="../../style/prj/newsite/header.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/footer.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/addAddr.css" />
+<link href="../../style/prj/newsite/bootstrapValidator.min.css" rel="stylesheet">
+<script src="../../js/newsite/bootstrapValidator.min.js"></script>
+<script src="../../js/newsite/Popt.js"></script>
+<script src="../../js/newsite/cityJson.js"></script>
+<script src="../../js/newsite/citySet.js"></script>
+   <style type="text/css">
+
+       ._citys { width: 360px; display: inline-block; border: 2px solid #eee; position: relative; }
+       ._citys span { color: #56b4f8; height: 15px; width: 15px; line-height: 15px; text-align: center; border-radius: 3px; position: absolute; right: 10px; top: 10px; border: 1px solid #56b4f8; cursor: pointer; }
+       ._citys0 { width: 100%; height: 34px; display: inline-block; border-bottom: 2px solid #56b4f8; padding: 0; margin: 0; background: white}
+       ._citys0 li { display: inline-block; line-height: 34px; font-size: 15px; color: #888; width: 80px; text-align: center; cursor: pointer; }
+       .citySel { background-color: #56b4f8; color: #fff !important; }
+       ._citys1 { width: 100%; display: inline-block; padding: 10px 0;background: white }
+       ._citys1 a { width: 83px; height: 35px; display: inline-table; background-color: #f5f5f5; color: #666; margin-left: 6px; margin-top: 3px;  text-align: center; cursor: pointer; font-size: 13px; overflow: hidden; }
+       @media screen and (max-width: 768px) {
+       ._citys1 a { width: 83px; height: 35px; display: inline-table; background-color: #f5f5f5; color: #666; margin-left: 6px; margin-top: 3px;  text-align: center; cursor: pointer; font-size: 11px; overflow: hidden; }
+		}
+       ._citys1 a:hover { color: #fff; background-color: #56b4f8; }
+       .AreaS { background-color: #56b4f8 !important; color: #fff !important; }
+       @media screen and (max-width: 400px) {
+		    ._citys{
+				 width: 275px; display: inline-block; border: 2px solid #eee; position: relative;
+			}
+		}
+   </style>
+</head>
+
+<body>
+ 	<div id="top">
+ 		<div id="commonpath" style="display: none;" commonpath=""></div>
+ 	</div>
+	<!-- 内容 -->
+	<div id="wlBody" class="contentMargin" >
+		<div class="container" style="margin-top: 100px;">
+			<div class="row rightLeft" id="rightLeft">
+				
+				<div class="col-md-8" style="margin-top: 110px;">
+					<form id="addAddrForm"  method="post" class="joy-form form-horizontal " layout="freedom">
+						<div class="row form-group">
+							<div class="col-md-4">
+								<span class="pull-right inputTitle">收货人姓名</span>
+							</div>
+							<div class="col-md-6">
+								<input type="text" id="receiver" name="receiver" class="inputText form-control" databind="value:receiver" oninput="textChange(this,'receiver')" onpropertychange="textChange(this,'receiver')">
+							</div>
+						</div>
+						<div class="row inputMargin form-group">
+							<div class="col-md-4">
+								<span class="pull-right inputTitle">手机号码</span>
+							</div>
+							<div class="col-md-6">
+								<input type="text" id="mobile"  name="mobile" class="inputText form-control" databind="value:mobile" oninput="textChange(this,'mobile')" onpropertychange="textChange(this,'mobile')">
+							</div>
+						</div>
+						<div class="row inputMargin form-group">
+							<div class="col-md-4">
+								<span class="pull-right inputTitle">所在地区</span>
+							</div>
+							<div class="col-md-6">
+								<input type="text" id="area" readonly="true" style="cursor:pointer;background:white;"  name="area" class="inputText form-control" >
+							</div>
+						</div>
+						<!--
+						<div class="row inputMargin">
+							<div class="col-md-4">
+								<span class="pull-right inputTitle">所在地区</span>
+							</div>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-4">
+										<input class="joy-combobox joy-enum" style="width: 98%;-webkit-overflow-scrolling: touch;" placeholder="请选择省" databind="source:addPro,value:provinceId" id="dp_pro"
+											dataTextField="name" dataValueField="areaId" change="bindBigCity">
+									</div>
+									<div class="col-md-4">
+										<input class="joy-combobox joy-enum" placeholder="请选择市" databind="source:addCity,value:cityId" style="width: 100%;-webkit-overflow-scrolling: touch;"
+											id="dp_city" dataTextField="name" dataValueField="areaId" change="bindBigArea"> 
+									</div>
+									<div class="col-md-4">
+										<input class="joy-combobox joy-enum" placeholder="请选择区" databind="source:addArea,value:areaId" style="width: 100%;-webkit-overflow-scrolling: touch;"
+ 											id="dp_area" dataTextField="name" dataValueField="areaId" change="changeBigArea">
+ 									</div>
+ 								</div>
+							</div>
+						</div>
+						-->
+						<div class="row inputMargin form-group">
+							<div class="col-md-4">
+								<span class="pull-right inputTitle ">详细地址</span>
+							</div>
+							<div class="col-md-6">
+								<input type="text" id="addr" name="addr" class="inputText form-control" databind="value:addr" oninput="textChange(this,'addr')" onpropertychange="textChange(this,'addr')">
+							</div>
+						</div>
+						<div class="inputMargin">
+							<div class="col-md-4"></div>
+							<div class="col-md-6">
+								<div class="defaultAddr text-right">
+									<input id="isDefaultFlag" type="checkbox"  > 设置为默认收货地址
+								</div>
+							</div>
+						</div>
+						<div class="row" style="margin-top: 60px;">
+							<div class="col-md-12" style="text-align: center">
+								<input   type="button" value="保存" onclick="saveAddr()" class="saveButton">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="topBottom" id="topBottom">
+				
+				<form id="smallAddAddrForm"  method="post" class="joy-form form-horizontal " layout="freedom">
+					<div class="row form-group" style="position:unset">
+						<div class="col-xs-3">
+							<span class="pull-right smallInputTile">收货人姓名</span>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" id="smallreceiver" name="smallreceiver" class="inputText form-control" databind="value:receiver" oninput="textChange(this,'smallreceiver')" onpropertychange="textChange(this,'smallreceiver')">
+						</div>
+					</div>
+					<div class="row inputMargin form-group">
+						<div class="col-xs-3">
+							<span  class="pull-right smallInputTile">手机号码</span>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" id="smallmobile"  name="smallmobile" class="inputText form-control" databind="value:mobile" oninput="textChange(this,'smallmobile')" onpropertychange="textChange(this,'smallmobile')">
+						</div>
+					</div>
+					<div class="row inputMargin form-group">
+							<div class="col-xs-3">
+								<span  class="pull-right smallInputTile">所在地区</span>
+							</div>
+							<div class="col-xs-8">
+								<input type="text" id="smallarea" readonly="true" style="cursor:pointer;background:white;"  name="smallarea" class="inputText form-control" >
+							</div>
+						</div>
+						<!--
+					<div class="row inputMargin">
+						<div class="col-xs-4">
+							<span style="font-size: 22px;" class="pull-right">所在地区</span>
+						</div>
+						<div class="col-xs-8">
+							<div class="row">
+								<div class="col-xs-4">
+									<input class="joy-combobox joy-enum" style="width: 98%;" placeholder="请选择省" databind="source:addPro,value:provinceId" id="smalldp_pro"
+										dataTextField="name" dataValueField="areaId" change="bindSmallCity">
+								</div>
+								<div class="col-xs-4">
+									<input class="joy-combobox joy-enum" placeholder="请选择市" databind="source:addCity,value:cityId" style="width: 100%;"
+										id="smalldp_city" dataTextField="name" dataValueField="areaId" change="bindSmallArea"> 
+								</div>
+								<div class="col-xs-4">
+									<input class="joy-combobox joy-enum" placeholder="请选择区" databind="source:addArea,value:areaId" style="width: 100%;"
+										id="smalldp_area" dataTextField="name" dataValueField="areaId" change="changeSmallArea">
+								</div>
+							</div>
+						</div>
+					</div>
+					-->
+					<div class="row inputMargin form-group">
+						<div class="col-xs-3">
+							<span  class="pull-right smallInputTile">详细地址</span>
+						</div>
+						<div class="col-xs-8">
+							<input type="text" id="smalladdr" name="smalladdr" class="inputText form-control" databind="value:addr" oninput="textChange(this,'smalladdr')" onpropertychange="textChange(this,'smalladdr')">
+						</div>
+					</div>
+					<div class="inputMargin">
+						<div class="col-xs-3"></div>
+						<div class="col-xs-8">
+							<div class="defaultAddr text-right">
+								<input type="checkbox" id="smallisDefaultFlag" > 设置为默认收货地址
+							</div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 60px;text-align:center;">
+						<div class="col-md-12" class="text-center">
+							<input type="button" value="保存" onclick="saveAddr()" class="saveButton">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!--第一个商品结束-->
+	<!-- 内容结束 -->
+	<!--尾部开始-->
+	<div id="footerPart">
+		
+	</div>
+	<!--尾部结束-->
+	<script>
+	 	var lgc,addAddrForm,smallAddAddrForm;
+		var areaModel = new Object();//初始化区域枚举对象
+		var editAddress = null;
+		var addType="";
+		 $().ready(function() {
+			 initTop();
+			 initClick();
+			 initBottom();
+			 initAccountInfo();
+			 var deliveryAddrId = getArgsFromHref(window.location.href, "deliveryAddrId");
+			 addType= getArgsFromHref(window.location.href, "addType");
+			 //proAreaInit();
+			  validata();
+			  lgc = joy.getCommonLang();
+			  addAddrForm=$("#addAddrForm").getJoyForm();
+			  smallAddAddrForm=$("#smallAddAddrForm").getJoyForm();
+			  if(deliveryAddrId!=""){
+				  getAddr(deliveryAddrId);
+			  }else{
+				  //proAreaInit();
+			  }
+			  //init();	
+	 	 });
+		 
+		 $("#area").click(function (e) {
+		        SelCity(this,e,document.getElementById("smallarea"));
+		    });
+		 $("#smallarea").click(function (e) {
+		        SelCity(this,e,document.getElementById("area"));
+		    });
+		 
+
+		 //校验
+		 function validata() {
+		        $('#addAddrForm').bootstrapValidator({
+		            feedbackIcons: {
+		            	valid: 'glyphicon glyphicon-ok',
+		                invalid: 'glyphicon glyphicon-remove',
+		                validating: 'glyphicon glyphicon-refresh'
+		            },
+		            fields: {
+		            	mobile: {
+		            		validators: {
+		                        stringLength: {//检测长度  
+		                            min: 11,  
+		                            max: 11,  
+		                            message: '电话号码必须为11位'  
+		                        },
+		                        regexp: {//正则验证  
+		                            regexp: /^[Z0-9_\.]+$/,  
+		                            message: '电话号码只能输入数字'  
+		                        },
+		                        notEmpty: {
+		                            message: '不能为空！'
+		                        }
+		            		}
+		                },
+		                receiver: {
+		                    validators: {
+		                        notEmpty: {
+		                            message: '不能为空！'
+		                        }
+		                    }
+		                },
+		                addr: {
+		                    validators: {
+		                        notEmpty: {
+		                            message: '不能为空！'
+		                        },
+				                stringLength: {//检测长度  
+				                	min: 1, 
+		                            max: 128,  
+		                            message: '地址不能超过128位'  
+		                        },
+		                    },
+			               
+		                },
+		        
+		                
+		            }
+		        });
+		        $('#smallAddAddrForm').bootstrapValidator({
+		            feedbackIcons: {
+		            	valid: 'glyphicon glyphicon-ok',
+		                invalid: 'glyphicon glyphicon-remove',
+		                validating: 'glyphicon glyphicon-refresh'
+		            },
+		            fields: {
+		            	smallmobile: {
+		            		validators: {
+		                        stringLength: {//检测长度  
+		                            min: 11,  
+		                            max: 11,  
+		                            message: '电话号码必须为11位'  
+		                        },
+		                        regexp: {//正则验证  
+		                            regexp: /^[Z0-9_\.]+$/,  
+		                            message: '电话号码只能输入数字'  
+		                        },
+		                        notEmpty: {
+		                            message: '不能为空！'
+		                        }
+		            		}
+		                },
+		                smallreceiver: {
+		                    validators: {
+		                        notEmpty: {
+		                            message: '不能为空！'
+		                        }
+		                    }
+		                },
+		                smalladdr: {
+		                    validators: {
+		                        notEmpty: {
+		                            message: '不能为空！'
+		                        },
+		                        stringLength: {//检测长度  
+				                	min: 1, 
+		                            max: 128,  
+		                            message: '地址不能超过128位'  
+		                        },
+		                    }
+		                },
+		         
+		                
+		            }
+		        });
+		        
+		    }
+		 
+			//获取收货地址
+			function getAddr(deliveryAddrId) {
+				joy.getJSON(
+					"../../wl/es/wlEsMyDeliveryAddrAction.web?action=getMyDeliveryAddr",
+					{
+						deliveryAddrId : deliveryAddrId
+					}, function(resultObject) {
+						addAddrForm.load(resultObject);
+						smallAddAddrForm.load(resultObject);
+						$("#area").val(resultObject.province+"-"+resultObject.city+"-"+resultObject.area);
+						$("#smallarea").val(resultObject.province+"-"+resultObject.city+"-"+resultObject.area);
+							if (resultObject.isDefaultFlag == "1") {
+								$("#isDefaultFlag").prop('checked', true);
+								$("#smallisDefaultFlag").prop("checked", true);
+							} else {
+								$("#isDefaultFlag").prop('checked', false);
+								$("#smallisDefaultFlag").prop('checked', false);
+							}
+			
+					});
+			}
+			
+			 //文字改变
+			 function textChange(obj,id){		
+				 	var state=id.indexOf("small");
+				 	if(state==-1){
+				 		$("#small"+id).val(obj.value);
+				 	}else{
+				 		id=id.substr(5,id.length-1);
+				 		$("#"+id).val(obj.value);		
+				 	}
+			 }
+			 
+			 $("#isDefaultFlag").click(function(){
+	            if(this.checked){
+	            	$("#smallisDefaultFlag").prop('checked', true);
+	            }else{
+	            	$("#smallisDefaultFlag").prop('checked', false);
+	            }
+	        });
+			 $("#smallisDefaultFlag").click(function(){
+		            if(this.checked){
+		            	$("#isDefaultFlag").prop('checked', true);
+		            }else{
+		            	$("#isDefaultFlag").prop('checked', false);
+		            }
+		        });
+			
+			//保存收货地址
+			var lgfg = true;
+			function saveAddr(buttonObject) {
+				var receiver=($("#receiver").val());
+				var mobile=($("#mobile").val());				
+				var addr=($("#addr").val());
+
+				if (!lgfg) return;
+				//buttonObject.enable(false); 
+				var bootstrapValidator = $('#addAddrForm').data('bootstrapValidator');
+				var smallBootstrapValidator = $('#smallAddAddrForm').data('bootstrapValidator');
+		        bootstrapValidator.validate();
+				smallBootstrapValidator.validate();
+		        if (bootstrapValidator.isValid()&&smallBootstrapValidator.isValid()) {//如果校验成功后执行的操作	
+		        	var area=($("#area").val());
+		        	if(area==""){
+		        		lgfg=true;
+			        	joy.showMessage("所在地区不能为空，请检查！", "warning");
+			        	return;
+		        	}
+		        	lgfg=false;
+					
+					var areaArray=area.split("-");
+					if(areaArray.length<2){
+						lgfg=true;
+						joy.showMessage("所在地区请选择城市！", "warning");
+			        	return;
+					}
+					var submitda = addAddrForm.getDataModel().toJSON();					
+					submitda.province = areaArray[0];
+					submitda.city = areaArray[1];			
+					if(areaArray.length>2){
+						submitda.area = areaArray[2];
+					}else{
+						submitda.area = "";
+					}
+					//submitda.areaId = $("#dp_area").getJoyComboBox().value();
+					submitda.provinceId = $("#area").attr("provinceId");
+					submitda.cityId = $("#area").attr("cityId");
+					submitda.areaId = $("#area").attr("areaId");
+					
+					submitda.isDefaultFlag = 0;
+					
+					submitda.receiver=receiver;
+					submitda.mobile=mobile;
+					submitda.addr=addr;
+					
+					if ($("#isDefaultFlag").is(':checked')) {
+						submitda.isDefaultFlag = 1;
+					}
+					addAddrForm.load(submitda);
+	
+					addAddrForm.submit("../../wl/es/wlEsMyDeliveryAddrAction.web?action=saveData",buttonObject, function(resultObject) {
+						joy.showMessage("操作成功！", "success");
+						lgfg=true;
+						if(addType=="repair"){
+							window.location = "repairManagement.html";
+						}else if(addType=="waterSlice"){
+							window.location = "waterSliceApply.html";
+						}else if(addType=="submitOrder"){
+							
+							 var source=getArgsFromHref(window.location.href, "source");
+							 if(source=="instantlyBuy"){
+								 var sellId=getArgsFromHref(window.location.href, "sellId");
+								 var num=getArgsFromHref(window.location.href, "num");
+								window.location = "submitOrder.html?source="+source+"&sellId="+sellId+"&num="+num;
+							 }else{
+								window.location = "submitOrder.html?source="+source;
+							 }
+						}else{
+							window.location = "addrList.html";
+						}
+						
+					});
+		        }else{
+		        	lgfg=true;
+		        	joy.showMessage(lgc.validateFaile, "warning");
+		        }
+			}
+			
+		   //  函数功能：从href获得参数
+		    function getArgsFromHref(sHref, sArgName) {
+		        var args = sHref.split("?");
+		        var retval = "";
+
+		        if (args[0] == sHref) /*参数为空*/
+		        {
+		            return retval;
+		            /*无需做任何处理*/
+		        }
+		        var str = args[1];
+		        args = str.split("&");
+		        for (var i = 0; i < args.length; i++) {
+		            str = args[i];
+		            var arg = str.split("=");
+		            if (arg.length <= 1) continue;
+		            if (arg[0] == sArgName) retval = arg[1];
+		        }
+		        return retval;
+		    }
+	</script>
+</body>
+</html>

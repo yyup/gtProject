@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<script src="../../js/prj/lightBox.js"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/biz.wlEsSerialAudit.css" /> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+</head>
+<body >
+<!-- 搜索栏 -->
+<div class="searchContent">	
+	<div class="searchContent_r">
+	    <span class="joy-lang" label="lg:auditState"></span>:	
+	    <input id="dp_searchFlag" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect" style="width:120px;" databind="value:auditState,source:AUDIT_STATEEnum">
+		<input id="dp_searchCon" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect" style="width:120px;" dataTextField="name" dataValueField="value"   databind="source:searchCon">
+		<input id="txt_search" class="joy-textbox" style="width:120px;" maxByte="20" >
+		 <button class="joy-button" icon="search" onclick="searchQuery" label="lgc:search" ></button>
+		 <button class="joy-button" icon="search" onclick="openSearch" label="lgc:advSearch"></button>
+	</div>
+</div>
+<!-- 搜索栏end -->
+
+<!--序列号登记审核管理列表 --> 
+<div class="listContent">	
+	<table id="grid" class="joy-grid" rowHeightFit="38">
+		<thead>
+			<tr> 				 
+				<th field="productName"  dataType="string" label="lg:productName" colWidth="15%"></th>
+				<th field="buyChannelEk" align="center" dataType="string" label="lg:buyChannelEk" enumData="BUY_CHANNEL_EKEnum" colWidth="10%"></th>				  
+				<th field="agency"  dataType="string" label="lg:agency" colWidth="18%"></th> 
+				<th field="buyDate"   dataFormat="yyyy-MM-dd" dataType="date"  label="lg:buyDate" colWidth="12%"></th> 
+				<th field="receiver" dataType="string" label="lg:receiver" colWidth="10%"></th> 
+				<th field="contact" dataType="string" label="lg:contact" colWidth="13%"></th>	
+				<th field="auditState" dataType="string"  align="center" label="lg:auditState" enumData="AUDIT_STATEEnum" colWidth="10%"></th>			
+				<th field="deviceCd" dataType="string" label="lg:deviceCd" colWidth="12%"></th>				
+				<th colWidth="370px" templateType="template" align="center" > 
+				  <!--  <button  icon="tick" smcBind="ADMINSmc" onClick="openAuditWindow('#:regId#')" label="lg:audit"></button>	
+					<button  icon="close" smcBind="ADMINSmc" onClick="openRejectWindow('#:regId#')" label="lg:reject"></button>
+				
+					<button icon="insert-m" onClick="openDetailWindow('#:regId#')" label="lgc:detail"></button> --> 									
+				  #if(dataModel.AUDITSmc){<!--通过和驳回有权限 -->
+				         if(auditState=='0'){# <!-- 审核中 -->
+								<button class="k-button k-gridBtn k-button-icontext "onClick="openAuditWindow('#:regId#')"><span class="k-icon k-i-pencil"></span>#:lg.audit#</button>						
+								<button class="k-button k-gridBtn k-button-icontext "  onClick="openRejectWindow('#:regId#')"><span class="k-icon k-i-pencil"></span>#:lg.reject#</button>						
+				         #}else{# <!--有权限但不是审核中，不能点击 -->
+								<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.audit#</button>						
+								<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.reject#</button>						
+				         # }	    
+					}else{ #<!-- 通过和驳回没有权限 -->
+					   		<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.audit#</button>						
+								<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.reject#</button>						
+					# }#	
+					
+					#if(dataModel.ADDSmc){<!--编辑有权限 -->
+				         if(auditState=='2'){# <!-- 驳回不能编辑 -->
+				         	<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>				         
+				         #}else{# <!--不是驳回，可以编辑 -->
+							 <button class="k-button k-gridBtn k-button-icontext"  onClick="openEditWindow('#:regId#','#:auditState#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>			
+				         # }	    
+					}else{ #<!-- 编辑没有权限 -->
+					   		<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>				         
+					# }#	
+					
+			     	#if(dataModel.READSmc){#<!--详细有权限 -->
+				       <button class="k-button k-gridBtn k-button-icontext "  onClick="openDetailWindow('#:regId#')"><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>										
+			    	#}else{#	<!--详细没有权限-->
+				         <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>										
+ 			    	#}#														
+				</th>
+			</tr>
+		</thead>
+	</table> 
+</div>
+
+<!-- 审核窗口 -->
+<div id="auditWindow" class="joy-window double" center="true" title="lg:auditTitle">
+	<form id="dataForm" class="joy-form">
+		<input type="hidden" databind="value:regId"/>
+		<table cellspacing=1 cellpadding=3 width="100%" align="center" border=0>
+			<tr>
+			    <td>
+					<input disabled="disabled" class="joy-datepicker" label="lg:regDate"  databind="value:regDate" >
+				</td>
+				<td>
+					<input disabled="disabled" class="joy-textbox" label="lg:productName"  databind="value:productName" >											
+			    </td>
+			</tr>
+			<tr>
+				
+		    </tr>
+		    <tr>	
+		        <td>
+					<input disabled="disabled" class="joy-textbox" label="lg:agency"  databind="value:agency" >											
+			    </td>
+			    <td>
+					<input disabled="disabled" class="joy-datepicker" label="lg:buyDate"  databind="value:buyDate" >
+				</td>
+			</tr>
+			<tr>	
+			    <td>
+					<input  class="joy-datepicker" label="lg:deliveryDate"  databind="value:deliveryDate" required="true">
+				</td>									    
+				<td>
+					<input class="joy-textbox" label="lg:deviceCd" databind="value:deviceCd" required="true" maxBype="20" >											
+			    </td>
+		    </tr>			
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="updateAuditData" label="lgc:save"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button></td>
+			</tr>
+		</table>
+	</form>	
+</div>
+
+<!-- 驳回窗口 -->
+<div id="reJectWindow" class="joy-window double" center="true" title="lg:auditTitle">
+	<form id="reJectForm" class="joy-form">
+		<input type="hidden" databind="value:regId"/>
+		<table cellspacing=1 cellpadding=3 width="100%" align="center" border=0>
+			<tr>
+			    <td>
+					<input disabled="disabled" class="joy-datepicker" label="lg:regDate"  databind="value:regDate" >
+				</td>
+				<td>
+					<input disabled="disabled" class="joy-textbox" label="lg:productName"  databind="value:productName" >											
+			    </td>
+			</tr>
+			<tr>
+				
+		    </tr>
+		    <tr>	
+		        <td>
+					<input disabled="disabled" class="joy-textbox" label="lg:agency"  databind="value:agency" >											
+			    </td>
+			    <td>
+					<input disabled="disabled" class="joy-datepicker" label="lg:buyDate"  databind="value:buyDate" >
+				</td>
+			</tr>
+			<tr>	
+			    <td colspan="2">
+					<textarea id="reason" class="joy-textbox" required="true" label="lg:reason" databind="value:reason" maxByte="255" style="width:620px;height:80px;"></textarea>
+				</td>			
+		    </tr>			
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="updateReJectData" label="lgc:save"></button>
+					<button class="joy-button joy-window-close" icon="cancel" label="lgc:cancel"></button></td>
+			</tr>
+		</table>
+	</form>	
+</div>
+
+<!-- 高级查询窗口 -->
+<div id="searchWindow" class="joy-window" title="lg:query">
+	<form  class="joy-form" >
+		<table>
+		    <tr>
+		        <td>
+			        <input class="joy-datepicker" label="lg:regDateFrom" dataFormat="yyyy-MM-dd"  id="txt_regDate_begin" style="width:160px;"> 
+			    </td>
+			    <td>
+			        <input class="joy-datepicker" label="lg:to"  dataFormat="yyyy-MM-dd"  id="txt_regDate_end" style="width:160px;" > 
+			    </td>
+			</tr>
+			<tr>
+				<td>
+				   <input id="moreAccount"class="joy-textbox" label="lg:account" databind="value:account" style="width:160px;" >															 
+				</td>
+				<td>
+						<input id="isManualFlag" label="lg:isManualFlag" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect" style="width:160px;"  databind="value:isManualFlag,source:YESORNOEnum">				
+				</td>
+			</tr>			
+		</table>	
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lg:query"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>		 
+	</form>
+</div>
+
+<!-- 详细窗口 -->
+<div id="detailWindow" class="joy-window detail"  center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">					
+					<td width="100" class="joy-lang head" label="lg:productName"></td>
+					<td width="230" class="joy-label" databind="value:productName"></td>
+					<td width="100" class="joy-lang head" label="lg:buyChannelEk"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:buyChannelEk,source:BUY_CHANNEL_EKEnum"></td>
+				</tr> 				
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:agency"></td>
+					<td width="230" class="joy-label" databind="value:agency"></td>
+					<td width="100" class="joy-lang head" label="lg:buyDate"></td>
+					<td width="230" class="joy-label" dataFormat="yyyy-MM-dd" dataType="date" databind="value:buyDate"></td>
+				</tr> 			
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:receiver"></td>
+					<td width="230" class="joy-label" databind="value:receiver"></td>
+					<td width="100" class="joy-lang head" label="lg:contact"></td>
+					<td width="230" class="joy-label" databind="value:contact"></td>
+				</tr> 
+					<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:taobaoNo"></td>
+					<td width="230" class="joy-label" databind="value:taobaoNo"></td>
+					<td width="100" class="joy-lang head" label="lg:account" ></td>
+					<td width="230" class="joy-label" databind="value:account"></td>
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:description"></td>
+					<td colspan="3" >
+					  <div class="joy-label"  databind="value:description" style="height:100px;overflow:auto;width:646px;float: left;" ></div>
+					</td>									
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:auditState"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:auditState,source:AUDIT_STATEEnum"></td>
+					<td width="100" class="joy-lang head" label="lg:deviceCd"></td>
+					<td width="230" class="joy-label" databind="value:deviceCd"></td>
+				</tr> 
+				
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:reason"></td>
+					<td colspan="3" class="joy-label" databind="value:reason"></td>					
+				</tr> 	
+				<tr height="90">
+				    <td width="100" class="joy-lang head" label="lg:uploadPic"></td>
+				    <td colspan="3" >
+					    <div id="picInforTd" class="picInforTd" style="height:100px;overflow:auto;width:643px;" ></div>
+					</td>				   
+				</tr>
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+</div>
+	<!-- 编辑框 开始 -->
+	<div id="editWindow" class="joy-window double" center="true"
+		title="lgc:edit">
+		<form id="editDataForm" class="joy-form">
+			<input type="hidden" databind="value:regId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left"><input class="joy-textbox" id="productName" required="true"  label="lg:productName"
+							databind="value:productName" maxByte="64"></td>
+						<td align="left"><input class="joy-combobox joy-enum" label="lg:buyChannelEk"required="true"	databind="value:buyChannelEk,source:BUY_CHANNEL_EKEnum"/>
+                        </td>						
+					</tr>
+					<tr>
+						<td align="left"><input class="joy-textbox" id="agency" required="true" 
+							label="lg:agency"  maxByte="100" databind="value:agency">
+						</td> 
+						<td>
+						    <input class="joy-datepicker" label="lg:buyDate" required="true" databind="value:buyDate">
+						</td>
+					</tr> 
+					<tr>
+						<td align="left"><input class="joy-textbox" label="lg:receiver" required="true" maxByte="64"  databind="value:receiver"></td>   
+						</td>
+						<td align="left"><input class="joy-textbox" label="lg:contact" required="true" maxByte="64"  databind="value:contact"></td>   
+						</td>
+					</tr> 
+					<tr id="lastTr">
+						<td align="left"><input id="editDeviceCd" class="joy-textbox" label="lg:deviceCd" required="true" maxByte="20" databind="value:deviceCd"></td>   
+						<td align="left"><input id="editDeliveryDate"  class="joy-datepicker" label="lg:deliveryDate"  databind="value:deliveryDate" required="true">
+						</td>  
+					</tr>			
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+		<!-- 编辑框结束 -->
+	
+<script> 
+var dataModel;//初始化枚举对象
+var grid,detailWindow,auditWindow,reJectWindow,searchWindow,dataForm,reJectForm,lgc,lg;
+var editWindow,editDataForm;
+var isAdvanceFlag=false;
+$().ready(function() {
+	lgc=joy.getCommonLang();
+	lg=joy.getLang();
+	auditWindow=$("#auditWindow").getJoyWindow();
+	reJectWindow=$("#reJectWindow").getJoyWindow();
+	detailWindow = $("#detailWindow").getJoyWindow();	
+	searchWindow = $("#searchWindow").getJoyWindow();	
+	dataForm=$("#dataForm").getJoyForm();
+	reJectForm=$("#reJectForm").getJoyForm();
+	grid=$("#grid").getJoyGrid();
+	var date=new Date();
+	$("#txt_regDate_begin").getJoyDatePicker().value(date.Format("yyyy-MM-dd"));
+	$("#txt_regDate_end").getJoyDatePicker().value(date.Format("yyyy-MM-dd"));
+	editWindow = $("#editWindow").getJoyWindow();
+	editDataForm=$("#editDataForm").getJoyForm();
+	
+	//数据初始化
+	joy.getJSON("../../wl/es/wlEsSerialRegAction.do?action=init",
+		{enumTypes:['BUY_CHANNEL_EK','AUDIT_STATE','YESORNO']},function(resultObject) {
+		var viewModel=joy.observable(resultObject);
+		joy.bind(".joy-smc,.joy-enum",viewModel);
+		dataModel = resultObject;			
+		
+		//为搜索条件下拉框绑定查询条件
+		var searchArr=new Array();
+		var obj1=new Object();
+		obj1.name=lg.deviceCd;
+		obj1.value="deviceCd";
+		searchArr.push(obj1);
+		obj1=new Object();
+		obj1.name=lg.productName;
+		obj1.value="productName";
+		searchArr.push(obj1);
+		dataModel.searchCon=searchArr;		
+		joy.bind($("#dp_searchCon"), dataModel);
+		$("#dp_searchCon").getJoyComboBox().index(0);
+		$("#dp_searchFlag").getJoyComboBox().index(0);
+		searchGrid("","","","");		
+	});	
+	
+});
+
+//查询列表信息
+function searchGrid(regDateStart,regDateEnd,account,isManualFlag){
+	//搜索条件obj构成为
+	var obj=new Object();
+	var con=$("#dp_searchCon").getJoyComboBox();
+	obj.keyId=con.value();
+	obj.keyValue=$("#txt_search").getJoyTextBox().value();	
+	obj.auditState=$("#dp_searchFlag").getJoyComboBox().value();
+	obj.regDateStart=regDateStart;
+	obj.regDateEnd=regDateEnd;
+	obj.isManualFlag=isManualFlag;
+	obj.account=account;
+	grid.fetch(dataModel, "../../wl/es/wlEsSerialRegAction.do?action=findDataList", obj);
+}
+
+//查询
+function searchQuery(){
+	isAdvanceFlag=false;
+	//搜索条件obj构成为
+	var obj=new Object();
+	var con=$("#dp_searchCon").getJoyComboBox();
+	obj.keyId=con.value();
+	obj.keyValue=$("#txt_search").getJoyTextBox().value();	
+	obj.auditState=$("#dp_searchFlag").getJoyComboBox().value();
+	grid.fetch(dataModel, "../../wl/es/wlEsSerialRegAction.do?action=findDataList", obj);
+}
+
+//打开高级搜索
+function openSearch()
+{
+	$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+	$("#searchWindow").parent('.k-widget').css('left',"");
+	//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+	searchWindow.open();
+}
+
+//高级搜索执行搜索
+function moreSelect(){
+	isAdvanceFlag=true;
+	var regDateStart=$("#txt_regDate_begin").getJoyDatePicker().value();
+	var regDateEnd=$("#txt_regDate_end").getJoyDatePicker().value();
+	var  account=$("#moreAccount").getJoyTextBox().value();
+	var isManualFlag=$("#isManualFlag").getJoyComboBox().value();
+	if(regDateStart>regDateEnd){
+		joy.showMessage(lg.regDateAlert, "fail");
+		return;
+	}		
+	searchGrid(regDateStart,regDateEnd,account,isManualFlag);		
+}
+
+/**
+ * 打开审核窗口
+ */ 
+function openAuditWindow(regId){
+	 joy.getJSON("../../wl/es/wlEsSerialRegAction.do?action=getData",{regId:regId},function(resultObject){
+		 if(resultObject.auditState!="0"){
+	 			joy.showMessage(lg.auditAlert, "warning");
+	 			return;
+	 	}
+		dataForm.load(resultObject);			
+		auditWindow.open();			
+		auditWindow.center();			
+	});
+}
+
+ /**
+  * 打开驳回窗口
+  */ 
+function openRejectWindow(regId){
+    joy.getJSON("../../wl/es/wlEsSerialRegAction.do?action=getData",{regId:regId},function(resultObject){
+ 		if(resultObject.auditState!="0"){
+ 			joy.showMessage(lg.auditAlert, "warning");
+ 			return;
+ 		}
+ 		reJectForm.load(resultObject);			
+ 		reJectWindow.open();			
+ 		reJectWindow.center();			
+ 	});
+ }
+	
+/**
+ * 保存审核通过数据
+ */
+function updateAuditData(buttonObject){
+	//设置按钮不可用，防止重复提交
+	buttonObject.enable(false);
+	//alert(joy.stringify(uploadForm.getDataModel().toJSON()));
+	var submit=dataForm.getDataModel().toJSON();
+	submit.auditState="1";
+	dataForm.load(submit);
+	if (!dataForm.validate()){
+		joy.showMessage(lgc.validateFaile,"warning");
+		buttonObject.enable(true);
+		return;
+	}	
+	dataForm.submit("../../wl/es/wlEsSerialRegAction.do?action=updateAuditData",buttonObject,function(resultObject){
+		auditWindow.close();	
+		grid.dataSource.fetch();
+		joy.showMessage(lgc.opSuccess,"success");
+	});	
+}
+
+/**
+ * 保存驳回数据
+ */
+function updateReJectData(buttonObject){
+	//设置按钮不可用，防止重复提交
+	buttonObject.enable(false);
+	//alert(joy.stringify(uploadForm.getDataModel().toJSON()));
+	var submit=reJectForm.getDataModel().toJSON();
+	submit.auditState="2";
+	reJectForm.load(submit);
+	if (!reJectForm.validate()){
+		joy.showMessage(lgc.validateFaile,"warning");
+		buttonObject.enable(true);
+		return;
+	}	
+	reJectForm.submit("../../wl/es/wlEsSerialRegAction.do?action=updateAuditData",buttonObject,function(resultObject){
+		reJectWindow.close();	
+		grid.dataSource.fetch();
+		joy.showMessage(lgc.opSuccess,"success");
+	});	
+}
+
+
+//查询详细信息
+function openDetailWindow(regId){
+	
+	joy.getJSON("../../wl/es/wlEsSerialRegAction.do?action=getData", {regId : regId}, function(resultObject) {		
+		var viewModel = joy.observable(resultObject);
+		joy.bind($("#detailTable"), viewModel);		
+		//图片加载		
+		$(".imgDiv").remove();
+		for(var i=0;i<resultObject.picList.length;i++){
+				var ob=resultObject.picList[i];				
+				//var txt='<div  class="imgDiv" ><img style="width:100%;height:100%;"   src="../../wl/cm/wlCmDocumentAction.do?action=downloadFile&id='+ob.path+'" _src="../../wl/cm/wlCmDocumentAction.do?action=downloadFile&id='+ob.path+'" /></div>';
+				var txt='<div  class="imgDiv" ><img style="width:100%;height:100%;" src="../../wl/cm/wlCmDocumentAction.do?action=downloadFile&id='+ob.path+'" title="'+lg.showTitle+'"/></div>';
+				
+				$("#picInforTd").append(txt);
+		}		
+		var lightBox=new myLightBox('picInforTd',true,'src');
+		detailWindow.open();
+		detailWindow.center();
+	});
+}
+/**
+ * 打开编辑窗体
+ */
+ var curAuditState="";
+function openEditWindow(regId,auditState){
+	curAuditState=auditState;
+	//lastTr editDeviceCd editDeliveryDate
+	joy.getJSON("../../wl/es/wlEsSerialRegAction.do?action=getData", {regId : regId}, function(resultObject) {					
+	editDataForm.load(resultObject);
+	       if(auditState=='0'){//驳回,序列号和 发货日期隐藏，且设置为不必输
+	    	   $("#lastTr").hide();
+	   	       $("#editDeviceCd").getJoyTextBox().options.required=false;
+	   	      $("#editDeliveryDate").getJoyDatePicker().options.required=false;
+	       }else {
+	    	   $("#lastTr").show();
+	    	   $("#editDeviceCd").getJoyTextBox().options.required=true;
+		   	   $("#editDeliveryDate").getJoyDatePicker().options.required=true;
+	       }
+			editWindow.title(lgc.edit);
+			editWindow.open();	
+			editWindow.center();		
+	});
+}
+/**
+ * 编辑保存数据
+ */
+function saveData(buttonObject){
+	//设置按钮不可用，防止重复提交
+	buttonObject.enable(false);
+	if (!editDataForm.validate()){
+		joy.showMessage(lgc.validateFaile,"warning");
+		buttonObject.enable(true);
+		return;
+	}	
+	if(curAuditState=='0'){//驳回
+		save(buttonObject);
+	}else{
+		var deviceCd=$("#editDeviceCd").getJoyTextBox().value();
+		joy.getJSON("../../wl/es/wlEsSerialRegAction.do?action=validateDeviceCdData", {deviceCd : deviceCd}, function(resultObject) {					
+		      if(resultObject=="1"){//序列号已存在
+		    	  save(buttonObject);
+		      }else{//序列号不存在
+		    		joy.showMessageDialog(lg.deviceNoExistEsStoreOut, "ok,cancel", function(e) {
+						if (e.btnName == "ok") {
+							 save(buttonObject);
+						}else{
+							buttonObject.enable(true);
+						}
+					});
+		      }
+		});
+	}
+	
+	
+}
+/**
+ * 保存编辑数据
+ */
+ function save(buttonObject){
+	 editDataForm.submit("../../wl/es/wlEsSerialRegAction.do?action=updateData",buttonObject,function(resultObject){
+		editWindow.close();	
+		grid.dataSource.fetch();
+		joy.showMessage(lgc.opSuccess,"success");
+	});	
+}
+</script>
+</body>
+
+</html>

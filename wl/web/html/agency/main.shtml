@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview"></script>    
+<link rel="stylesheet" type="text/css" href="../../style/prj/base.main.css" />  
+<title></title>
+<script type="text/javascript"> 
+	var lgc,lg,treeView,initResult;
+
+	$(document).ready(function(){ 
+		lgc=joy.getCommonLang(); 
+		lg=joy.getLang(); 
+		//设置标题
+		var title = lg.title
+		document.title=title;
+		treeView=$("#treeMenu").getJoyTreeView();  
+		initResult = {};
+		//界面变化时窗体自适应****
+		reset();
+		$(window).resize(function() {
+			reset();
+		}); 
+		var user = joy.getCookie("user");
+		var userobj = eval("(" + user + ")");
+		var corpId = userobj?userobj.corpId:"";
+		if(corpId==""||corpId==null){
+			$("#volumeDiv").css('display','none');
+			$("#volumeDiv_1").css('display','none');
+		}else{
+			$("#volumeDiv").css('display','block');
+			$("#volumeDiv_1").css('display','block');
+		}
+		init();
+		  
+		$(".toppop").mouseleave(function(){
+			
+			$(".top_settings").css("background-color","");
+			$(".setting").css("background-color","");
+			$(".top_right_down").css("background-color",""); 
+			$(this).hide();
+			
+		});
+		
+		$(".toppop li").mouseover(function(){
+			$(this).css("background-color","#4298C9");
+		});
+		$(".toppop li").mouseleave(function(){
+			$(this).css("background-color",""); 
+		});
+		
+	});
+	
+	//界面变化时窗体自适应****
+	function reset(){
+		$(".menu_map").width($(window).width()-183);
+		$("#main_frame").width($(window).width()-183);
+		$("#main_frame").height($(window).height()-70);
+		$(".left_menu").height($(window).height()-40);  
+		$(".joy-treeview").height($(window).height()-40);  
+		mainToggleState();
+		$(".main_toggleTree").css("top",($(window).height()-90)/2);
+	}
+	
+	//初始化页面数据
+	function init(){
+			
+			//验证用户是否登录
+			joy.getJSON("../../noSecurity/wlCmLoginAction.do?action=checkAgencyLogin", function(resultObject) { 
+				initResult =  resultObject; 
+				var viewModel = joy.observable(initResult); 
+				joy.bind($(".top"), viewModel);
+				var menuUrl = "../sys/wlCmMenuAction.agency?action=createCorpMenu&target=agency";				
+				//初始化菜单
+				joy.getJSON(menuUrl, function(resultObject) {
+					initResult.leftTree =  resultObject.items; 
+					var viewModel2 = joy.observable(initResult); 
+					joy.bind($("#treeMenu"), viewModel2);  
+				}); 
+			}); 
+	}  
+	
+	function popOpen(pop){
+		var popwin = $("#"+pop);
+		popwin.show();
+	} 
+	function subclick(thi){
+		$(".sys_child").css("background-color","");
+		thi.css("background-color","#B3C9DC");
+		var url = thi.find(".frameurl").html();  
+		var nodetext =  thi.find(".nodetext").html(); 
+		if(url!="#"){
+			$("#main_frame").attr("src",url); 
+		}   
+		var parentName= thi.parent().parent().parent().parent().prev().find(".nodetext").html();
+		$(".menu_map_body").html(parentName+" / "+nodetext);
+	}
+	function parentclick(thi){
+		var nodetext =  thi.find(".nodetext").html(); 
+		$(".sys_child").css("background-color","");
+		var url = thi.find(".frameurl").html();  
+		if(url!="#"){ 
+			$(".menu_map_body").html(nodetext);
+			$("#main_frame").attr("src",url); 
+		}    
+	}
+	function loginOut(){ 
+		joy.showMessageDialog(lg.loginOutWarning, "ok,cancel", function(e) {
+			if (e.btnName == "ok") { 
+				window.location='../../noSecurity/wlCmLoginAction.do?action=agencyLoginOut'
+			}
+		});
+		
+	}
+	//左树缩进和展开
+	function mainToggle()
+	{
+		var mainTree=$(".left_menu");
+		var left=$(mainTree).offset().left;
+		if(typeof(left)=="undefined"||left==0)
+			{
+				$(".main_toggleTreeImg").css("background","url('../../style/prj/images/toggle_left.png') no-repeat center top");
+				$(".main_toggleTree").css("left",0);
+				$(mainTree).css("left",-183);
+				$(".menu_map").css("left",0);
+				$(".menu_map").width($(window).width());
+				$("#main_frame").css("margin-left",0);
+				$("#main_frame").width($(window).width());
+	
+			}
+		else
+			{
+				$(".main_toggleTreeImg").css("background","url('../../style/prj/images/toggle_right.png') no-repeat center top");
+				$(".main_toggleTree").css("left",183);
+				$(mainTree).css("left",0);
+				$(".menu_map").css("left",183);
+				$(".menu_map").width($(window).width()-183);
+				$("#main_frame").css("margin-left",183);
+				$("#main_frame").width($(window).width()-183);
+			}
+	}
+	//界面大小变化保持缩进状态
+	function mainToggleState()
+	{
+		var mainTree=$(".left_menu");
+		var left=$(mainTree).offset().left;
+		if(typeof(left)=="undefined"||left==0)
+			{
+			$(".main_toggleTreeImg").css("background","url('../../style/prj/images/toggle_right.png') no-repeat center top");
+			$(".main_toggleTree").css("left",183);
+			$(mainTree).css("left",0);
+			$(".menu_map").css("left",183);
+			$(".menu_map").width($(window).width()-183);
+			$("#main_frame").css("margin-left",183);
+			$("#main_frame").width($(window).width()-183);
+	
+			}
+		else
+			{
+			$(".main_toggleTreeImg").css("background","url('../../style/prj/images/toggle_left.png') no-repeat center top");
+			$(".main_toggleTree").css("left",0);
+			$(mainTree).css("left",-183);
+			$(".menu_map").css("left",0);
+			$(".menu_map").width($(window).width());
+			$("#main_frame").css("margin-left",0);
+			$("#main_frame").width($(window).width());
+				
+			}
+	}
+</script>
+</head>
+<body >
+
+
+<!-- 前后台切换 -->
+<div id="adminPop" class="toppop_head_left toppop" > 
+<div class="toppop_body">
+	<ul>
+		<li class="joy-lang" label="lg:control" onclick="window.location='../work/map.shtml'" ></li>
+	</ul>
+</div>
+<div class="toppop_bottom"></div>
+</div>
+
+<!-- 个人管理 -->
+<div  id="ownerPop"  class="toppop_head_right toppop"> 
+<div class="toppop_body">
+	<ul>
+		<li class="joy-lang" label="lg:changeUser" onclick="window.location='login.html'"></li>
+		<li  class="joy-lang" onclick="openupdateSelfWindow()" label="lg:changePassWord" ></li>
+	</ul>
+</div>
+<div class="toppop_bottom"></div>
+</div>
+<!-- 管理 -->
+<div id="commandPop"  class="toppop_head_right toppop"> 
+<div class="toppop_body">
+	<ul>
+		<li class="joy-lang" label="lg:version" onclick="openVersionInfo()"></li> 
+		<li class="joy-lang" label="lg:log" ></li>
+		<li class="joy-lang" label="lg:help" ></li>
+	</ul>
+</div>
+<div class="toppop_bottom"></div>
+</div>
+<div class="top">
+	<div class="top_left">
+		<div class="top_logo"></div>
+		<!--  <span class="joy-lang span1" label="lgc:systemName"></span>-->
+		<span class="joy-lang span2" label="lg:systemAdmin"></span>
+		<!--<div class="top_settings" onclick="popOpen('adminPop');$(this).css('background-color','#02588E')"></div>-->
+	</div> 
+	<div class="top_right">
+		<div class="setting"  onclick="popOpen('commandPop');$(this).css('background-color','#02588E')" ></div>
+		<div class="top_right_line"></div>
+		<span class="joy-lang" label="lg:loginOut" onclick="loginOut()"></span>
+		<div class="top_right_line"></div>
+		<div class="top_right_down"  onclick="popOpen('ownerPop');$(this).css('background-color','#02588E')"></div>
+		<div class="joy-label top_right_user"  databind="value:name" > </div> 
+		<div class="top_right_line" id="volumeDiv"></div>		
+	</div>
+</div> 
+<div class="main_toggleTree" onclick="mainToggle()">
+	<div class="main_toggleTreeImg">
+	</div>
+</div>
+<div class="left_menu"> 
+	
+<script id="mainTree" type="text/joy-ui-template">
+	# if (item.main.parentId=='0') { #
+		<div class="sys_parent"  onclick="parentclick($(this))"  ><div class="sys_menu #=item.main.meno#"></div> <span class="nodetext">#=item.main.name#</span><span class="frameurl">#=item.main.value#</span></div> 
+	# } else { #
+		<div class="sys_child" onclick="subclick($(this))" ><div class="sys_menu_child #=item.main.meno#"></div><span class="nodetext">#=item.main.name#</span><span class="frameurl">../../#=item.main.value#</span></div>
+	# }#
+</script>
+<div id="treeMenu" class="joy-treeview" templateId="mainTree" databind="source:leftTree"></div>
+</div>
+<div class="menu_map"> 
+<div class="menu_map_left" > 
+</div>
+<div class="menu_map_index"></div>
+<div class="joy-lang menu_map_body" label="lg:index"> 
+</div> 
+</div>   
+<iframe src="welcome.shtml" id="main_frame" scrolling="auto" frameborder="0" style="clear: both;  border: 0px none;margin-top:35px;margin-left:183px;">
+
+</iframe>   
+
+<div id="updateSelfWindow" class="joy-window" 
+	center="true" title="lgc:changePassword">
+	<form id="updateSelfForm" class="joy-form">
+		<table cellspacing=1 cellpadding=3 width="100%" align="center" border=0>
+			<tbody>
+				<tr>
+					<td align="left"><input class="joy-textbox" type="password"  minByte="6" required="true"
+						label="lgc:oldpassword" 
+						databind="value:oldPassword" />
+					</td>
+				</tr>
+				<tr>
+					<td align="left"><input class="joy-textbox"  type="password"  minByte="6" required="true"
+						label="lgc:password" 
+						databind="value:password" />
+					</td>
+				</tr>
+				<tr>
+					<td align="left"><input class="joy-textbox"  type="password" minByte="6" required="true"
+						label="lgc:passwordretry" 
+						databind="value:passwordretry" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table width="100%" border="0" style="margin-top:20px;" align="center" cellpadding="3"
+			cellspacing="1">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick"
+						onClick="updateSelfForm" label="lgc:save"></button>
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<!--#include file="systemMessage.shtml"--> 
+<script type="text/javascript">
+	//打开修改密码窗口
+	function openupdateSelfWindow() {
+		var updateSelfWindow = $("#updateSelfWindow").getJoyWindow();
+		var updateSelfForm = $("#updateSelfForm").getJoyForm();
+		updateSelfForm.load({});
+		updateSelfWindow.open();
+		updateSelfWindow.center();
+	}
+	//提交修改 
+	function updateSelfForm(buttonObject) {
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+		var updateSelfForm = $("#updateSelfForm").getJoyForm();
+		var updateSelfWindow = $("#updateSelfWindow").getJoyWindow();
+		if (!updateSelfForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		
+		 
+		var submitda = updateSelfForm.getDataModel().toJSON();
+		//判断两次密码输入是否一致
+		if(submitda.password!=submitda.passwordretry){
+			joy.showMessage(lgc.passwordretryError, "warning");
+			buttonObject.enable(true);
+			return;
+		} 
+		//获取登录信息
+		var user=joy.getCookie("user");
+		var userObj= $.parseJSON(user);
+		if(userObj.type=="corp")
+			{//企业用户
+			updateSelfForm.submit("../../wl/cm/wlCmOrgUserAction.agency?action=updateSelf", buttonObject,
+					function(resultObject) {
+						updateSelfWindow.close(); 
+						joy.showMessage(lgc.opSuccess, "success");
+					});
+			}	
+	}
+</script>
+</body>
+</html>

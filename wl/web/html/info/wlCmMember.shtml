@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+
+</head>
+<body style="height:100%">
+<div id="gridDiv">
+  	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+	    <button class="joy-button joy-smc" icon="plus" onClick="openAddWindow" label="lgc:add" dataBind="visible:ADDSmc" ></button>
+		<!--  <button class="joy-button joy-smc" icon="close" onClick="deleteData" label="lgc:delete" dataBind="visible:ADMINSmc"></button>	-->
+		<div id="searchForm" class="joy-form" style="float: right" layout="freedom">
+			<!--  <span class="joy-lang" label="lg:memberStateEk"></span>:
+			<input class="joy-combobox joy-enum" placeholder="lg:selectHint" style="width:120px" dataBind="value:memberStateEk,source:MEMBER_STATE_EKEnum">
+			<span class="joy-lang" label="lg:levelName"></span>:
+			<input class="joy-combobox joy-enum" placeholder="lg:selectHint" style="width:120px"  dataTextField="levelName" dataValueField="levelId"  dataBind="value:levelId,source:levelEnum">
+			--><span class="joy-lang" label="lg:name"></span>:
+			<input class="joy-textbox" id="name" style="width: 120px;" databind="value:name"  /> 
+			<span class="joy-lang" label="lg:account"></span>:
+			<input class="joy-textbox" id="qAccount" style="width: 120px;" databind="value:account"  /> 
+			<button class="joy-button" icon="search" onClick="searchData" label="lgc:search" ></button>	
+			<button class="joy-button" icon="search" onClick="openSearch"
+				label="lgc:advSearch"></button>
+		</div>	
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid" pageSize = "10"  rowHeightFit="38">
+		<thead>
+			<tr>
+				<th field="memberId" templateType="checkbox" colWidth="40px"></th>
+				<th field="account" dataType="string" label="lg:account" colWidth="13%"></th>
+				<th field="name" dataType="string" label="lg:name" colWidth="13%"></th>
+				<th field="levelId"  enumData="levelEnum"  dataTextField="levelName" dataValueField="levelId"  dataType="string" align="center"  label="lg:levelId" colWidth="12%"></th>				
+				<th field="lastLoginTime"  dataType="date" dataFormat="yyyy-MM-dd HH:mm:ss" label="lg:lastLoginTime" colWidth=20% ></th>				
+				<th field="memberStateEk" dataType="string" enumData="MEMBER_STATE_EKEnum" label="lg:memberStateEk"  align="center" colWidth="10%"></th>
+				<th colWidth="370px" templateType="template"  align="center" >  
+					  #if(initResult.ISENABLESmc){<!--启用禁用有权限 -->
+				         if(memberStateEk=='LOCK'){#
+					       <button class="k-button k-gridBtn k-button-icontext"  onClick="modifyMemberStateEk('#:memberId#','#:memberStateEk#')"><span class="k-icon k-i-pencil"></span>#:lg.memberStateEkModifyLOCK#</button>
+				         #}else{# 
+					         <button class="k-button k-gridBtn k-button-icontext"  onClick="modifyMemberStateEk('#:memberId#','#:memberStateEk#')" ><span class="k-icon k-i-pencil"></span>#:lg.memberStateEkModifyUSE#</button>
+				         # }	    
+					}else{<!-- 启用禁用没有权限 -->
+					      if(memberStateEk==='LOCK'){#
+					       <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.memberStateEkModifyLOCK#</button>
+					      #}else{#
+					         <button class="k-button k-gridBtn k-button-icontext k-state-disabled"   ><span class="k-icon k-i-pencil"></span>#:lg.memberStateEkModifyUSE#</button>
+					     # }					
+					}#
+					
+					#if(initResult.ADDSmc){#<!--编辑有权限 -->
+				    <button class="k-button k-gridBtn k-button-icontext" onClick="openEditWindow('#:memberId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}else{#	<!--编辑没有权限 -->
+				    <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}#
+					
+					  #if(initResult.READSmc){#<!--详细有权限 -->
+					<button class="k-button k-gridBtn k-button-icontext"  onClick="openDetailWindow('#:memberId#')"><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>
+			    	#}else{#	<!--详细没有权限-->
+				   		<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>				   
+			    	#}#		
+			    	
+			    	#if(initResult.RESETPASSWORDSmc){#<!--重置密码有权限 -->
+					  <button class="k-button k-gridBtn k-button-icontext"  onClick="modifyPassword('#:memberId#')"><span class="k-icon k-i-insert-m"></span>#:lg.modifyPwd#</button>
+			    	#}else{#	<!--重置密码没有权限-->
+					   <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ></span>#:lg.modifyPwd#</button>
+			    	#}#					
+				</th>
+				
+			</tr>
+		</thead>
+	</table>	
+</div>	
+    <!-- 编辑框 -->
+	<div id="editWindow" class="joy-window double" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:memberId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left"><input class="joy-textbox" id="account" required="true"  label="lg:account"
+							databind="value:account" maxByte="30"></td>
+						<td align="left"><input class="joy-textbox"  required="true"
+							label="lg:name" databind="value:name" maxByte="20"></td>						
+					</tr>
+					<tr>
+						<td align="left"><input class="joy-textbox" id="password" required="true"  type="password"
+							label="lg:password" minByte="6" maxByte="32" databind="value:password">
+						</td> 
+						<td>
+						    <input class="joy-combobox joy-enum" label="lg:levelId"	dataTextField="levelName" dataValueField="levelId" databind="value:levelId,source:levelEnum"/>
+						</td>
+					</tr> 
+					<tr>
+						<td>
+						    <input class="joy-combobox joy-enum" label="lg:sexEk"	databind="value:sexEk,source:SEX_EKEnum"/>
+						</td>
+						<td>
+						    <input class="joy-datepicker" label="lg:birthday" databind="value:birthday">
+						</td>
+					</tr> 
+					<tr>
+						<td align="left"><input class="joy-textbox" label="lg:mobile"  maxByte="30" dataType ="tel" databind="value:mobile"></td>   
+						<td align="left"><input class="joy-textbox" label="lg:tel" maxByte="30" databind="value:tel"  dataType ="tel"></td>  
+					</tr>
+					<tr>
+						<td align="left"><input class="joy-textbox" label="lg:email" maxByte="30" dataType ="email" databind="value:email"></td>   
+						<td align="left"></td>  
+					</tr>
+					 
+ 					
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<!-- 详细 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" align="center" width="100%" 
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:account"></td>
+					<td width="230" class="joy-label" databind="value:account"></td>
+					<td width="100" class="joy-lang head" label="lg:name"></td>
+					<td width="230" class="joy-label"   databind="value:name"></td>										
+				</tr> 							
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:levelId"></td>
+					<td width="230" class="joy-label joy-enum" dataTextField="levelName" dataValueField="levelId" databind="value:levelId,source:levelEnum"></td>
+				    <td width="100" class="joy-lang head" label="lg:sexEk"></td>
+					<td width="230" class="joy-label joy-enum"  databind="value:sexEk,source:SEX_EKEnum"></td>										
+				</tr> 
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:birthday"></td>
+					<td width="230" class="joy-label"  dataFormat="yyyy-MM-dd" dataType="date" databind="value:birthday"></td>
+				    <td width="100" class="joy-lang head" label="lg:email"></td>
+					<td width="230" class="joy-label"   databind="value:email"></td>								
+				</tr>  
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:mobile"></td>
+					<td width="230" class="joy-label"   databind="value:mobile"></td>
+					<td width="100" class="joy-lang head" label="lg:tel"></td>
+					<td width="230" class="joy-label" databind="value:tel"></td>					
+				</tr> 
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:lastLoginTime"></td>
+					<td width="230" class="joy-label"   databind="value:lastLoginTime"></td>
+					<td width="100" class="joy-lang head" label="lg:ip"></td>
+					<td width="230" class="joy-label" databind="value:ip"></td>					
+				</tr> 
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:memberStateEk"></td>
+					<td colspan="3" class="joy-label joy-enum" databind="value:memberStateEk,source:MEMBER_STATE_EKEnum"></td>
+									
+				</tr>  			
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+	<!-- 高级查询窗口开始 -->
+<div id="searchWindow" class="joy-window" title="lgc:search">
+	<form  id="advSearchForm" class="joy-form" >
+		<table>
+		    <tr>
+		        <td>
+					<input id="memberStateEk" class="joy-combobox joy-enum" label="lg:memberStateEk" placeholder="lg:selectHint" style="width:160px" dataBind="value:memberStateEk,source:MEMBER_STATE_EKEnum">
+			    </td>
+			    <td>
+					<input id="levelName" class="joy-combobox joy-enum" label="lg:levelName" placeholder="lg:selectHint" style="width:160px"  dataTextField="levelName" dataValueField="levelId"  dataBind="value:levelId,source:levelEnum">
+			    </td>
+			</tr>	
+			    <tr>
+		        <td>
+			    	 <input
+							id="isBuyFlag" label="lg:isBuyFlag" class="joy-combobox joy-enum" 
+							 placeholder="lgc:pleaseToSelect" 
+							databind="value:isBuyFlag,source:YESORNOEnum" style="width:160px;">			    
+			    </td>
+			    <td>
+			          <input
+							id="advEmail" label="lg:email" class="joy-textbox" 
+							style="width:160px;" databind="value:email" >	
+			    </td>
+			</tr>			
+		</table>	
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lgc:search"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>		 
+	</form>
+</div>
+		<!-- 高级查询窗口结束 -->
+
+
+	
+	
+
+<script>
+var initResult,searchForm,grid,ids,memberId,dataForm,editWindow,detailWindow,accountText,passwordText,searchWindow,advSearchForm;
+var searchUrl="../../wl/cm/wlCmMemberAction.do?action=findDataList";
+
+$().ready(function(){
+	lgc = joy.getCommonLang();
+	lg = joy.getLang();
+	grid = $("#grid").getJoyGrid();	
+	searchForm = $("#searchForm").getJoyForm(); 
+	advSearchForm= $("#advSearchForm").getJoyForm(); 
+	dataForm = $("#dataForm").getJoyForm();
+	editWindow = $("#editWindow").getJoyWindow();
+	accountText = $("#account").getJoyTextBox();
+	passwordText = $("#password").getJoyTextBox();
+	detailWindow = $("#detailWindow").getJoyWindow(); 	
+	searchWindow = $("#searchWindow").getJoyWindow();	
+
+	joy.getJSON("../../wl/cm/wlCmMemberAction.do?action=init",
+			{enumTypes:['SEX_EK','MEMBER_STATE_EK','YESORNO']},	
+			function(resultObject) {
+				initResult = resultObject; 
+	        	var viewModel = joy.observable(initResult);    
+	        	joy.bind($(".joy-smc,.joy-enum"), viewModel); 
+	        	searchForm.load();//解决form值没法传到后台问题
+	        	grid.fetch(initResult, searchUrl);  
+		});
+	
+});
+
+/**
+ * 打开新增窗体
+ */
+function openAddWindow() {
+	dataForm.load();
+	editWindow.title(lgc.add);
+	editWindow.open();
+	editWindow.center();	 
+	accountText.enable(true);
+	passwordText.enable(true);
+}
+
+/**
+ * 打开编辑窗体
+ */
+function openEditWindow(memberId){
+		joy.getJSON("../../wl/cm/wlCmMemberAction.do?action=getData",{memberId:memberId},  function(resultObject){			
+		dataForm.load(resultObject);	 
+		editWindow.title(lgc.edit);
+		editWindow.open();	
+		editWindow.center();
+		accountText.enable(false);
+		passwordText.enable(false);
+	});
+}
+
+/**
+ * 打开详细窗体
+ */
+function openDetailWindow(memberId){
+	 
+	joy.getJSON("../../wl/cm/wlCmMemberAction.do?action=getData",{memberId:memberId}, function(resultObject){	
+		var viewModel = joy.observable(resultObject); 
+		joy.bind($("#detailTable"), viewModel);			
+		detailWindow.open();
+		detailWindow.center();
+	});	
+}
+
+function editDivClose(){
+	$("#detailDiv").hide();
+	$("#gridDiv").show();
+}
+
+/**
+ * 保存数据
+ */
+function saveData(buttonObject) {
+	//设置按钮不可用，防止重复提交
+	buttonObject.enable(false);
+	if (!dataForm.validate()) {
+		joy.showMessage(lgc.validateFaile, "warning");
+		buttonObject.enable(true);
+		return;
+	}	
+	dataForm.submit("../../wl/cm/wlCmMemberAction.do?action=saveData", buttonObject,
+			function(resultObject) {
+				editWindow.close();
+				grid.dataSource.fetch();
+				joy.showMessage(lgc.opSuccess, "success");
+			});
+}
+
+/**
+ * 搜索数据
+ */
+function searchData() {
+	//searchForm.load();
+	//alert(joy.stringify(searchForm.getDataModel().toJSON()));
+	grid.fetch(initResult, searchUrl, searchForm.getDataModel().toJSON());
+	//grid的值为 执行searchUrl方法后的值,searchForm.getDataModel().toJSON()为action方法的参数
+} 
+
+/**
+ * 删除数据
+ */
+function deleteData() {  
+	var ids = grid.getChecked(); 
+	
+	if (ids.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	} else {
+		joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+			if (e.btnName == "ok") {
+				joy.getJSON("../../wl/cm/wlCmMemberAction.do?action=deleteData", 
+				  {ids:ids}, 
+				  function(resultObject) { 
+						grid.dataSource.fetch();
+						joy.showMessage(lgc.opSuccess, "success");
+				  });
+			}
+		});
+	}
+}
+
+/**
+ * 重置密码
+ */
+function modifyPassword(id){
+	joy.showMessageDialog(lg.modifyPwdTitle,"ok,cancel",function(e){
+		if(e.btnName=="ok"){
+			joy.getJSON("../../wl/cm/wlCmMemberAction.do?action=updateMemberPwd",{memberId:id}, function(resultObject){	
+				joy.showMessage(lgc.opSuccess, "success");
+			});
+		}
+	});
+			
+}
+
+/**
+* 启用/锁定
+**/
+function modifyMemberStateEk(id,memberStatusEk){
+	var memberStatusEkModifyTitle;
+	if(memberStatusEk=="LOCK"){
+		memberStatusEkModifyTitle=lg.memberStatusEkLOCKTitle;
+	}else{
+		memberStatusEkModifyTitle=lg.memberStatusEkModifyUSETitle;
+	}
+	joy.showMessageDialog(memberStatusEkModifyTitle,"ok,cancel",function(e){
+		if(e.btnName=="ok"){
+			joy.getJSON("../../wl/cm/wlCmMemberAction.do?action=updateMemberState",{memberId:id}, function(resultObject){	
+				joy.showMessage(lgc.opSuccess, "success");
+				grid.dataSource.fetch();
+				
+			});
+		}
+	});			
+}
+//打开高级搜索
+function openSearch()
+{
+	$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+	$("#searchWindow").parent('.k-widget').css('left',"");
+	//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+	searchWindow.open();
+}
+
+function moreSelect(){	
+	 //搜索条件obj构成为
+	var obj=new Object();
+     var memberStateEk=$("#memberStateEk").getJoyComboBox().value();
+	 var levelId = $("#levelName").getJoyComboBox().value();
+		var isBuyFlag = $("#isBuyFlag").getJoyComboBox().value();
+		var name = $("#name").getJoyTextBox().value();
+		var account = $("#qAccount").getJoyTextBox().value();
+		var email= $("#advEmail").getJoyTextBox().value();
+		obj.levelId=levelId;
+		obj.isBuyFlag=isBuyFlag;
+		obj.memberStateEk=memberStateEk;
+		obj.name=name;
+		obj.email=email;
+		obj.account=account;
+        grid.fetch(initResult,searchUrl,obj);
+ 
+}
+</script>
+</body>
+</html>

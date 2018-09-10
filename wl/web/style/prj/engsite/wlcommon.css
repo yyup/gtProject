@@ -1,0 +1,97 @@
+#wlBody {
+	margin-top: 68px;
+}
+
+@media(max-width:1080px){
+#wlBody {
+	margin-top: 50px;
+}
+}
+
+@font-face{
+        font-family: 'Open Sans';
+        
+        src: url('../images/fonts/Open Sans.eot'); /* IE9+ */
+        src: url('../images/fonts/Open Sans.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+        url('../images/fonts/Open Sans.woff') format('woff'), /* chrome、firefox */
+        url('../images/fonts/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2') format('woff2'), 
+        url('../images/fonts/Open Sans.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+        url('../images/fonts/Open Sans.svg#fontname') format('svg'); /* iOS 4.1- */
+}
+
+
+/* body{font-family:"Microsoft Yahei"!important;} */
+/* body{font-family: "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif", source-han-serif-sc, serif !important;} */
+/*body{font-family:"Noto Sans CJK SC Light", "Source Han Sans CN Light" !important;}*/
+body {
+    /* font-family:"Microsoft Yahei"!important;, "Source Han Sans CN Light" !important; */
+	font-family:"Open Sans" !important;
+	padding: 0.1px !important;
+	position:relative;
+	min-height:100%;
+}
+
+html{height:100%;}
+
+#cnzz_stat_icon_1259283381 {
+	display: none;
+}
+
+@media screen and (max-width:500px){
+	/* #headBuyCarIconContain{
+		display:none;
+	} 
+	 #buyCar{
+		margin-right:4px !important;
+	} */
+	.engAndChi{
+		font-size:12px;
+		cursor;pointer;
+	}
+	.engAndChi:hover{
+		font-size:12px;
+		cursor:pointer;
+		color:#428bca;
+	}
+		a#aPhone{
+		font-size:12px;
+		color:white;
+	}
+	a#aPhone:hover{
+		font-size:12px;
+		color: #428bca;
+	}
+		a#logout{
+		font-size:12px;
+		color:white;
+	}
+	a#logout:hover{
+		font-size:12px;
+		color: #428bca;
+	}
+	.navbar-header .headLogo{ background:url('../images/top_wlogo.png');height: 40px;margin-left:15px!important;width: 100px; margin-top: 10px;
+    margin-bottom: 10px;background-repeat:no-repeat;background-size:100%}
+}
+
+@media(max-width:500px){
+	div.k-window {
+	    border-style: solid;
+	    border-width: 1px;
+	    display: inline-block;
+	    padding-top: 2em;
+	    position: absolute;
+	    width: 250px;
+	    z-index: 10001;
+	}
+	.k-edit-form-container .k-edit-buttons{
+	    border-style: solid;
+	    border-width: 1px 0 0;
+	    bottom: -1em;
+	    clear: both;
+	    padding: 0.6em;
+	    position: relative;
+	    text-align: right;
+	    width: 230px;
+	}
+	
+}

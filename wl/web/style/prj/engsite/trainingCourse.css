@@ -1,0 +1,163 @@
+#agencyTabContain{
+    padding-top: 20px;
+    border-bottom: solid 1px #CCCCCC;
+}
+#detailTabContent .col-md-4,#specTabContent  .col-md-4{
+    font-size: 16px;
+}
+.activeTab{
+    border-bottom: 2px solid black;
+    color: black;
+}
+#detailTab,#specTab{
+    padding-bottom: 20px;
+    font-size: 18px;
+}
+#detailTabContent,#specTabContent{
+    padding-top: 30px;
+}
+.sureAndBack{
+    background: #111111;
+    color: white;
+    width: 60px;
+    height: 25px;
+}
+.caption div:nth-child(2){
+    font-size: 12px;
+    color: #ccc;
+}
+.caption div:nth-child(1){
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap
+}
+.s-play {
+    background: url(../images/play_860ea90.png) no-repeat scroll 0 0;
+    height: 42px;
+    left: 50%;
+    margin: -21px 0 0 -21px;
+    position: absolute;
+    top: 50%;
+    width: 42px;
+    display: none;
+}
+
+#divRight a:hover .s-play{
+    display: block;
+}
+
+.noContent {
+    height: 145px;
+    margin: 180px auto 0;
+    width: 304px;
+    background: url(../images/noContent.png);
+}
+.image-block {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 17px;
+    line-height: 32px;
+    margin-left: 33.5%;
+    margin-right: auto;
+    margin-top: 7%;
+    position: absolute;
+    z-index:9;
+}
+.courseTab{
+	cursor:pointer;
+}
+
+	@media screen and (max-width: 992px) {
+		 
+  	}
+ 	@media screen and (min-width: 1468px) {
+		  #right{
+		  		margin-left: -5%;
+		  }
+  	}
+ 	@media screen and (min-width: 1646px) {
+		  #right{
+		  		margin-left: -10%;
+		  }
+  	}
+  	@media screen and (min-width: 1750px) {
+		  #right{
+		  		margin-left: -15%;
+		  }
+  	}
+ .scroll li:hover {
+        background-color: #f7f7f9;
+    }
+    .scroll li {
+        list-style:none;
+        color:#ccc;
+        text-decoration:none;
+    }
+    .winBox {
+        text-align: center;
+        max-width: 875px;
+        min-width: 250px;
+        height:40px;
+        overflow:hidden;
+        position:relative;
+        background:white;
+    }
+    .scroll {
+        /*width的大小是根据下面li的长度和多少个li而定的，需注意！*/
+        position:absolute;
+        left:0px;
+        top:-5px;
+        padding: 0px;
+    }
+    .scroll li {
+        width:175px;
+        float:left;
+        line-height:40px;
+        text-align:center;
+        border-bottom: solid 1px #ccc;
+    }
+    .leftContainerClass{
+    	height: 100%;
+    	text-align: right;
+    	padding-left: 60%;
+    }
+    #leftContainer span{
+        padding: 4px;
+        color:#CCCCCC ;
+    }
+    #right:hover{
+
+    }
+    #right{
+        padding: 4px;
+        color:#CCCCCC ;
+        margin-right: 25%;
+        font-size:25px;
+        top: 50%;
+        position: relative;
+    /*    transform: translateY(-50%);*/
+    }
+    #left{
+        top: 50%;
+        font-size:25px;
+        position: relative;
+      /*  transform: translateY(-50%);*/
+    }
+   	@media screen and (max-width: 600px) {
+	  .scroll li {
+	        width:100px;
+	        float:left;
+	        line-height:40px;
+	        text-align:center;
+	        border-bottom: solid 1px #ccc;
+	    }
+	    .winBox {
+	        text-align: center;
+	        max-width: 500px;
+	        min-width: 250px;
+	        height:40px;
+	        overflow:hidden;
+	        position:relative;
+	        background:white;
+	    }
+  	}

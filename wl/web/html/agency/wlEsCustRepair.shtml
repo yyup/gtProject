@@ -1,0 +1,515 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/prj/lightBox.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout,editor"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/agency.wlEsCustRepair.css" />
+</head>
+<body>
+
+	<!-- 搜索栏-->
+	<div class="searchContent">
+		<div class="searchContent_l">
+			<button class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+				 label="lgc:add" ></button>
+		</div>
+		<div class="searchContent_r">
+				<input id="keyId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px" databind="value:value,source:searchEnum" >
+						<input id="contentId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+						<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchOneData" label="lgc:search"></button>
+		</div>
+	</div>
+	<!-- 搜索栏end-->
+	<!-- 列表栏-->
+
+	<!--产品信息列表 -->
+	<table id="grid" class="joy-grid" rowHeightFit="38">
+		<thead>
+				<tr>											
+						<th field="repairNo" dataType="string"  dataType="string" label="lg:repairNo" colWidth="130px"></th>											
+						<th field="deviceCd" dataType="string" label="lg:deviceCd"  colWidth="15%"></th>
+						<th field="applyTime" dataType="date" dataFormat="yyyy-MM-dd"  label="lg:applyTime" colWidth="15%"></th>
+						<th field="mobile" dataType="string" label="lg:mobile"  colWidth="15%"></th>	
+						<th field="receiver" dataType="string" label="lg:receiver"  colWidth="15%"></th>						
+						<th field="moduleEk" dataType="string" align="center"  label="lg:moduleEk" enumData="MODULE_EKEnum" colWidth="15%"></th>	
+						<th field="serialVerfEk" dataType="string"  align="center" label="lg:serialVerfEk" enumData="SERIAL_VERF_EKEnum" colWidth="20%"></th>									
+						<th colWidth="100px" templateType="button" align="center">									 		
+					 	    <button  icon="insert-m"  onClick="openDetailWindow('#:repairId#')" label="lgc:detail"></button>	       					
+						</th>								
+					</tr>
+		</thead>
+	</table>
+	<!--产品信息列表end -->
+
+	<!--编辑开始-->
+	<div id="editDiv">
+					<div id="addTitle" class="headTitle"></div>
+					<div class="editBody">
+						<form id="dataForm" class="joy-form">
+							<input type="hidden" databind="value:infoId" />
+							<table id="editTable" center="true" width="100%" cellpadding="3"
+								cellspacing="1" border="0">
+								<tbody>
+									<tr>
+										<td align="left" width="50%"><input id="title"
+											class="joy-textbox" label="lg:deviceCd"
+											databind="value:deviceCd" style="width: 90%" maxByte="20" /></td>
+
+										<td align="left" width="50%"><input id="title"
+											class="joy-textbox" required="true" label="lg:receiver"
+											databind="value:receiver" style="width: 90%" maxByte="64" />
+										</td>
+
+									</tr>
+									<tr>
+										<td ><input id="contact"
+											class="joy-textbox" required="true" label="lg:mobile"
+											databind="value:mobile" style="width: 90%" maxByte="20" />
+										</td>
+										<td>
+										<input id="addr"
+											class="joy-textbox" required="true" label="lg:addr"
+											databind="value:addr" style="width: 90%" maxByte="20" />
+										</td>
+									</tr>
+                                   <tr>
+										<td ><input id="buyModel"
+											class="joy-textbox" required="true" label="lg:buySpec"
+											databind="value:buySpec" style="width: 90%" maxByte="20" />
+										</td>
+										<td>
+										 <input id="buyDate" required="true" class="joy-datepicker" label="lg:buyDate" 
+										  dataFormat="yyyy-MM-dd"  databind="value:buyDate" style="width: 90%;" > 
+
+										</td>
+									</tr>
+									<tr>
+										 <td >
+										     <input id="moduleEk"  class="joy-combobox joy-enum"  required="true"  label="lg:moduleEk"
+							                        databind="value:moduleEk,source:MODULE_EKEnum" style="width: 90%;"/>
+										 </td>
+										 <td>
+										
+										 </td>	 									
+									</tr>
+									<tr>										 										
+										 <td colspan="2">
+										   <textarea id="description" class="joy-textbox" required="true" maxByte="1024" label="lg:description"
+												    style="height:60px;width:95%;resize:none;" databind="value:description" ></textarea>		            
+										 </td>
+									</tr>
+									<tr>
+									    <td>
+									     <input  id="videoUpload" class="joy-upload"
+						                               databind="value:videoPath" multiple="false"  label="lg:uploadViedo"
+						                               type="file" complete="onVideoBaseSuccess" select="selectVideoFile" 
+						                               async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.web?action=uploadVideoFile&sourceCode=videoFile', removeUrl:'../../wl/cm/wlCmDocumentAction.web?action=deleteVideoFile'}"
+						                               allowType='mp4,webm,ogg' maxSize="50" />
+									    </td>
+									    <td>
+									     <input  id="picUpload" class="joy-upload"
+						                               databind="value:path" multiple="false"   label="lg:uploadPic"
+						                               type="file" complete="onPicBaseSuccess" select="selectPicFile"
+						                               async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.web?action=uploadFile&sourceCode=pictureFile', removeUrl:'../../wl/cm/wlCmDocumentAction.web?action=deleteFile'}"
+						                               allowType='jpg,png,gif' maxSize="1" />						                            
+									    </td>									
+									</tr>
+									<tr>
+									  <td>
+									      <div id="video">
+									      
+									      </div>
+									  </td>
+									  <td>
+									     <div id="custRepairImg">
+									      
+									     </div>
+									  </td>
+									</tr>
+									<!--
+									<tr>
+										<td colspan="2">		
+												   <textarea id="description" class="joy-textbox" required="true" maxByte="1024" label="lg:description"
+												    style="height:100px;width:100%;resize:none;" databind="value:description" ></textarea>		            
+										</td>
+									</tr>
+									  -->
+								</tbody>
+							</table>
+							<table width="90%" border="0" align="center" cellpadding="0"
+								cellspacing="0">
+								<tr>
+									<td height="50" align="right" valign="bottom">
+										<button class="joy-button" btnType="importantbtn" icon="tick"
+											onClick="saveData" label="lgc:save"></button>
+										<button class="joy-button  joy-window-close" icon="cancel"
+											onClick="editDivClose" label="lg:back"></button>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div>
+	<!--编辑结束-->
+
+    <!-- 详细跳转页 -->
+    <div id="detailDiv" >    
+	    <div class="editBody" >	    
+			<table id="detailTable" width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td style="width:100px;" class="joy-lang head" >
+						<span class="joy-lang" label="lg:baseInfo" style="line-height:25px;"></span>
+					</td>
+					<td  style="padding:5px" >
+					
+						<table width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:repairNo"></td>
+							<td width="230" class="joy-label" databind="value:repairNo"></td>
+							<td width="100" class="joy-lang head" label="lg:applyTime"></td>
+							<td width="230" class="joy-label"  dataFormat="yyyy-MM-dd  HH:mm:ss" databind="value:applyTime"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:moduleEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:MODULE_EKEnum,value:moduleEk"></td>
+							<td width="100" class="joy-lang head" label="lg:deviceCd"></td>
+							<td width="230" class="joy-label"    databind="value:deviceCd"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:receiver"></td>
+							<td width="230" class="joy-label" databind="value:receiver" ></td>
+							<td width="100" class="joy-lang head" label="lg:mobile"></td>
+							<td width="230" class="joy-label" databind="value:mobile"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:serialVerfEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:SERIAL_VERF_EKEnum,value:serialVerfEk"></td>
+							<td width="100" class="joy-lang head" label="lg:processStatusEk"></td>
+							<td width="230" class="joy-label joy-enum" databind="value:processStatusEk,source:PROCESS_STATUS_EKEnum"></td>
+						</tr>
+						</tbody>
+					</table>					
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:description"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px"   databind="value:description">
+						
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadPic"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<div id="picInfo" class="picInforTd" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadViedo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<div id="viedoInfo" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:handleInfo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">							                    
+							<table  width="100%" align="center"  border="0" cellspacing="0" cellpadding="0">
+								<tbody>
+									<tr height="25">
+										<td width="100" class="joy-lang head" label="lg:isReturnFlag"></td>
+										<td width="230" class="joy-label joy-enum" databind="value:isReturnFlag,source:YESORNOEnum" ></td>																				
+										<td width="15%" class="joy-lang head" label="lg:applyTime"></td>
+										<td width="35%" class="joy-label"></td>
+							        </tr>							        
+							        <tr height="25">							        
+										<td width="100" class="joy-lang head" label="lg:upkeep"></td>
+										<td width="230" class="joy-label" databind="value:upkeep" ></td>
+										<td width="15%" class="joy-lang head" label="lg:freight"></td>
+										<td width="230" class="joy-label" databind="value:freight" ></td>											
+							        </tr>							        
+							        <tr height="130">
+										<td width="15%" class="joy-lang head" label="lg:reply"></td>
+										<td colspan="3" style="padding:5px">
+										    <table align="center" id="replyGrid" class="joy-grid" sortable="false" reorderable="false"  resizable="false"
+															showPageControl="false"  height="120px"  >
+												<thead>
+													<tr>							
+														<th field="processStatusEk" align="center" enumData="PROCESS_STATUS_EKEnum" dataType="string" label="lg:process" ></th>
+														<th field="reply" dataType="string" label="lg:reply" ></th>
+														<th field="replyName" dataType="string" label="lg:replyName"></th>
+														<th field="replyTime" dataType="date" dataFormat="yyyy-MM-dd HH:mm" label="lg:replyTime"></th>														
+													</tr>							
+												</thead>
+											</table>
+										</td>										
+							        </tr>
+								</tbody>
+							</table>				
+					</td>
+				</tr>
+				
+			</table>
+		    <div class="layTwo_row_button" align="right" style="height:30px;padding-bottom:10px;">		        	
+				<button class="joy-button  joy-window-close" icon="cancel" label="lg:back" onClick="closeDetailWindow"></button>								
+		    </div>
+		</div>		
+    </div>       
+	<script type="text/javascript">
+	var lgc,lg,grid,initResult,dataForm,replyGrid,clickVideoDel,clickDel;
+	searchUrl="../../wl/es/WlEsAgencyRepairAction.agency?action=findDataList";
+	var myPicModels = new Array();
+	var myVideoModels = new Array();
+	$().ready(function(){
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();
+		dataForm = $("#dataForm").getJoyForm();
+		replyGrid = $("#replyGrid").getJoyGrid();
+		joy.getJSON("../../wl/es/WlEsAgencyRepairAction.agency?action=init",{enumTypes:['MODULE_EK','SERIAL_VERF_EK','PROCESS_STATUS_EK','YESORNO','PAYMENT_STATUS_EK','LOGISTIC_EK']},function(resultObject){		
+			 initResult = resultObject;	 
+
+			 var viewModel = joy.observable(initResult); 
+			 joy.bind($(".joy-smc,.joy-enum"), viewModel);	 
+			 grid.fetch(initResult,searchUrl); 
+			 clickVideoDel=lg.clickVideoDel;
+				 clickDel=lg.clickDel;
+			//为搜索条件下拉框绑定查询条件
+		    var modelData={};
+		    var searchEnum=new Array();
+		    //查询条件-维修单号
+		  	 var obj = new Object();
+		  	 obj.text=lg.repairNo;
+		  	 obj.value="repairNo";
+		  	 searchEnum.push(obj);
+		  	 //查询条件-设备编码
+		  	 obj=new Object();
+		  	 obj.text=lg.deviceCd;
+		  	 obj.value="deviceCd";
+		  	 searchEnum.push(obj);	       
+		  	 modelData.searchEnum=searchEnum;
+		  	 //joy.bind($("#keyId"), modelData);
+		  	 $("#keyId").getJoyComboBox().setDataSource(searchEnum);//使用setDataSource方式
+		  	
+		});
+	});
+	//查询售后维修信息
+	function searchOneData(){
+			var obj={};
+			obj.keyId = $("#keyId").getJoyComboBox().value();
+			obj.keyValue = $("#contentId").getJoyTextBox().value();
+			var paraMap=joy.getParaMap(obj);
+			grid.fetch(initResult,searchUrl,paraMap);
+	}
+	//打开新增窗口
+	function openAddWindow() {
+		$("#addTitle").html(lg.addTitle);
+		var height = $(window).height();
+		$("#editDiv").css({
+			"min-height" : height + "px",
+			"height" : "auto"
+		});
+		dataForm.load();
+		$("#custRepairImg").empty();
+		$("#video").empty();
+		 myPicModels = new Array();
+		 myVideoModels = new Array();
+		 videoCount=0;
+		 imgCount=0;
+		$("#editTitle").text(lg.editTitle);
+		$("#editDiv").show();
+		
+	}
+	//关闭编辑窗口
+	function editDivClose(){
+		$("#editDiv").hide();
+	}
+	//图片上传模块
+	var imgCount=0;//上传图片数量
+	var allowImgCount=5;
+	
+
+	//上传图片时触发事件
+	function selectPicFile(){ 
+			if(imgCount>=allowImgCount) return false;
+			else return true;
+	}
+	//上传图片成功触发事件
+	function onPicBaseSuccess(){
+		var id=$("#picUpload").getJoyUpload().value();
+		if(id != null &&$.trim(id) != ""){
+			if(imgCount>=allowImgCount)
+				{
+				joy.showMessage(lg.noMoreFivePic, "warning");
+					return;
+				}
+			var txt =  '<img title="'+clickDel+'"ondblclick="delPic($(this),\''+id+'\')" src="../../wl/cm/wlCmDocumentAction.web?action=downloadFile&id='+id+'"/>';
+			$("#custRepairImg").append(txt);
+			myPicModels[imgCount] = id;
+		       imgCount++;
+		}	
+		$("#picUpload").getJoyUpload()._reflash();
+	}
+	//删除图片
+	function delPic(picObj,path){	
+		joy.showMessageDialog(lg.delPic, "ok,cancel", function(e) {
+			if (e.btnName == "ok") {
+				joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=deleteFile",{id:path},function(){
+					index=picObj.index();//当前第几张图片，从0开始
+					imgCount--;//图片减少一张
+					//图片数组删除图片
+					for(var i=0;i<myPicModels.length-1;i++){ 
+						if(i>=index){
+							var obj = myPicModels[i+1];
+							myPicModels[i]=obj;
+						}
+					}
+					myPicModels.pop(); 
+					picObj.remove();
+				});
+			}
+		});
+	}
+	//视频上传模块
+	var videoCount=0;//上传视频数量	
+	var allowVideoCount=1;
+	
+
+	//上传视频时触发事件
+	function selectVideoFile(){ 
+			if(videoCount>=allowVideoCount) return false;
+			else return true;
+	}
+	//上传视频成功触发事件
+	function onVideoBaseSuccess(){		
+		var videoId=$("#videoUpload").getJoyUpload().value();
+		if(videoId != null &&$.trim(videoId) != ""){
+			if(videoCount>=allowVideoCount)
+				{
+				joy.showMessage("最多只能上传一个视频", "warning");
+					return;
+				}
+			joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=downloadVideoFile",{id:videoId},function(resultObject){
+				$("#video").empty();
+				resultObject="../../"+resultObject;				
+				var txt='<div style="float:left;width:300px;">';
+				  //txt+= '<embed title="'+clickVideoDel+'" style="width:90%;height:150px;"  src="'+resultObject+'" >';
+				  
+			   txt+= '<video autoplay="autoplay" controls="controls" height="150" width="90%">';
+			   txt+= '<source src="'+resultObject+'">';
+			   txt+= '</source>';
+				txt+= '<object width="90%" height="150" >';
+				 txt+= '<embed width="100%" height="100%" src="'+resultObject+'" />';
+				txt+= '</object>';
+				txt+= '</video>';
+				 
+				 txt+='<div title="'+clickVideoDel+'" style="width:90%;text-align:center;cursor:pointer;" ondblclick="delVideo($(this),\''+videoId+'\')">删除</div>';
+				  txt+='</div>';
+				$("#video").append(txt);
+				myVideoModels[videoCount] = videoId;
+				videoCount++;
+			});
+			
+		}	
+		$("#videoUpload").getJoyUpload()._reflash();
+	}
+	//删除视频
+	function delVideo(picObj,path){	
+				joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=deleteVideoFile",{id:path},function(){
+				index=picObj.parent().index();//当前第几个视频，从0开始
+				videoCount--;//视频减少一个
+					//视频数组删除视频
+					for(var i=0;i<myVideoModels.length-1;i++){ 
+						if(i>=index){
+							var obj =myVideoModels[i+1];
+							myVideoModels[i]=obj;
+						}
+					}
+					myVideoModels.pop(); 
+					picObj.parent().remove();
+				});
+	}
+	/**
+	 * 保存数据
+	*/
+	function saveData(buttonObject){
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		var submitda = dataForm.getDataModel().toJSON();
+		submitda.picPathList=myPicModels;
+		submitda.videoPathList=myVideoModels;
+		dataForm.load(submitda);
+		dataForm.submit("../../wl/es/WlEsAgencyRepairAction.agency?action=saveData", buttonObject,
+				function(resultObject) { 		
+			         editDivClose();
+			         buttonObject.enable(true);
+					joy.showMessage(lgc.opSuccess, "success");
+					grid.dataSource.fetch();
+		}); 	
+	}
+	//详细信息
+	function openDetailWindow(repairId){		
+		//获取信息		
+		joy.getJSON("../../wl/es/WlEsAgencyRepairAction.agency?action=getData",{repairId:repairId},function(resultObject){
+			
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#detailTable"), viewModel);
+
+			//回复信息			
+		    	replyGrid.load(initResult,resultObject.sugList);
+			//图片加载		
+			$(".imgDiv").remove();
+			for(var i=0;i<resultObject.picList.length;i++){
+					var ob=resultObject.picList[i];					
+					var txt='<div  class="imgDiv" ><img style="width:100%;height:100%;" src="../../wl/cm/wlCmDocumentAction.web?action=downloadFile&id='+ob.path+'" title="'+lg.showTitle+'"/></div>';					
+					$("#picInfo").append(txt);
+			}		
+			var lightBox=new myLightBox('picInfo',true,'src');
+			//视频加载		
+			$(".viedoDiv").remove();
+			for(var i=0;i<resultObject.videoList.length;i++){
+					var ob=resultObject.videoList[i];					
+					//var txt='<div  class="viedoDiv" ><embed style="width:100%;height:100%;" src="../../wl/cm/wlCmDocumentAction.do?action=downloadFile&id='+ob.path+'" title="'+lg.showTitle+'"/></div>';
+				joy.getJSON("../../wl/cm/wlCmDocumentAction.web?action=downloadVideoFile",{id:ob.path},function(resultObject){
+					//var txt='<div  class="viedoDiv" ><embed style="width:100%;height:100%;" src="../../'+resultObject+'"/></div>';
+							resultObject="../../"+resultObject;
+						var txt='<div  class="viedoDiv" >'; 
+					    txt+= '<video autoplay="autoplay" controls="controls" height="100%" width="100%">';
+					    txt+= '<source src="'+resultObject+'">';
+					    txt+= '</source>';
+						txt+= '<object width="100%" height="100%" >';
+						 txt+= '<embed width="100%" height="100%" src="'+resultObject+'" />';
+						txt+= '</object>';
+						txt+= '</video>';
+						txt+= '</div>';
+							$("#viedoInfo").append(txt);
+				});	
+					
+			}
+			var height=$(window).height();
+			$("#detailDiv").css({"min-height":height+"px","height":"auto"});			
+			$("#detailDiv").show();			
+		});
+	}
+	//关闭详细窗口
+	function closeDetailWindow(){
+		$("#detailDiv").hide();
+	}
+	</script>
+
+</body>
+</html>

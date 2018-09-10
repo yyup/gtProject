@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/info.wlEsFeeTemp.css" />
+
+</head>
+<body style="height:100%">
+  <div id="gridDiv">
+  	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+	    <button class="joy-button joy-smc" icon="plus" onClick="openAdd" label="lgc:add" dataBind="visible:ADDSmc" ></button>
+		<div id="searchForm" class="joy-form" style="float: right" layout="freedom" >
+					
+		</div>	
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid"  rowHeightFit="38">
+		<thead>
+			<tr>		
+				<th field="tempName" align="center" dataType="string" label="lg:tempName"" colWidth="75%"></th>
+			<th field=createTime dataFormat="yyyy-MM-dd HH:mm" dataType="date"  label="lg:createTime" colWidth="25%" ></th>				
+				<th colWidth="190px" templateType="button" align="center">
+					<button icon="pencil" smcBind="ADDSmc"  onClick="openEditWindow('#:tempId#')"
+						label="lgc:edit"></button>	
+					<button icon="close" onClick="deleteData('#:tempId#')"
+						smcBind="DELETESmc" label="lgc:delete"></button>								
+				</th>								
+			</tr>
+		</thead>
+	</table>	
+</div>	
+			<!--编辑开始-->
+	<div id="editDiv">
+		<div class="editBody">
+					<div id="editTitle" class="headTitle"></div>
+					 <form id="feeForm"  class="joy-form" >			
+						 <div class="layThree_row" style="display:table;">
+							<div class="layThree_row_f">
+							    <input id="tempName" label="lg:tempName" class="joy-textbox" style="width:30em" required="true"
+									databind="value:tempName">
+							</div>
+							 
+						</div>						
+					</form>
+					<div style="width:100%;float:left;margin-top:10px;">
+							 <!--
+							   <div id="sellId" class="joy-checkbox joy-enum" label="lg:sell"  required="true"  dataTextField="productName" dataValueField="sellId" databind="value:sellIds,source:sellEnum"></div> 						
+						     -->
+							     <div id="leftSell">
+							            <span class="selectSell">商品选择</span>
+								     <table id="leftSellGrid" class="joy-grid"  showPageControl="false"  height="300px" >
+								         <thead>
+										    	<tr>
+			                                         <th field="sellId" templateType="checkbox" colWidth="40px;"></th>
+													  <th field="productName" dataType="string"  label="lg:sell"	colWidth="100%"></th>
+											   </tr>
+							            </thead>
+			                         </table>	
+							     </div>
+							     <div id="middleControl" style="height:300px;position:relative;">
+							            <div style="position:absolute;top:25%;left:30%;">
+							           		 <button class="joy-button"  style="width:60px;" label="&gt" onClick="moveToRight"></button>
+                                         </div>
+                                          <div style="position:absolute;top:60%;left:30%;">
+							           		 <button class="joy-button"  style="width:60px;" label="&lt" onClick="moveToLeft"></button>
+                                         </div>
+							     </div>
+							     <div id="rightSell">
+							       <span class="hasSell">已选商品</span>
+							       <table id="rightSellGrid" class="joy-grid"  showPageControl="false"  height="300px" >
+								         <thead>
+										    	<tr>
+			                                         <th field="sellId" templateType="checkbox" colWidth="40px;"></th>
+													  <th field="productName" dataType="string"  label="lg:sell"	colWidth="100%"></th>
+											   </tr>
+							            </thead>
+			                         </table>	
+							     </div>
+						    </div>
+					<div style="margin-top:10px;float:left;">
+						<div class="k-page-toolbar">
+					 	  <button class="joy-button joy-smc" icon="plus" onClick="openAreaAddWindow" label="lg:addAreaFee"  ></button>
+					   </div>
+						<table id="rowGrid" class="joy-grid"  showPageControl="false"  height="300px" >
+						      <thead>
+							    	<tr>
+									    <th field="areaAttr" dataType="string"  label="lg:choiseArea"	colWidth="50%"></th>
+										  <th field="firstFee" dataType="string"  label="lg:firstFee"	colWidth="25%"></th>
+									 	  <th field="addFee" dataType="string"  label="lg:addFee"	colWidth="25%"></th>		
+									   	<th colWidth="190px" templateType="button" align="center">
+											<button icon="pencil" onClick="openAreaEditWindow('#:index#')"
+												label="lgc:edit"></button>
+											<button icon="close" onClick="deleteRow('#:index#')"
+												label="lgc:delete"></button>
+										</th>		
+								   </tr>
+					          </thead>
+		                </table>	
+		                <table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+							<tr>
+								<td height="50" align="right" valign="bottom">
+									<button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveData" label="lgc:save"></button>
+									<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel" onClick="editDivClose"></button>
+								</td>
+							</tr>
+					  </table>
+					</div>
+		   </div>
+	</div>
+	<!--编辑结束-->
+		
+ <div id="areaWindow" class="joy-window" center="true"
+		  title="" style="width:600px;display:table;" onclose="closeAreaWindow"> 
+		  <div>
+		  		<span class="joy-lang" label="lg:firstFee"></span>:
+		  		<input class="joy-numerictextbox" label="" id="firstFee" value=0" min="0" max="99999" style="width: 40%" databind="value:firstFee">
+		  		<span class="joy-lang" label="lg:addFee"></span>:
+		  		<input class="joy-numerictextbox" label="" id="addFee" value="0" min="0" max="99999" style="width: 40%" databind="value:addFeet">																	
+		  </div>
+		  <div class="province-list">
+			 <!--  <div class="ecity">
+			    	<span class="gareas">
+						<input id="J_Province_320000" class="J_Province allArea" hasselect="0" type="checkbox" value="320000" style="vertical-align:middle;">
+						<label for="J_Province_320000">江苏</label>
+						<span class="check_num">13</span>
+						<img class="trigger" src="//gtd.alicdn.com/tps/i1/T1XZCWXd8iXXXXXXXX-8-8.gif">
+					</span>
+					 <div class="citys">
+					    <span class="areas">
+							<input id="J_City_320100" hasselect="0"  class="J_City allArea" type="checkbox" value="320100" checked="checked">
+							<label for="J_City_320100">南京</label>
+						</span>
+						<span class="areas">
+							<input id="J_City_320100" hasselect="0" class="J_City" type="checkbox" value="320100" checked="checked">
+							<label for="J_City_320100">南京</label>
+						</span>
+						<span class="areas">
+							<input id="J_City_320100" hasselect="0" class="J_City" type="checkbox" value="320100" checked="checked">
+							<label for="J_City_320100">南京</label>
+						</span>
+							<span class="areas">
+							<input id="J_City_320100" hasselect="0" class="J_City" type="checkbox" value="320100" checked="checked">
+							<label for="J_City_320100">南京</label>
+						</span>
+							<span class="areas">
+							<input id="J_City_320100" hasselect="0"  class="J_City" type="checkbox" value="320100" checked="checked">
+							<label for="J_City_320100">南京</label>
+						</span>
+					    <span style="text-align:right;">
+						<input class="close_button" type="button" value="关闭">
+						</span>
+					 </div>
+			  </div>	 -->
+			  	
+		  </div>	  		  
+		  <table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveAreaData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" onClick="closeAreaWindow" icon="cancel" label="lgc:cancel"></button>
+					</td>
+				</tr>
+		</table>
+	</div>
+	
+
+			
+<script>
+
+var searchUrl="../../wl/es/WlEsFeeTempAction.do?action=search";
+var lgc,lg,areaWindow,feeRowDataSource,arriveAreaDataSource,rowGrid,initResult,firstFee,addFee,feeForm;
+var grid,leftSellGrid,rightSellGrid,orgSell=new Array(),leftSellDataSource,rightSellDataSource;
+$().ready(function(){
+	lgc = joy.getCommonLang();
+	lg = joy.getLang();
+	areaWindow= $("#areaWindow").getJoyWindow();
+	rowGrid=$("#rowGrid").getJoyGrid();
+	grid=$("#grid").getJoyGrid();
+	leftSellGrid=$("#leftSellGrid").getJoyGrid();
+	rightSellGrid=$("#rightSellGrid").getJoyGrid();
+	 firstFee=$("#firstFee").getJoyNumericTextBox();
+	 addFee=$("#addFee").getJoyNumericTextBox();
+	 feeForm=$("#feeForm").getJoyForm();
+	//数据初始化
+	joy.getJSON("../../wl/es/WlEsFeeTempAction.do?action=init", {
+		enumTypes : [ ]
+	}, function(resultObject) {
+		orgSell=resultObject.sellEnum;
+		initResult = resultObject;
+		//将后台action得到的枚举ENUM,和前台的databind的枚举,如果值相同进行绑定
+		var viewModel = joy.observable(initResult);
+		//测试veiwmodel
+		//alert(joy.stringify(viewModel));
+		joy.bind($(".joy-smc,.joy-enum"), viewModel); //class为smc enum时进行绑定
+		 grid.fetch(initResult,searchUrl); 
+		areaTreeBind();
+	});
+});
+//打开新增窗口
+function openAdd() {
+	var height = $(window).height();
+	$("#editDiv").css({
+		"min-height" : height + "px",
+		"height" : "auto"
+	});
+	leftSellDataSource=orgSell;//左边商品列表数组
+	rightSellDataSource=new Array();//右边商品列数组
+	leftSellGrid.load(initResult,leftSellDataSource);
+	rightSellGrid.load(initResult,rightSellDataSource);
+	feeForm.load();
+	feeRowDataSource=new Array();
+	 rowGrid.load(initResult,feeRowDataSource);
+	 $(".province-list input").attr("hasselect","0");//初始化地区都没被选择过
+	 $("#editTitle").html(lg.addTitle);
+		$("#editDiv").show();
+}
+/**
+ * 打开编辑窗口
+ */
+function openEditWindow(tempId){
+	joy.getJSON("../../wl/es/WlEsFeeTempAction.do?action=getData", {
+		tempId:tempId
+	}, function(resultObject) {
+		feeForm.load(resultObject.wlEsFeeTemp);
+		feeRowDataSource=resultObject.tempRowList;
+		initToHasSelect();//初始化被选择过的地区标明已选择过
+		rowGrid.load(initResult,feeRowDataSource);
+		var height = $(window).height();
+		$("#editDiv").css({
+			"min-height" : height + "px",
+			"height" : "auto"
+		});
+		editInitSell(resultObject.tempSellList);//右边商品列数组
+		$("#editTitle").html(lg.editTitle);
+		$("#editDiv").show();
+	});	
+}
+//编辑初始化左边树
+function editInitSell(rightSellList){
+	leftSellDataSource=orgSell;//左边商品列表数组
+	rightSellDataSource=rightSellList;
+	tempLeftSellDataSource=new Array();
+	  for(var i=0;i<leftSellDataSource.length;i++){
+		   leftObj=leftSellDataSource[i];
+		   isAdd=true;
+		   for(j=0;j<rightSellDataSource.length;j++){
+			   rightObj=rightSellDataSource[j];
+			   if(leftObj.sellId==rightObj.sellId){
+				   isAdd=false;
+				   break;
+			   }
+		   }
+		   if(isAdd){
+			   tempLeftSellDataSource[tempLeftSellDataSource.length]=leftObj;
+		   }
+		   
+	  }	
+	  leftSellDataSource=tempLeftSellDataSource;
+	leftSellGrid.load(initResult,leftSellDataSource);
+	rightSellGrid.load(initResult,rightSellDataSource);
+}
+//初始化被选择过的地区标明已选择过 
+function initToHasSelect(){
+	$(".province-list input").attr("hasselect","0");//初始化地区都没被选择过
+	var allAreaId="";
+	for(var i = 0;i<feeRowDataSource.length;i++){
+		allAreaId="";
+		feeRowDataSource[i].index = i;
+		aObj=feeRowDataSource[i].arriveAreaList;
+		for(var j=0;j<aObj.length;j++){
+			  aOb=aObj[j];
+			  $("[value="+aOb.areaId+"]").attr("hasselect","1");//用于标明地方已经选过
+			  allAreaId+=","+aOb.areaId;
+		}
+		feeRowDataSource[i].allAreaId=allAreaId.substr(1,allAreaId.length);	
+	}
+}
+//初始化地区选择树
+function areaTreeBind(){
+	var txt=''
+	close=lgc.close;
+	joy.getJSON("../../wl/es/WlEsFeeTempAction.do?action=getAreaTree", {
+	}, function(resultObject) {
+		for(var i=0;i<resultObject.items.length;i++){	
+			var ob=resultObject.items[i];
+			 txt=''
+			txt+='<div class="ecity">';
+			txt+='<span class="gareas">';
+			txt+='<input id="J_Province_'+ob.main.areaId+'" hasselect="0" class="J_Province allArea" type="checkbox" value="'+ob.main.areaId+'" style="vertical-align:middle;">';
+			txt+='<label for="J_Province_'+ob.main.areaId+'">'+ob.main.name+'</label>';
+			txt+='<span class="check_num"></span>';
+			txt+='<img class="trigger" src="../../style/prj/images/threeFlag.gif">';
+			txt+='</span>';
+			txt+='<div class="citys">';
+			for(var j=0;j<ob.items.length;j++){
+				var obs=ob.items[j];	
+				txt+='<span class="areas">';
+				txt+='<input id="J_City_'+obs.main.areaId+'"  hasSelect="0"  class="J_City allArea" type="checkbox" value="'+obs.main.areaId+'"  >';
+				txt+='<label for="J_City_'+obs.main.areaId+'">'+obs.main.name+'</label>';
+				txt+='</span>';										
+			}
+			txt+='<span style="text-align:right;display:block;padding-top:3px;">';
+			txt+='<input class="close_button" type="button" value="'+close+'">';
+			txt+='</span>';
+			txt+='</div>';	
+			txt+='</div>';
+			$(".province-list").append(txt);
+		}
+		//打开选择市小窗口
+		$(".trigger").click(function(){
+			$(".ecity").removeClass("showCityPop");
+			$(this).parent().parent().addClass("showCityPop");
+		});
+		//地址选择窗口关闭（市）
+		$(".close_button").click(function(){
+			$(".ecity").removeClass("showCityPop");
+		});
+		//省多选框被点击
+		$(".J_Province").click(function(){			
+			/*$(this).parent().next().children(".areas").each(function(){
+				$(this).find("input").prop("checked",true);//所有的多选框变成没选		
+			});*/
+			//用于判断是否已被选择过开始
+			 if($(this).prop("checked")){//如果是选中
+				   hasSelect=$(this).attr("hasselect");
+			       if(hasSelect=="1"){//如果已经选过，不能再选
+			    	   joy.showMessage($(this).next().html()+lg.areaHasChoise, "warning");
+			    	   $(this).prop("checked",false);//取消选择
+			       }else{//允许选择		    	    
+			    	      hasSelectNum=$(this).parent().next().find(".areas").find("input[hasselect=1]").size();//已被选择的数量
+			    	     checkedNum=$(this).parent().next().find(".areas").find("input:checked").size();//本记录行已勾选的数量
+			    	     if(hasSelectNum==checkedNum){//说明勾选的市都是本记录行勾选的
+			    	    	 $(this).attr("hasselect","1");//变成选择过
+			    	    	 $(this).parent().next().find(".areas").find("input").attr("hasselect","1");//该省下的市变成选择过
+			    	    	 $(this).parent().next().find(".areas").find("input").prop("checked",this.checked);//该省下市全部选中
+			    	     }else{//已被选择的市并非都是都在本记录行里面
+			    	    	 joy.showMessage($(this).next().html()+lg.cityHasChoise, "warning");
+			    	    	  $(this).prop("checked",false);//取消选择
+			    	     }			     			       
+			       }			
+			 }else{//如果是取消
+				     $(this).attr("hasselect","0");//取消选择
+					$(this).parent().next().find(".areas").find("input").attr("hasselect","0");//该省下的市变成未被选择过
+					 $(this).parent().next().find(".areas").find("input").prop("checked",this.checked);
+			 }									
+		});	
+		//市多选框被点击
+		$(".J_City").click(function(){	
+			if($(this).prop("checked")){//如果是选中
+				  hasSelect=$(this).attr("hasselect");
+				  if(hasSelect=="1"){//如果已经选过，不能再选
+					  joy.showMessage($(this).next().html()+lg.areaHasChoise, "warning");
+			    	   $(this).prop("checked",false);//取消选择
+				  }else{
+					  $(this).attr("hasselect","1");//变成选择过
+				  }
+			}else{
+				 $(this).attr("hasselect","0");//取消选择
+			}
+			cityNum=$(this).parent().parent().find(".areas").children("input").size();//同级别市的总数量
+			citySelectNum=$(this).parent().parent().find(".areas").children("input:checked").size();//同级别市的被选中总数量
+			if(cityNum==citySelectNum){//如果该市上级省下的市全部被选中
+				$(this).parent().parent().prev().children("input").prop("checked",true);
+				$(this).parent().parent().prev().children("input").attr("hasselect","1");			
+			}else{//市没有被全部选中，省取消
+				$(this).parent().parent().prev().children("input").prop("checked",false);
+				$(this).parent().parent().prev().children("input").attr("hasselect","0");
+			}
+		});	
+	});
+	
+}
+/*$(document).on("click", ".J_Province", function(){
+});*/
+//打开新增地区运费接口
+var curIndex="";
+function openAreaAddWindow(){
+	areaWindow.open();
+	areaWindow.center();
+	areaWindow.title(lgc.add);
+	$(".province-list input").prop("checked",false);//所有的多选框变成没选
+	arriveAreaDataSource=new Array();
+	curIndex=feeRowDataSource.length;
+	 firstFee.value(0);
+	    addFee.value(0);
+}
+//打开新增地区运费编辑窗口
+function openAreaEditWindow(index){
+	obj=feeRowDataSource[index];
+	arriveAreaDataSource=obj.arriveAreaList;
+	curIndex=index;
+    firstFee.value( obj.firstFee);
+    addFee.value(obj.addFee);
+    $(".province-list input").prop("checked",false);//所有的多选框变成没选
+	  for(var i=0;i<arriveAreaDataSource.length;i++){
+		  ob=arriveAreaDataSource[i];
+		  $("[value="+ob.areaId+"]").prop("checked",true);
+	  }
+	areaWindow.open();
+	areaWindow.center();
+	areaWindow.title(lgc.edit);
+
+}
+//地址多选框确定
+function saveAreaData(buttonObject){
+	 //如果一个都没选
+	    if( $(".province-list input:checked").size()==0){
+			joy.showMessage(lg.pleaseChoiseArea,"warning");
+			buttonObject.enable(true);
+			return;
+	    }
+	  var areaAttr="";
+	  if($(".J_Province").size()==$(".J_Province:checked").size()){//选中全国
+		  areaAttr=lg.national;
+	   }
+	  var allAreaId="";//用，隔开，用于后端判断商品到底这些地区的运费是否已存在
+	  arriveAreaDataSource=new Array();
+	  $(".province-list input:checked").each(function(index){
+			//构造选中的地区字符串，用逗号给开
+			if(areaAttr!=lg.national){
+				if($(this).attr("class")=="J_Province"){//如果是省份
+					areaAttr+=","+$(this).next().html();
+				}else{//如果是市
+					if(!$(this).parent().parent().prev().children("input").prop("checked")){//如果省份被没被选中,则添加					
+						areaAttr+=","+$(this).next().html();
+					}
+				}
+			}
+			var obj=new Object();
+			obj.areaId=$(this).attr("value");
+			obj.name= $(this).next().html();
+			allAreaId+=","+$(this).attr("value");
+			arriveAreaDataSource[index]=obj;
+	});
+	//构造结果值用于显示
+	areaAttr=areaAttr.substr(1,areaAttr.length);
+	if(areaAttr.length>32){
+		areaAttr=areaAttr.substr(0,30)+"...";
+	}
+	obj=new Object();
+	obj.areaAttr=areaAttr;
+    obj.arriveAreaList=arriveAreaDataSource;
+    obj.index=curIndex;
+    obj.allAreaId=allAreaId.substr(1,allAreaId.length);
+    obj.firstFee=firstFee.value();
+    obj.addFee=addFee.value();
+    feeRowDataSource[curIndex]=obj;
+    rowGrid.load(initResult,feeRowDataSource);
+    areaWindow.close();
+}
+/**
+ * 删除行
+ */
+function deleteRow(index){ 
+	joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+		if (e.btnName == "ok") {			
+			aObj=feeRowDataSource[index].arriveAreaList;
+			for(var j=0;j<aObj.length;j++){
+				  aOb=aObj[j];
+				  $("[value="+aOb.areaId+"]").attr("hasselect","0");//被此行选择过的恢复为未选择状态
+			}
+			for(var i=0;i<feeRowDataSource.length-1;i++){ 
+				if(i>=index){
+					var obj = feeRowDataSource[i+1];
+					obj.index = i;
+					feeRowDataSource[i]=obj;
+				}
+			}
+			feeRowDataSource.pop();   	   
+			 rowGrid.load(initResult,feeRowDataSource);
+		}
+	});
+	
+ 
+}
+//保存数据
+function saveData(buttonObject){	
+	buttonObject.enable(false);
+	if (!feeForm.validate()) {
+		joy.showMessage(lgc.validateFaile, "warning");
+		buttonObject.enable(true);
+		return;
+	}
+	if(feeRowDataSource.length==0){
+		joy.showMessage(lg.pleaseAddAreaFee, "warning");
+		buttonObject.enable(true);
+		return;
+	}
+	if(rightSellDataSource.length==0){
+		joy.showMessage(lg.selectSell, "warning");
+		buttonObject.enable(true);
+		return;
+	}
+	
+	var sellIds="";
+	for(var i=0;i<rightSellDataSource.length;i++){
+		obj=rightSellDataSource[i];
+		sellIds+=","+obj.sellId;
+	}
+	sellIds=sellIds.substr(1,sellIds.length);
+	var submitda =feeForm.getDataModel().toJSON();
+	submitda.feeTempRow=joy.stringify(feeRowDataSource);
+	submitda.sellIds=sellIds;
+	feeForm.load(submitda);
+	feeForm.submit("../../wl/es/WlEsFeeTempAction.do?action=saveData",
+	     		buttonObject, function(resultObject) {		
+		         grid.dataSource.fetch();
+				joy.showMessage(lgc.opSuccess, "success");
+				editDivClose();
+			});
+}
+//关闭编辑窗口
+function editDivClose(){
+	initToHasSelect();
+	$("#editDiv").hide();
+}
+//关闭打开的地区窗口后执行
+function closeAreaWindow(){
+	initToHasSelect();
+}
+//删除数据
+function deleteData(tempId) {
+		joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+			if (e.btnName == "ok") {
+				joy.getJSON("../../wl/es/WlEsFeeTempAction.do?action=deleteData",{tempId:tempId}, function(resultObject) {															
+					       grid.dataSource.fetch();
+						  joy.showMessage(lgc.opSuccess, "success");
+						});
+			}
+		});
+}
+//移到右边
+function moveToRight(){
+	//leftSellDataSource rightSellDataSource
+	leftSellIds=leftSellGrid.getChecked();//左边勾选的商品
+	if (leftSellIds == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+		return ;
+	} 
+	var tempLeftSellDataSource=new Array();	//用于暂存左边剩余商品
+	   for(i=0;i<leftSellDataSource.length;i++){
+		   leftObj=leftSellDataSource[i];
+		   isMove=false;//商品是否需要移到做右边
+		   for(var j=0;j<leftSellIds.length;j++){
+			  sellId=leftSellIds[j];
+			  if(leftObj.sellId==sellId){//需要移动
+				  isMove=true;
+				  rightSellDataSource[rightSellDataSource.length]=leftObj;
+				  break;
+			  }
+		   }
+		   if(!isMove){
+			   tempLeftSellDataSource[tempLeftSellDataSource.length]=leftObj;
+		   }
+	   }
+	   leftSellDataSource=tempLeftSellDataSource;//将剩余的左边商品付给左边数组
+	   leftSellGrid.load(initResult,leftSellDataSource);
+	  rightSellGrid.load(initResult,rightSellDataSource);
+}
+//移到左边
+function moveToLeft(){
+	   rightSellIds=rightSellGrid.getChecked();//右边勾选的商品
+	if (rightSellIds == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+		return ;
+	} 
+	var tempRightSellDataSource=new Array();	//用于暂存右边剩余商品
+	   for(i=0;i<rightSellDataSource.length;i++){
+		   rightObj=rightSellDataSource[i];
+		   isMove=false;//商品是否需要移到做左边边
+		   for(var j=0;j<rightSellIds.length;j++){
+			  sellId=rightSellIds[j];
+			  if(rightObj.sellId==sellId){//需要移动
+				  isMove=true;
+				  leftSellDataSource[leftSellDataSource.length]=rightObj;
+				  break;
+			  }
+		   }
+		   if(!isMove){
+			   tempRightSellDataSource[tempRightSellDataSource.length]=rightObj;
+		   }
+	   }
+	   rightSellDataSource=tempRightSellDataSource;//将剩余的右边商品付给右边数组
+	   leftSellGrid.load(initResult,leftSellDataSource);
+	  rightSellGrid.load(initResult,rightSellDataSource);
+}
+</script>
+</body>
+</html>

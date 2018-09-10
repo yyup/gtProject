@@ -1,0 +1,62 @@
+ #loginBody{width:100%;}
+#loginContainer{
+ margin:20px auto;
+ display:table;
+ width:1000px;
+ background:#B8B8B8;
+ height:578px;
+}
+#loginContent{
+   margin:70px auto;
+   width:500px;
+   min-height:260px;
+}
+#loginForm p{
+	display:table;
+	margin-top:10px;
+   
+ }
+ #loginForm label{
+   height:26px;display:block;float:left;width:65px;text-align:right;padding-right:5px;
+ } 
+ #personAccount{
+    float:right;
+ }
+ #loginForm input{
+    line-height: 22px;
+  padding:3px;
+  width:280px;
+ }
+#login{
+    background:url('../images/login.png');
+    float: left;
+    height: 25px;
+    margin-left: 65px;
+    margin-top: 8px;
+    width: 53px;
+    cursor:pointer;  
+}
+#register{
+     border-bottom: 1px solid;
+    
+    float: left;
+    font-size: 13px;
+    line-height: 22px;
+    margin-left: 10px;
+    margin-top: 8px;
+    width: 26px;
+}
+#register a{
+	text-decoration: none;
+	color: #333333;
+}
+#forgetPassword{
+     color: #0066ff;
+    float: right;
+    font-size: 13px;
+    line-height: 22px;
+    margin-top: 10px;
+    padding-left: 65px;
+    text-decoration: underline;
+    width: 88%;
+}

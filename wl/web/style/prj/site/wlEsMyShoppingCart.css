@@ -1,0 +1,189 @@
+  #personCarBody{width:100%;}
+
+
+#personCarContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#personCarMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#personCarMenu{
+float:left;width:230px;min-height:670px;
+}
+#personCarContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.personCarTitle{
+width:175px;height:38px;margin:0 auto;margin-top:20px;background: url("../images/accountInfo.png") ;
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px;}
+.item p:not(.itemTitle){padding-bottom:4px;
+ }
+ .item a{
+    color:#000;
+	text-decoration:none;
+ }
+ 
+ #personCarList{
+    margin-top: 20px;
+	display:table;
+	  list-style: outside none none;
+    width: 730px;
+	background:#fff;
+	margin-left:10px;
+ }
+
+.body-checkbox {
+    margin-left: 8px;
+	 cursor: pointer;
+    float: left;
+}
+
+.carImg{line-height:95px; position: relative;float:left;
+}
+.carImg img{width:150px;height:94px;display:block;
+position: absolute; top:20px; border:1px solid #787878;
+}
+
+.carProductName{ width:148px;float:right; display:table;
+}
+.carProductNameContent{
+  display:table-cell;
+   vertical-align:middle;
+   word-wrap:break-word;
+    word-break: break-all;
+}
+.body-checkbox,#carList .carItem,.body-checkbox,.carProductName,.carImg,.carProductPrice{height:126px;}
+#carList li{list-style:none;display:table;border-right:1px solid #535353;width:100%;}
+#carList .carItem{float:left;border-top:1px solid #535353;text-align:center;display:table;
+}
+
+#carList .carItem{float:left;width:95px;border-top:1px solid #535353;text-align:center;
+}
+#carList  .firstCarItem,#carHeadList .firstCarItem{width:30px;
+}
+
+#carList  .secondCarItem,#carHeadList .secondCarItem{width:330px;
+}
+
+#carList  .fourCarItem,#carHeadList .fourCarItem{width:120px;
+}
+
+#carList  .lastCarItem,#carHeadList .lastCarItem{width:68px;}
+#carList .firstCarItem{border-left:1px solid #535353;}
+
+.verticalCenter{
+    display:table-cell;
+	vertical-align:middle;
+	word-break:break-all;
+}
+.carProductNumValue{
+    color: #abacae;
+    float: left;
+    font-size: 0.9em;
+    line-height: 40px;
+    padding-left: 1px;
+    width: 118px;
+	margin-top:56px;
+}
+.carReduce{
+     color:#A5A5A5;
+	 background-color:#D2D2D2;
+    border: 1px solid #000;
+	border-right:none;
+    float: left;
+	font-size:24px;
+    height: 15px;
+	line-height:11px;
+    padding: 3px;
+	text-align:center;
+    width: 20px;  
+	cursor:pointer;
+
+
+
+}
+.carNumber{
+    float: left;
+    height: 21px;
+    line-height: 20px;
+    text-align: center;
+    width: 60px;
+	border-top:1px solid #000;
+   border-bottom:1px solid #000;
+   background:#fff;
+   cursor:pointer;
+   border-left:#000;
+   border-right:#000;
+	}
+
+.carAdd{
+	 color:#303030;
+	background-color:#8C8C8C;
+     border: 1px solid #000;
+	border-left:none;
+    float: left;
+	font-size:24px;
+    height: 15px;
+	line-height:15px;
+    padding: 3px;
+	text-align:center;
+    width: 20px;
+	cursor:pointer;
+	}
+
+#carHeadList{
+width:99.9%; list-style:none;  border-left:1px solid #535353;border-right:1px solid #535353;
+    display: table;border-top:1px solid #535353;
+}
+#carHeadList li{float:left;width:94px;text-align:center;height:40px;line-height:40px;}
+.head-checkbox{width:30px;margin-top:14px; cursor: pointer;
+    float: left;}
+
+
+
+.carFooter{ 
+	width: 739px;
+}
+
+#carFooterList{
+width:740px; list-style:none;color:#fff;
+}
+#carFooterList li{float:left;}
+#carFooterList .firstLi{width:609px;background:#242424;font-size:20px;padding-top:12px;padding-bottom:12px;padding-right:26px;
+text-align:right;}
+#goShopping{
+    display: table;
+    float: left;
+    margin-left: 30px;
+    text-align: left;
+}
+#goShopping a{
+ color:#fff;
+}
+#carFooterList .secondLi{width:80px;background:#E01A00;text-align:center;font-size:20px;border-right:1px solid #E01A00;
+letter-spacing:4px;padding:12px;}
+
+.sellWarning {
+    background: #858585 none repeat scroll 0 0;
+    border: 1px solid #000;
+    color: #fcec03;
+    float: left;
+    margin-top: 2px;
+    padding: 0 25px;
+}

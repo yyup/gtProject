@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/wm.wlWmInventoryQuery.css" />
+
+</head>
+<body> 
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar"> 
+		<div id="searchForm" class="joy-form" style="float: right"
+			layout="freedom">									  							
+			 <input id="txt_search" class="joy-textbox" style="width: 160px;" maxByte="20">				
+			<button class="joy-button" icon="search" onClick="searchQuery"
+				label="lgc:search"></button>			
+		</div>
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid"  rowHeightFit="38">
+		<thead>
+			<tr>  
+				<th field="itemCd" dataType="string" label="lg:itemCd" colWidth="20%"></th> 
+				<th field="itemName" dataType="string"  label="lg:itemName"	colWidth="30%"></th>  
+				<th field="spec" dataType="string"  label="lg:spec" colWidth="15%"></th>   
+				<th field="baseUnitName" dataType="string" label="lg:baseUnitName" align="center" colWidth="20%"></th>   
+				 <th field="baseUnitQty" dataType="string" label="lg:baseUnitQty" align="right" colWidth="15%"></th>   
+			</tr>
+		</thead>
+	</table>
+
+
+</body>
+<script>
+	var searchForm, grid, initResult, lgc, lg,txt_search;
+	var searchUrl="../../wl/wm/WlWmSafeInventoryQueryAction.agency?action=search";
+	
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();		
+		searchContent =lg.searchContent;
+		$("#txt_search").attr("placeholder",searchContent);
+		txt_search=$("#txt_search").getJoyTextBox();
+		//数据初始化
+		joy.getJSON("../../wl/wm/WlWmSafeInventoryQueryAction.agency?action=init",{enumTypes:[]},function(resultObject) {
+			initResult = resultObject;
+		    var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+	        searchQuery();
+		});
+	})
+/**
+	 * 搜索数据(查询)*/
+		function searchQuery(){			
+			var obj=new Object();
+			obj.content=txt_search.value();
+	        grid.fetch(initResult, searchUrl, obj);
+		}
+	
+</script>
+</html>

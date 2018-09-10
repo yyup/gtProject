@@ -1,0 +1,255 @@
+#generateOrdersBody{width:100%;}
+.carBodyContainer{background:#fff;width:1000px; margin:20px auto;
+	display: table;
+  }
+#generateOrdersBody{
+   margin-top:20px;
+   margin-bottom:20px;
+    min-height:578px;
+ 
+}
+#generateOrdersListContainer,#goodsListContainer,#orderFooter{
+		display:table;
+	 margin:0 auto;
+	width:1000px;
+	background:#B8B8B8;
+}
+
+#generateOrdersListContainer{
+   
+   padding-bottom:30px;
+}
+#generateOrdersList{
+ list-style:none;
+}
+em {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+#generateOrdersTitle{
+   display: table;
+    width: 100%;
+}
+#generateOrdersFirstTitle,h3{
+   float: left;
+    font-size: 14px;
+    font-weight: 700;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 120px;
+}
+#management{
+   float: right;
+    padding-top: 10px;
+    width: 120px;
+     font-weight: 700;
+	 font-size: 14px;
+}
+#generateOrdersList label{
+ word-break: break-all;
+    word-wrap: break-word;
+}
+#generateOrdersList li{
+  display:table;
+  font-size:15px;
+  margin-left:15px;
+}
+.marker-tip{
+     display: block;
+	  color: #f50;
+    font-weight: 700;
+	float:left;
+	width:70px;
+	text-align: center;
+
+}
+.address{
+ margin-left:70px;
+ width:900px;
+}
+.active{
+ border:1px solid #FF5500;
+  padding-top:10px;
+  padding-bottom:10px;
+   font-weight:bold;
+ 
+}
+
+
+
+
+#carHeadList{
+width:1000px; list-style:none;
+}
+#carHeadList li{float:left;width:125px;text-align:center;}
+
+.head-checkbox{width:30px;margin-top:6px;  cursor: pointer;
+    float: left;}
+
+.carBodyList{
+width:1000px; list-style:none;
+}
+.verticalCenter{
+    display:table-cell;
+	vertical-align:middle;
+	word-break:break-all;	
+}
+.carBodyList .item{float:left;width:125px;border-top:1px solid #535353;text-align:center;display:table;
+}
+
+
+.carBodyList .item,.body-checkbox,.carProductName,.carImg,.carProductPrice{height:136px;}
+.carImg{line-height:95px; position: relative;float:left;margin-left:15px;
+}
+.carImg img{width:150px;height:94px;display:block;
+position: absolute; top: 20px;border:1px solid #787878;
+}
+
+.carProductName{ width:250px;float:right; display:table;
+}
+.carProductNameContent{
+  display:table-cell;
+   vertical-align:middle;
+   word-wrap:break-word;
+   word-break: break-all;
+}
+.body-checkbox{
+  margin-left:8px;
+    cursor: pointer;
+    float: left;
+}
+
+#carHeadList  .firstItem,.carBodyList  .firstItem{width:500px;}
+
+.carProductNumValue{
+    color: #abacae;
+    float: left;
+    font-size: 0.9em;
+    line-height: 40px;
+    padding-left: 1px;
+    width: 118px;
+	margin-top:56px;
+}
+.carReduce{
+     color:#A5A5A5;
+	 background-color:#D2D2D2;
+    border: 1px solid #000;
+	border-right:none;
+    float: left;
+	font-size:24px;
+    height: 15px;
+	line-height:11px;
+    padding: 3px;
+	text-align:center;
+    width: 20px;
+
+}
+.carNumber{
+    float: left;
+    height: 21px;
+    line-height: 20px;
+    text-align: center;
+    width: 60px;
+	border-top:1px solid #000;
+   border-bottom:1px solid #000;
+   background:#fff;
+   border-left:#000;
+   border-right:#000;
+	}
+
+.carAdd{
+	 color:#303030;
+	background-color:#8C8C8C;
+     border: 1px solid #000;
+	border-left:none;
+    float: left;
+	font-size:24px;
+    height: 15px;
+	line-height:15px;
+    padding: 3px;
+	text-align:center;
+    width: 20px;}
+.operation{
+ display:table;
+}
+
+
+
+/*商品列表*/
+
+#goodsList{
+	display:table;
+}
+#order-extra{
+
+    display:table;
+   margin:0 auto;
+   width:1000px;
+   background:#B8B8B8;
+
+}
+
+.memo-input{
+    color: #aaa;
+    height: 70px;
+	resize: none;
+    width: 394px;
+	overflow: auto;
+    vertical-align: top;
+	border: 1px solid #8ab6dd;
+	font-size: 100%;
+}
+textarea:focus{
+  outline:0 none;
+}
+#orderFooterLeft{
+  float: left;
+    width: 500px;
+    padding-left:10px;
+}
+#orderFooterRight{
+     float: left;
+    width: 490px;
+}
+#orderPrice,#orderResultContainer{
+text-align: right;
+padding-right:50px;
+}
+#orderPrice span {
+    color: #e50112;
+    font: 700 20px tahoma;
+}
+
+#orderResultContainer span {
+    color: #e50112;
+    font: 700 27px tahoma;
+}
+#nextStep{
+   width:68px;
+    height:31px;
+    float: right;
+    margin-right: 100px;
+   background: url("../images/nextStep.png");
+   cursor:pointer;
+}
+.messageActive{
+ border-color:#ffad35;
+ color:#000;
+}
+
+#noAddress {
+    text-align: center;
+}
+.submitOrderContainer{
+  margin-top:10px;
+}
+.sellWarning{
+	background:#858585;
+	border:1px solid #000;
+	color:#fcec03;
+	float:left;
+	padding:0 25px;
+	margin-top:2px;
+}

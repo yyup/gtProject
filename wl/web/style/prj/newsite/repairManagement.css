@@ -1,0 +1,93 @@
+h1 {
+	margin-bottom: 40px;
+}
+
+.radio label {
+	margin-top: 6px;
+	word-wrap: break-word;
+}
+
+.divForm {
+	max-width: 584px;
+	margin-top: 50px;
+}
+
+.labelSize {
+	font-size: 18px;
+	margin-top: 3px;
+}
+
+.pTip {
+	color: #898989;
+	line-height: 8px;
+}
+#custRepairImg img{
+	width:100px;
+	height:100px;
+	margin:15px 15px 0 0;
+}
+.inputFile {
+	color: white;
+	background-color: black;
+	height: 32px;
+}
+
+.selectClass {
+	color: black;
+	font-size: 15px;
+}
+
+.text-color {
+	color: #808080;
+}
+
+
+.tableValue {
+	width: 240px;
+	height: 35px;
+}
+
+.form-group label {
+	font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+	.col-md-6 {
+		text-align: center;
+	}
+}
+
+.sureAndBack {
+	margin-top: 50px;
+	background: #111111;
+	color: white;
+	width: 105px;
+	height: 35px;
+}
+
+.radio div {
+	margin-top: 6px;
+	min-height: 20px;
+	padding-left: 20px;
+	margin-bottom: 0;
+	font-weight: 400;
+	cursor: pointer;
+}
+.selectcss {
+	height: 35px;
+    width: 60%;
+}
+.accountcss {
+	margin-top: 5px;
+}
+.uploadbtcss {
+	margin-top:14px;
+}
+.k-button{
+	background:#111;
+	color:white;
+}
+.k-button:hover{
+	border-color: transparent;
+	background:#111;
+}

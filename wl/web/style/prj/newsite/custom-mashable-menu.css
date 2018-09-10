@@ -1,0 +1,6173 @@
+/* GOOGLE FONT */
+@import url("http://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic");
+/* FONT AWESOME ICONS CSS */
+@import url(/css/font-awesome.min.css);
+/* BOOTSTRAP CSS ONLY FOR MENU */
+@import url(/style/prj/newsite/bootstrap.min.css);
+/*================================================ MENU BASIC STYLE */
+.mash-menu {
+  padding: 0;
+  display: block;
+  position: relative;
+  z-index: 999;
+  float: none;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+}
+
+nav img {
+	width:100%;
+}
+nav a {
+	text-transform: uppercase;
+}
+#logo-main-2 img {
+	
+    margin-left: 32%;
+    padding-top: 75px;
+    width: 35%;
+}
+}
+
+
+@media screen and (max-width: 767px) {
+  .mash-menu {
+    float: left;
+    width: 100%;
+  }
+}
+
+.mash-menu * {
+  /*=========================================== CSS FOR ALL ELEMENTS */
+  outline: none !important;
+  text-decoration: none !important;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  list-style: none;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent !important;
+}
+
+.mash-menu i.fa {
+  /*===================================== FONT AWESOME ICONS */
+  font-family: FontAwesome;
+}
+
+.mash-menu section.mash-menu-inner-container {
+  /*=========================================== SECTION */
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  min-height: 50px;
+  background: white;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu section.mash-menu-inner-container {
+    min-height: 1px;
+  }
+}
+
+.mash-menu .mash-brand, .mash-menu .mash-list-items {
+  /*=========================================== MENU BRAND */
+  margin: 0;
+  padding: 0;
+  display: block;
+  float: left;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-brand, .mash-menu .mash-list-items {
+    width: 100%;
+  }
+}
+
+.mash-menu .mash-brand > li, .mash-menu .mash-list-items > li {
+  float: left;
+  margin: 0;
+  padding: 0;
+  display: block;
+  line-height: 57px;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .mash-brand > li:hover > a, .mash-menu .mash-list-items > li:hover > a {
+    color: black;
+    background: white;
+    position: relative;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-brand > li, .mash-menu .mash-list-items > li {
+    width: 100%;
+    text-align: left;
+    line-height: normal;
+    cursor: pointer;
+    position: relative;
+  }
+}
+
+.mash-menu .mash-brand > li > a, .mash-menu .mash-list-items > li > a {
+  width: 100%;
+  margin: 0;
+  display: block;
+  font-size: 1.125em;
+  font-weight: 400;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: black;
+  position: relative;
+  overflow: hidden;
+  transition: background 200ms ease;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-brand > li > a, .mash-menu .mash-list-items > li > a {
+    line-height: normal;
+    word-wrap: break-word;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+}
+
+.mash-menu .mash-brand > li > a img, .mash-menu .mash-list-items > li > a img {
+  max-height: 20px;
+  top: -3px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+.mash-menu .mash-list-items {
+  /*============================================== LIST ITEMS  */
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .mash-list-items {
+    display: block !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-list-items {
+    padding-top: 44px;
+    
+  }
+}
+
+.mash-menu .mash-list-items > li {
+  line-height: normal;
+  cursor: default;
+}
+
+.mash-menu .mash-list-items > li:after {
+  display: none;
+}
+
+.mash-menu .mash-list-items > li.active {
+  /*=========================================== LIST ITEMS ACTIVE */
+}
+
+.mash-menu .mash-list-items > li.active > a {
+  background: #14b4fc;
+  position: relative;
+}
+
+.mash-menu .mash-list-items > li:hover {
+  /*============================================ LIST ITEMS HOVER */
+}
+
+.mash-menu .mash-list-items > li:hover > a {
+  color: black;
+  background: white;
+  position: relative;
+}
+
+.mash-menu .mash-list-items > li > a {
+  font-size: 0.875em;
+  padding: 20px 15px;
+  font-weight: 800;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  z-index: 10;
+  width: 100%;
+  transition: background 200ms ease;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-list-items > li > a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .mash-menu .mash-list-items > li > a:after {
+    display: none;
+  }
+}
+
+.mash-menu .mash-list-items.right {
+  /*=============================================== RIGHT CLASS */
+  float: right;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-list-items.right {
+    padding-top: 0;
+  }
+}
+
+.mash-menu .mash-list-items.right > li > .drop-down {
+  right: 0;
+}
+
+.mash-menu .withripple {
+  /*================================================= RIPPLE CSS EFFECT  */
+  position: relative;
+}
+
+.mash-menu .ripple-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.mash-menu .ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: -10px;
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.05);
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  -webkit-transform-origin: 50%;
+      -ms-transform-origin: 50%;
+          transform-origin: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mash-menu .ripple.ripple-on {
+  transition: opacity 0.15s ease-in 0s, -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  transition: opacity 0.15s ease-in 0s, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  transition: opacity 0.15s ease-in 0s, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s, -webkit-transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+  opacity: .2;
+}
+
+.mash-menu .ripple.ripple-out {
+  transition: opacity .1s linear 0s !important;
+  opacity: 0;
+}
+
+.mash-menu.separator {
+  /*================================================ SEPARATOR */
+}
+
+.mash-menu.separator .mash-brand > li > a, .mash-menu.separator .mash-list-items > li > a {
+  border-right: none;
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1) inset, 1px 0 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu.separator .mash-brand > li > a, .mash-menu.separator .mash-list-items > li > a {
+    border-right: none;
+    border-bottom: 1px solid #039fe5;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+.mash-menu.separator .mash-list-items.right {
+  padding-top: 0;
+}
+
+.mash-menu.separator .mash-list-items.right > li > a {
+  border-left: 1px solid #039fe5;
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1) inset, 1px 0 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu.separator .mash-list-items.right > li > a {
+    border-left: none;
+    border-bottom: 1px solid #039fe5;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu.separator .mash-search-bar {
+    border: 1px solid #039fe5;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1) inset, 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+.mash-menu .drop-down {
+  /*=============================================== DROP DOWN */
+  margin: 0;
+  display: none;
+  position: absolute;
+  top: auto;
+  left: auto;
+  right: auto;
+  background: white;
+  z-index: 999;
+  min-width: 180px;
+  padding: 0;
+  box-shadow: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  text-align: left;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .drop-down {
+    position: absolute;
+    top: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    display: none;
+    min-width: 10px;
+    word-wrap: break-word;
+    border-radius: 0;
+    z-index: 9999;
+  }
+}
+
+.mash-menu .drop-down li {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: relative;
+  z-index: 999;
+}
+
+.mash-menu .drop-down li:first-child .drop-down {
+  top: 0;
+}
+
+.mash-menu .drop-down li:first-child a {
+  padding-top: 10px;
+  position: relative;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .drop-down li:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.mash-menu .drop-down li:last-child a {
+  padding-bottom: 10px;
+  position: relative;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .drop-down li:last-child a {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+}
+
+.mash-menu .drop-down a {
+  width: 100%;
+  margin: 0;
+  display: block;
+  color: #505050;
+  font-size: 0.8125em;
+  padding: 6px 15px;
+  position: relative;
+  z-index: 999;
+  transition: color 200ms ease;
+	    font-weight: 100;
+}
+
+.mash-menu .drop-down li:hover > a {
+  color: #03a9f4;
+  position: relative;
+}
+
+.mash-menu .drop-down .drop-down {
+  /*========================================== SECOND LEVEL DROP DOWN */
+  left: 100%;
+  top: -8px;
+  z-index: -1;
+  display: none;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .drop-down .drop-down {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .drop-down .drop-down li:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
+.mash-menu .drop-down .drop-down li:first-child a {
+  padding-top: 15px;
+  position: relative;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .drop-down .drop-down li:first-child a {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+}
+
+.mash-menu .drop-down .drop-down li:last-child a {
+  padding-bottom: 15px;
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .drop-down .drop-down {
+    left: 0;
+    top: 0;
+    z-index: 10;
+    position: relative;
+    display: none;
+    border-top: 1px solid rgba(242, 242, 242, 0.86);
+    border-bottom: 1px solid rgba(242, 242, 242, 0.86);
+    box-shadow: none;
+  }
+  .mash-menu .drop-down .drop-down a {
+    padding-left: 30px;
+  }
+  .mash-menu .drop-down .drop-down .drop-down a {
+    padding-left: 50px;
+  }
+  .mash-menu .drop-down .drop-down .drop-down .drop-down a {
+    padding-left: 70px;
+  }
+}
+
+.mash-menu .drop-down .drop-down.left {
+  /*======================================== ALIGN DROP DOWN LEFT SIDE */
+  left: -100%;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .drop-down .drop-down.left {
+    left: 0;
+  }
+}
+
+.mash-menu .mash-list-items > li > a i.fa {
+  /*========================================== FONT AWESOME ICONS */
+  font-size: 0.875em;
+  float: left;
+  display: inline-block;
+  margin: 0;
+  line-height: 16px;
+  padding: 0 5px 0 0;
+}
+
+.mash-menu .mash-list-items > li > a i.fa.fa-indicator {
+  float: right;
+  padding-right: 0;
+  padding-left: 5px;
+}
+
+.mash-menu .drop-down li a i.fa {
+  float: left;
+  margin: 0;
+  display: inline-block;
+  padding: 0 6px 0 0;
+  line-height: 16px;
+  font-size: 0.8125em;
+}
+
+.mash-menu .drop-down li a i.fa.fa-indicator {
+  float: right;
+  padding-right: 0;
+  padding-left: 6px;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .drop-down li a i.fa.fa-indicator {
+    padding-right: 1px;
+  }
+}
+
+.mash-menu .divider {
+  /*=========================================== DIVIDER */
+  margin: 8px 0 !important;
+  padding: 0;
+  display: block;
+  height: 1px;
+  background: rgba(230, 230, 230, 0.86) !important;
+  width: 100%;
+}
+
+.mash-menu .mash-search-bar {
+  /*============================================= SEARCH BAR */
+  margin: 0;
+  padding: 0;
+  display: block;
+  float: right;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .mash-search-bar {
+    display: block !important;
+  }
+  .mash-menu .mash-search-bar.search-bar-hide {
+    /*=============================================== SEARCH BAR HIDE ON DESKTOP CLASS */
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-search-bar {
+    display: none;
+  }
+  .mash-menu .mash-search-bar.search-bar-hide {
+    /*=============================================== SEARCH BAR HIDE ON MOBILE CLASS */
+    display: none !important;
+  }
+  .mash-menu .mash-list-items.search-bar-hide {
+    padding-top: 0;
+  }
+}
+
+.mash-menu .mash-search-bar li {
+  margin: 0;
+  padding: 15px 15px;
+  display: block;
+  float: left;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-search-bar li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
+
+.mash-menu .mash-search-bar form {
+  margin: 0;
+  padding: 0;
+  display: block;
+  float: left;
+}
+
+.mash-menu .mash-search-bar label {
+  margin: 0;
+  padding: 0;
+  display: block;
+  float: left;
+  position: relative;
+}
+
+.mash-menu .mash-search-bar input {
+  margin: 0;
+  display: block;
+  float: left;
+  max-width: 160px;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.875em;
+  padding: 0;
+  height: 25px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.86);
+  position: relative;
+  opacity: 1 !important;
+  font-weight: normal;
+}
+
+.mash-menu .mash-search-bar :-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu .mash-search-bar ::-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu .mash-search-bar :-ms-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu .mash-search-bar ::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu .mash-search-bar .mash-search-bar-border {
+  margin: 0;
+  padding: 0;
+  display: block;
+  height: 0;
+  width: 100%;
+}
+
+.mash-menu .mash-search-bar .mash-search-bar-border:after, .mash-menu .mash-search-bar .mash-search-bar-border:before {
+  content: "";
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.36);
+  height: 1px;
+  width: 100%;
+  transition: width 400ms ease;
+}
+
+.mash-menu .mash-search-bar .mash-search-bar-border:before {
+  right: 0;
+  left: auto;
+}
+
+.mash-menu .mash-search-bar input:focus + .mash-search-bar-border:after, .mash-menu .mash-search-bar input:focus + .mash-search-bar-border:before,
+.mash-menu .mash-search-bar input:focus + .mash-search-bar-border:before {
+  width: 0;
+}
+
+.mash-menu .mash-search-bar i.fa.fa-search {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-search-bar {
+    width: 100%;
+    position: absolute;
+    top: 52px;
+    background: #03a9f4;
+    z-index: 999;
+    border-left: none;
+    border-right: none;
+  }
+  .mash-menu .mash-search-bar li, .mash-menu .mash-search-bar form, .mash-menu .mash-search-bar label, .mash-menu .mash-search-bar input {
+    width: 100% !important;
+    max-width: 100%;
+  }
+  .mash-menu .mash-search-bar i.fa.fa-search {
+    display: block;
+    position: absolute;
+    top: -60px;
+    right: 44px;
+    color: rgba(255, 255, 255, 0.86);
+    height: 44px;
+    width: 44px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 44px;
+    font-size: 1em;
+    z-index: 999;
+  }
+}
+
+.mash-menu .drop-down-large,
+.mash-menu .drop-down-medium {
+  /*============================================= FULL SIZE DROP DOWN */
+  margin: 0;
+  display: none;
+  float: left;
+  position: absolute;
+  top: auto;
+  left: 0;
+  right: 0;
+  width: 100%;
+  text-align: left;
+  min-height: 100px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 0.8125em;
+  z-index: 999;
+  background: white;
+  line-height: 18px;
+  padding: 20px 5px 15px;
+  overflow: hidden;
+}
+
+.mash-menu .drop-down-large > .vertical-tabs-container,
+.mash-menu .drop-down-medium > .vertical-tabs-container {
+  /*============================================= vertical tabs container */
+  position: relative;
+  top: 15px;
+  margin-top: -35px;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .drop-down-large,
+  .mash-menu .drop-down-medium {
+    position: absolute;
+    top: auto;
+    left: 0;
+    width: 100%;
+    display: none;
+    border-radius: 0;
+    z-index: 999;
+  }
+}
+
+.mash-menu .drop-down-medium {
+  /*========================================== DROP DOWN MEDIUM */
+  left: 0;
+  width: 100%;
+  max-width: 600px;
+  right: 0;
+  margin: 0 auto;
+}
+
+.mash-menu .drop-down-medium.float-left {
+  margin: 0;
+  right: auto;
+}
+
+.mash-menu .drop-down-medium.float-right {
+  margin: 0;
+  left: auto;
+  right: 0;
+}
+
+@media screen and (max-width: 991px) {
+  .mash-menu .drop-down-medium {
+    max-width: 100%;
+    width: 100%;
+    left: 0;
+    right: 0;
+  }
+}
+
+.mash-menu .vertical-tabs {
+  /*=========================================== VERTICAL TABS */
+  margin: 0;
+  width: 100%;
+  float: left;
+  display: block;
+  padding: 20px 0;
+  background: #f0f0f0;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .vertical-tabs {
+    display: none;
+  }
+}
+
+.mash-menu .vertical-tabs:before {
+  content: "";
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(240, 240, 240, 0.86);
+}
+
+.mash-menu .vertical-tabs a {
+  float: left;
+  width: 100%;
+  display: inline-block;
+  text-align: right;
+  padding: 8px 15px;
+  margin: 1px 0;
+  font-weight: 500;
+  color: #505050;
+  position: relative;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .vertical-tabs a {
+    text-align: left;
+  }
+}
+
+.mash-menu .vertical-tabs a:hover, .mash-menu .vertical-tabs a.active {
+  background: rgba(255, 255, 255, 0.86);
+  color: #03a9f4;
+}
+
+.mash-menu .vertical-tabs i.fa {
+  font-weight: bold;
+  padding-left: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .vertical-tabs i.fa {
+    float: right;
+    top: 2px;
+    position: relative;
+  }
+}
+
+.mash-menu .vertical-tabs-content {
+  /*========================================= VERTICAL TABS CONTENT */
+  background: white;
+  display: none;
+  float: left;
+  width: 100%;
+  padding: 20px 5px 15px;
+  position: relative;
+  z-index: 10;
+}
+
+.mash-menu .vertical-tabs-content:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 150%;
+  background: white;
+  z-index: -1;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .vertical-tabs-content {
+    border-top: 1px solid rgba(242, 242, 242, 0.86);
+  }
+}
+
+.mash-menu .vertical-tabs-content-container > a {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .vertical-tabs-content-container > a {
+    position: relative;
+    z-index: 9999;
+    display: block;
+    float: left;
+    width: 100%;
+    text-align: right;
+    padding: 8px 15px;
+    margin: 1px 0;
+    font-weight: 500;
+    color: #505050;
+    transition: background 200ms ease, color 200ms ease;
+  }
+}
+
+@media screen and (max-width: 767px) and (max-width: 767px) {
+  .mash-menu .vertical-tabs-content-container > a {
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .vertical-tabs-content-container > a:hover, .mash-menu .vertical-tabs-content-container > a.active {
+    background: rgba(255, 255, 255, 0.86);
+    color: #03a9f4;
+  }
+  .mash-menu .vertical-tabs-content-container > a i.fa {
+    float: right;
+  }
+}
+
+.mash-menu .vertical-tabs-content-container .vertical-tabs-content-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    display: block;
+    color: #505050;
+    width: 100%;
+    margin: 0px;
+    font-size: 1em;
+    padding: 10px 15px;
+    transition: color 200ms ease 0s;
+  }
+  .mash-menu .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #03a9f4;
+  }
+  .mash-menu .vertical-tabs-content-container .vertical-tabs-content-mobile i.fa {
+    float: right;
+  }
+}
+
+.mash-menu .space-0 {
+  /*===================================== SPACE 0 CLASS USED FOR REMOVE THE BOOTSTRAP COLUMNS SPACE */
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.mash-menu img {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.mash-menu p {
+  color: #505050;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.mash-menu h1, .mash-menu h2, .mash-menu h3, .mash-menu h4, .mash-menu h5, .mash-menu h6 {
+  color: #505050;
+  font-weight: 400;
+  font-size: 2.25em;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mash-menu h2 {
+  font-size: 1.875em;
+}
+
+.mash-menu h3 {
+  font-size: 1.625em;
+}
+
+.mash-menu h4 {
+  font-size: 1.375em;
+}
+
+.mash-menu h5 {
+  font-size: 1.125em;
+}
+
+.mash-menu h6 {
+  font-size: 0.9375em;
+}
+
+.mash-menu .thumbnail {
+  margin-bottom: 15px;
+  border-radius: 0;
+}
+
+.mash-menu .thumbnail:hover {
+  border-color: #03a9f4;
+}
+
+.mash-menu .lead {
+  font-size: 1.25em;
+  color: #505050;
+}
+
+.mash-menu small {
+  font-size: 0.875em;
+  color: #505050;
+}
+
+.mash-menu strong,
+.mash-menu em,
+.mash-menu abbr {
+  color: #505050;
+}
+
+.mash-menu em {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.mash-menu .text-primary {
+  color: #009688;
+}
+
+.mash-menu .text-warning {
+  color: #FF5722;
+}
+
+.mash-menu .text-danger {
+  color: #F44336;
+}
+
+.mash-menu .text-success {
+  color: #4CAF50;
+}
+
+.mash-menu .text-info {
+  color: #03A9F4;
+}
+
+.mash-menu blockquote {
+  border-left-color: #60ccfd;
+  padding: 5px 15px;
+  margin-bottom: 10px;
+}
+
+.mash-menu blockquote small:before {
+  display: none;
+}
+
+.mash-menu .list-items, .mash-menu .order-items {
+  /*===================================== LIST ITEMS */
+  padding: 0;
+  display: block;
+  width: 100%;
+  margin: 0 0 10px;
+}
+
+.mash-menu .list-items li, .mash-menu .order-items li {
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+  list-style: decimal;
+}
+
+.mash-menu .list-items li:first-child a, .mash-menu .order-items li:first-child a {
+  border-top: none;
+  position: relative;
+}
+
+.mash-menu .list-items a, .mash-menu .order-items a {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  padding: 10px 0;
+  border-top: 1px solid rgba(80, 80, 80, 0.1);
+  color: #505050;
+  font-weight: 400;
+  position: relative;
+  transition: color 200ms ease;
+}
+
+.mash-menu .list-items a:hover, .mash-menu .order-items a:hover {
+  color: #03a9f4;
+}
+
+.mash-menu .list-items i.fa, .mash-menu .order-items i.fa {
+  margin-right: 5px;
+}
+
+.mash-menu .list-items i.fa.fa-indicator, .mash-menu .order-items i.fa.fa-indicator {
+  float: right;
+  margin-left: 5px;
+  margin-right: 10px;
+}
+
+.mash-menu .order-items li {
+  /*============================================ ORDER LIST */
+  position: relative;
+}
+
+.mash-menu .order-items li a {
+  padding-left: 20px;
+  position: relative;
+}
+
+.mash-menu .order-items li:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 15px;
+  color: #505050;
+  bottom: 0;
+  line-height: 40px;
+  text-align: left;
+  list-style-type: inside !important;
+  display: list-item !important;
+}
+
+.mash-menu .list-items-group {
+  /*========================================= LIST GROUP ITEM */
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+  display: block;
+  position: relative;
+}
+
+.mash-menu .list-items-group .list-group-image {
+  float: left;
+  width: 50px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu .list-items-group .list-group-image img {
+  max-width: 100%;
+  float: left;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.mash-menu .list-items-group .list-group-heading, .mash-menu .list-items-group .list-group-text {
+  padding-left: 65px;
+}
+
+.mash-menu .list-items-group .divider {
+  background: rgba(80, 80, 80, 0.1) !important;
+}
+
+.mash-menu .btn {
+  text-transform: uppercase;
+  position: relative;
+  padding: 10px 25px;
+  font-size: 1.0625em;
+  margin: 0 4px 10px;
+}
+
+.mash-menu .btn.space-0 {
+  padding: 10px 25px !important;
+}
+
+.mash-menu .btn.small {
+  padding: 5px 10px;
+  font-size: 1em;
+}
+
+.mash-menu .btn.small.space-0 {
+  padding: 5px 10px !important;
+}
+
+.mash-menu .btn.btn-default, .mash-menu .btn.btn-primary, .mash-menu .btn.btn-success, .mash-menu .btn.btn-info, .mash-menu .btn.btn-custom, .mash-menu .btn.btn-warning, .mash-menu .btn.btn-danger {
+  background: none;
+  border: none;
+  transition: all 200ms ease;
+  border-radius: 3px;
+  border-bottom: 2px solid whitesmoke;
+}
+
+.mash-menu .btn.btn-primary {
+  background: #009688;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-bottom-color: #00635a;
+}
+
+.mash-menu .btn.btn-primary:hover {
+  background: #00a596;
+}
+
+.mash-menu .btn.btn-success {
+  background: #59B75C;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-bottom-color: #439a46;
+}
+
+.mash-menu .btn.btn-success:hover {
+  background: #64bc66;
+}
+
+.mash-menu .btn.btn-info {
+  background: #0FB2FC;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-bottom-color: #0394d5;
+}
+
+.mash-menu .btn.btn-info:hover {
+  background: #1eb7fc;
+}
+
+.mash-menu .btn.btn-custom {
+  background: #03a9f4;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-bottom-color: #0286c2;
+}
+
+.mash-menu .btn.btn-custom:hover {
+  background: #0ab1fc;
+}
+
+.mash-menu .btn.btn-warning {
+  background: #FF6736;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-bottom-color: #ff4003;
+}
+
+.mash-menu .btn.btn-warning:hover {
+  background: #ff7345;
+}
+
+.mash-menu .btn.btn-danger {
+  background: #F55549;
+  color: rgba(255, 255, 255, 0.86) !important;
+  border-bottom-color: #f22819;
+}
+
+.mash-menu .btn.btn-danger:hover {
+  background: #f66358;
+}
+
+.mash-menu .box-orange, .mash-menu .box-red, .mash-menu .box-green, .mash-menu .box-blue {
+  background: #FF5722;
+  padding: 15px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 1em;
+}
+
+.mash-menu .box-red {
+  background: #F44336;
+}
+
+.mash-menu .box-green {
+  background: #4CAF50;
+}
+
+.mash-menu .box-blue {
+  background: #03A9F4;
+}
+
+.mash-menu .panel {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  border-bottom: 5px solid #E5E6E6;
+  color: #505050;
+  margin-bottom: 10px;
+}
+
+.mash-menu .panel .panel-heading {
+  border: none;
+  background: #eee;
+  color: #505050;
+}
+
+.mash-menu .panel .panel-body {
+  border: none;
+  color: #505050;
+}
+
+.mash-menu .panel.panel-primary .panel-heading {
+  background: #009688;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.mash-menu .panel.panel-success .panel-heading {
+  background: #4caf50;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.mash-menu .panel.panel-info .panel-heading {
+  background: #03a9f4;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.mash-menu .panel.panel-warning .panel-heading {
+  background: #ff5722;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.mash-menu .panel.panel-danger .panel-heading {
+  background: #f44336;
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.mash-menu .collapsible {
+  /*=============================================== collapsible */
+  padding: 0;
+  display: block;
+  position: relative;
+  margin: 0 0 10px;
+  color: #505050;
+  overflow: visible;
+  background-color: rgba(248, 248, 248, 0.7);
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  border-bottom: 5px solid #E5E6E6;
+}
+
+.mash-menu .collapsible .collapsible-header {
+  padding: 10px;
+  font-size: 1.125em;
+  border-top: 1px solid #ddd;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  z-index: 10;
+  overflow: hidden !important;
+}
+
+.mash-menu .collapsible > li:first-child .collapsible-header {
+  border-top: none;
+}
+
+.mash-menu .collapsible > li.active .collapsible-body {
+  display: block;
+}
+
+.mash-menu .collapsible .collapsible-body {
+  background-color: rgba(255, 255, 255, 0.86);
+  padding: 20px;
+  display: none;
+  border-top: 1px solid #ddd;
+  line-height: 18px;
+}
+
+.mash-menu .collapsible i.fa {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.mash-menu .card {
+  /*======================================== IMAGE CARD */
+  padding: 0;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background-color: white;
+  margin: 0 0 10px;
+  border-radius: 2px 2px 5px 5px;
+  border: 2px solid #E5E6E6;
+  border-bottom: 5px solid #E5E6E6;
+}
+
+.mash-menu .card .card-image {
+  position: relative;
+}
+
+.mash-menu .card img {
+  border-radius: 2px 2px 0 0;
+  position: relative;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.mash-menu .card .card-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  color: white;
+  font-size: 1.375em;
+  font-weight: 300;
+  -webkit-text-stroke-width: 0.8px;
+}
+
+.mash-menu .card .card-content {
+  padding: 15px 20px;
+  border-radius: 0 0 2px 2px;
+}
+
+.mash-menu .card .card-action {
+  border-top: 1px solid rgba(160, 160, 160, 0.2);
+  padding: 15px;
+}
+
+.mash-menu .card .card-action a {
+  color: #03a9f4;
+  margin-right: 20px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.mash-menu .card .card-action a:hover {
+  text-decoration: underline !important;
+}
+
+.mash-menu .card.reveal .card-title {
+  color: #505050;
+  position: relative;
+  top: 0;
+  left: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.mash-menu .card.reveal a {
+  color: #03a9f4;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.mash-menu .card.reveal a:hover {
+  text-decoration: underline !important;
+}
+
+.mash-menu .card.reveal .card-reveal {
+  padding: 15px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 10;
+  transition: -webkit-transform 800ms ease;
+  transition: transform 800ms ease;
+  transition: transform 800ms ease, -webkit-transform 800ms ease;
+  -webkit-transform: translateY(100%);
+      -ms-transform: translateY(100%);
+          transform: translateY(100%);
+}
+
+.mash-menu .card.reveal .card-content {
+  background: white;
+  position: relative;
+  z-index: 15;
+}
+
+.mash-menu .card.reveal:hover .card-reveal {
+  -webkit-transform: translateY(0);
+      -ms-transform: translateY(0);
+          transform: translateY(0);
+}
+
+.mash-menu [class*='col-'] {
+  margin-bottom: 10px;
+  position: static;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu [class*='col-'] {
+    margin-bottom: 30px;
+  }
+}
+
+.mash-menu .form-horizontal {
+  /*======================================== HORIZONTAL FORM */
+  border: 1px solid rgba(230, 230, 230, 0.86);
+  padding: 20px;
+  margin: 10px 0 0;
+  display: inline-block;
+  background: rgba(252, 252, 252, 0.86);
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .form-horizontal {
+    display: block;
+  }
+  .mash-menu .form-horizontal div {
+    margin-bottom: 10px !important;
+  }
+}
+
+.mash-menu .form-horizontal * {
+  color: #505050 !important;
+}
+
+.mash-menu .form-horizontal input,
+.mash-menu .form-horizontal label,
+.mash-menu .form-horizontal textarea {
+  width: 100% !important;
+  line-height: 20px;
+  resize: none;
+}
+
+.mash-menu .form-horizontal input {
+  padding-bottom: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .form-horizontal .btn {
+    width: 100%;
+  }
+}
+
+.mash-menu .form-horizontal button i.fa {
+  color: rgba(255, 255, 255, 0.86) !important;
+  position: relative;
+  left: 10px;
+  display: none;
+}
+
+.mash-menu input[type='text'],
+.mash-menu input[type='email'],
+.mash-menu input[type='password'],
+.mash-menu input[type='color'],
+.mash-menu input[type='date'],
+.mash-menu input[type='datetime'],
+.mash-menu input[type='datetime-local'],
+.mash-menu input[type='file'],
+.mash-menu input[type='hidden'],
+.mash-menu input[type='image'],
+.mash-menu input[type='month'],
+.mash-menu input[type='number'],
+.mash-menu input[type='time'],
+.mash-menu input[type='url'],
+.mash-menu input[type='week'],
+.mash-menu input[type='tel'],
+.mash-menu textarea,
+.mash-menu select {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background-image: linear-gradient(#03a9f4, #03a9f4), linear-gradient(#d2d2d2, #d2d2d2) !important;
+  background-size: 0 2px, 100% 1px;
+  background-repeat: no-repeat;
+  background-position: center bottom, center calc(100% - 1px);
+  background-color: transparent !important;
+}
+
+.mash-menu input[type='text']:focus,
+.mash-menu input[type='email']:focus,
+.mash-menu input[type='password']:focus,
+.mash-menu input[type='color']:focus,
+.mash-menu input[type='date']:focus,
+.mash-menu input[type='datetime']:focus,
+.mash-menu input[type='datetime-local']:focus,
+.mash-menu input[type='file']:focus,
+.mash-menu input[type='hidden']:focus,
+.mash-menu input[type='image']:focus,
+.mash-menu input[type='month']:focus,
+.mash-menu input[type='number']:focus,
+.mash-menu input[type='time']:focus,
+.mash-menu input[type='url']:focus,
+.mash-menu input[type='week']:focus,
+.mash-menu input[type='tel']:focus,
+.mash-menu textarea:focus,
+.mash-menu select:focus {
+  background-image: linear-gradient(#03a9f4, #03a9f4), linear-gradient(#d2d2d2, #d2d2d2);
+  -webkit-animation: input-highlight .5s forwards;
+          animation: input-highlight .5s forwards;
+  background-size: 0 2px, 100% 1px;
+}
+
+@-webkit-keyframes input-highlight {
+  0% {
+    background-size: 0 2px, 100% 1px;
+  }
+  100% {
+    background-size: 100% 2px, 100% 1px;
+  }
+}
+
+@keyframes input-highlight {
+  0% {
+    background-size: 0 2px, 100% 1px;
+  }
+  100% {
+    background-size: 100% 2px, 100% 1px;
+  }
+}
+
+.mash-menu input.menu-checkbox {
+  display: none;
+}
+
+.mash-menu input.menu-checkbox:checked + label:after {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+
+.mash-menu label.menu-checkbox {
+  font-weight: 400;
+  color: #505050;
+  position: relative;
+  padding-left: 22px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 1.0625em;
+  line-height: normal;
+  width: 100%;
+}
+
+.mash-menu label.menu-checkbox:before, .mash-menu label.menu-checkbox:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 16px;
+  width: 16px;
+  background: none;
+  border: 2px solid #505050;
+  border-radius: 2px;
+}
+
+.mash-menu label.menu-checkbox:after {
+  content: "\f00c";
+  width: 16px;
+  height: 16px;
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+  background-size: 100% 100%;
+  transition: -webkit-transform 200ms ease;
+  transition: transform 200ms ease;
+  transition: transform 200ms ease, -webkit-transform 200ms ease;
+  background: #03a9f4;
+  font-family: FontAwesome;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 0.625em;
+  text-align: center;
+  line-height: 12px;
+  font-weight: 400;
+}
+
+.mash-menu input.menu-toggle {
+  display: none;
+}
+
+.mash-menu input.menu-toggle:checked + label:after {
+  left: 12px;
+}
+
+.mash-menu label.menu-toggle {
+  font-weight: 400;
+  color: #505050;
+  position: relative;
+  padding-left: 38px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 1.0625em;
+  line-height: normal;
+  width: 100%;
+}
+
+.mash-menu label.menu-toggle:before, .mash-menu label.menu-toggle:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 3px;
+  left: 0;
+  background: #60ccfd;
+  border-radius: 100px;
+  height: 12px;
+  width: 30px;
+}
+
+.mash-menu label.menu-toggle:after {
+  background: #03a9f4;
+  height: 18px;
+  width: 18px;
+  top: 0;
+  left: -3px;
+  transition: left 400ms ease;
+}
+
+.mash-menu input.menu-radio {
+  display: none;
+}
+
+.mash-menu input.menu-radio:checked + label:after {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+
+.mash-menu label.menu-radio {
+  font-weight: 400;
+  color: #505050;
+  position: relative;
+  padding-left: 22px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 1.0625em;
+  line-height: normal;
+  width: 100%;
+}
+
+.mash-menu label.menu-radio:after, .mash-menu label.menu-radio:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  border-radius: 100px;
+  border: 2px solid #505050;
+}
+
+.mash-menu label.menu-radio:after {
+  border-color: #03a9f4;
+  background: #03a9f4;
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+  transition: -webkit-transform 400ms ease;
+  transition: transform 400ms ease;
+  transition: transform 400ms ease, -webkit-transform 400ms ease;
+}
+
+.mash-menu .mash-mobile-button {
+  /*=========================================== mobile trigger button */
+  border: none;
+  background: #03a9f4;
+  width: 50%;
+  height: 51px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 99999;
+  display: block;
+}
+
+.mash-menu .mash-mobile-button:hover span:before {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu .mash-mobile-button {
+    display: none;
+  }
+}
+
+.mash-menu .mash-mobile-button span {
+  width: 60px;
+  height: 52px;
+  float: right;
+  line-height: 54px;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  margin: 0;
+  right: 0;
+  display: block;
+  cursor: pointer;
+  z-index: 9999;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOAgMAAABSqtRjAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACVBMVEWdnZ3///////9yOLbWAAAAAnRSTlMA32D/An0AAAABYktHRAH/Ai3eAAAACXBIWXMAAAsSAAALEgHS3X78AAAAEklEQVQI12MIBQEGCIkLkKgGAKK/CfcXmfkCAAAAAElFTkSuQmCC") no-repeat center;
+}
+
+.mash-menu .mash-mobile-button span:before {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: none;
+  transition: background 200ms ease;
+}
+
+.mash-menu.mash-top-fixed .mash-menu-inner-container {
+  /* ================================================ MENU FIXED ON TOP */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu.mash-top-fixed .mash-menu-inner-container {
+    max-width: 100%;
+    margin: 0;
+  }
+  .mash-menu.mash-top-fixed .mash-menu-inner-container .mash-list-items {
+    max-height: 400px !important;
+    overflow: hidden !important;
+    overflow-y: auto !important;
+  }
+}
+
+.mash-menu.mash-full-width {
+  /* ==================================================== MENU FULL WIDTH */
+  max-width: 100%;
+}
+
+.mash-menu.mash-full-width .mash-menu-inner-container {
+  max-width: 100%;
+  margin: 0;
+}
+
+.mash-menu .lead {
+  -webkit-text-stroke-width: 0.025em;
+}
+
+.mash-menu .vertical-tabs-horizontal {
+  /*======================================================= tabs */
+  padding: 0;
+  display: block;
+  float: left;
+  width: 100%;
+  margin: 0 0 10px;
+}
+
+.mash-menu .vertical-tabs-horizontal ul.horizontal-tab-heading {
+  float: left;
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.mash-menu .vertical-tabs-horizontal ul.horizontal-tab-heading li {
+  float: left;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.mash-menu .vertical-tabs-horizontal ul.horizontal-tab-heading li.active a {
+  background: white;
+}
+
+.mash-menu .vertical-tabs-horizontal ul.horizontal-tab-heading a {
+  padding: 12px 15px;
+  font-size: 1.125em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #505050;
+  display: inline-block;
+}
+
+.mash-menu .vertical-tabs-horizontal ul.horizontal-tab-heading i.fa {
+  margin-right: 5px;
+  display: inline-block;
+}
+
+.mash-menu .vertical-tabs-horizontal .horizontal-tab-content {
+  display: block;
+  margin: 0;
+  float: left;
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  position: relative;
+  z-index: 10;
+  background: white;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.16), 0 1px 0 0 rgba(0, 0, 0, 0.12);
+}
+
+.mash-menu .vertical-tabs-horizontal .horizontal-tab-content .horizontal-tab-panel {
+  display: none;
+}
+
+.mash-menu .vertical-tabs-horizontal .horizontal-tab-content .horizontal-tab-panel.active {
+  display: block;
+}
+
+.mash-menu .mash-error {
+  /*==================================================== error class*/
+  background: red;
+  padding: 40px 20px 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+  max-width: 400px;
+  width: 100%;
+  margin: 100px auto auto;
+  z-index: 9999999;
+  border-radius: 5px;
+  font-size: 0.875em;
+  overflow: hidden;
+  letter-spacing: 1px;
+  line-height: 25px;
+  clear: both;
+}
+
+.mash-menu .mash-error:before {
+  content: 'Error';
+  position: absolute;
+  line-height: normal;
+  top: 0;
+  left: 0;
+  color: white;
+  right: 0;
+  text-align: left;
+  padding: 5px 5px 5px 10px;
+  letter-spacing: 1px;
+  background: darkred;
+}
+
+.mash-menu .mash-extra {
+  /*============================================== mash extra class */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 50px;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+}
+
+.mash-menu .mash-extra > .mash-extra-container {
+  background: #02638f;
+  float: left;
+  width: 100%;
+  position: relative;
+  min-height: 57px;
+}
+
+.mash-menu .mash-extra > .mash-extra-container > ul.mash-extra-links {
+  float: right;
+  padding: 0;
+  display: block;
+  margin: 0 150px 0 0;
+}
+
+.mash-menu .mash-extra > .mash-extra-container > ul.mash-extra-links > li {
+  float: left;
+  margin: 0;
+  padding: 0;
+  display: block;
+  line-height: 57px;
+}
+
+.mash-menu .mash-extra > .mash-extra-container > ul.mash-extra-links > li > a {
+  width: 100%;
+  margin: 0;
+  display: block;
+  font-size: 0.875em;
+  font-weight: 400;
+  padding-left: 15px;
+  padding-right: 15px;
+  color: rgba(255, 255, 255, 0.86);
+  position: relative;
+  overflow: hidden;
+}
+
+.mash-menu .mash-categories {
+  /*============================================== categories */
+  margin: 0;
+  padding: 0;
+  display: block;
+  float: right;
+}
+
+.mash-menu .mash-categories * {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.mash-menu .mash-categories li {
+  margin: 0;
+  padding: 0;
+  display: block;
+  float: left;
+}
+
+.mash-menu .mash-categories a {
+  margin: 0;
+  padding: 0 15px 0 15px;
+  display: inline-block;
+  color: rgba(255, 255, 255, 0.86);
+  background: rgba(3, 169, 244, 0.3);
+  font-size: 0.875em;
+  line-height: 57px;
+  transition: background 400ms ease;
+  border-left: 1px solid #039fe5;
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.1) inset, 1px 0 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 99999999;
+}
+
+.mash-menu .mash-categories a i.fa {
+  margin-left: 2px;
+}
+
+.mash-menu .mash-categories a:hover {
+  background: #14b4fc;
+}
+
+.mash-menu .mash-table {
+  /*============================================= table */
+  padding: 0;
+  border-bottom: 5px solid #E5E6E6;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  display: table;
+  float: left;
+  width: 100%;
+  margin: 0 0 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-table {
+    white-space: nowrap;
+    overflow-x: auto;
+    display: block;
+    width: 100%;
+    border-bottom: none;
+  }
+}
+
+.mash-menu .mash-table .mash-table-heading {
+  color: #505050;
+  padding: 10px 15px;
+  border-bottom: 3px solid #E5E6E6;
+}
+
+.mash-menu .mash-table thead {
+  background: #ECECEC;
+}
+
+.mash-menu .mash-table td,
+.mash-menu .mash-table th {
+  padding: 10px 15px;
+  color: #505050;
+  border: 1px solid #ddd;
+  position: relative;
+  display: table-cell;
+  width: auto;
+}
+
+.mash-menu .menu-select-dropdown {
+  float: left;
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.mash-menu .dropdownjs {
+  /*=================================================== select input element */
+  position: relative;
+  font-weight: normal;
+  color: #505050;
+  margin: 0;
+  padding: 0;
+  display: block;
+  float: left;
+  width: 100%;
+}
+
+.mash-menu .dropdownjs:before {
+  content: "\f0d7";
+  position: absolute;
+  font-family: "FontAwesome";
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  line-height: 40px;
+}
+
+.mash-menu .dropdownjs > input {
+  width: 100%;
+  text-overflow: ellipsis;
+  padding: 10px;
+  font-size: 1.0625em;
+}
+
+.mash-menu .dropdownjs > input.focus ~ ul {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+}
+
+.mash-menu .dropdownjs > ul {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  min-width: 200px;
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+  z-index: 10000;
+}
+
+.mash-menu .dropdownjs > ul[placement=top-left] {
+  -webkit-transform-origin: bottom left;
+      -ms-transform-origin: bottom left;
+          transform-origin: bottom left;
+  bottom: 0;
+  left: 0;
+}
+
+.mash-menu .dropdownjs > ul[placement=bottom-left] {
+  -webkit-transform-origin: top left;
+      -ms-transform-origin: top left;
+          transform-origin: top left;
+  bottom: 0;
+  left: 0;
+}
+
+.mash-menu .dropdownjs > ul > li {
+  list-style: none;
+  padding: 5px 10px;
+}
+
+.mash-menu .dropdownjs > ul > li.dropdownjs-add {
+  padding: 0;
+}
+
+.mash-menu .dropdownjs > ul > li.dropdownjs-add > input {
+  border: 0;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.mash-menu .dropdownjs > input[readonly] {
+  cursor: pointer;
+}
+
+.mash-menu .dropdownjs select[data-dropdownjs][disabled] ~ input[readonly] {
+  cursor: default;
+}
+
+.mash-menu .dropdownjs > ul {
+  background: #FFF;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 6px rgba(0, 0, 0, 0.12);
+  transition: -webkit-transform 0.2s ease-out;
+  transition: transform 0.2s ease-out;
+  transition: transform 0.2s ease-out, -webkit-transform 0.2s ease-out;
+  padding: 10px;
+  overflow: auto;
+  max-width: 500px;
+}
+
+.mash-menu .dropdownjs > ul > li {
+  cursor: pointer;
+  word-wrap: break-word;
+}
+
+.mash-menu .dropdownjs > ul > li.selected,
+.mash-menu .dropdownjs > ul > li:active {
+  background-color: #eaeaea;
+}
+
+.mash-menu .dropdownjs > ul > li:focus {
+  outline: 0;
+}
+
+.mash-menu .dropdownjs > ul > li > .close:before {
+  content: "\00d7";
+  display: block;
+  position: absolute;
+  right: 15px;
+  float: right;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .6;
+}
+
+.mash-menu .dropdownjs > ul > li > .close:hover:before {
+  opacity: .9;
+}
+
+.mash-menu .mash-tabs-container {
+  /*===================================================== mash tabs container */
+  padding: 0;
+  float: left;
+  width: 100%;
+  display: block;
+  border-bottom: 5px solid #E5E6E6;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin: 0 0 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-tabs-container {
+    float: none;
+  }
+}
+
+.mash-menu .mash-tabs-container .mash-tabs {
+  display: table;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 5px 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-tabs-container .mash-tabs {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+}
+
+.mash-menu .mash-tabs-container .mash-tabs a {
+  background: #ECECEC;
+  padding: 10px 2px;
+  display: table-cell;
+  color: #505050;
+  text-align: center;
+  font-size: 1.125em;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  margin-right: 10px;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  position: relative;
+  z-index: 10;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-tabs-container .mash-tabs a {
+    display: inline-block;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+.mash-menu .mash-tabs-container .mash-tabs a.active {
+  background: white;
+}
+
+.mash-menu .mash-tabs-container .mash-tabs a.active:before {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  z-index: -1;
+}
+
+.mash-menu .mash-tabs-container .mash-tabs-content {
+  float: left;
+  width: 100%;
+  background-color: white;
+  padding: 20px 0 0;
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 5px 5px 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-tabs-container .mash-tabs-content {
+    padding-top: 0;
+  }
+}
+
+.mash-menu .mash-tabs-container .mash-tabs-content .mash-tabs-mobile {
+  display: none;
+  background: #ECECEC;
+  padding: 10px 2px;
+  color: #505050;
+  text-align: center;
+  font-size: 1.125em;
+  position: relative;
+  z-index: 10;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-tabs-container .mash-tabs-content .mash-tabs-mobile {
+    display: inline-block;
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+.mash-menu .mash-tabs-container .mash-tabs-content .mash-tabs-mobile.active {
+  background: white;
+}
+
+.mash-menu .mash-tabs-container .mash-tabs-content .mash-tabs-mobile.active:before {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-tabs-container .mash-tabs-content .mash-tabs-mobile {
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+  }
+}
+
+.mash-menu .mash-tabs-container .mash-tabs-content > div[id*="tab-"] {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-tabs-container .mash-tabs-content > div[id*="tab-"] {
+    padding-top: 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-tabs-container .mash-tabs-content {
+    border-radius: 0;
+    float: none;
+  }
+}
+
+.mash-menu .mash-social-icons {
+  float: right;
+  margin: 0;
+  padding: 0 15px;
+  display: block;
+}
+
+.mash-menu .mash-social-icons li {
+  margin: 0;
+  padding: 0;
+  display: block;
+  float: left;
+  line-height: 57px;
+}
+
+.mash-menu .mash-social-icons a {
+  color: rgba(255, 255, 255, 0.86);
+  margin: 0;
+  padding: 0 5px;
+  display: inline-block;
+  float: left;
+  width: 100%;
+  text-align: center;
+}
+
+.mash-menu .mash-social-icons a:hover {
+  color: white;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .mash-social-icons {
+    width: 100%;
+    text-align: center;
+    font-size: 0;
+  }
+  .mash-menu .mash-social-icons li {
+    float: none;
+    display: inline-block;
+  }
+  .mash-menu .mash-social-icons li a {
+    font-size: 16px;
+    padding: 0 10px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu.right-to-left .mash-list-items > li, .mash-menu.right-to-left .mash-brand, .mash-menu.right-to-left .mash-list-items {
+    /* ================================= menu link align right to left */
+    float: right;
+  }
+  .mash-menu.right-to-left .mash-list-items.right,
+  .mash-menu.right-to-left .mash-search-bar,
+  .mash-menu.right-to-left .mash-social-icons {
+    float: left;
+  }
+  .mash-menu.right-to-left .mash-list-items.right > li > .drop-down {
+    right: auto;
+  }
+}
+
+.mash-menu .nav-tabs {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border: none !important;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .nav-tabs {
+    display: block;
+  }
+}
+
+.mash-menu .nav-tabs li {
+  margin: 0 5px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-content: center;
+      -ms-flex-line-pack: center;
+          align-content: center;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  border: none !important;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .nav-tabs li {
+    display: block;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.mash-menu .nav-tabs li a {
+  color: #505050;
+  background: #ececec;
+  border-left: 1px solid #e5e6e6 !important;
+  border-right: 1px solid #e5e6e6 !important;
+  border-top: 1px solid #e5e6e6 !important;
+  font-size: 1.125em;
+  cursor: pointer;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .nav-tabs li a {
+    border-radius: 0;
+    margin: 0;
+  }
+}
+
+.mash-menu .nav-tabs li.active a {
+  background: #ececec !important;
+}
+
+.mash-menu .tab-content {
+  border: 1px solid #e5e6e6;
+  border-radius: 5px;
+  padding: 1.25em 1.25em 0.625em;
+  margin-bottom: 1.25em;
+  border-bottom-width: 5px;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu .tab-content {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+.mash-menu .list-group {
+  /* list group */
+  color: #505050;
+}
+
+.mash-menu .list-group .active {
+  background: #eeeeee;
+  color: #505050;
+  border-color: #e5e6e6;
+}
+
+.mash-menu .list-group .active:hover, .mash-menu .list-group .active:active, .mash-menu .list-group .active:focus {
+  background: #eeeeee;
+  color: #505050;
+  border-color: #e5e6e6;
+}
+
+.mash-menu .list-group .list-group-item-text {
+  color: #505050 !important;
+}
+
+.mash-menu .well {
+  /* well */
+  color: #505050;
+}
+
+.mash-menu .media {
+  /* media */
+  color: #505050;
+}
+
+.mash-menu .media .media-left {
+  max-width: 100px;
+  display: block;
+  float: left;
+}
+
+@media screen and (max-width: 320px) {
+  .mash-menu .media .media-left {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding-right: 0;
+  }
+}
+
+.mash-menu[data-color="red"] {
+  /*========================================================= COLORS */
+}
+
+.mash-menu[data-color="red"] section.mash-menu-inner-container {
+  background: #f44336;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="red"] .mash-brand > li:hover > a, .mash-menu[data-color="red"] .mash-list-items > li:hover > a {
+    background: #f55a4e;
+  }
+}
+
+.mash-menu[data-color="red"] .mash-brand > li > a, .mash-menu[data-color="red"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="red"] .mash-list-items > li.active > a {
+  background: #f55a4e;
+}
+
+.mash-menu[data-color="red"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #f55a4e;
+}
+
+.mash-menu[data-color="red"].separator .mash-brand > li > a, .mash-menu[data-color="red"].separator .mash-list-items > li > a {
+  border-right: 1px solid #f33527;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="red"].separator .mash-brand > li > a, .mash-menu[data-color="red"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #f33527;
+  }
+}
+
+.mash-menu[data-color="red"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #f33527;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="red"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #f33527;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="red"].separator .mash-search-bar {
+    border: 1px solid #f33527;
+  }
+}
+
+.mash-menu[data-color="red"] .drop-down li:hover > a {
+  color: #f44336;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="red"] .mash-search-bar {
+    background: #f44336;
+  }
+}
+
+.mash-menu[data-color="red"] .vertical-tabs a:hover, .mash-menu[data-color="red"] .vertical-tabs a.active {
+  color: #f44336;
+}
+
+.mash-menu[data-color="red"] .thumbnail:hover {
+  border-color: #f44336;
+}
+
+.mash-menu[data-color="red"] blockquote {
+  border-left-color: #f99d97;
+}
+
+.mash-menu[data-color="red"] .list-items a:hover, .mash-menu[data-color="red"] .order-items a:hover {
+  color: #f44336;
+}
+
+.mash-menu[data-color="red"] .btn.btn-custom {
+  background: #f44336;
+  border-bottom-color: #ea1c0d;
+}
+
+.mash-menu[data-color="red"] .btn.btn-custom:hover {
+  background: #f55145;
+}
+
+.mash-menu[data-color="red"] .card .card-action a {
+  color: #f44336;
+}
+
+.mash-menu[data-color="red"] .card.reveal a {
+  color: #f44336;
+}
+
+.mash-menu[data-color="red"] input[type='text'],
+.mash-menu[data-color="red"] input[type='email'],
+.mash-menu[data-color="red"] input[type='password'],
+.mash-menu[data-color="red"] input[type='color'],
+.mash-menu[data-color="red"] input[type='date'],
+.mash-menu[data-color="red"] input[type='datetime'],
+.mash-menu[data-color="red"] input[type='datetime-local'],
+.mash-menu[data-color="red"] input[type='file'],
+.mash-menu[data-color="red"] input[type='hidden'],
+.mash-menu[data-color="red"] input[type='image'],
+.mash-menu[data-color="red"] input[type='month'],
+.mash-menu[data-color="red"] input[type='number'],
+.mash-menu[data-color="red"] input[type='time'],
+.mash-menu[data-color="red"] input[type='url'],
+.mash-menu[data-color="red"] input[type='week'],
+.mash-menu[data-color="red"] input[type='tel'],
+.mash-menu[data-color="red"] textarea,
+.mash-menu[data-color="red"] select {
+  background-image: linear-gradient(#f44336, #f44336), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="red"] input[type='text']:focus,
+.mash-menu[data-color="red"] input[type='email']:focus,
+.mash-menu[data-color="red"] input[type='password']:focus,
+.mash-menu[data-color="red"] input[type='color']:focus,
+.mash-menu[data-color="red"] input[type='date']:focus,
+.mash-menu[data-color="red"] input[type='datetime']:focus,
+.mash-menu[data-color="red"] input[type='datetime-local']:focus,
+.mash-menu[data-color="red"] input[type='file']:focus,
+.mash-menu[data-color="red"] input[type='hidden']:focus,
+.mash-menu[data-color="red"] input[type='image']:focus,
+.mash-menu[data-color="red"] input[type='month']:focus,
+.mash-menu[data-color="red"] input[type='number']:focus,
+.mash-menu[data-color="red"] input[type='time']:focus,
+.mash-menu[data-color="red"] input[type='url']:focus,
+.mash-menu[data-color="red"] input[type='week']:focus,
+.mash-menu[data-color="red"] input[type='tel']:focus,
+.mash-menu[data-color="red"] textarea:focus,
+.mash-menu[data-color="red"] select:focus {
+  background-image: linear-gradient(#f44336, #f44336), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="red"] label.menu-checkbox:after {
+  background: #f44336;
+}
+
+.mash-menu[data-color="red"] label.menu-toggle:before, .mash-menu[data-color="red"] label.menu-toggle:after {
+  background: #f99d97;
+}
+
+.mash-menu[data-color="red"] label.menu-toggle:after {
+  background: #f44336;
+}
+
+.mash-menu[data-color="red"] label.menu-radio:after {
+  border-color: #f44336;
+  background: #f44336;
+}
+
+.mash-menu[data-color="red"] .mash-mobile-button {
+  background: #f44336;
+}
+
+.mash-menu[data-color="red"] .mash-extra > .mash-extra-container {
+  background: #ba160a;
+}
+
+.mash-menu[data-color="red"] .mash-categories a {
+  background: rgba(244, 67, 54, 0.3);
+  border-left: 1px solid #f33527;
+}
+
+.mash-menu[data-color="red"] .mash-categories a:hover {
+  background: #f55a4e;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="red"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="red"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #f44336;
+  }
+}
+
+.mash-menu[data-color="red"] .panel a {
+  color: #f44336;
+}
+
+.mash-menu[data-color="pink"] section.mash-menu-inner-container {
+  background: #e91e63;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="pink"] .mash-brand > li:hover > a, .mash-menu[data-color="pink"] .mash-list-items > li:hover > a {
+    background: #eb3573;
+  }
+}
+
+.mash-menu[data-color="pink"] .mash-brand > li > a, .mash-menu[data-color="pink"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="pink"] .mash-list-items > li.active > a {
+  background: #eb3573;
+}
+
+.mash-menu[data-color="pink"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #eb3573;
+}
+
+.mash-menu[data-color="pink"].separator .mash-brand > li > a, .mash-menu[data-color="pink"].separator .mash-list-items > li > a {
+  border-right: 1px solid #e2165b;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="pink"].separator .mash-brand > li > a, .mash-menu[data-color="pink"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #e2165b;
+  }
+}
+
+.mash-menu[data-color="pink"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #e2165b;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="pink"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #e2165b;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="pink"].separator .mash-search-bar {
+    border: 1px solid #e2165b;
+  }
+}
+
+.mash-menu[data-color="pink"] .drop-down li:hover > a {
+  color: #e91e63;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="pink"] .mash-search-bar {
+    background: #e91e63;
+  }
+}
+
+.mash-menu[data-color="pink"] .vertical-tabs a:hover, .mash-menu[data-color="pink"] .vertical-tabs a.active {
+  color: #e91e63;
+}
+
+.mash-menu[data-color="pink"] .thumbnail:hover {
+  border-color: #e91e63;
+}
+
+.mash-menu[data-color="pink"] blockquote {
+  border-left-color: #f27ba3;
+}
+
+.mash-menu[data-color="pink"] .list-items a:hover, .mash-menu[data-color="pink"] .order-items a:hover {
+  color: #e91e63;
+}
+
+.mash-menu[data-color="pink"] .btn.btn-custom {
+  background: #e91e63;
+  border-bottom-color: #c1134e;
+}
+
+.mash-menu[data-color="pink"] .btn.btn-custom:hover {
+  background: #ea2c6d;
+}
+
+.mash-menu[data-color="pink"] .card .card-action a {
+  color: #e91e63;
+}
+
+.mash-menu[data-color="pink"] .card.reveal a {
+  color: #e91e63;
+}
+
+.mash-menu[data-color="pink"] input[type='text'],
+.mash-menu[data-color="pink"] input[type='email'],
+.mash-menu[data-color="pink"] input[type='password'],
+.mash-menu[data-color="pink"] input[type='color'],
+.mash-menu[data-color="pink"] input[type='date'],
+.mash-menu[data-color="pink"] input[type='datetime'],
+.mash-menu[data-color="pink"] input[type='datetime-local'],
+.mash-menu[data-color="pink"] input[type='file'],
+.mash-menu[data-color="pink"] input[type='hidden'],
+.mash-menu[data-color="pink"] input[type='image'],
+.mash-menu[data-color="pink"] input[type='month'],
+.mash-menu[data-color="pink"] input[type='number'],
+.mash-menu[data-color="pink"] input[type='time'],
+.mash-menu[data-color="pink"] input[type='url'],
+.mash-menu[data-color="pink"] input[type='week'],
+.mash-menu[data-color="pink"] input[type='tel'],
+.mash-menu[data-color="pink"] textarea,
+.mash-menu[data-color="pink"] select {
+  background-image: linear-gradient(#e91e63, #e91e63), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="pink"] input[type='text']:focus,
+.mash-menu[data-color="pink"] input[type='email']:focus,
+.mash-menu[data-color="pink"] input[type='password']:focus,
+.mash-menu[data-color="pink"] input[type='color']:focus,
+.mash-menu[data-color="pink"] input[type='date']:focus,
+.mash-menu[data-color="pink"] input[type='datetime']:focus,
+.mash-menu[data-color="pink"] input[type='datetime-local']:focus,
+.mash-menu[data-color="pink"] input[type='file']:focus,
+.mash-menu[data-color="pink"] input[type='hidden']:focus,
+.mash-menu[data-color="pink"] input[type='image']:focus,
+.mash-menu[data-color="pink"] input[type='month']:focus,
+.mash-menu[data-color="pink"] input[type='number']:focus,
+.mash-menu[data-color="pink"] input[type='time']:focus,
+.mash-menu[data-color="pink"] input[type='url']:focus,
+.mash-menu[data-color="pink"] input[type='week']:focus,
+.mash-menu[data-color="pink"] input[type='tel']:focus,
+.mash-menu[data-color="pink"] textarea:focus,
+.mash-menu[data-color="pink"] select:focus {
+  background-image: linear-gradient(#e91e63, #e91e63), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="pink"] label.menu-checkbox:after {
+  background: #e91e63;
+}
+
+.mash-menu[data-color="pink"] label.menu-toggle:before, .mash-menu[data-color="pink"] label.menu-toggle:after {
+  background: #f27ba3;
+}
+
+.mash-menu[data-color="pink"] label.menu-toggle:after {
+  background: #e91e63;
+}
+
+.mash-menu[data-color="pink"] label.menu-radio:after {
+  border-color: #e91e63;
+  background: #e91e63;
+}
+
+.mash-menu[data-color="pink"] .mash-mobile-button {
+  background: #e91e63;
+}
+
+.mash-menu[data-color="pink"] .mash-extra > .mash-extra-container {
+  background: #930e3b;
+}
+
+.mash-menu[data-color="pink"] .mash-categories a {
+  background: rgba(233, 30, 99, 0.3);
+  border-left: 1px solid #e2165b;
+}
+
+.mash-menu[data-color="pink"] .mash-categories a:hover {
+  background: #eb3573;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="pink"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="pink"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #e91e63;
+  }
+}
+
+.mash-menu[data-color="pink"] .panel a {
+  color: #e91e63;
+}
+
+.mash-menu[data-color="purple"] section.mash-menu-inner-container {
+  background: #ab2bc1;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="purple"] .mash-brand > li:hover > a, .mash-menu[data-color="purple"] .mash-list-items > li:hover > a {
+    background: #bb34d2;
+  }
+}
+
+.mash-menu[data-color="purple"] .mash-brand > li > a, .mash-menu[data-color="purple"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="purple"] .mash-list-items > li.active > a {
+  background: #bb34d2;
+}
+
+.mash-menu[data-color="purple"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #bb34d2;
+}
+
+.mash-menu[data-color="purple"].separator .mash-brand > li > a, .mash-menu[data-color="purple"].separator .mash-list-items > li > a {
+  border-right: 1px solid #a028b4;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="purple"].separator .mash-brand > li > a, .mash-menu[data-color="purple"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #a028b4;
+  }
+}
+
+.mash-menu[data-color="purple"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #a028b4;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="purple"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #a028b4;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="purple"].separator .mash-search-bar {
+    border: 1px solid #a028b4;
+  }
+}
+
+.mash-menu[data-color="purple"] .drop-down li:hover > a {
+  color: #ab2bc1;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="purple"] .mash-search-bar {
+    background: #ab2bc1;
+  }
+}
+
+.mash-menu[data-color="purple"] .vertical-tabs a:hover, .mash-menu[data-color="purple"] .vertical-tabs a.active {
+  color: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] .thumbnail:hover {
+  border-color: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] blockquote {
+  border-left-color: #d072e0;
+}
+
+.mash-menu[data-color="purple"] .list-items a:hover, .mash-menu[data-color="purple"] .order-items a:hover {
+  color: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] .btn.btn-custom {
+  background: #ab2bc1;
+  border-bottom-color: #862297;
+}
+
+.mash-menu[data-color="purple"] .btn.btn-custom:hover {
+  background: #b62ece;
+}
+
+.mash-menu[data-color="purple"] .card .card-action a {
+  color: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] .card.reveal a {
+  color: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] input[type='text'],
+.mash-menu[data-color="purple"] input[type='email'],
+.mash-menu[data-color="purple"] input[type='password'],
+.mash-menu[data-color="purple"] input[type='color'],
+.mash-menu[data-color="purple"] input[type='date'],
+.mash-menu[data-color="purple"] input[type='datetime'],
+.mash-menu[data-color="purple"] input[type='datetime-local'],
+.mash-menu[data-color="purple"] input[type='file'],
+.mash-menu[data-color="purple"] input[type='hidden'],
+.mash-menu[data-color="purple"] input[type='image'],
+.mash-menu[data-color="purple"] input[type='month'],
+.mash-menu[data-color="purple"] input[type='number'],
+.mash-menu[data-color="purple"] input[type='time'],
+.mash-menu[data-color="purple"] input[type='url'],
+.mash-menu[data-color="purple"] input[type='week'],
+.mash-menu[data-color="purple"] input[type='tel'],
+.mash-menu[data-color="purple"] textarea,
+.mash-menu[data-color="purple"] select {
+  background-image: linear-gradient(#ab2bc1, #ab2bc1), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="purple"] input[type='text']:focus,
+.mash-menu[data-color="purple"] input[type='email']:focus,
+.mash-menu[data-color="purple"] input[type='password']:focus,
+.mash-menu[data-color="purple"] input[type='color']:focus,
+.mash-menu[data-color="purple"] input[type='date']:focus,
+.mash-menu[data-color="purple"] input[type='datetime']:focus,
+.mash-menu[data-color="purple"] input[type='datetime-local']:focus,
+.mash-menu[data-color="purple"] input[type='file']:focus,
+.mash-menu[data-color="purple"] input[type='hidden']:focus,
+.mash-menu[data-color="purple"] input[type='image']:focus,
+.mash-menu[data-color="purple"] input[type='month']:focus,
+.mash-menu[data-color="purple"] input[type='number']:focus,
+.mash-menu[data-color="purple"] input[type='time']:focus,
+.mash-menu[data-color="purple"] input[type='url']:focus,
+.mash-menu[data-color="purple"] input[type='week']:focus,
+.mash-menu[data-color="purple"] input[type='tel']:focus,
+.mash-menu[data-color="purple"] textarea:focus,
+.mash-menu[data-color="purple"] select:focus {
+  background-image: linear-gradient(#ab2bc1, #ab2bc1), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="purple"] label.menu-checkbox:after {
+  background: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] label.menu-toggle:before, .mash-menu[data-color="purple"] label.menu-toggle:after {
+  background: #d072e0;
+}
+
+.mash-menu[data-color="purple"] label.menu-toggle:after {
+  background: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] label.menu-radio:after {
+  border-color: #ab2bc1;
+  background: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] .mash-mobile-button {
+  background: #ab2bc1;
+}
+
+.mash-menu[data-color="purple"] .mash-extra > .mash-extra-container {
+  background: #61186e;
+}
+
+.mash-menu[data-color="purple"] .mash-categories a {
+  background: rgba(171, 43, 193, 0.3);
+  border-left: 1px solid #a028b4;
+}
+
+.mash-menu[data-color="purple"] .mash-categories a:hover {
+  background: #bb34d2;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="purple"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="purple"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #ab2bc1;
+  }
+}
+
+.mash-menu[data-color="purple"] .panel a {
+  color: #ab2bc1;
+}
+
+.mash-menu[data-color="deep-purple"] section.mash-menu-inner-container {
+  background: #7142c3;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="deep-purple"] .mash-brand > li:hover > a, .mash-menu[data-color="deep-purple"] .mash-list-items > li:hover > a {
+    background: #8055c9;
+  }
+}
+
+.mash-menu[data-color="deep-purple"] .mash-brand > li > a, .mash-menu[data-color="deep-purple"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="deep-purple"] .mash-list-items > li.active > a {
+  background: #8055c9;
+}
+
+.mash-menu[data-color="deep-purple"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #8055c9;
+}
+
+.mash-menu[data-color="deep-purple"].separator .mash-brand > li > a, .mash-menu[data-color="deep-purple"].separator .mash-list-items > li > a {
+  border-right: 1px solid #6a3bba;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-purple"].separator .mash-brand > li > a, .mash-menu[data-color="deep-purple"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #6a3bba;
+  }
+}
+
+.mash-menu[data-color="deep-purple"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #6a3bba;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-purple"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #6a3bba;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-purple"].separator .mash-search-bar {
+    border: 1px solid #6a3bba;
+  }
+}
+
+.mash-menu[data-color="deep-purple"] .drop-down li:hover > a {
+  color: #7142c3;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-purple"] .mash-search-bar {
+    background: #7142c3;
+  }
+}
+
+.mash-menu[data-color="deep-purple"] .vertical-tabs a:hover, .mash-menu[data-color="deep-purple"] .vertical-tabs a.active {
+  color: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] .thumbnail:hover {
+  border-color: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] blockquote {
+  border-left-color: #ab8fdc;
+}
+
+.mash-menu[data-color="deep-purple"] .list-items a:hover, .mash-menu[data-color="deep-purple"] .order-items a:hover {
+  color: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] .btn.btn-custom {
+  background: #7142c3;
+  border-bottom-color: #5a339f;
+}
+
+.mash-menu[data-color="deep-purple"] .btn.btn-custom:hover {
+  background: #7a4ec7;
+}
+
+.mash-menu[data-color="deep-purple"] .card .card-action a {
+  color: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] .card.reveal a {
+  color: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] input[type='text'],
+.mash-menu[data-color="deep-purple"] input[type='email'],
+.mash-menu[data-color="deep-purple"] input[type='password'],
+.mash-menu[data-color="deep-purple"] input[type='color'],
+.mash-menu[data-color="deep-purple"] input[type='date'],
+.mash-menu[data-color="deep-purple"] input[type='datetime'],
+.mash-menu[data-color="deep-purple"] input[type='datetime-local'],
+.mash-menu[data-color="deep-purple"] input[type='file'],
+.mash-menu[data-color="deep-purple"] input[type='hidden'],
+.mash-menu[data-color="deep-purple"] input[type='image'],
+.mash-menu[data-color="deep-purple"] input[type='month'],
+.mash-menu[data-color="deep-purple"] input[type='number'],
+.mash-menu[data-color="deep-purple"] input[type='time'],
+.mash-menu[data-color="deep-purple"] input[type='url'],
+.mash-menu[data-color="deep-purple"] input[type='week'],
+.mash-menu[data-color="deep-purple"] input[type='tel'],
+.mash-menu[data-color="deep-purple"] textarea,
+.mash-menu[data-color="deep-purple"] select {
+  background-image: linear-gradient(#7142c3, #7142c3), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="deep-purple"] input[type='text']:focus,
+.mash-menu[data-color="deep-purple"] input[type='email']:focus,
+.mash-menu[data-color="deep-purple"] input[type='password']:focus,
+.mash-menu[data-color="deep-purple"] input[type='color']:focus,
+.mash-menu[data-color="deep-purple"] input[type='date']:focus,
+.mash-menu[data-color="deep-purple"] input[type='datetime']:focus,
+.mash-menu[data-color="deep-purple"] input[type='datetime-local']:focus,
+.mash-menu[data-color="deep-purple"] input[type='file']:focus,
+.mash-menu[data-color="deep-purple"] input[type='hidden']:focus,
+.mash-menu[data-color="deep-purple"] input[type='image']:focus,
+.mash-menu[data-color="deep-purple"] input[type='month']:focus,
+.mash-menu[data-color="deep-purple"] input[type='number']:focus,
+.mash-menu[data-color="deep-purple"] input[type='time']:focus,
+.mash-menu[data-color="deep-purple"] input[type='url']:focus,
+.mash-menu[data-color="deep-purple"] input[type='week']:focus,
+.mash-menu[data-color="deep-purple"] input[type='tel']:focus,
+.mash-menu[data-color="deep-purple"] textarea:focus,
+.mash-menu[data-color="deep-purple"] select:focus {
+  background-image: linear-gradient(#7142c3, #7142c3), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="deep-purple"] label.menu-checkbox:after {
+  background: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] label.menu-toggle:before, .mash-menu[data-color="deep-purple"] label.menu-toggle:after {
+  background: #ab8fdc;
+}
+
+.mash-menu[data-color="deep-purple"] label.menu-toggle:after {
+  background: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] label.menu-radio:after {
+  border-color: #7142c3;
+  background: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] .mash-mobile-button {
+  background: #7142c3;
+}
+
+.mash-menu[data-color="deep-purple"] .mash-extra > .mash-extra-container {
+  background: #442679;
+}
+
+.mash-menu[data-color="deep-purple"] .mash-categories a {
+  background: rgba(113, 66, 195, 0.3);
+  border-left: 1px solid #6a3bba;
+}
+
+.mash-menu[data-color="deep-purple"] .mash-categories a:hover {
+  background: #8055c9;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-purple"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="deep-purple"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #7142c3;
+  }
+}
+
+.mash-menu[data-color="deep-purple"] .panel a {
+  color: #7142c3;
+}
+
+.mash-menu[data-color="indigo"] section.mash-menu-inner-container {
+  background: #3f51b5;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="indigo"] .mash-brand > li:hover > a, .mash-menu[data-color="indigo"] .mash-list-items > li:hover > a {
+    background: #4d5ec1;
+  }
+}
+
+.mash-menu[data-color="indigo"] .mash-brand > li > a, .mash-menu[data-color="indigo"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="indigo"] .mash-list-items > li.active > a {
+  background: #4d5ec1;
+}
+
+.mash-menu[data-color="indigo"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #4d5ec1;
+}
+
+.mash-menu[data-color="indigo"].separator .mash-brand > li > a, .mash-menu[data-color="indigo"].separator .mash-list-items > li > a {
+  border-right: 1px solid #3b4caa;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="indigo"].separator .mash-brand > li > a, .mash-menu[data-color="indigo"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #3b4caa;
+  }
+}
+
+.mash-menu[data-color="indigo"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #3b4caa;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="indigo"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #3b4caa;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="indigo"].separator .mash-search-bar {
+    border: 1px solid #3b4caa;
+  }
+}
+
+.mash-menu[data-color="indigo"] .drop-down li:hover > a {
+  color: #3f51b5;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="indigo"] .mash-search-bar {
+    background: #3f51b5;
+  }
+}
+
+.mash-menu[data-color="indigo"] .vertical-tabs a:hover, .mash-menu[data-color="indigo"] .vertical-tabs a.active {
+  color: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] .thumbnail:hover {
+  border-color: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] blockquote {
+  border-left-color: #8591d5;
+}
+
+.mash-menu[data-color="indigo"] .list-items a:hover, .mash-menu[data-color="indigo"] .order-items a:hover {
+  color: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] .btn.btn-custom {
+  background: #3f51b5;
+  border-bottom-color: #32408f;
+}
+
+.mash-menu[data-color="indigo"] .btn.btn-custom:hover {
+  background: #4558be;
+}
+
+.mash-menu[data-color="indigo"] .card .card-action a {
+  color: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] .card.reveal a {
+  color: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] input[type='text'],
+.mash-menu[data-color="indigo"] input[type='email'],
+.mash-menu[data-color="indigo"] input[type='password'],
+.mash-menu[data-color="indigo"] input[type='color'],
+.mash-menu[data-color="indigo"] input[type='date'],
+.mash-menu[data-color="indigo"] input[type='datetime'],
+.mash-menu[data-color="indigo"] input[type='datetime-local'],
+.mash-menu[data-color="indigo"] input[type='file'],
+.mash-menu[data-color="indigo"] input[type='hidden'],
+.mash-menu[data-color="indigo"] input[type='image'],
+.mash-menu[data-color="indigo"] input[type='month'],
+.mash-menu[data-color="indigo"] input[type='number'],
+.mash-menu[data-color="indigo"] input[type='time'],
+.mash-menu[data-color="indigo"] input[type='url'],
+.mash-menu[data-color="indigo"] input[type='week'],
+.mash-menu[data-color="indigo"] input[type='tel'],
+.mash-menu[data-color="indigo"] textarea,
+.mash-menu[data-color="indigo"] select {
+  background-image: linear-gradient(#3f51b5, #3f51b5), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="indigo"] input[type='text']:focus,
+.mash-menu[data-color="indigo"] input[type='email']:focus,
+.mash-menu[data-color="indigo"] input[type='password']:focus,
+.mash-menu[data-color="indigo"] input[type='color']:focus,
+.mash-menu[data-color="indigo"] input[type='date']:focus,
+.mash-menu[data-color="indigo"] input[type='datetime']:focus,
+.mash-menu[data-color="indigo"] input[type='datetime-local']:focus,
+.mash-menu[data-color="indigo"] input[type='file']:focus,
+.mash-menu[data-color="indigo"] input[type='hidden']:focus,
+.mash-menu[data-color="indigo"] input[type='image']:focus,
+.mash-menu[data-color="indigo"] input[type='month']:focus,
+.mash-menu[data-color="indigo"] input[type='number']:focus,
+.mash-menu[data-color="indigo"] input[type='time']:focus,
+.mash-menu[data-color="indigo"] input[type='url']:focus,
+.mash-menu[data-color="indigo"] input[type='week']:focus,
+.mash-menu[data-color="indigo"] input[type='tel']:focus,
+.mash-menu[data-color="indigo"] textarea:focus,
+.mash-menu[data-color="indigo"] select:focus {
+  background-image: linear-gradient(#3f51b5, #3f51b5), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="indigo"] label.menu-checkbox:after {
+  background: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] label.menu-toggle:before, .mash-menu[data-color="indigo"] label.menu-toggle:after {
+  background: #8591d5;
+}
+
+.mash-menu[data-color="indigo"] label.menu-toggle:after {
+  background: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] label.menu-radio:after {
+  border-color: #3f51b5;
+  background: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] .mash-mobile-button {
+  background: #3f51b5;
+}
+
+.mash-menu[data-color="indigo"] .mash-extra > .mash-extra-container {
+  background: #252f69;
+}
+
+.mash-menu[data-color="indigo"] .mash-categories a {
+  background: rgba(63, 81, 181, 0.3);
+  border-left: 1px solid #3b4caa;
+}
+
+.mash-menu[data-color="indigo"] .mash-categories a:hover {
+  background: #4d5ec1;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="indigo"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="indigo"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #3f51b5;
+  }
+}
+
+.mash-menu[data-color="indigo"] .panel a {
+  color: #3f51b5;
+}
+
+.mash-menu[data-color="cyan"] section.mash-menu-inner-container {
+  background: #00bcd4;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="cyan"] .mash-brand > li:hover > a, .mash-menu[data-color="cyan"] .mash-list-items > li:hover > a {
+    background: #00d3ee;
+  }
+}
+
+.mash-menu[data-color="cyan"] .mash-brand > li > a, .mash-menu[data-color="cyan"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="cyan"] .mash-list-items > li.active > a {
+  background: #00d3ee;
+}
+
+.mash-menu[data-color="cyan"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #00d3ee;
+}
+
+.mash-menu[data-color="cyan"].separator .mash-brand > li > a, .mash-menu[data-color="cyan"].separator .mash-list-items > li > a {
+  border-right: 1px solid #00aec5;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="cyan"].separator .mash-brand > li > a, .mash-menu[data-color="cyan"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #00aec5;
+  }
+}
+
+.mash-menu[data-color="cyan"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #00aec5;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="cyan"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #00aec5;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="cyan"].separator .mash-search-bar {
+    border: 1px solid #00aec5;
+  }
+}
+
+.mash-menu[data-color="cyan"] .drop-down li:hover > a {
+  color: #00bcd4;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="cyan"] .mash-search-bar {
+    background: #00bcd4;
+  }
+}
+
+.mash-menu[data-color="cyan"] .vertical-tabs a:hover, .mash-menu[data-color="cyan"] .vertical-tabs a.active {
+  color: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] .thumbnail:hover {
+  border-color: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] blockquote {
+  border-left-color: #3be9ff;
+}
+
+.mash-menu[data-color="cyan"] .list-items a:hover, .mash-menu[data-color="cyan"] .order-items a:hover {
+  color: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] .btn.btn-custom {
+  background: #00bcd4;
+  border-bottom-color: #008fa1;
+}
+
+.mash-menu[data-color="cyan"] .btn.btn-custom:hover {
+  background: #00cae3;
+}
+
+.mash-menu[data-color="cyan"] .card .card-action a {
+  color: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] .card.reveal a {
+  color: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] input[type='text'],
+.mash-menu[data-color="cyan"] input[type='email'],
+.mash-menu[data-color="cyan"] input[type='password'],
+.mash-menu[data-color="cyan"] input[type='color'],
+.mash-menu[data-color="cyan"] input[type='date'],
+.mash-menu[data-color="cyan"] input[type='datetime'],
+.mash-menu[data-color="cyan"] input[type='datetime-local'],
+.mash-menu[data-color="cyan"] input[type='file'],
+.mash-menu[data-color="cyan"] input[type='hidden'],
+.mash-menu[data-color="cyan"] input[type='image'],
+.mash-menu[data-color="cyan"] input[type='month'],
+.mash-menu[data-color="cyan"] input[type='number'],
+.mash-menu[data-color="cyan"] input[type='time'],
+.mash-menu[data-color="cyan"] input[type='url'],
+.mash-menu[data-color="cyan"] input[type='week'],
+.mash-menu[data-color="cyan"] input[type='tel'],
+.mash-menu[data-color="cyan"] textarea,
+.mash-menu[data-color="cyan"] select {
+  background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="cyan"] input[type='text']:focus,
+.mash-menu[data-color="cyan"] input[type='email']:focus,
+.mash-menu[data-color="cyan"] input[type='password']:focus,
+.mash-menu[data-color="cyan"] input[type='color']:focus,
+.mash-menu[data-color="cyan"] input[type='date']:focus,
+.mash-menu[data-color="cyan"] input[type='datetime']:focus,
+.mash-menu[data-color="cyan"] input[type='datetime-local']:focus,
+.mash-menu[data-color="cyan"] input[type='file']:focus,
+.mash-menu[data-color="cyan"] input[type='hidden']:focus,
+.mash-menu[data-color="cyan"] input[type='image']:focus,
+.mash-menu[data-color="cyan"] input[type='month']:focus,
+.mash-menu[data-color="cyan"] input[type='number']:focus,
+.mash-menu[data-color="cyan"] input[type='time']:focus,
+.mash-menu[data-color="cyan"] input[type='url']:focus,
+.mash-menu[data-color="cyan"] input[type='week']:focus,
+.mash-menu[data-color="cyan"] input[type='tel']:focus,
+.mash-menu[data-color="cyan"] textarea:focus,
+.mash-menu[data-color="cyan"] select:focus {
+  background-image: linear-gradient(#00bcd4, #00bcd4), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="cyan"] label.menu-checkbox:after {
+  background: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] label.menu-toggle:before, .mash-menu[data-color="cyan"] label.menu-toggle:after {
+  background: #3be9ff;
+}
+
+.mash-menu[data-color="cyan"] label.menu-toggle:after {
+  background: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] label.menu-radio:after {
+  border-color: #00bcd4;
+  background: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] .mash-mobile-button {
+  background: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] .mash-extra > .mash-extra-container {
+  background: #00626e;
+}
+
+.mash-menu[data-color="cyan"] .mash-categories a {
+  background: rgba(0, 188, 212, 0.3);
+  border-left: 1px solid #00aec5;
+}
+
+.mash-menu[data-color="cyan"] .mash-categories a:hover {
+  background: #00d3ee;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="cyan"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="cyan"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #00bcd4;
+  }
+}
+
+.mash-menu[data-color="cyan"] .panel a {
+  color: #00bcd4;
+}
+
+.mash-menu[data-color="cyan"] .mash-brand > li > a, .mash-menu[data-color="cyan"] .mash-list-items > li > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="cyan"] .mash-list-items > li:hover > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="cyan"] .mash-social-icons a {
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.mash-menu[data-color="cyan"] .mash-social-icons a:hover {
+  color: black;
+}
+
+.mash-menu[data-color="cyan"] .mash-search-bar input {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="cyan"] .mash-search-bar :-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="cyan"] .mash-search-bar ::-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="cyan"] .mash-search-bar :-ms-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="cyan"] .mash-search-bar ::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="cyan"] .mash-search-bar .mash-search-bar-border:after, .mash-menu[data-color="cyan"] .mash-search-bar .mash-search-bar-border:before {
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.mash-menu[data-color="cyan"] .mash-mobile-button span {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOAgMAAABSqtRjAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACVBMVEViYmIAAAD///9/r5z6AAAAAnRSTlMA32D/An0AAAABYktHRAJmC3xkAAAACXBIWXMAAAsSAAALEgHS3X78AAAAEklEQVQI12MIBQEGCIkLkKgGAKK/CfcXmfkCAAAAAElFTkSuQmCC") no-repeat center;
+}
+
+.mash-menu[data-color="cyan"] .btn.btn-custom {
+  color: rgba(0, 0, 0, 0.86) !important;
+}
+
+.mash-menu[data-color="teal"] section.mash-menu-inner-container {
+  background: #009688;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="teal"] .mash-brand > li:hover > a, .mash-menu[data-color="teal"] .mash-list-items > li:hover > a {
+    background: #00b09f;
+  }
+}
+
+.mash-menu[data-color="teal"] .mash-brand > li > a, .mash-menu[data-color="teal"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="teal"] .mash-list-items > li.active > a {
+  background: #00b09f;
+}
+
+.mash-menu[data-color="teal"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #00b09f;
+}
+
+.mash-menu[data-color="teal"].separator .mash-brand > li > a, .mash-menu[data-color="teal"].separator .mash-list-items > li > a {
+  border-right: 1px solid #00877a;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="teal"].separator .mash-brand > li > a, .mash-menu[data-color="teal"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #00877a;
+  }
+}
+
+.mash-menu[data-color="teal"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #00877a;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="teal"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #00877a;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="teal"].separator .mash-search-bar {
+    border: 1px solid #00877a;
+  }
+}
+
+.mash-menu[data-color="teal"] .drop-down li:hover > a {
+  color: #009688;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="teal"] .mash-search-bar {
+    background: #009688;
+  }
+}
+
+.mash-menu[data-color="teal"] .vertical-tabs a:hover, .mash-menu[data-color="teal"] .vertical-tabs a.active {
+  color: #009688;
+}
+
+.mash-menu[data-color="teal"] .thumbnail:hover {
+  border-color: #009688;
+}
+
+.mash-menu[data-color="teal"] blockquote {
+  border-left-color: #00fce4;
+}
+
+.mash-menu[data-color="teal"] .list-items a:hover, .mash-menu[data-color="teal"] .order-items a:hover {
+  color: #009688;
+}
+
+.mash-menu[data-color="teal"] .btn.btn-custom {
+  background: #009688;
+  border-bottom-color: #00635a;
+}
+
+.mash-menu[data-color="teal"] .btn.btn-custom:hover {
+  background: #00a596;
+}
+
+.mash-menu[data-color="teal"] .card .card-action a {
+  color: #009688;
+}
+
+.mash-menu[data-color="teal"] .card.reveal a {
+  color: #009688;
+}
+
+.mash-menu[data-color="teal"] input[type='text'],
+.mash-menu[data-color="teal"] input[type='email'],
+.mash-menu[data-color="teal"] input[type='password'],
+.mash-menu[data-color="teal"] input[type='color'],
+.mash-menu[data-color="teal"] input[type='date'],
+.mash-menu[data-color="teal"] input[type='datetime'],
+.mash-menu[data-color="teal"] input[type='datetime-local'],
+.mash-menu[data-color="teal"] input[type='file'],
+.mash-menu[data-color="teal"] input[type='hidden'],
+.mash-menu[data-color="teal"] input[type='image'],
+.mash-menu[data-color="teal"] input[type='month'],
+.mash-menu[data-color="teal"] input[type='number'],
+.mash-menu[data-color="teal"] input[type='time'],
+.mash-menu[data-color="teal"] input[type='url'],
+.mash-menu[data-color="teal"] input[type='week'],
+.mash-menu[data-color="teal"] input[type='tel'],
+.mash-menu[data-color="teal"] textarea,
+.mash-menu[data-color="teal"] select {
+  background-image: linear-gradient(#009688, #009688), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="teal"] input[type='text']:focus,
+.mash-menu[data-color="teal"] input[type='email']:focus,
+.mash-menu[data-color="teal"] input[type='password']:focus,
+.mash-menu[data-color="teal"] input[type='color']:focus,
+.mash-menu[data-color="teal"] input[type='date']:focus,
+.mash-menu[data-color="teal"] input[type='datetime']:focus,
+.mash-menu[data-color="teal"] input[type='datetime-local']:focus,
+.mash-menu[data-color="teal"] input[type='file']:focus,
+.mash-menu[data-color="teal"] input[type='hidden']:focus,
+.mash-menu[data-color="teal"] input[type='image']:focus,
+.mash-menu[data-color="teal"] input[type='month']:focus,
+.mash-menu[data-color="teal"] input[type='number']:focus,
+.mash-menu[data-color="teal"] input[type='time']:focus,
+.mash-menu[data-color="teal"] input[type='url']:focus,
+.mash-menu[data-color="teal"] input[type='week']:focus,
+.mash-menu[data-color="teal"] input[type='tel']:focus,
+.mash-menu[data-color="teal"] textarea:focus,
+.mash-menu[data-color="teal"] select:focus {
+  background-image: linear-gradient(#009688, #009688), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="teal"] label.menu-checkbox:after {
+  background: #009688;
+}
+
+.mash-menu[data-color="teal"] label.menu-toggle:before, .mash-menu[data-color="teal"] label.menu-toggle:after {
+  background: #00fce4;
+}
+
+.mash-menu[data-color="teal"] label.menu-toggle:after {
+  background: #009688;
+}
+
+.mash-menu[data-color="teal"] label.menu-radio:after {
+  border-color: #009688;
+  background: #009688;
+}
+
+.mash-menu[data-color="teal"] .mash-mobile-button {
+  background: #009688;
+}
+
+.mash-menu[data-color="teal"] .mash-extra > .mash-extra-container {
+  background: #00302c;
+}
+
+.mash-menu[data-color="teal"] .mash-categories a {
+  background: rgba(0, 150, 136, 0.3);
+  border-left: 1px solid #00877a;
+}
+
+.mash-menu[data-color="teal"] .mash-categories a:hover {
+  background: #00b09f;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="teal"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="teal"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #009688;
+  }
+}
+
+.mash-menu[data-color="teal"] .panel a {
+  color: #009688;
+}
+
+.mash-menu[data-color="green"] section.mash-menu-inner-container {
+  background: #4caf50;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="green"] .mash-brand > li:hover > a, .mash-menu[data-color="green"] .mash-list-items > li:hover > a {
+    background: #5cb860;
+  }
+}
+
+.mash-menu[data-color="green"] .mash-brand > li > a, .mash-menu[data-color="green"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="green"] .mash-list-items > li.active > a {
+  background: #5cb860;
+}
+
+.mash-menu[data-color="green"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #5cb860;
+}
+
+.mash-menu[data-color="green"].separator .mash-brand > li > a, .mash-menu[data-color="green"].separator .mash-list-items > li > a {
+  border-right: 1px solid #47a44b;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="green"].separator .mash-brand > li > a, .mash-menu[data-color="green"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #47a44b;
+  }
+}
+
+.mash-menu[data-color="green"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #47a44b;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="green"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #47a44b;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="green"].separator .mash-search-bar {
+    border: 1px solid #47a44b;
+  }
+}
+
+.mash-menu[data-color="green"] .drop-down li:hover > a {
+  color: #4caf50;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="green"] .mash-search-bar {
+    background: #4caf50;
+  }
+}
+
+.mash-menu[data-color="green"] .vertical-tabs a:hover, .mash-menu[data-color="green"] .vertical-tabs a.active {
+  color: #4caf50;
+}
+
+.mash-menu[data-color="green"] .thumbnail:hover {
+  border-color: #4caf50;
+}
+
+.mash-menu[data-color="green"] blockquote {
+  border-left-color: #92cf94;
+}
+
+.mash-menu[data-color="green"] .list-items a:hover, .mash-menu[data-color="green"] .order-items a:hover {
+  color: #4caf50;
+}
+
+.mash-menu[data-color="green"] .btn.btn-custom {
+  background: #4caf50;
+  border-bottom-color: #3d8b40;
+}
+
+.mash-menu[data-color="green"] .btn.btn-custom:hover {
+  background: #55b559;
+}
+
+.mash-menu[data-color="green"] .card .card-action a {
+  color: #4caf50;
+}
+
+.mash-menu[data-color="green"] .card.reveal a {
+  color: #4caf50;
+}
+
+.mash-menu[data-color="green"] input[type='text'],
+.mash-menu[data-color="green"] input[type='email'],
+.mash-menu[data-color="green"] input[type='password'],
+.mash-menu[data-color="green"] input[type='color'],
+.mash-menu[data-color="green"] input[type='date'],
+.mash-menu[data-color="green"] input[type='datetime'],
+.mash-menu[data-color="green"] input[type='datetime-local'],
+.mash-menu[data-color="green"] input[type='file'],
+.mash-menu[data-color="green"] input[type='hidden'],
+.mash-menu[data-color="green"] input[type='image'],
+.mash-menu[data-color="green"] input[type='month'],
+.mash-menu[data-color="green"] input[type='number'],
+.mash-menu[data-color="green"] input[type='time'],
+.mash-menu[data-color="green"] input[type='url'],
+.mash-menu[data-color="green"] input[type='week'],
+.mash-menu[data-color="green"] input[type='tel'],
+.mash-menu[data-color="green"] textarea,
+.mash-menu[data-color="green"] select {
+  background-image: linear-gradient(#4caf50, #4caf50), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="green"] input[type='text']:focus,
+.mash-menu[data-color="green"] input[type='email']:focus,
+.mash-menu[data-color="green"] input[type='password']:focus,
+.mash-menu[data-color="green"] input[type='color']:focus,
+.mash-menu[data-color="green"] input[type='date']:focus,
+.mash-menu[data-color="green"] input[type='datetime']:focus,
+.mash-menu[data-color="green"] input[type='datetime-local']:focus,
+.mash-menu[data-color="green"] input[type='file']:focus,
+.mash-menu[data-color="green"] input[type='hidden']:focus,
+.mash-menu[data-color="green"] input[type='image']:focus,
+.mash-menu[data-color="green"] input[type='month']:focus,
+.mash-menu[data-color="green"] input[type='number']:focus,
+.mash-menu[data-color="green"] input[type='time']:focus,
+.mash-menu[data-color="green"] input[type='url']:focus,
+.mash-menu[data-color="green"] input[type='week']:focus,
+.mash-menu[data-color="green"] input[type='tel']:focus,
+.mash-menu[data-color="green"] textarea:focus,
+.mash-menu[data-color="green"] select:focus {
+  background-image: linear-gradient(#4caf50, #4caf50), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="green"] label.menu-checkbox:after {
+  background: #4caf50;
+}
+
+.mash-menu[data-color="green"] label.menu-toggle:before, .mash-menu[data-color="green"] label.menu-toggle:after {
+  background: #92cf94;
+}
+
+.mash-menu[data-color="green"] label.menu-toggle:after {
+  background: #4caf50;
+}
+
+.mash-menu[data-color="green"] label.menu-radio:after {
+  border-color: #4caf50;
+  background: #4caf50;
+}
+
+.mash-menu[data-color="green"] .mash-mobile-button {
+  background: #4caf50;
+}
+
+.mash-menu[data-color="green"] .mash-extra > .mash-extra-container {
+  background: #2d682f;
+}
+
+.mash-menu[data-color="green"] .mash-categories a {
+  background: rgba(76, 175, 80, 0.3);
+  border-left: 1px solid #47a44b;
+}
+
+.mash-menu[data-color="green"] .mash-categories a:hover {
+  background: #5cb860;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="green"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="green"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #4caf50;
+  }
+}
+
+.mash-menu[data-color="green"] .panel a {
+  color: #4caf50;
+}
+
+.mash-menu[data-color="light-green"] section.mash-menu-inner-container {
+  background: #8bc34a;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="light-green"] .mash-brand > li:hover > a, .mash-menu[data-color="light-green"] .mash-list-items > li:hover > a {
+    background: #97c95d;
+  }
+}
+
+.mash-menu[data-color="light-green"] .mash-brand > li > a, .mash-menu[data-color="light-green"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="light-green"] .mash-list-items > li.active > a {
+  background: #97c95d;
+}
+
+.mash-menu[data-color="light-green"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #97c95d;
+}
+
+.mash-menu[data-color="light-green"].separator .mash-brand > li > a, .mash-menu[data-color="light-green"].separator .mash-list-items > li > a {
+  border-right: 1px solid #84bf3f;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="light-green"].separator .mash-brand > li > a, .mash-menu[data-color="light-green"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #84bf3f;
+  }
+}
+
+.mash-menu[data-color="light-green"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #84bf3f;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="light-green"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #84bf3f;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="light-green"].separator .mash-search-bar {
+    border: 1px solid #84bf3f;
+  }
+}
+
+.mash-menu[data-color="light-green"] .drop-down li:hover > a {
+  color: #8bc34a;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="light-green"] .mash-search-bar {
+    background: #8bc34a;
+  }
+}
+
+.mash-menu[data-color="light-green"] .vertical-tabs a:hover, .mash-menu[data-color="light-green"] .vertical-tabs a.active {
+  color: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] .thumbnail:hover {
+  border-color: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] blockquote {
+  border-left-color: #bcdc97;
+}
+
+.mash-menu[data-color="light-green"] .list-items a:hover, .mash-menu[data-color="light-green"] .order-items a:hover {
+  color: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] .btn.btn-custom {
+  background: #8bc34a;
+  border-bottom-color: #71a436;
+}
+
+.mash-menu[data-color="light-green"] .btn.btn-custom:hover {
+  background: #92c755;
+}
+
+.mash-menu[data-color="light-green"] .card .card-action a {
+  color: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] .card.reveal a {
+  color: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] input[type='text'],
+.mash-menu[data-color="light-green"] input[type='email'],
+.mash-menu[data-color="light-green"] input[type='password'],
+.mash-menu[data-color="light-green"] input[type='color'],
+.mash-menu[data-color="light-green"] input[type='date'],
+.mash-menu[data-color="light-green"] input[type='datetime'],
+.mash-menu[data-color="light-green"] input[type='datetime-local'],
+.mash-menu[data-color="light-green"] input[type='file'],
+.mash-menu[data-color="light-green"] input[type='hidden'],
+.mash-menu[data-color="light-green"] input[type='image'],
+.mash-menu[data-color="light-green"] input[type='month'],
+.mash-menu[data-color="light-green"] input[type='number'],
+.mash-menu[data-color="light-green"] input[type='time'],
+.mash-menu[data-color="light-green"] input[type='url'],
+.mash-menu[data-color="light-green"] input[type='week'],
+.mash-menu[data-color="light-green"] input[type='tel'],
+.mash-menu[data-color="light-green"] textarea,
+.mash-menu[data-color="light-green"] select {
+  background-image: linear-gradient(#8bc34a, #8bc34a), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="light-green"] input[type='text']:focus,
+.mash-menu[data-color="light-green"] input[type='email']:focus,
+.mash-menu[data-color="light-green"] input[type='password']:focus,
+.mash-menu[data-color="light-green"] input[type='color']:focus,
+.mash-menu[data-color="light-green"] input[type='date']:focus,
+.mash-menu[data-color="light-green"] input[type='datetime']:focus,
+.mash-menu[data-color="light-green"] input[type='datetime-local']:focus,
+.mash-menu[data-color="light-green"] input[type='file']:focus,
+.mash-menu[data-color="light-green"] input[type='hidden']:focus,
+.mash-menu[data-color="light-green"] input[type='image']:focus,
+.mash-menu[data-color="light-green"] input[type='month']:focus,
+.mash-menu[data-color="light-green"] input[type='number']:focus,
+.mash-menu[data-color="light-green"] input[type='time']:focus,
+.mash-menu[data-color="light-green"] input[type='url']:focus,
+.mash-menu[data-color="light-green"] input[type='week']:focus,
+.mash-menu[data-color="light-green"] input[type='tel']:focus,
+.mash-menu[data-color="light-green"] textarea:focus,
+.mash-menu[data-color="light-green"] select:focus {
+  background-image: linear-gradient(#8bc34a, #8bc34a), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="light-green"] label.menu-checkbox:after {
+  background: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] label.menu-toggle:before, .mash-menu[data-color="light-green"] label.menu-toggle:after {
+  background: #bcdc97;
+}
+
+.mash-menu[data-color="light-green"] label.menu-toggle:after {
+  background: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] label.menu-radio:after {
+  border-color: #8bc34a;
+  background: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] .mash-mobile-button {
+  background: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] .mash-extra > .mash-extra-container {
+  background: #577d2a;
+}
+
+.mash-menu[data-color="light-green"] .mash-categories a {
+  background: rgba(139, 195, 74, 0.3);
+  border-left: 1px solid #84bf3f;
+}
+
+.mash-menu[data-color="light-green"] .mash-categories a:hover {
+  background: #97c95d;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="light-green"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="light-green"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #8bc34a;
+  }
+}
+
+.mash-menu[data-color="light-green"] .panel a {
+  color: #8bc34a;
+}
+
+.mash-menu[data-color="light-green"] .mash-brand > li > a, .mash-menu[data-color="light-green"] .mash-list-items > li > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="light-green"] .mash-list-items > li:hover > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="light-green"] .mash-social-icons a {
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.mash-menu[data-color="light-green"] .mash-social-icons a:hover {
+  color: black;
+}
+
+.mash-menu[data-color="light-green"] .mash-search-bar input {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="light-green"] .mash-search-bar :-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="light-green"] .mash-search-bar ::-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="light-green"] .mash-search-bar :-ms-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="light-green"] .mash-search-bar ::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="light-green"] .mash-search-bar .mash-search-bar-border:after, .mash-menu[data-color="light-green"] .mash-search-bar .mash-search-bar-border:before {
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.mash-menu[data-color="light-green"] .mash-mobile-button span {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOAgMAAABSqtRjAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACVBMVEViYmIAAAD///9/r5z6AAAAAnRSTlMA32D/An0AAAABYktHRAJmC3xkAAAACXBIWXMAAAsSAAALEgHS3X78AAAAEklEQVQI12MIBQEGCIkLkKgGAKK/CfcXmfkCAAAAAElFTkSuQmCC") no-repeat center;
+}
+
+.mash-menu[data-color="light-green"] .btn.btn-custom {
+  color: rgba(0, 0, 0, 0.86) !important;
+}
+
+.mash-menu[data-color="light-green"] .drop-down li:hover > a {
+  color: #71a436;
+}
+
+.mash-menu[data-color="light-green"] .vertical-tabs a:hover, .mash-menu[data-color="light-green"] .vertical-tabs a.active {
+  color: #71a436;
+}
+
+.mash-menu[data-color="light-green"] .list-items a:hover, .mash-menu[data-color="light-green"] .order-items a:hover {
+  color: #71a436;
+}
+
+.mash-menu[data-color="light-green"] .card .card-action a {
+  color: #71a436;
+}
+
+.mash-menu[data-color="light-green"] .card.reveal a {
+  color: #71a436;
+}
+
+.mash-menu[data-color="lime"] section.mash-menu-inner-container {
+  background: #cddc39;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="lime"] .mash-brand > li:hover > a, .mash-menu[data-color="lime"] .mash-list-items > li:hover > a {
+    background: #d2e04f;
+  }
+}
+
+.mash-menu[data-color="lime"] .mash-brand > li > a, .mash-menu[data-color="lime"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="lime"] .mash-list-items > li.active > a {
+  background: #d2e04f;
+}
+
+.mash-menu[data-color="lime"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #d2e04f;
+}
+
+.mash-menu[data-color="lime"].separator .mash-brand > li > a, .mash-menu[data-color="lime"].separator .mash-list-items > li > a {
+  border-right: 1px solid #cada2c;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="lime"].separator .mash-brand > li > a, .mash-menu[data-color="lime"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #cada2c;
+  }
+}
+
+.mash-menu[data-color="lime"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #cada2c;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="lime"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #cada2c;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="lime"].separator .mash-search-bar {
+    border: 1px solid #cada2c;
+  }
+}
+
+.mash-menu[data-color="lime"] .drop-down li:hover > a {
+  color: #cddc39;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="lime"] .mash-search-bar {
+    background: #cddc39;
+  }
+}
+
+.mash-menu[data-color="lime"] .vertical-tabs a:hover, .mash-menu[data-color="lime"] .vertical-tabs a.active {
+  color: #cddc39;
+}
+
+.mash-menu[data-color="lime"] .thumbnail:hover {
+  border-color: #cddc39;
+}
+
+.mash-menu[data-color="lime"] blockquote {
+  border-left-color: #e3eb90;
+}
+
+.mash-menu[data-color="lime"] .list-items a:hover, .mash-menu[data-color="lime"] .order-items a:hover {
+  color: #cddc39;
+}
+
+.mash-menu[data-color="lime"] .btn.btn-custom {
+  background: #cddc39;
+  border-bottom-color: #b2c022;
+}
+
+.mash-menu[data-color="lime"] .btn.btn-custom:hover {
+  background: #d0de46;
+}
+
+.mash-menu[data-color="lime"] .card .card-action a {
+  color: #cddc39;
+}
+
+.mash-menu[data-color="lime"] .card.reveal a {
+  color: #cddc39;
+}
+
+.mash-menu[data-color="lime"] input[type='text'],
+.mash-menu[data-color="lime"] input[type='email'],
+.mash-menu[data-color="lime"] input[type='password'],
+.mash-menu[data-color="lime"] input[type='color'],
+.mash-menu[data-color="lime"] input[type='date'],
+.mash-menu[data-color="lime"] input[type='datetime'],
+.mash-menu[data-color="lime"] input[type='datetime-local'],
+.mash-menu[data-color="lime"] input[type='file'],
+.mash-menu[data-color="lime"] input[type='hidden'],
+.mash-menu[data-color="lime"] input[type='image'],
+.mash-menu[data-color="lime"] input[type='month'],
+.mash-menu[data-color="lime"] input[type='number'],
+.mash-menu[data-color="lime"] input[type='time'],
+.mash-menu[data-color="lime"] input[type='url'],
+.mash-menu[data-color="lime"] input[type='week'],
+.mash-menu[data-color="lime"] input[type='tel'],
+.mash-menu[data-color="lime"] textarea,
+.mash-menu[data-color="lime"] select {
+  background-image: linear-gradient(#cddc39, #cddc39), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="lime"] input[type='text']:focus,
+.mash-menu[data-color="lime"] input[type='email']:focus,
+.mash-menu[data-color="lime"] input[type='password']:focus,
+.mash-menu[data-color="lime"] input[type='color']:focus,
+.mash-menu[data-color="lime"] input[type='date']:focus,
+.mash-menu[data-color="lime"] input[type='datetime']:focus,
+.mash-menu[data-color="lime"] input[type='datetime-local']:focus,
+.mash-menu[data-color="lime"] input[type='file']:focus,
+.mash-menu[data-color="lime"] input[type='hidden']:focus,
+.mash-menu[data-color="lime"] input[type='image']:focus,
+.mash-menu[data-color="lime"] input[type='month']:focus,
+.mash-menu[data-color="lime"] input[type='number']:focus,
+.mash-menu[data-color="lime"] input[type='time']:focus,
+.mash-menu[data-color="lime"] input[type='url']:focus,
+.mash-menu[data-color="lime"] input[type='week']:focus,
+.mash-menu[data-color="lime"] input[type='tel']:focus,
+.mash-menu[data-color="lime"] textarea:focus,
+.mash-menu[data-color="lime"] select:focus {
+  background-image: linear-gradient(#cddc39, #cddc39), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="lime"] label.menu-checkbox:after {
+  background: #cddc39;
+}
+
+.mash-menu[data-color="lime"] label.menu-toggle:before, .mash-menu[data-color="lime"] label.menu-toggle:after {
+  background: #e3eb90;
+}
+
+.mash-menu[data-color="lime"] label.menu-toggle:after {
+  background: #cddc39;
+}
+
+.mash-menu[data-color="lime"] label.menu-radio:after {
+  border-color: #cddc39;
+  background: #cddc39;
+}
+
+.mash-menu[data-color="lime"] .mash-mobile-button {
+  background: #cddc39;
+}
+
+.mash-menu[data-color="lime"] .mash-extra > .mash-extra-container {
+  background: #89951a;
+}
+
+.mash-menu[data-color="lime"] .mash-categories a {
+  background: rgba(205, 220, 57, 0.3);
+  border-left: 1px solid #cada2c;
+}
+
+.mash-menu[data-color="lime"] .mash-categories a:hover {
+  background: #d2e04f;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="lime"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="lime"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #cddc39;
+  }
+}
+
+.mash-menu[data-color="lime"] .panel a {
+  color: #cddc39;
+}
+
+.mash-menu[data-color="lime"] .mash-brand > li > a, .mash-menu[data-color="lime"] .mash-list-items > li > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="lime"] .mash-list-items > li:hover > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="lime"] .mash-social-icons a {
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.mash-menu[data-color="lime"] .mash-social-icons a:hover {
+  color: black;
+}
+
+.mash-menu[data-color="lime"] .mash-search-bar input {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="lime"] .mash-search-bar :-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="lime"] .mash-search-bar ::-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="lime"] .mash-search-bar :-ms-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="lime"] .mash-search-bar ::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="lime"] .mash-search-bar .mash-search-bar-border:after, .mash-menu[data-color="lime"] .mash-search-bar .mash-search-bar-border:before {
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.mash-menu[data-color="lime"] .mash-mobile-button span {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOAgMAAABSqtRjAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACVBMVEViYmIAAAD///9/r5z6AAAAAnRSTlMA32D/An0AAAABYktHRAJmC3xkAAAACXBIWXMAAAsSAAALEgHS3X78AAAAEklEQVQI12MIBQEGCIkLkKgGAKK/CfcXmfkCAAAAAElFTkSuQmCC") no-repeat center;
+}
+
+.mash-menu[data-color="lime"] .btn.btn-custom {
+  color: rgba(0, 0, 0, 0.86) !important;
+}
+
+.mash-menu[data-color="lime"] .drop-down li:hover > a {
+  color: #89951a;
+}
+
+.mash-menu[data-color="lime"] .vertical-tabs a:hover, .mash-menu[data-color="lime"] .vertical-tabs a.active {
+  color: #89951a;
+}
+
+.mash-menu[data-color="lime"] .list-items a:hover, .mash-menu[data-color="lime"] .order-items a:hover {
+  color: #89951a;
+}
+
+.mash-menu[data-color="lime"] .card .card-action a {
+  color: #89951a;
+}
+
+.mash-menu[data-color="lime"] .card.reveal a {
+  color: #89951a;
+}
+
+.mash-menu[data-color="yellow"] section.mash-menu-inner-container {
+  background: #ffeb3b;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="yellow"] .mash-brand > li:hover > a, .mash-menu[data-color="yellow"] .mash-list-items > li:hover > a {
+    background: #ffee55;
+  }
+}
+
+.mash-menu[data-color="yellow"] .mash-brand > li > a, .mash-menu[data-color="yellow"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="yellow"] .mash-list-items > li.active > a {
+  background: #ffee55;
+}
+
+.mash-menu[data-color="yellow"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #ffee55;
+}
+
+.mash-menu[data-color="yellow"].separator .mash-brand > li > a, .mash-menu[data-color="yellow"].separator .mash-list-items > li > a {
+  border-right: 1px solid #ffe92c;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="yellow"].separator .mash-brand > li > a, .mash-menu[data-color="yellow"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #ffe92c;
+  }
+}
+
+.mash-menu[data-color="yellow"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #ffe92c;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="yellow"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #ffe92c;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="yellow"].separator .mash-search-bar {
+    border: 1px solid #ffe92c;
+  }
+}
+
+.mash-menu[data-color="yellow"] .drop-down li:hover > a {
+  color: #ffeb3b;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="yellow"] .mash-search-bar {
+    background: #ffeb3b;
+  }
+}
+
+.mash-menu[data-color="yellow"] .vertical-tabs a:hover, .mash-menu[data-color="yellow"] .vertical-tabs a.active {
+  color: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] .thumbnail:hover {
+  border-color: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] blockquote {
+  border-left-color: #fff5a1;
+}
+
+.mash-menu[data-color="yellow"] .list-items a:hover, .mash-menu[data-color="yellow"] .order-items a:hover {
+  color: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] .btn.btn-custom {
+  background: #ffeb3b;
+  border-bottom-color: #ffe608;
+}
+
+.mash-menu[data-color="yellow"] .btn.btn-custom:hover {
+  background: #ffed4a;
+}
+
+.mash-menu[data-color="yellow"] .card .card-action a {
+  color: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] .card.reveal a {
+  color: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] input[type='text'],
+.mash-menu[data-color="yellow"] input[type='email'],
+.mash-menu[data-color="yellow"] input[type='password'],
+.mash-menu[data-color="yellow"] input[type='color'],
+.mash-menu[data-color="yellow"] input[type='date'],
+.mash-menu[data-color="yellow"] input[type='datetime'],
+.mash-menu[data-color="yellow"] input[type='datetime-local'],
+.mash-menu[data-color="yellow"] input[type='file'],
+.mash-menu[data-color="yellow"] input[type='hidden'],
+.mash-menu[data-color="yellow"] input[type='image'],
+.mash-menu[data-color="yellow"] input[type='month'],
+.mash-menu[data-color="yellow"] input[type='number'],
+.mash-menu[data-color="yellow"] input[type='time'],
+.mash-menu[data-color="yellow"] input[type='url'],
+.mash-menu[data-color="yellow"] input[type='week'],
+.mash-menu[data-color="yellow"] input[type='tel'],
+.mash-menu[data-color="yellow"] textarea,
+.mash-menu[data-color="yellow"] select {
+  background-image: linear-gradient(#ffeb3b, #ffeb3b), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="yellow"] input[type='text']:focus,
+.mash-menu[data-color="yellow"] input[type='email']:focus,
+.mash-menu[data-color="yellow"] input[type='password']:focus,
+.mash-menu[data-color="yellow"] input[type='color']:focus,
+.mash-menu[data-color="yellow"] input[type='date']:focus,
+.mash-menu[data-color="yellow"] input[type='datetime']:focus,
+.mash-menu[data-color="yellow"] input[type='datetime-local']:focus,
+.mash-menu[data-color="yellow"] input[type='file']:focus,
+.mash-menu[data-color="yellow"] input[type='hidden']:focus,
+.mash-menu[data-color="yellow"] input[type='image']:focus,
+.mash-menu[data-color="yellow"] input[type='month']:focus,
+.mash-menu[data-color="yellow"] input[type='number']:focus,
+.mash-menu[data-color="yellow"] input[type='time']:focus,
+.mash-menu[data-color="yellow"] input[type='url']:focus,
+.mash-menu[data-color="yellow"] input[type='week']:focus,
+.mash-menu[data-color="yellow"] input[type='tel']:focus,
+.mash-menu[data-color="yellow"] textarea:focus,
+.mash-menu[data-color="yellow"] select:focus {
+  background-image: linear-gradient(#ffeb3b, #ffeb3b), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="yellow"] label.menu-checkbox:after {
+  background: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] label.menu-toggle:before, .mash-menu[data-color="yellow"] label.menu-toggle:after {
+  background: #fff5a1;
+}
+
+.mash-menu[data-color="yellow"] label.menu-toggle:after {
+  background: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] label.menu-radio:after {
+  border-color: #ffeb3b;
+  background: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] .mash-mobile-button {
+  background: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] .mash-extra > .mash-extra-container {
+  background: #d4be00;
+}
+
+.mash-menu[data-color="yellow"] .mash-categories a {
+  background: rgba(255, 235, 59, 0.3);
+  border-left: 1px solid #ffe92c;
+}
+
+.mash-menu[data-color="yellow"] .mash-categories a:hover {
+  background: #ffee55;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="yellow"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="yellow"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #ffeb3b;
+  }
+}
+
+.mash-menu[data-color="yellow"] .panel a {
+  color: #ffeb3b;
+}
+
+.mash-menu[data-color="yellow"] .mash-brand > li > a, .mash-menu[data-color="yellow"] .mash-list-items > li > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="yellow"] .mash-list-items > li:hover > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="yellow"] .mash-social-icons a {
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.mash-menu[data-color="yellow"] .mash-social-icons a:hover {
+  color: black;
+}
+
+.mash-menu[data-color="yellow"] .mash-search-bar input {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="yellow"] .mash-search-bar :-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="yellow"] .mash-search-bar ::-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="yellow"] .mash-search-bar :-ms-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="yellow"] .mash-search-bar ::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="yellow"] .mash-search-bar .mash-search-bar-border:after, .mash-menu[data-color="yellow"] .mash-search-bar .mash-search-bar-border:before {
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.mash-menu[data-color="yellow"] .mash-mobile-button span {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOAgMAAABSqtRjAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACVBMVEViYmIAAAD///9/r5z6AAAAAnRSTlMA32D/An0AAAABYktHRAJmC3xkAAAACXBIWXMAAAsSAAALEgHS3X78AAAAEklEQVQI12MIBQEGCIkLkKgGAKK/CfcXmfkCAAAAAElFTkSuQmCC") no-repeat center;
+}
+
+.mash-menu[data-color="yellow"] .btn.btn-custom {
+  color: rgba(0, 0, 0, 0.86) !important;
+}
+
+.mash-menu[data-color="yellow"] .drop-down li:hover > a {
+  color: #d4be00;
+}
+
+.mash-menu[data-color="yellow"] .vertical-tabs a:hover, .mash-menu[data-color="yellow"] .vertical-tabs a.active {
+  color: #d4be00;
+}
+
+.mash-menu[data-color="yellow"] .list-items a:hover, .mash-menu[data-color="yellow"] .order-items a:hover {
+  color: #d4be00;
+}
+
+.mash-menu[data-color="yellow"] .card .card-action a {
+  color: #d4be00;
+}
+
+.mash-menu[data-color="yellow"] .card.reveal a {
+  color: #d4be00;
+}
+
+.mash-menu[data-color="amber"] section.mash-menu-inner-container {
+  background: #ffc107;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="amber"] .mash-brand > li:hover > a, .mash-menu[data-color="amber"] .mash-list-items > li:hover > a {
+    background: #ffc721;
+  }
+}
+
+.mash-menu[data-color="amber"] .mash-brand > li > a, .mash-menu[data-color="amber"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="amber"] .mash-list-items > li.active > a {
+  background: #ffc721;
+}
+
+.mash-menu[data-color="amber"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #ffc721;
+}
+
+.mash-menu[data-color="amber"].separator .mash-brand > li > a, .mash-menu[data-color="amber"].separator .mash-list-items > li > a {
+  border-right: 1px solid #f7b900;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="amber"].separator .mash-brand > li > a, .mash-menu[data-color="amber"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #f7b900;
+  }
+}
+
+.mash-menu[data-color="amber"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #f7b900;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="amber"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #f7b900;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="amber"].separator .mash-search-bar {
+    border: 1px solid #f7b900;
+  }
+}
+
+.mash-menu[data-color="amber"] .drop-down li:hover > a {
+  color: #ffc107;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="amber"] .mash-search-bar {
+    background: #ffc107;
+  }
+}
+
+.mash-menu[data-color="amber"] .vertical-tabs a:hover, .mash-menu[data-color="amber"] .vertical-tabs a.active {
+  color: #ffc107;
+}
+
+.mash-menu[data-color="amber"] .thumbnail:hover {
+  border-color: #ffc107;
+}
+
+.mash-menu[data-color="amber"] blockquote {
+  border-left-color: #ffdb6d;
+}
+
+.mash-menu[data-color="amber"] .list-items a:hover, .mash-menu[data-color="amber"] .order-items a:hover {
+  color: #ffc107;
+}
+
+.mash-menu[data-color="amber"] .btn.btn-custom {
+  background: #ffc107;
+  border-bottom-color: #d39e00;
+}
+
+.mash-menu[data-color="amber"] .btn.btn-custom:hover {
+  background: #ffc516;
+}
+
+.mash-menu[data-color="amber"] .card .card-action a {
+  color: #ffc107;
+}
+
+.mash-menu[data-color="amber"] .card.reveal a {
+  color: #ffc107;
+}
+
+.mash-menu[data-color="amber"] input[type='text'],
+.mash-menu[data-color="amber"] input[type='email'],
+.mash-menu[data-color="amber"] input[type='password'],
+.mash-menu[data-color="amber"] input[type='color'],
+.mash-menu[data-color="amber"] input[type='date'],
+.mash-menu[data-color="amber"] input[type='datetime'],
+.mash-menu[data-color="amber"] input[type='datetime-local'],
+.mash-menu[data-color="amber"] input[type='file'],
+.mash-menu[data-color="amber"] input[type='hidden'],
+.mash-menu[data-color="amber"] input[type='image'],
+.mash-menu[data-color="amber"] input[type='month'],
+.mash-menu[data-color="amber"] input[type='number'],
+.mash-menu[data-color="amber"] input[type='time'],
+.mash-menu[data-color="amber"] input[type='url'],
+.mash-menu[data-color="amber"] input[type='week'],
+.mash-menu[data-color="amber"] input[type='tel'],
+.mash-menu[data-color="amber"] textarea,
+.mash-menu[data-color="amber"] select {
+  background-image: linear-gradient(#ffc107, #ffc107), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="amber"] input[type='text']:focus,
+.mash-menu[data-color="amber"] input[type='email']:focus,
+.mash-menu[data-color="amber"] input[type='password']:focus,
+.mash-menu[data-color="amber"] input[type='color']:focus,
+.mash-menu[data-color="amber"] input[type='date']:focus,
+.mash-menu[data-color="amber"] input[type='datetime']:focus,
+.mash-menu[data-color="amber"] input[type='datetime-local']:focus,
+.mash-menu[data-color="amber"] input[type='file']:focus,
+.mash-menu[data-color="amber"] input[type='hidden']:focus,
+.mash-menu[data-color="amber"] input[type='image']:focus,
+.mash-menu[data-color="amber"] input[type='month']:focus,
+.mash-menu[data-color="amber"] input[type='number']:focus,
+.mash-menu[data-color="amber"] input[type='time']:focus,
+.mash-menu[data-color="amber"] input[type='url']:focus,
+.mash-menu[data-color="amber"] input[type='week']:focus,
+.mash-menu[data-color="amber"] input[type='tel']:focus,
+.mash-menu[data-color="amber"] textarea:focus,
+.mash-menu[data-color="amber"] select:focus {
+  background-image: linear-gradient(#ffc107, #ffc107), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="amber"] label.menu-checkbox:after {
+  background: #ffc107;
+}
+
+.mash-menu[data-color="amber"] label.menu-toggle:before, .mash-menu[data-color="amber"] label.menu-toggle:after {
+  background: #ffdb6d;
+}
+
+.mash-menu[data-color="amber"] label.menu-toggle:after {
+  background: #ffc107;
+}
+
+.mash-menu[data-color="amber"] label.menu-radio:after {
+  border-color: #ffc107;
+  background: #ffc107;
+}
+
+.mash-menu[data-color="amber"] .mash-mobile-button {
+  background: #ffc107;
+}
+
+.mash-menu[data-color="amber"] .mash-extra > .mash-extra-container {
+  background: #a07800;
+}
+
+.mash-menu[data-color="amber"] .mash-categories a {
+  background: rgba(255, 193, 7, 0.3);
+  border-left: 1px solid #f7b900;
+}
+
+.mash-menu[data-color="amber"] .mash-categories a:hover {
+  background: #ffc721;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="amber"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="amber"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #ffc107;
+  }
+}
+
+.mash-menu[data-color="amber"] .panel a {
+  color: #ffc107;
+}
+
+.mash-menu[data-color="amber"] .mash-brand > li > a, .mash-menu[data-color="amber"] .mash-list-items > li > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="amber"] .mash-list-items > li:hover > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="amber"] .mash-social-icons a {
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.mash-menu[data-color="amber"] .mash-social-icons a:hover {
+  color: black;
+}
+
+.mash-menu[data-color="amber"] .mash-search-bar input {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="amber"] .mash-search-bar :-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="amber"] .mash-search-bar ::-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="amber"] .mash-search-bar :-ms-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="amber"] .mash-search-bar ::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="amber"] .mash-search-bar .mash-search-bar-border:after, .mash-menu[data-color="amber"] .mash-search-bar .mash-search-bar-border:before {
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.mash-menu[data-color="amber"] .mash-mobile-button span {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOAgMAAABSqtRjAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACVBMVEViYmIAAAD///9/r5z6AAAAAnRSTlMA32D/An0AAAABYktHRAJmC3xkAAAACXBIWXMAAAsSAAALEgHS3X78AAAAEklEQVQI12MIBQEGCIkLkKgGAKK/CfcXmfkCAAAAAElFTkSuQmCC") no-repeat center;
+}
+
+.mash-menu[data-color="amber"] .btn.btn-custom {
+  color: rgba(0, 0, 0, 0.86) !important;
+}
+
+.mash-menu[data-color="amber"] .drop-down li:hover > a {
+  color: #d39e00;
+}
+
+.mash-menu[data-color="amber"] .vertical-tabs a:hover, .mash-menu[data-color="amber"] .vertical-tabs a.active {
+  color: #d39e00;
+}
+
+.mash-menu[data-color="amber"] .list-items a:hover, .mash-menu[data-color="amber"] .order-items a:hover {
+  color: #d39e00;
+}
+
+.mash-menu[data-color="amber"] .card .card-action a {
+  color: #d39e00;
+}
+
+.mash-menu[data-color="amber"] .card.reveal a {
+  color: #d39e00;
+}
+
+.mash-menu[data-color="orange"] section.mash-menu-inner-container {
+  background: #ff9800;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="orange"] .mash-brand > li:hover > a, .mash-menu[data-color="orange"] .mash-list-items > li:hover > a {
+    background: #ffa21a;
+  }
+}
+
+.mash-menu[data-color="orange"] .mash-brand > li > a, .mash-menu[data-color="orange"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="orange"] .mash-list-items > li.active > a {
+  background: #ffa21a;
+}
+
+.mash-menu[data-color="orange"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #ffa21a;
+}
+
+.mash-menu[data-color="orange"].separator .mash-brand > li > a, .mash-menu[data-color="orange"].separator .mash-list-items > li > a {
+  border-right: 1px solid #f08f00;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="orange"].separator .mash-brand > li > a, .mash-menu[data-color="orange"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #f08f00;
+  }
+}
+
+.mash-menu[data-color="orange"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #f08f00;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="orange"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #f08f00;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="orange"].separator .mash-search-bar {
+    border: 1px solid #f08f00;
+  }
+}
+
+.mash-menu[data-color="orange"] .drop-down li:hover > a {
+  color: #ff9800;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="orange"] .mash-search-bar {
+    background: #ff9800;
+  }
+}
+
+.mash-menu[data-color="orange"] .vertical-tabs a:hover, .mash-menu[data-color="orange"] .vertical-tabs a.active {
+  color: #ff9800;
+}
+
+.mash-menu[data-color="orange"] .thumbnail:hover {
+  border-color: #ff9800;
+}
+
+.mash-menu[data-color="orange"] blockquote {
+  border-left-color: #ffc166;
+}
+
+.mash-menu[data-color="orange"] .list-items a:hover, .mash-menu[data-color="orange"] .order-items a:hover {
+  color: #ff9800;
+}
+
+.mash-menu[data-color="orange"] .btn.btn-custom {
+  background: #ff9800;
+  border-bottom-color: #cc7a00;
+}
+
+.mash-menu[data-color="orange"] .btn.btn-custom:hover {
+  background: #ff9e0f;
+}
+
+.mash-menu[data-color="orange"] .card .card-action a {
+  color: #ff9800;
+}
+
+.mash-menu[data-color="orange"] .card.reveal a {
+  color: #ff9800;
+}
+
+.mash-menu[data-color="orange"] input[type='text'],
+.mash-menu[data-color="orange"] input[type='email'],
+.mash-menu[data-color="orange"] input[type='password'],
+.mash-menu[data-color="orange"] input[type='color'],
+.mash-menu[data-color="orange"] input[type='date'],
+.mash-menu[data-color="orange"] input[type='datetime'],
+.mash-menu[data-color="orange"] input[type='datetime-local'],
+.mash-menu[data-color="orange"] input[type='file'],
+.mash-menu[data-color="orange"] input[type='hidden'],
+.mash-menu[data-color="orange"] input[type='image'],
+.mash-menu[data-color="orange"] input[type='month'],
+.mash-menu[data-color="orange"] input[type='number'],
+.mash-menu[data-color="orange"] input[type='time'],
+.mash-menu[data-color="orange"] input[type='url'],
+.mash-menu[data-color="orange"] input[type='week'],
+.mash-menu[data-color="orange"] input[type='tel'],
+.mash-menu[data-color="orange"] textarea,
+.mash-menu[data-color="orange"] select {
+  background-image: linear-gradient(#ff9800, #ff9800), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="orange"] input[type='text']:focus,
+.mash-menu[data-color="orange"] input[type='email']:focus,
+.mash-menu[data-color="orange"] input[type='password']:focus,
+.mash-menu[data-color="orange"] input[type='color']:focus,
+.mash-menu[data-color="orange"] input[type='date']:focus,
+.mash-menu[data-color="orange"] input[type='datetime']:focus,
+.mash-menu[data-color="orange"] input[type='datetime-local']:focus,
+.mash-menu[data-color="orange"] input[type='file']:focus,
+.mash-menu[data-color="orange"] input[type='hidden']:focus,
+.mash-menu[data-color="orange"] input[type='image']:focus,
+.mash-menu[data-color="orange"] input[type='month']:focus,
+.mash-menu[data-color="orange"] input[type='number']:focus,
+.mash-menu[data-color="orange"] input[type='time']:focus,
+.mash-menu[data-color="orange"] input[type='url']:focus,
+.mash-menu[data-color="orange"] input[type='week']:focus,
+.mash-menu[data-color="orange"] input[type='tel']:focus,
+.mash-menu[data-color="orange"] textarea:focus,
+.mash-menu[data-color="orange"] select:focus {
+  background-image: linear-gradient(#ff9800, #ff9800), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="orange"] label.menu-checkbox:after {
+  background: #ff9800;
+}
+
+.mash-menu[data-color="orange"] label.menu-toggle:before, .mash-menu[data-color="orange"] label.menu-toggle:after {
+  background: #ffc166;
+}
+
+.mash-menu[data-color="orange"] label.menu-toggle:after {
+  background: #ff9800;
+}
+
+.mash-menu[data-color="orange"] label.menu-radio:after {
+  border-color: #ff9800;
+  background: #ff9800;
+}
+
+.mash-menu[data-color="orange"] .mash-mobile-button {
+  background: #ff9800;
+}
+
+.mash-menu[data-color="orange"] .mash-extra > .mash-extra-container {
+  background: #995b00;
+}
+
+.mash-menu[data-color="orange"] .mash-categories a {
+  background: rgba(255, 152, 0, 0.3);
+  border-left: 1px solid #f08f00;
+}
+
+.mash-menu[data-color="orange"] .mash-categories a:hover {
+  background: #ffa21a;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="orange"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="orange"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #ff9800;
+  }
+}
+
+.mash-menu[data-color="orange"] .panel a {
+  color: #ff9800;
+}
+
+.mash-menu[data-color="orange"] .mash-brand > li > a, .mash-menu[data-color="orange"] .mash-list-items > li > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="orange"] .mash-list-items > li:hover > a {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="orange"] .mash-social-icons a {
+  color: rgba(0, 0, 0, 0.66);
+}
+
+.mash-menu[data-color="orange"] .mash-social-icons a:hover {
+  color: black;
+}
+
+.mash-menu[data-color="orange"] .mash-search-bar input {
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="orange"] .mash-search-bar :-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="orange"] .mash-search-bar ::-moz-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="orange"] .mash-search-bar :-ms-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="orange"] .mash-search-bar ::-webkit-input-placeholder {
+  opacity: 1 !important;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.mash-menu[data-color="orange"] .mash-search-bar .mash-search-bar-border:after, .mash-menu[data-color="orange"] .mash-search-bar .mash-search-bar-border:before {
+  background: rgba(0, 0, 0, 0.36);
+}
+
+.mash-menu[data-color="orange"] .mash-mobile-button span {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAOAgMAAABSqtRjAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACVBMVEViYmIAAAD///9/r5z6AAAAAnRSTlMA32D/An0AAAABYktHRAJmC3xkAAAACXBIWXMAAAsSAAALEgHS3X78AAAAEklEQVQI12MIBQEGCIkLkKgGAKK/CfcXmfkCAAAAAElFTkSuQmCC") no-repeat center;
+}
+
+.mash-menu[data-color="orange"] .btn.btn-custom {
+  color: rgba(0, 0, 0, 0.86) !important;
+}
+
+.mash-menu[data-color="deep-orange"] section.mash-menu-inner-container {
+  background: #ff5722;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="deep-orange"] .mash-brand > li:hover > a, .mash-menu[data-color="deep-orange"] .mash-list-items > li:hover > a {
+    background: #ff6a3c;
+  }
+}
+
+.mash-menu[data-color="deep-orange"] .mash-brand > li > a, .mash-menu[data-color="deep-orange"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="deep-orange"] .mash-list-items > li.active > a {
+  background: #ff6a3c;
+}
+
+.mash-menu[data-color="deep-orange"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #ff6a3c;
+}
+
+.mash-menu[data-color="deep-orange"].separator .mash-brand > li > a, .mash-menu[data-color="deep-orange"].separator .mash-list-items > li > a {
+  border-right: 1px solid #ff4b13;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-orange"].separator .mash-brand > li > a, .mash-menu[data-color="deep-orange"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #ff4b13;
+  }
+}
+
+.mash-menu[data-color="deep-orange"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #ff4b13;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-orange"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #ff4b13;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-orange"].separator .mash-search-bar {
+    border: 1px solid #ff4b13;
+  }
+}
+
+.mash-menu[data-color="deep-orange"] .drop-down li:hover > a {
+  color: #ff5722;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-orange"] .mash-search-bar {
+    background: #ff5722;
+  }
+}
+
+.mash-menu[data-color="deep-orange"] .vertical-tabs a:hover, .mash-menu[data-color="deep-orange"] .vertical-tabs a.active {
+  color: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] .thumbnail:hover {
+  border-color: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] blockquote {
+  border-left-color: #ffa588;
+}
+
+.mash-menu[data-color="deep-orange"] .list-items a:hover, .mash-menu[data-color="deep-orange"] .order-items a:hover {
+  color: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] .btn.btn-custom {
+  background: #ff5722;
+  border-bottom-color: #ee3900;
+}
+
+.mash-menu[data-color="deep-orange"] .btn.btn-custom:hover {
+  background: #ff6331;
+}
+
+.mash-menu[data-color="deep-orange"] .card .card-action a {
+  color: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] .card.reveal a {
+  color: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] input[type='text'],
+.mash-menu[data-color="deep-orange"] input[type='email'],
+.mash-menu[data-color="deep-orange"] input[type='password'],
+.mash-menu[data-color="deep-orange"] input[type='color'],
+.mash-menu[data-color="deep-orange"] input[type='date'],
+.mash-menu[data-color="deep-orange"] input[type='datetime'],
+.mash-menu[data-color="deep-orange"] input[type='datetime-local'],
+.mash-menu[data-color="deep-orange"] input[type='file'],
+.mash-menu[data-color="deep-orange"] input[type='hidden'],
+.mash-menu[data-color="deep-orange"] input[type='image'],
+.mash-menu[data-color="deep-orange"] input[type='month'],
+.mash-menu[data-color="deep-orange"] input[type='number'],
+.mash-menu[data-color="deep-orange"] input[type='time'],
+.mash-menu[data-color="deep-orange"] input[type='url'],
+.mash-menu[data-color="deep-orange"] input[type='week'],
+.mash-menu[data-color="deep-orange"] input[type='tel'],
+.mash-menu[data-color="deep-orange"] textarea,
+.mash-menu[data-color="deep-orange"] select {
+  background-image: linear-gradient(#ff5722, #ff5722), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="deep-orange"] input[type='text']:focus,
+.mash-menu[data-color="deep-orange"] input[type='email']:focus,
+.mash-menu[data-color="deep-orange"] input[type='password']:focus,
+.mash-menu[data-color="deep-orange"] input[type='color']:focus,
+.mash-menu[data-color="deep-orange"] input[type='date']:focus,
+.mash-menu[data-color="deep-orange"] input[type='datetime']:focus,
+.mash-menu[data-color="deep-orange"] input[type='datetime-local']:focus,
+.mash-menu[data-color="deep-orange"] input[type='file']:focus,
+.mash-menu[data-color="deep-orange"] input[type='hidden']:focus,
+.mash-menu[data-color="deep-orange"] input[type='image']:focus,
+.mash-menu[data-color="deep-orange"] input[type='month']:focus,
+.mash-menu[data-color="deep-orange"] input[type='number']:focus,
+.mash-menu[data-color="deep-orange"] input[type='time']:focus,
+.mash-menu[data-color="deep-orange"] input[type='url']:focus,
+.mash-menu[data-color="deep-orange"] input[type='week']:focus,
+.mash-menu[data-color="deep-orange"] input[type='tel']:focus,
+.mash-menu[data-color="deep-orange"] textarea:focus,
+.mash-menu[data-color="deep-orange"] select:focus {
+  background-image: linear-gradient(#ff5722, #ff5722), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="deep-orange"] label.menu-checkbox:after {
+  background: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] label.menu-toggle:before, .mash-menu[data-color="deep-orange"] label.menu-toggle:after {
+  background: #ffa588;
+}
+
+.mash-menu[data-color="deep-orange"] label.menu-toggle:after {
+  background: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] label.menu-radio:after {
+  border-color: #ff5722;
+  background: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] .mash-mobile-button {
+  background: #ff5722;
+}
+
+.mash-menu[data-color="deep-orange"] .mash-extra > .mash-extra-container {
+  background: #bb2d00;
+}
+
+.mash-menu[data-color="deep-orange"] .mash-categories a {
+  background: rgba(255, 87, 34, 0.3);
+  border-left: 1px solid #ff4b13;
+}
+
+.mash-menu[data-color="deep-orange"] .mash-categories a:hover {
+  background: #ff6a3c;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="deep-orange"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="deep-orange"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #ff5722;
+  }
+}
+
+.mash-menu[data-color="deep-orange"] .panel a {
+  color: #ff5722;
+}
+
+.mash-menu[data-color="brown"] section.mash-menu-inner-container {
+  background: #795548;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="brown"] .mash-brand > li:hover > a, .mash-menu[data-color="brown"] .mash-list-items > li:hover > a {
+    background: #896052;
+  }
+}
+
+.mash-menu[data-color="brown"] .mash-brand > li > a, .mash-menu[data-color="brown"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="brown"] .mash-list-items > li.active > a {
+  background: #896052;
+}
+
+.mash-menu[data-color="brown"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #896052;
+}
+
+.mash-menu[data-color="brown"].separator .mash-brand > li > a, .mash-menu[data-color="brown"].separator .mash-list-items > li > a {
+  border-right: 1px solid #6f4e42;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="brown"].separator .mash-brand > li > a, .mash-menu[data-color="brown"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #6f4e42;
+  }
+}
+
+.mash-menu[data-color="brown"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #6f4e42;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="brown"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #6f4e42;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="brown"].separator .mash-search-bar {
+    border: 1px solid #6f4e42;
+  }
+}
+
+.mash-menu[data-color="brown"] .drop-down li:hover > a {
+  color: #795548;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="brown"] .mash-search-bar {
+    background: #795548;
+  }
+}
+
+.mash-menu[data-color="brown"] .vertical-tabs a:hover, .mash-menu[data-color="brown"] .vertical-tabs a.active {
+  color: #795548;
+}
+
+.mash-menu[data-color="brown"] .thumbnail:hover {
+  border-color: #795548;
+}
+
+.mash-menu[data-color="brown"] blockquote {
+  border-left-color: #af8778;
+}
+
+.mash-menu[data-color="brown"] .list-items a:hover, .mash-menu[data-color="brown"] .order-items a:hover {
+  color: #795548;
+}
+
+.mash-menu[data-color="brown"] .btn.btn-custom {
+  background: #795548;
+  border-bottom-color: #593f35;
+}
+
+.mash-menu[data-color="brown"] .btn.btn-custom:hover {
+  background: #835c4e;
+}
+
+.mash-menu[data-color="brown"] .card .card-action a {
+  color: #795548;
+}
+
+.mash-menu[data-color="brown"] .card.reveal a {
+  color: #795548;
+}
+
+.mash-menu[data-color="brown"] input[type='text'],
+.mash-menu[data-color="brown"] input[type='email'],
+.mash-menu[data-color="brown"] input[type='password'],
+.mash-menu[data-color="brown"] input[type='color'],
+.mash-menu[data-color="brown"] input[type='date'],
+.mash-menu[data-color="brown"] input[type='datetime'],
+.mash-menu[data-color="brown"] input[type='datetime-local'],
+.mash-menu[data-color="brown"] input[type='file'],
+.mash-menu[data-color="brown"] input[type='hidden'],
+.mash-menu[data-color="brown"] input[type='image'],
+.mash-menu[data-color="brown"] input[type='month'],
+.mash-menu[data-color="brown"] input[type='number'],
+.mash-menu[data-color="brown"] input[type='time'],
+.mash-menu[data-color="brown"] input[type='url'],
+.mash-menu[data-color="brown"] input[type='week'],
+.mash-menu[data-color="brown"] input[type='tel'],
+.mash-menu[data-color="brown"] textarea,
+.mash-menu[data-color="brown"] select {
+  background-image: linear-gradient(#795548, #795548), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="brown"] input[type='text']:focus,
+.mash-menu[data-color="brown"] input[type='email']:focus,
+.mash-menu[data-color="brown"] input[type='password']:focus,
+.mash-menu[data-color="brown"] input[type='color']:focus,
+.mash-menu[data-color="brown"] input[type='date']:focus,
+.mash-menu[data-color="brown"] input[type='datetime']:focus,
+.mash-menu[data-color="brown"] input[type='datetime-local']:focus,
+.mash-menu[data-color="brown"] input[type='file']:focus,
+.mash-menu[data-color="brown"] input[type='hidden']:focus,
+.mash-menu[data-color="brown"] input[type='image']:focus,
+.mash-menu[data-color="brown"] input[type='month']:focus,
+.mash-menu[data-color="brown"] input[type='number']:focus,
+.mash-menu[data-color="brown"] input[type='time']:focus,
+.mash-menu[data-color="brown"] input[type='url']:focus,
+.mash-menu[data-color="brown"] input[type='week']:focus,
+.mash-menu[data-color="brown"] input[type='tel']:focus,
+.mash-menu[data-color="brown"] textarea:focus,
+.mash-menu[data-color="brown"] select:focus {
+  background-image: linear-gradient(#795548, #795548), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="brown"] label.menu-checkbox:after {
+  background: #795548;
+}
+
+.mash-menu[data-color="brown"] label.menu-toggle:before, .mash-menu[data-color="brown"] label.menu-toggle:after {
+  background: #af8778;
+}
+
+.mash-menu[data-color="brown"] label.menu-toggle:after {
+  background: #795548;
+}
+
+.mash-menu[data-color="brown"] label.menu-radio:after {
+  border-color: #795548;
+  background: #795548;
+}
+
+.mash-menu[data-color="brown"] .mash-mobile-button {
+  background: #795548;
+}
+
+.mash-menu[data-color="brown"] .mash-extra > .mash-extra-container {
+  background: #392822;
+}
+
+.mash-menu[data-color="brown"] .mash-categories a {
+  background: rgba(121, 85, 72, 0.3);
+  border-left: 1px solid #6f4e42;
+}
+
+.mash-menu[data-color="brown"] .mash-categories a:hover {
+  background: #896052;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="brown"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="brown"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #795548;
+  }
+}
+
+.mash-menu[data-color="brown"] .panel a {
+  color: #795548;
+}
+
+.mash-menu[data-color="grey"] section.mash-menu-inner-container {
+  background: #9e9e9e;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="grey"] .mash-brand > li:hover > a, .mash-menu[data-color="grey"] .mash-list-items > li:hover > a {
+    background: #ababab;
+  }
+}
+
+.mash-menu[data-color="grey"] .mash-brand > li > a, .mash-menu[data-color="grey"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="grey"] .mash-list-items > li.active > a {
+  background: #ababab;
+}
+
+.mash-menu[data-color="grey"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #ababab;
+}
+
+.mash-menu[data-color="grey"].separator .mash-brand > li > a, .mash-menu[data-color="grey"].separator .mash-list-items > li > a {
+  border-right: 1px solid #969696;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="grey"].separator .mash-brand > li > a, .mash-menu[data-color="grey"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #969696;
+  }
+}
+
+.mash-menu[data-color="grey"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #969696;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="grey"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #969696;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="grey"].separator .mash-search-bar {
+    border: 1px solid #969696;
+  }
+}
+
+.mash-menu[data-color="grey"] .drop-down li:hover > a {
+  color: #9e9e9e;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="grey"] .mash-search-bar {
+    background: #9e9e9e;
+  }
+}
+
+.mash-menu[data-color="grey"] .vertical-tabs a:hover, .mash-menu[data-color="grey"] .vertical-tabs a.active {
+  color: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] .thumbnail:hover {
+  border-color: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] blockquote {
+  border-left-color: #d1d1d1;
+}
+
+.mash-menu[data-color="grey"] .list-items a:hover, .mash-menu[data-color="grey"] .order-items a:hover {
+  color: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] .btn.btn-custom {
+  background: #9e9e9e;
+  border-bottom-color: #858585;
+}
+
+.mash-menu[data-color="grey"] .btn.btn-custom:hover {
+  background: #a6a6a6;
+}
+
+.mash-menu[data-color="grey"] .card .card-action a {
+  color: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] .card.reveal a {
+  color: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] input[type='text'],
+.mash-menu[data-color="grey"] input[type='email'],
+.mash-menu[data-color="grey"] input[type='password'],
+.mash-menu[data-color="grey"] input[type='color'],
+.mash-menu[data-color="grey"] input[type='date'],
+.mash-menu[data-color="grey"] input[type='datetime'],
+.mash-menu[data-color="grey"] input[type='datetime-local'],
+.mash-menu[data-color="grey"] input[type='file'],
+.mash-menu[data-color="grey"] input[type='hidden'],
+.mash-menu[data-color="grey"] input[type='image'],
+.mash-menu[data-color="grey"] input[type='month'],
+.mash-menu[data-color="grey"] input[type='number'],
+.mash-menu[data-color="grey"] input[type='time'],
+.mash-menu[data-color="grey"] input[type='url'],
+.mash-menu[data-color="grey"] input[type='week'],
+.mash-menu[data-color="grey"] input[type='tel'],
+.mash-menu[data-color="grey"] textarea,
+.mash-menu[data-color="grey"] select {
+  background-image: linear-gradient(#9e9e9e, #9e9e9e), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="grey"] input[type='text']:focus,
+.mash-menu[data-color="grey"] input[type='email']:focus,
+.mash-menu[data-color="grey"] input[type='password']:focus,
+.mash-menu[data-color="grey"] input[type='color']:focus,
+.mash-menu[data-color="grey"] input[type='date']:focus,
+.mash-menu[data-color="grey"] input[type='datetime']:focus,
+.mash-menu[data-color="grey"] input[type='datetime-local']:focus,
+.mash-menu[data-color="grey"] input[type='file']:focus,
+.mash-menu[data-color="grey"] input[type='hidden']:focus,
+.mash-menu[data-color="grey"] input[type='image']:focus,
+.mash-menu[data-color="grey"] input[type='month']:focus,
+.mash-menu[data-color="grey"] input[type='number']:focus,
+.mash-menu[data-color="grey"] input[type='time']:focus,
+.mash-menu[data-color="grey"] input[type='url']:focus,
+.mash-menu[data-color="grey"] input[type='week']:focus,
+.mash-menu[data-color="grey"] input[type='tel']:focus,
+.mash-menu[data-color="grey"] textarea:focus,
+.mash-menu[data-color="grey"] select:focus {
+  background-image: linear-gradient(#9e9e9e, #9e9e9e), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="grey"] label.menu-checkbox:after {
+  background: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] label.menu-toggle:before, .mash-menu[data-color="grey"] label.menu-toggle:after {
+  background: #d1d1d1;
+}
+
+.mash-menu[data-color="grey"] label.menu-toggle:after {
+  background: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] label.menu-radio:after {
+  border-color: #9e9e9e;
+  background: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] .mash-mobile-button {
+  background: #9e9e9e;
+}
+
+.mash-menu[data-color="grey"] .mash-extra > .mash-extra-container {
+  background: #6b6b6b;
+}
+
+.mash-menu[data-color="grey"] .mash-categories a {
+  background: rgba(158, 158, 158, 0.3);
+  border-left: 1px solid #969696;
+}
+
+.mash-menu[data-color="grey"] .mash-categories a:hover {
+  background: #ababab;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="grey"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="grey"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #9e9e9e;
+  }
+}
+
+.mash-menu[data-color="grey"] .panel a {
+  color: #9e9e9e;
+}
+
+.mash-menu[data-color="blue-grey"] section.mash-menu-inner-container {
+  background: #688897;
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="blue-grey"] .mash-brand > li:hover > a, .mash-menu[data-color="blue-grey"] .mash-list-items > li:hover > a {
+    background: #7794a1;
+  }
+}
+
+.mash-menu[data-color="blue-grey"] .mash-brand > li > a, .mash-menu[data-color="blue-grey"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="blue-grey"] .mash-list-items > li.active > a {
+  background: #7794a1;
+}
+
+.mash-menu[data-color="blue-grey"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #7794a1;
+}
+
+.mash-menu[data-color="blue-grey"].separator .mash-brand > li > a, .mash-menu[data-color="blue-grey"].separator .mash-list-items > li > a {
+  border-right: 1px solid #62808e;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="blue-grey"].separator .mash-brand > li > a, .mash-menu[data-color="blue-grey"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #62808e;
+  }
+}
+
+.mash-menu[data-color="blue-grey"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #62808e;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="blue-grey"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #62808e;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="blue-grey"].separator .mash-search-bar {
+    border: 1px solid #62808e;
+  }
+}
+
+.mash-menu[data-color="blue-grey"] .drop-down li:hover > a {
+  color: #688897;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="blue-grey"] .mash-search-bar {
+    background: #688897;
+  }
+}
+
+.mash-menu[data-color="blue-grey"] .vertical-tabs a:hover, .mash-menu[data-color="blue-grey"] .vertical-tabs a.active {
+  color: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] .thumbnail:hover {
+  border-color: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] blockquote {
+  border-left-color: #a4b8c1;
+}
+
+.mash-menu[data-color="blue-grey"] .list-items a:hover, .mash-menu[data-color="blue-grey"] .order-items a:hover {
+  color: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] .btn.btn-custom {
+  background: #688897;
+  border-bottom-color: #536d79;
+}
+
+.mash-menu[data-color="blue-grey"] .btn.btn-custom:hover {
+  background: #718f9d;
+}
+
+.mash-menu[data-color="blue-grey"] .card .card-action a {
+  color: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] .card.reveal a {
+  color: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] input[type='text'],
+.mash-menu[data-color="blue-grey"] input[type='email'],
+.mash-menu[data-color="blue-grey"] input[type='password'],
+.mash-menu[data-color="blue-grey"] input[type='color'],
+.mash-menu[data-color="blue-grey"] input[type='date'],
+.mash-menu[data-color="blue-grey"] input[type='datetime'],
+.mash-menu[data-color="blue-grey"] input[type='datetime-local'],
+.mash-menu[data-color="blue-grey"] input[type='file'],
+.mash-menu[data-color="blue-grey"] input[type='hidden'],
+.mash-menu[data-color="blue-grey"] input[type='image'],
+.mash-menu[data-color="blue-grey"] input[type='month'],
+.mash-menu[data-color="blue-grey"] input[type='number'],
+.mash-menu[data-color="blue-grey"] input[type='time'],
+.mash-menu[data-color="blue-grey"] input[type='url'],
+.mash-menu[data-color="blue-grey"] input[type='week'],
+.mash-menu[data-color="blue-grey"] input[type='tel'],
+.mash-menu[data-color="blue-grey"] textarea,
+.mash-menu[data-color="blue-grey"] select {
+  background-image: linear-gradient(#688897, #688897), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="blue-grey"] input[type='text']:focus,
+.mash-menu[data-color="blue-grey"] input[type='email']:focus,
+.mash-menu[data-color="blue-grey"] input[type='password']:focus,
+.mash-menu[data-color="blue-grey"] input[type='color']:focus,
+.mash-menu[data-color="blue-grey"] input[type='date']:focus,
+.mash-menu[data-color="blue-grey"] input[type='datetime']:focus,
+.mash-menu[data-color="blue-grey"] input[type='datetime-local']:focus,
+.mash-menu[data-color="blue-grey"] input[type='file']:focus,
+.mash-menu[data-color="blue-grey"] input[type='hidden']:focus,
+.mash-menu[data-color="blue-grey"] input[type='image']:focus,
+.mash-menu[data-color="blue-grey"] input[type='month']:focus,
+.mash-menu[data-color="blue-grey"] input[type='number']:focus,
+.mash-menu[data-color="blue-grey"] input[type='time']:focus,
+.mash-menu[data-color="blue-grey"] input[type='url']:focus,
+.mash-menu[data-color="blue-grey"] input[type='week']:focus,
+.mash-menu[data-color="blue-grey"] input[type='tel']:focus,
+.mash-menu[data-color="blue-grey"] textarea:focus,
+.mash-menu[data-color="blue-grey"] select:focus {
+  background-image: linear-gradient(#688897, #688897), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="blue-grey"] label.menu-checkbox:after {
+  background: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] label.menu-toggle:before, .mash-menu[data-color="blue-grey"] label.menu-toggle:after {
+  background: #a4b8c1;
+}
+
+.mash-menu[data-color="blue-grey"] label.menu-toggle:after {
+  background: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] label.menu-radio:after {
+  border-color: #688897;
+  background: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] .mash-mobile-button {
+  background: #688897;
+}
+
+.mash-menu[data-color="blue-grey"] .mash-extra > .mash-extra-container {
+  background: #3e525b;
+}
+
+.mash-menu[data-color="blue-grey"] .mash-categories a {
+  background: rgba(104, 136, 151, 0.3);
+  border-left: 1px solid #62808e;
+}
+
+.mash-menu[data-color="blue-grey"] .mash-categories a:hover {
+  background: #7794a1;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="blue-grey"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="blue-grey"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: #688897;
+  }
+}
+
+.mash-menu[data-color="blue-grey"] .panel a {
+  color: #688897;
+}
+
+.mash-menu[data-color="black-gradient"] section.mash-menu-inner-container {
+  background: linear-gradient(to top, #2c2c2c 0%, #605b5f 100%);
+}
+
+@media screen and (min-width: 768px) {
+  .mash-menu[data-color="black-gradient"] .mash-brand > li:hover > a, .mash-menu[data-color="black-gradient"] .mash-list-items > li:hover > a {
+    background: #393939;
+  }
+}
+
+.mash-menu[data-color="black-gradient"] .mash-brand > li > a, .mash-menu[data-color="black-gradient"] .mash-list-items > li > a {
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.mash-menu[data-color="black-gradient"] .mash-list-items > li.active > a {
+  background: #393939;
+}
+
+.mash-menu[data-color="black-gradient"] .mash-list-items > li:hover > a {
+  color: white;
+  background: #393939;
+}
+
+.mash-menu[data-color="black-gradient"].separator .mash-brand > li > a, .mash-menu[data-color="black-gradient"].separator .mash-list-items > li > a {
+  border-right: 1px solid #242424;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="black-gradient"].separator .mash-brand > li > a, .mash-menu[data-color="black-gradient"].separator .mash-list-items > li > a {
+    border-bottom: 1px solid #242424;
+  }
+}
+
+.mash-menu[data-color="black-gradient"].separator .mash-list-items.right > li > a {
+  border-left: 1px solid #242424;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="black-gradient"].separator .mash-list-items.right > li > a {
+    border-bottom: 1px solid #242424;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="black-gradient"].separator .mash-search-bar {
+    border: 1px solid #242424;
+  }
+}
+
+.mash-menu[data-color="black-gradient"] .drop-down li:hover > a {
+  color: #2c2c2c;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="black-gradient"] .mash-search-bar {
+    background: #2c2c2c;
+  }
+}
+
+.mash-menu[data-color="black-gradient"] .vertical-tabs a:hover, .mash-menu[data-color="black-gradient"] .vertical-tabs a.active {
+  color: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] .thumbnail:hover {
+  border-color: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] blockquote {
+  border-left-color: #5f5f5f;
+}
+
+.mash-menu[data-color="black-gradient"] .list-items a:hover, .mash-menu[data-color="black-gradient"] .order-items a:hover {
+  color: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] .btn.btn-custom {
+  background: #2c2c2c;
+  border-bottom-color: #121212;
+}
+
+.mash-menu[data-color="black-gradient"] .btn.btn-custom:hover {
+  background: #343434;
+}
+
+.mash-menu[data-color="black-gradient"] .card .card-action a {
+  color: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] .card.reveal a {
+  color: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] input[type='text'],
+.mash-menu[data-color="black-gradient"] input[type='email'],
+.mash-menu[data-color="black-gradient"] input[type='password'],
+.mash-menu[data-color="black-gradient"] input[type='color'],
+.mash-menu[data-color="black-gradient"] input[type='date'],
+.mash-menu[data-color="black-gradient"] input[type='datetime'],
+.mash-menu[data-color="black-gradient"] input[type='datetime-local'],
+.mash-menu[data-color="black-gradient"] input[type='file'],
+.mash-menu[data-color="black-gradient"] input[type='hidden'],
+.mash-menu[data-color="black-gradient"] input[type='image'],
+.mash-menu[data-color="black-gradient"] input[type='month'],
+.mash-menu[data-color="black-gradient"] input[type='number'],
+.mash-menu[data-color="black-gradient"] input[type='time'],
+.mash-menu[data-color="black-gradient"] input[type='url'],
+.mash-menu[data-color="black-gradient"] input[type='week'],
+.mash-menu[data-color="black-gradient"] input[type='tel'],
+.mash-menu[data-color="black-gradient"] textarea,
+.mash-menu[data-color="black-gradient"] select {
+  background-image: linear-gradient(#2c2c2c, #2c2c2c), linear-gradient(#d2d2d2, #d2d2d2) !important;
+}
+
+.mash-menu[data-color="black-gradient"] input[type='text']:focus,
+.mash-menu[data-color="black-gradient"] input[type='email']:focus,
+.mash-menu[data-color="black-gradient"] input[type='password']:focus,
+.mash-menu[data-color="black-gradient"] input[type='color']:focus,
+.mash-menu[data-color="black-gradient"] input[type='date']:focus,
+.mash-menu[data-color="black-gradient"] input[type='datetime']:focus,
+.mash-menu[data-color="black-gradient"] input[type='datetime-local']:focus,
+.mash-menu[data-color="black-gradient"] input[type='file']:focus,
+.mash-menu[data-color="black-gradient"] input[type='hidden']:focus,
+.mash-menu[data-color="black-gradient"] input[type='image']:focus,
+.mash-menu[data-color="black-gradient"] input[type='month']:focus,
+.mash-menu[data-color="black-gradient"] input[type='number']:focus,
+.mash-menu[data-color="black-gradient"] input[type='time']:focus,
+.mash-menu[data-color="black-gradient"] input[type='url']:focus,
+.mash-menu[data-color="black-gradient"] input[type='week']:focus,
+.mash-menu[data-color="black-gradient"] input[type='tel']:focus,
+.mash-menu[data-color="black-gradient"] textarea:focus,
+.mash-menu[data-color="black-gradient"] select:focus {
+  background-image: linear-gradient(#2c2c2c, #2c2c2c), linear-gradient(#d2d2d2, #d2d2d2);
+}
+
+.mash-menu[data-color="black-gradient"] label.menu-checkbox:after {
+  background: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] label.menu-toggle:before, .mash-menu[data-color="black-gradient"] label.menu-toggle:after {
+  background: #5f5f5f;
+}
+
+.mash-menu[data-color="black-gradient"] label.menu-toggle:after {
+  background: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] label.menu-radio:after {
+  border-color: #2c2c2c;
+  background: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] .mash-mobile-button {
+  background: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] .mash-extra > .mash-extra-container {
+  background: black;
+}
+
+.mash-menu[data-color="black-gradient"] .mash-categories a {
+  background: rgba(44, 44, 44, 0.3);
+  border-left: 1px solid #242424;
+}
+
+.mash-menu[data-color="black-gradient"] .mash-categories a:hover {
+  background: #393939;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="black-gradient"] .vertical-tabs-content-container .vertical-tabs-content-mobile {
+    color: #505050;
+  }
+  .mash-menu[data-color="black-gradient"] .vertical-tabs-content-container .vertical-tabs-content-mobile:hover {
+    color: linear-gradient(to top, #2c2c2c 0%, #605b5f 100%);
+  }
+}
+
+.mash-menu[data-color="black-gradient"] .panel a {
+  color: #2c2c2c;
+}
+
+.mash-menu[data-color="black-gradient"] .mash-mobile-button {
+  background: transparent;
+}
+
+@media screen and (max-width: 767px) {
+  .mash-menu[data-color="black-gradient"] .mash-search-bar {
+    background: transparent;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    box-shadow: none !important;
+  }
+}

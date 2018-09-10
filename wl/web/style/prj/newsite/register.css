@@ -1,0 +1,56 @@
+.textMargin{
+    margin-bottom: 10px;
+}
+.inputText{
+    font-size: 18px;
+}
+.inputStyle{
+    height:31px;
+    border:1px solid black;
+    width: 100%;
+}
+.congratulationToRegister{
+    color: #ACACAC;
+    font-size: 16px;
+    padding-bottom:3px;
+    border-bottom:1px solid #ACACAC;
+}
+.alreadyRegister {
+    color: #5E90D1;
+    font-size: 16px;
+    padding-bottom: 2px;
+}
+.registerButton{
+    background: #111111;
+    color: white;
+    width:105px;
+    height: 40px;
+}
+.contentMargin{
+    margin-top: 150px;
+    margin-bottom: 100px;
+}
+@media screen and (max-width: 768px) {
+    #register .text-right{
+        text-align: center;
+    }
+    #register .text-left {
+        text-align: center;
+    }
+   /*  .inputStyle{
+        height:30px;
+        border:1px solid black;
+        width: 300px;
+    } */
+}
+.aboutContent{
+    font-size: 16px;
+    color: #ACACAC;
+}
+.getIdentifyingCodeButton {
+    width: 110px;
+    height: 32px;
+    background: #EEEEEE;
+    color: #8C8C8C;
+    border: solid 1px #BFBFBF;
+}

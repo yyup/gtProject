@@ -1,0 +1,66 @@
+ 
+.main {
+	height: 100%;
+	width: 100%;
+}
+
+.main td {
+	vertical-align: top;
+}
+
+.leftTree {
+	width: 180px;
+}
+
+.leftTreeBox {
+	 
+	background-position: 50% 50%;  
+	box-sizing: content-box;
+	background-clip: border-box; 
+	width:170px;
+	overflow: auto;
+	border:1px solid rgb(197, 197, 197);
+	
+}
+
+
+#rightTitle {
+  
+    width: 150px;
+}
+
+
+#editBut{
+margin-top:30px;
+}
+.headTitle{
+	background-color: #e3e3e3;
+    background-image: none, linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 1%, rgba(255, 255, 255, 0.2) 100%);
+    border-left: 1px solid #c5c5c5;
+    border-right: 1px solid #c5c5c5;
+    border-top: 1px solid #c5c5c5;
+     border-bottom: 1px solid #c5c5c5;
+    color: #036eb2;
+    font-size: 14px; 
+    height: 30px;
+    line-height: 30px;
+    margin-top: 4px;
+    padding-left: 20px;
+}
+#editDiv1{
+}
+#link{
+  display: block;
+    width: 100%;
+    word-break: break-all;
+}
+.red{
+ color:red;
+}
+#auditImg{
+height: 57px;
+    position: absolute;
+     right: 0;
+    top: -7px;
+    width: 130px;
+}

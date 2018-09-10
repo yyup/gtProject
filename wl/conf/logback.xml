@@ -1,0 +1,64 @@
+<configuration scan="true" scanPeriod="60000">
+	<property name="APP_Name" value="WL" />
+	<property name="LOG_BASEDIR" value="" />
+	<contextName>${APP_Name}</contextName>
+	<appender name="stdoutLog" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="errorLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>error</level>      
+			<onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY </onMismatch>			   
+ 		</filter>
+		<file>${LOG_BASEDIR}/${APP_Name}/logs/${APP_Name}.error.log</file>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+			</pattern>
+		</layout>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${LOG_BASEDIR}/${APP_Name}/logs/${APP_Name}.error.%i.log
+			</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>15</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>2MB</maxFileSize>
+		</triggeringPolicy>
+	</appender>
+	<appender name="serviceLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_BASEDIR}/${APP_Name}/logs/${APP_Name}.log</file>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n
+			</pattern>
+		</layout>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>${LOG_BASEDIR}/${APP_Name}/logs/${APP_Name}.service.%i.log
+			</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>30</maxIndex>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>1MB</maxFileSize>
+		</triggeringPolicy>
+	</appender>
+	<logger name="tso" level="debug"></logger> 
+	<logger name="com.icss" level="info"></logger>
+	<logger name="org" level="info"></logger>
+	<logger name="org.apache.catalina.core.ContainerBase" level="off"></logger>
+	<logger name="org.apache.catalina.session" level="off"></logger>
+	<logger name="ch.qos.logback" level="off"></logger>
+	<logger name="org.hibernate.SQL" level="DEBUG" /> 
+	<root level="info">
+		<appender-ref ref="stdoutLog" />
+		<appender-ref ref="serviceLog" /> 
+		<appender-ref ref="errorLog" /> 
+	</root>
+</configuration>

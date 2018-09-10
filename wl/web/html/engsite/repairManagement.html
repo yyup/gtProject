@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="Generator" content="waterrower Team">
+		<meta name="Author" content="waterrowerTeam">
+		<meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+		<meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+			<script src="../../js/jquery.min.js"></script>
+	     	<script src="../../js/site/getParam.js"></script>
+	  		<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+			<script src="../../js/newsite/bootstrap.js"></script>
+			<script src="../../js/newsite/getSystemPlatform.js"></script>
+			<script src="../../js/engsite/wlcommon.js"></script>    
+			<script src="../../js/newsite/cnzz.js"></script>
+    		<link href="../../style/prj/engsite/bootstrapValidator.min.css" rel="stylesheet">
+			<script src="../../js/newsite/bootstrapValidator.min.js"></script>
+			<link rel="stylesheet" href="../../style/prj/engsite/header.css" />
+			<link rel="stylesheet" href="../../style/prj/engsite/footer.css" />
+			<link rel="stylesheet" href="../../style/prj/engsite/bootstrap.min.css" />
+			<link rel="stylesheet" href="../../style/prj/engsite/wlcommon.css" />
+			<link rel="stylesheet" href="../../style/prj/engsite/repairManagement.css" />
+	</head>
+
+	<body>
+		<!-- 头部 -->
+		<div id="top">
+			<div id="commonpath" style="display: none;" commonpath=""></div>
+		</div>
+		<!-- 内容 -->
+		<div id="wlBody" clss="contentMargin">
+			<div class="container" style="margin-top: 100px;margin-bottom: 50px;">
+				<div class="row">
+					<div class="col-md-2"></div>
+					<div class="col-md-8">
+						<h1>REPAIR APPLICATION</h1>
+						<h4>Confirm your address</h4>
+						<div>
+							<div id="radioAddr">
+								<!-- <div class="radio">
+									<label class="selectClass">
+	                        <input type="radio" name="optionsRadios" id="option1" value="option1" checked>
+	                        福建省 厦门市 湖里区 望海路航空自贸广场2号楼305大界营销策划有限公司 (bone收) 18850541580 *默认地址
+	                    </label>
+								</div>
+								<div class="radio">
+									<label class="text-color">
+	                        <input type="radio"  name="optionsRadios" id="option2" value="option2">
+	                        福建省 厦门市 湖里区 望海路航空自贸广场2号楼305大界营销策划有限公司 (bone收) 18850541580 *默认地址
+	                    </label>
+								</div>
+								<div class="radio">
+									<label class="text-color">
+	                        <input type="radio" name="optionsRadios" id="option3" value="option2">
+	                        福建省 厦门市 湖里区 望海路航空自贸广场2号楼305大界营销策划有限公司 (bone收) 18850541580 *默认地址
+	                    </label>
+								</div>
+								<div class="radio">
+									<label class="text-color">
+	                        <input type="radio" name="optionsRadios" id="option4" value="option2">
+	                        福建省 厦门市 湖里区 望海路航空自贸广场2号楼305大界营销策划有限公司 (bone收) 18850541580 *默认地址
+	                    </label>
+								</div> -->
+							</div>
+							<div class="radio">
+								<div class="selectClass">
+									<a href="javascript:window.location.href='addAddr.html?addType=repair'" style="text-decoration:none;">
+										<input type="hidden" name="optionsRadios" value="option2"> Add new address <img src="../../style/prj/images/add.png">
+									</a>
+								</div>
+							</div>
+						</div>
+						<!--表格账户-->
+						<!--<div class="text-left">s
+							<form class="form-horizontal">
+								<div class="form-group">
+									<label class="col-sm-4 col-xs-5 text-right labelSize">用户账户</label>
+									<div class="col-sm-8 col-xs-7" style="text-align: left;">
+										<span class="labelSize">Bone</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 col-xs-5 text-right labelSize" for="serial">序&nbsp;<span style="margin-left: 3px;margin-right:3px;">列</span>&nbsp;号</label>
+									<div class="col-sm-8 col-xs-7" style="text-align: left;">
+										<input id="serial" class="tableValue" style="width:300px">
+									</div>
+								</div>
+							</form>
+						</div>-->
+						<div class="divForm text-left">
+							<form class="form-horizontal" id="repairFrm">
+								<div class="form-group">
+									<label for="inputEmail3" class="col-sm-4 labelSize">Account</label>
+									<div class="col-sm-8" class="accountcss">
+										<span class="labelSize" id="personAccount"></span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword3" class="col-sm-4 labelSize">Serial No.</label>
+									<div class="col-sm-8">
+										<!-- <input id="serial" class="tableValue" style="width:300px"> -->
+										<select id="deviceCd" name="deviceCd" onblur="getDeviceRepairDate()" class="selectpicker show-tick selectcss form-control" title="Please select one item" data-live-search="true" data-size="5">  
+				                    	</select> 
+									</div>
+								</div>
+								<div id="bxrq">
+									<p class="pTip">Framework Warranty to <span id="kjTime"></span></p>
+									<p class="pTip">Machine Warranty to <span id="pjTime"></span></p>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword3" class="col-sm-4 labelSize">Contacts</label>
+									<div class="col-sm-8">
+										<input id="receiver" name="receiver" class="tableValue form-control" style="width:100%" databind="value:receiver">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword3" class="col-sm-4 labelSize">Phone</label>
+									<div class="col-sm-8">
+										<input id="mobile" name="mobile" class="tableValue form-control" style="width:100%" databind="value:mobile">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword3" class="col-sm-4 labelSize">Problem Module</label>
+									<div class="col-sm-8">
+										<!-- <input id="serial" class="tableValue" style="width:300px"> -->
+										<select id="moduleEk" name="moduleEk" class="selectpicker show-tick selectcss form-control" title="Please select one item" data-live-search="true" data-size="5">  
+				                    	</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="inputPassword3" class="col-sm-4 labelSize">Problem Description</label>
+									<div class="col-sm-8">
+										<input id="description" name="description" class="tableValue form-control" style="width:100%" databind="value:description">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFile" class="col-sm-4 labelSize uploadbtcss">loading Image</label>
+									<div class="col-sm-8">
+										<!-- <input type="button" class="inputFile" value="选择文件" onclick="upload"/> -->
+										<input  id="picUpload" class="joy-uploaden"
+						                               databind="value:path" multiple="false" 
+						                               type="file" complete="onPicBaseSuccess" select="selectPicFile"
+						                               async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.web?action=uploadFile&sourceCode=pictureFile', removeUrl:'../../wl/cm/wlCmDocumentAction.web?action=deleteFile'}"
+						                               allowType='jpg,png,gif,HEIF,JPEG' maxSize="5" />
+										<span class="pTip">support jpg/gif/png/HEIF/JPEG,within 5M.</span>
+										<div id="custRepairImg" style="z-index: -999;">
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFile" class="col-sm-4 labelSize uploadbtcss">loading Video</label>
+									<div class="col-sm-8">
+										<!-- <input type="button" class="inputFile" value="选择文件" /> -->
+										<input  id="videoUpload" class="joy-uploaden"
+		                               databind="value:videoPath" multiple="false" 
+		                               type="file" complete="onVideoBaseSuccess" select="selectVideoFile"
+		                               async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.web?action=uploadVideoFile&sourceCode=videoFile', removeUrl:'../../wl/cm/wlCmDocumentAction.web?action=deleteVideoFile'}"
+		                               allowType='mp4,webm,ogg,HEVC,mov' maxSize="50" />
+										<span class="pTip">support mp4/webm/ogg/HEVC/mov, within 50M</span>
+										<div id="custRepairVideo"  style="z-index: -999;"></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFile" class="col-sm-4 control-label labelSize"></label>
+									<div class="col-sm-8 col-md-6">
+										<!--确定 返回-->
+										<input onclick="saveRepair()" type="button" class="sureAndBack" value="Submit" />
+										<input onclick="javascript:window.location.href='repair.html'" type="button" class="sureAndBack" value="Go back" />
+									</div>
+								</div>
+			                	<input type="hidden" name="addr" id="addr"></input>
+			                	<input type="hidden" name="areaId" id="areaId"></input><!-- 地址Id -->
+			                	<input type="hidden" name="billSourceEk" id="billSourceEk" value="CUSTOMER">
+			                	<input type="hidden" name="repairNo" id="repairNo"></input>
+			                	<input type="hidden" name="memberId" id="memberId"></input>
+			                	<input type="hidden" name="account" id="account"></input>
+			                	<input type="hidden" name="name" id="name"></input>
+			                	<input type="hidden" name="contact" id="contact"></input>
+			                	<input type="hidden" name="creator" id="creator"></input>
+							</form>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- 内容结束 -->
+		<!--尾部开始-->
+		<div id="footerPart">
+			
+		</div>
+		<!--尾部结束-->
+		<script>
+			var addrs = new Object();
+			var MODULE_EKEnum;
+			//进行初始化操作
+			$(function() {
+				initTop();
+				initClick();
+				initBottom();
+				//添加事件
+				$(".radio label").click(function() {
+					$(this).addClass("selectClass").css("color", "#333");
+					$(this).parent().siblings().find("label").removeClass('selectClass').css("color", "#808080");
+				});
+				init();//获取初始化数据
+				validateFrm();//表单验证初始化
+			});
+			//验证表单
+			function validateFrm(){
+				$('#repairFrm').bootstrapValidator({
+		            feedbackIcons: {//根据验证结果显示的各种图标  
+		                valid: 'glyphicon glyphicon-ok',
+		                invalid: 'glyphicon glyphicon-remove',
+		                validating: 'glyphicon glyphicon-refresh'
+		            },
+		            fields: {
+		                inputAccount: {
+		                    validators: {
+		                        notEmpty: {
+		                            message: 'Can not be empty!'
+		                        }
+		                    }
+		                },
+		                deviceCd:{
+		                    validators: {
+		                        notEmpty: {
+		                            message: 'Please describe the problems you have encountered.'
+		                        }
+		                    }
+		                },
+		                receiver:{
+		                    validators: {
+		                        notEmpty: {
+		                            message: 'Can not be empty!'
+		                        }
+		                    }
+		                },
+		                mobile:{
+		                    validators: {
+		                        notEmpty: {
+		                            message: 'Can not be empty!'
+		                        }
+		                    }
+		                },
+		                moduleEk:{
+		                    validators: {
+		                        notEmpty: {
+		                            message: 'Please describe the problems you have encountered.'
+		                        }
+		                    }
+		                },
+		                description:{
+		                    validators: {
+		                        notEmpty: {
+		                            message: 'Can not be empty!'
+		                        }
+		                    }
+		                }
+		            }
+		        })
+			}
+			//获取用户信息、收货地址、序列号
+			function init(){
+				joy.getJSON("../../wl/es/wlEsCustRepairAction.web?action=init",//问题模块
+						{enumTypes:['MODULE_EK_EN']},	
+						function(resultObject) {
+							$("#moduleEk").empty();
+				        	if(resultObject.MODULE_EK_ENEnum.length>0){
+		 			    	  var txt = '';
+		 			    	  for ( var i = 0; i < resultObject.MODULE_EK_ENEnum.length; i++ ) {
+		 			    		 txt += '<option value="' + resultObject.MODULE_EK_ENEnum[i].value + '">' + resultObject.MODULE_EK_ENEnum[i].text + '</option>';
+		 			    	  }
+		 			    	  $("#moduleEk").append(txt);
+		 			    	  MODULE_EKEnum = resultObject.MODULE_EK_ENEnum;
+		 			       }
+				});
+				joy.getJSON("../../wl/cm/wlCmMemberAction.web?action=getTableData",{}, function(resultObject){	//获取账号信息
+						if(resultObject!=null){
+		     				account = resultObject.account;
+		     				if (account == "") {
+		     					account = resultObject.name;
+		     				}
+		     				$("#personAccount").html(account);
+		     				$("#account").val(account);
+						}
+		    		   //获取收货地址
+	   			    	joy.getJSON("../../wl/es/wlEsMyDeliveryAddrAction.web?action=getMyDeliveryAddrList",{}, 
+	   			    			function(resultObject) {	
+	    						if(resultObject.length>0){
+	    							var addrTxt = '';
+	    							addrs = resultObject;
+	    		                	for ( var i = 0; i < resultObject.length; i++ ) {//拼接并展示收货地址radio
+	    		                		var isDefaultFlag = resultObject[i].isDefaultFlag;
+	    		                		addrTxt += '<div class="radio">';
+	    		                		if ( isDefaultFlag == 1) {//默认地址选中
+	    		                			radioChange(i);
+	    		                			addrTxt += '<label class="selectClass"><input type="radio" onchange="radioChange(' + i + ')" name="optionsRadios" value="' + resultObject[i].deliveryAddrId + '" checked>';
+	    		                		} else {
+	    		                			addrTxt += '<label class="text-color"><input type="radio"  onchange="radioChange(' + i + ')" name="optionsRadios" value="' + resultObject[i].deliveryAddrId + '">';
+	    		                		}
+	    		                		addrTxt += '';
+	    		                		addrTxt +=  resultObject[i].addr + ",&nbsp;"+ resultObject[i].area+ ",&nbsp;"+ resultObject[i].city+ ",&nbsp;" + resultObject[i].province +  '&nbsp;&nbsp;(' + resultObject[i].receiver +')&nbsp;&nbsp;'+ resultObject[i].mobile;
+	    		                		if ( isDefaultFlag == 1) {//默认地址显示文字
+	    		                			addrTxt += '&nbsp;&nbsp;<span>*Default Address</span>';
+	    		                		}
+	    		                        addrTxt += '</label></div>';
+	    		                	}
+									$("#radioAddr").append(addrTxt);
+	    						}
+				    		 	joy.getJSON("../../wl/es/wlEsSerialRegAction.web?action=findDeviceCdList",{}, //获取序列号
+				    		 	function(resultObject){	
+				    		 			$("#deviceCd").empty();
+				    		 		   if(resultObject.length>0){
+	    			 			    	  var txt = '';
+	    			 			    	  for ( var i = 0; i < resultObject.length; i++ ) {
+	    			 			    		 txt += '<option value="' + resultObject[i].deviceCd + '">' + resultObject[i].deviceCd + '</option>';
+	    			 			    	  }
+	    			 			    	  $("#deviceCd").append(txt);
+	    			 			       }
+			    					  //判断新增还是编辑给页面赋值
+			    					  var repairId=getParam("repairId");
+			    					  if(repairId==null){//新增
+			    			    			if(resultObject.length>0){
+			    				        		getDeviceRepairDate();
+			    			    			} else {
+			    			    				$("#bxrq").hide();
+			    			    			}
+			    		    		   }else{//编辑
+			    		    				getCustRepairData(repairId);
+			    		    		   }
+				    			});	
+				    		 	
+	    				});	
+		    	});	
+			}
+			 //地址选择后更改参数
+			function radioChange(i){
+				  $("#addr").val(addrs[i].addr+ ", " + addrs[i].area+ ", " + addrs[i].city + ", " +addrs[i].province);
+				  $("#areaId").val(addrs[i].deliveryAddrId);
+				  $("#mobile").val(addrs[i].mobile);
+				  $("#receiver").val(addrs[i].receiver);
+		   }
+			//图片上传模块
+			var imgCount=0;//上传图片数量
+			var allowImgCount=5;
+			var myPicModels = new Array();
+
+			//上传图片时触发事件
+			function selectPicFile(){ 
+					if(imgCount>=allowImgCount) return false;
+					else return true;
+			}
+			//上传图片成功触发事件
+			function onPicBaseSuccess(){	
+				var id=$("#picUpload").getJoyUpload().value();
+				if(id != null &&$.trim(id) != ""){
+					if(imgCount>=allowImgCount)
+						{
+						joy.showMessage("Only 5 images can be uploaded", "warning");
+							return;
+						}
+					var newImgHtml =  '<a href="javascript:;" onclick="delPic($(this),\'' + id + '\')"><img class="showImg" title="Click to remove image" src="../../wl/cm/wlCmDocumentAction.web?action=downloadFile&id='+id+'"/>';
+					var hinput = '<input type="hidden" name="picPathList" value="'+id+'">';
+
+					$("#custRepairImg").append(newImgHtml+hinput);
+					myPicModels[imgCount] = id;
+				    imgCount++;
+				}	
+				$("#picUpload").getJoyUpload()._reflash();
+			} 
+			//删除图片
+			function delPic(picObj,path){	
+				joy.showMessageDialog("Are you sure to remove this image?", "ok,cancel", function(e) {
+					if (e.btnName == "ok") {
+						joy.getJSON("../../wl/es/wlEsCustRepairAction.web?action=deleteFileAndRecord",{path:path},function(){
+							index=picObj.index();//当前第几张图片，从0开始
+							imgCount--;//图片减少一张
+							//图片数组删除图片
+							for(var i=0;i<myPicModels.length-1;i++){ 
+								if(i>=index){
+									var obj = myPicModels[i+1];
+									myPicModels[i]=obj;
+								}
+							}
+							myPicModels.pop(); 
+							picObj.remove();
+							//$("input[name='picPathList'][value='"+path+"']").remove();//删除图片路径标签
+							
+						});
+					}
+				});
+				$(".k-window-title").text("Prompt");
+				   $(".k-message-ok").text("Confirm");
+				   $(".k-message-cancel").text("Cancel");
+			}
+			//视频上传模块
+			var videoCount=0;//上传视频数量	
+			var allowVideoCount=1;
+			var myVideoModels = new Array();
+
+			//上传视频时触发事件
+			function selectVideoFile(){ 
+					if(videoCount>=allowVideoCount) return false;
+					else return true;
+			}
+			//上传视频成功触发事件
+			function onVideoBaseSuccess(){		
+				var videoId=$("#videoUpload").getJoyUpload().value();
+				if(videoId != null &&$.trim(videoId) != ""){
+					if(videoCount>=allowVideoCount)
+						{
+						joy.showMessage("Only 1 video can be uploaded", "warning");
+							return;
+						}
+					joy.getJSON("../../wl/cm/wlCmDocumentAction.web?action=downloadVideoFile",{id:videoId},function(resultObject){
+						$("#custRepairVideo").empty();
+						resultObject="../../"+resultObject;
+						var txt='<div style="float:left;">';
+						/**
+						 txt+= '<embed title="双击删除进行视频删除" style="width:200px;"  src="'+resultObject+'" >';
+						 **/
+
+						   txt+= '<video autoplay="autoplay" controls="controls" height="150" width="200">';
+						   txt+= '<source src="'+resultObject+'">';
+						   txt+= '</source>';
+							txt+= '<object width="200" height="150" >';
+							txt+= '<embed width="100%" height="100%" src="'+resultObject+'" />';
+							txt+= '</object>';
+							txt+= '</video>';
+
+
+						  txt+='<div class="showVideo" title="Click to remove video" style="width:200px;text-align:center;cursor:pointer;" >Remove</div>';
+						  txt+='</div>';
+						  txt += '<input type="hidden" name="videoPathList" value="'+videoId+'">';
+						  $("#custRepairVideo").append(txt);
+						 myVideoModels[videoCount] = videoId;
+						 videoCount++;
+						//删除视频
+						$(".showVideo").bind("click", function(){
+							delVideo($(this), videoId);
+						})
+					});
+					
+				}	
+				$("#videoUpload").getJoyUpload()._reflash();
+			}
+			//删除视频
+			function delVideo(picObj,path){	
+				//隐藏视频
+				$("#custRepairVideo").hide();
+				joy.showMessageDialog("Are you sure to remove this video?", "ok,cancel", function(e) {
+					if (e.btnName == "ok") {	
+						joy.getJSON("../../wl/es/wlEsCustRepairAction.web?action=deleteVideoFileAndRecord",{path:path},function(){
+								index=picObj.parent().index();//当前第几个视频，从0开始
+								videoCount--;//视频减少一个
+									//视频数组删除视频
+									for(var i=0;i<myVideoModels.length-1;i++){ 
+										if(i>=index){
+											var obj =myVideoModels[i+1];
+											myVideoModels[i]=obj;
+										}
+									}
+									myVideoModels.pop(); 
+									$("input[name='videoPathList']").remove()
+									picObj.parent().remove();
+								});
+					}
+					//显示视频
+					$("#custRepairVideo").show();
+				});	
+				$(".k-window-title").text("Prompt");
+				   $(".k-message-ok").text("Confirm");
+				   $(".k-message-cancel").text("Cancel");
+			}
+			//新增返修
+			function saveRepair(){
+				var val=$('input:radio[name="optionsRadios"]:checked').val();
+	            if(val==null){//验证收货地址是否有选择
+	            	joy.showMessage("Please select your address", "warning");
+	                return false;
+	            }
+				//表单验证是否通过
+		       var bootstrapValidator = $('#repairFrm').data('bootstrapValidator');
+		       bootstrapValidator.validate();
+		       if(bootstrapValidator.isValid()){//如果校验成功后执行的操作
+		    	   //验证账户
+		    	   var personAccount = $("#personAccount").text();
+		      	   if (personAccount=='' || $.trim(personAccount)=='') {
+		      		 joy.showMessage("Account does not exist, please log in again", "warning");
+		      		 return;
+		      	   }
+				   var data = $("#repairFrm").serialize();    
+		   		   $.ajax({ 
+		   		    type:'post',  
+		   		    url:'../../wl/es/wlEsCustRepairAction.web?action=saveCustRepairData', 
+		   		    cache: false,
+		   		    data:data,  
+		   		    dataType:'json', 
+		   		    success:function(json){
+		 		     	//是否登记成功
+		 		     	var success=json.success;
+		 		     	if(success){
+		 			      joy.showMessage("Success!", "success");
+		 			      window.location = 'repair.html';
+		 		     	}else{
+		 				    joy.showMessage(json.resultObject.result, "warning");
+		 		     	}
+		 				return; 
+		   		    },
+		   		    error:function(){ 
+		   		    	joy.showMessage("Request failed!", "warning");
+		   		    }
+		   		   })
+		       }
+			}
+			//保修截止日期
+			function getDeviceRepairDate(){
+				var deviceCd=$("#deviceCd").val();
+				if (deviceCd!='' && deviceCd!=null) {
+					obj= new Object();
+					obj.deviceCd=deviceCd;
+					var paraMap=joy.getParaMap(obj);	
+					joy.getJSON(
+							"../../wl/es/wlEsSerialRegAction.web?action=findSerialDataList",paraMap
+							, function(resultObject) {
+								$('#kjTime').html(resultObject.frameExpDate.substr(0, 10));
+								$("#pjTime").html(resultObject.accExpDate.substr(0, 10));
+								$("#bxrq").show();
+							})
+				}
+			}
+			//获取编辑数据
+			function getCustRepairData(repairId){
+				joy.getJSON("../../wl/es/wlEsCustRepairAction.web?action=getCustRepair",{repairId:repairId},function(resultObject){
+					$("#repairId").val(repairId);//返修id
+					setFrmValue(resultObject);//赋值
+					$("#repairFrm").append('<input type="hidden" name="repairId" id="repairId" value="'+repairId+'"></input>');
+					getDeviceRepairDate();//获取维修日期
+					videoCount=resultObject.videoList.length;//视频数量
+					imgCount=resultObject.picList.length;//图片数量
+				    //显示视频
+				      $("#custRepairVideo").empty();
+					  for(i=0;i<resultObject.videoList.length;i++){
+						      obj=resultObject.videoList[i];
+						     relativeFilePath="../../"+obj.relativeFilePath;
+						     myVideoModels[i]=obj.path;
+								  var txt='<div style="float:left;">';
+								   txt+= '<video autoplay="autoplay" controls="controls" height="150" width="200">';
+								   txt+= '<source src="'+relativeFilePath+'">';
+								   txt+= '</source>';
+									txt+= '<object width="200" height="150" >';
+									txt+= '<embed width="100%" height="100%" src="'+relativeFilePath+'" />';
+									txt+= '</object>';
+									txt+= '</video>';
+								  txt+='<div title="Click to remove video" class="showVideo" style="width:200px;text-align:center;cursor:pointer;" >Remove</div>';
+								  txt += '<input type="hidden" name="videoPathList" value="' + obj.path + '">';
+								  txt+='</div>';
+								  $("#custRepairVideo").append(txt);
+							//删除视频
+							$(".showVideo").bind("click", function(){
+								delVideo($(this), obj.path);
+							})
+					  }
+					//显示图片
+					$("#custRepairImg").empty();
+					for(i=0;i<resultObject.picList.length;i++){
+						 obj=resultObject.picList[i];
+						 myPicModels[i]=obj.path;
+						var txt =  '<a href="javascript:;" onclick="delPic($(this), \''+obj.path+'\')"><img title="Click to remove image" class="showImg"  src="../../wl/cm/wlCmDocumentAction.web?action=downloadFile&id='+obj.path+'"/>';
+						txt += '<input type="hidden" name="picPathList" value="' + obj.path + '"></a>';
+						$("#custRepairImg").append(txt);
+					}
+				});
+			}
+			function setFrmValue(resultObject){
+				var deviceCd = resultObject.custRepair.deviceCd;
+				var moduleEk = resultObject.custRepair.moduleEk;
+				/* if (MODULE_EKEnum.length>0) {
+					$("#moduleEk").empty();
+					var txt = '';
+			    	  for ( var i = 0; i < MODULE_EKEnum.length; i++ ) {
+			    		  if (MODULE_EKEnum[i].value == moduleEk) {
+			    			 txt += '<option value="' + MODULE_EKEnum[i].value + '" selected="selected">' + MODULE_EKEnum[i].text + '</option>';
+			    		  } else {
+		 			    		txt += '<option value="' + MODULE_EKEnum[i].value + '">' + MODULE_EKEnum[i].text + '</option>';
+			    		  }
+			    	  }
+			    	  $("#moduleEk").append(txt);
+				} */
+				joy.getJSON("../../wl/es/wlEsCustRepairAction.web?action=init",//问题模块
+						{enumTypes:['MODULE_EK_EN']},	
+						function(resultObject) {
+							$("#moduleEk").empty();
+				        	if(resultObject.MODULE_EK_ENEnum.length>0){
+		 			    	  var txt = '';
+		 			    	  for ( var i = 0; i < resultObject.MODULE_EK_ENEnum.length; i++ ) {
+		 			    		 if (resultObject.MODULE_EK_ENEnum[i].value == moduleEk) {
+					    			 txt += '<option value="' + resultObject.MODULE_EK_ENEnum[i].value + '" selected="selected">' + resultObject.MODULE_EK_ENEnum[i].text + '</option>';
+					    		  } else {
+				 			    		txt += '<option value="' + resultObject.MODULE_EK_ENEnum[i].value + '">' + resultObject.MODULE_EK_ENEnum[i].text + '</option>';
+					    		  }
+		 			    	  }
+		 			    	  $("#moduleEk").append(txt);
+		 			    	  MODULE_EKEnum = resultObject.MODULE_EK_ENEnum;
+		 			       }
+				});
+				var description = resultObject.custRepair.description;
+				var areaId = resultObject.custRepair.areaId;
+				//document.getElementById('moduleEk').value=moduleEk;//问题模块
+				document.getElementById('deviceCd').value=deviceCd;//序列号
+				$("input[name='optionsRadios'][value='"+areaId+"']").attr("checked",true); //收货地址  
+				setAreaValue(areaId);//收货地址赋值
+				$("#receiver").val(resultObject.custRepair.receiver);
+				$("#mobile").val(resultObject.custRepair.mobile);
+				$("#description").val(resultObject.custRepair.description);//描述
+				$("#repairNo").val(resultObject.custRepair.repairNo);//维修单号
+				$("#memberId").val(resultObject.custRepair.memberId);//会员ID
+				$("#account").val(resultObject.custRepair.account);//我的帐号
+				$("#name").val(resultObject.custRepair.name);//名称
+				$("#contact").val(resultObject.custRepair.contact);//联系方式
+				$("#creator").val(resultObject.custRepair.creator);//创建人
+				
+			}
+			//收货地址赋值
+			function setAreaValue(areaId){
+				for (i=0; i<addrs.length;i++) {
+					if (addrs[i].deliveryAddrId==areaId) {
+						radioChange(i);
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>

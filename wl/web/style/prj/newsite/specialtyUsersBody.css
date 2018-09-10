@@ -1,0 +1,97 @@
+.image-block {
+	background: rgba(0, 0, 0, 0.4);
+	color: #fff;
+	font-size: 17px;
+	line-height: 32px;
+	margin-left: 33.5%;
+	margin-right: auto;
+	margin-top: 14%;
+	position: absolute;
+	z-index: 9;
+}
+
+.mobile-text {
+	font-size: 17px;
+	line-height: 25px;
+}
+
+.users_background {
+	background: #000;
+	max-width: 100%;
+	margin: 0;
+}
+
+.half_size_users_background {
+	background: #fff;
+	max-width: 100%;
+	margin: auto;
+}
+
+.leftText {
+	position: absolute;
+	right: 40px;
+	width: 440px;
+}
+
+.rightText {
+	left: 200px;
+	position: absolute;
+	width: 440px;
+}
+
+.leftRightContent {
+	height: 500px;
+	vertical-align: middle;
+	display: table-cell;
+}
+
+.imgWidth {
+	width: 100%;
+}
+
+ @media screen and (max-width: 1560px) {
+    .rightText {
+		width: 440px;
+		position: absolute;
+		left: 120px;
+	}
+}
+
+ @media screen and (max-width: 1360px) {
+    .rightText {
+		width: 440px;
+		position: absolute;
+		left: 50px;
+	}
+}
+
+@media screen and (max-width: 1455px) {
+	.leftText {
+		width: 340px;
+		position: absolute;
+		right: 90px;
+	}
+	.rightText {
+		width: 340px;
+		position: absolute;
+		left: 90px;
+	}
+	.leftRightContent {
+		height: 400px;
+		vertical-align: middle;
+		display: table-cell;
+	}
+	.leftRightContent {
+		height: 400px;
+		vertical-align: middle;
+		display: table-cell;
+	}
+}
+ @media screen and (max-width: 768px) {
+    h1{
+    	font-size:30px;
+    }
+}
+ .specialtyUsersBody{
+	color:#337ab7 !important
+}

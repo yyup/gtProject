@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="Generator" content="waterrower Team">
+<meta name="Author" content="waterrowerTeam">
+<meta name="Keywords"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<meta name="Description"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<script src="../../js/newsite/jquery.min.js"></script>
+<script src="../../js/newsite/bootstrap.js"></script>
+<script src="../../js/newsite/getSystemPlatform.js"></script>
+<script src="../../js/newsite/wlcommon.js"></script>
+<script src="../../js/newsite/cnzz.js"></script>
+<link rel="stylesheet" href="../../style/prj/newsite/header.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/footer.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/newsCenter.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/pagination.css"/>
+<script src="../../js/joy.loader.js" modules=""></script>
+<script src="../../js/site/jquery.pagination.js"></script>
+</head>
+
+<body>
+	<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+	<!-- 内容 -->
+	<div id="wlBody">
+		<div class="container ">
+			<h2 class="text-center titleMargin">WaterRower新闻中心</h2>
+			<div id="divContent"></div>
+			<!--分页-->
+			<div class="row">
+				<div id="pagination" class="pagination"><!-- 这里显示分页 --></div>
+			</div>
+			<div style="height: 50px;"></div>
+		</div>
+	</div>
+	<!-- 内容结束 -->
+	<!--尾部开始-->
+	<div id="footerPart">
+		
+	</div>
+	<script>
+	
+		var pageIndex = 0; //页面索引初始值   
+		var pageSize = 3; //每页显示条数初始化，修改显示条数，修改这里即可 
+		var initPageIndex = 0; //页面索引初始值   
+		$().ready(function() {
+			initTop();
+			initClick();
+			initBottom();
+			initNew(pageIndex);
+		    $(window).resize(function(){
+				changeStyle();//改变分页的样式
+			});
+		});
+
+		//分页展现
+		function pagination(totalCount, pageIndex) {
+			$("#pagination").html("");
+			var pageCount = 1;
+			 if(totalCount > 0){
+				pageCount = Math.ceil(totalCount/pageSize);
+			 }
+			var initPagination = function() {
+				// 创建分页
+				$("#pagination").pagination(pageCount, {
+					num_edge_entries: 1, //边缘页数
+					num_display_entries: 4, //主体页数
+					callback: pageselectCallback,
+					items_per_page:1, //每页显示1项
+					prev_text:"&laquo;",
+					next_text:"&raquo;",
+					current_page:pageIndex-1
+				});
+			 }();
+			 
+			function pageselectCallback(page_index, jq){
+				initNew(page_index);
+				return false;
+			}
+			
+			$("#pagination").next().remove();
+			var paginationText = '<div class="text-center-pagination"><span style="margin-right: 5px;">共'+pageCount+'页,</span>'+
+	        '<span style="margin-right: 5px;">到第<select name="pageSelect" >';
+	        for(var i = 0;i < pageCount; i++){
+	        	if (i==parseInt(pageIndex-1)) {
+	        		paginationText +='<option value="'+(i)+'" selected>'+(i+1)+'</option>';	
+	        	} else {
+	        		paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+	        	}
+	        	 //paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+	        }
+	        paginationText +=' </select>页</span>'+
+	        '<input type="button" class="sureAndBack" value="确认" onclick="reflashPage($(this))"/></div>';
+			$("#pagination").after(paginationText);
+			/* var options = {
+				bootstrapMajorVersion : 3,//bootstrap的版本要求
+				currentPage : pageIndex, //当前页数
+				numberOfPages : 3, //最多显示Page页
+				totalPages : Math.ceil(totalCount / pageSize), //所有数据可以显示的页数
+				size : "normal",
+				itemTexts : function(type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+					switch (type) {
+					case "first":
+						return "首页";
+					case "prev":
+						return "<";
+                	         case "next": return ">";
+					case "last":
+						return "末页";
+					case "page":
+						return page;
+					}
+				},
+				onPageClicked : function(e, originalEvent, type, page) {
+					$("select[name='pageSelect']").val(page);
+					initPageIndex = page - 1;
+					initNew(page - 1);
+				}
+			}
+			$("#pagination").bootstrapPaginator(options);
+			$("#pagination").next().remove();
+			pageCount = Math.ceil(totalCount / pageSize);
+			var paginationText = '<div class="text-center" style="float:right;margin-top:4px;"><span style="margin-right: 4px;">共'
+					+ pageCount
+					+ '页,</span>'
+					+ '<span style="margin-right: 4px;">到第<select name="pageSelect" >';
+			for ( var i = 0; i < pageCount; i++) {
+				paginationText += '<option value="' + (i) + '">' + (i + 1)
+						+ '</option>';
+			}
+			paginationText += ' </select>页</span>'
+					+ '<input type="button" class="sureAndBack" style="padding: 1px 0px;" value="确认" onclick="reflashPage($(this))"/></div>';
+			$("#pagination").after(paginationText);
+			changeStyle();//改变分页的样式 */
+		}
+
+		//刷新页面操作
+		function reflashPage() {
+			initPageIndex = $("[name='pageSelect']").val();
+			initNew(parseInt(initPageIndex));
+		}
+
+		function initNew(pageIndex) {
+			joy
+					.getJSON(
+							"../../wl/cm/wlCmInfoAction.dox?action=findDataList",
+							{
+								pageSize : pageSize,
+								currPage : pageIndex + 1,
+								columnId : "0106",
+								issueStateEk : "2"
+							},
+							function(result) {
+								$("#divContent").html("");
+								pagination(result.totalCount, pageIndex + 1); //页数
+								/* $("[name='pageSelect']").val(initPageIndex); */
+								for ( var i = 0; i < result.items.length; i++) {
+									var ob = result.items[i];
+									txt = '<a href="newsArticle.html?infoId='
+											+ ob.infoId
+											+ '&type=new"style="text-decoration:none;color:#333;"> <div class="row"><div class="col-md-2">';
+									txt += '<img src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='
+											+ ob.path
+											+ '" class="img-responsive" style="width:100%;"></div>';
+
+									txt += '<div class="col-md-10"><span style="font-size: 20px;">'
+											+ ob.title + '</span>';
+									txt += '<p class="contentTextColor">'
+											+ ob.issueTime.substr(0, 10)
+											+ '</p>';
+									var text = getHtmlTxt(ob.content);
+									if (text.length > 80) {
+										text = text.substring(0, 120)
+												+ "... ...";
+									}
+									txt += '<p class="contentTextColor" style="font-size: 16px;">'
+											+ text
+											+ '</p></div></div></a><hr class="hengxian"/>';
+
+									$("#divContent").append(txt);
+								}
+								//initHeight();
+							});
+		}
+
+		//去标签获得纯文本
+		function getHtmlTxt(content) {
+			//创建一个html元素
+			var d = document.createElement('body');
+			//设置他的innerHTML
+			d.innerHTML = content;
+			return d.innerText || d.textContent;
+		}
+	</script>
+</body>
+</html>
+<!--尾部结束-->

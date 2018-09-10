@@ -1,0 +1,38 @@
+#newMoreBody{width:100%;}
+/*账号信息*/
+#newMoreContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#newMoreMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#newMoreMenu{
+float:left;width:230px;min-height:670px;
+}
+#newMoreContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.newMoreTitle{width:175px;height:38px;margin:0 auto;margin-top:20px;background:#000;
+ background:url('../images/new.png')
+}
+.MenuContent{width:180px;margin:0 auto;}
+
+ #newMoreList{
+    margin-left: 50px;
+    margin-top: 65px;
+ }
+ #newMore{
+  list-style:none;
+ }
+ #newMore li{
+    background:  url("../images/iconLi.png") no-repeat scroll ;
+      font-size: 17px;
+    padding-left: 10px;
+    padding-right:10px;
+	margin-top:6px;
+	word-break: break-all;
+    word-wrap: break-word;
+    
+ }

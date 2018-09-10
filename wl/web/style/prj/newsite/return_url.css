@@ -1,0 +1,39 @@
+.title{
+    font-size: 24px;
+}
+
+.bottomButton{
+    width: 160px;
+    height: 40px;
+    font-size: 18px;
+    background: #111111;
+    color: white;
+    margin-top: 20px;
+}
+
+.contentMargin{
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+.payErrorImg{
+    height: 50px;
+    width: 50px;
+    display:inline-block;
+    text-align:center;
+}
+.payErrorText{
+    color: #898989;
+    font-size: 25px;
+    vertical-align: middle;
+}
+.continuePay{
+    background: #111111;
+    color:white;
+    width: 155px;
+    height: 40px;
+    margin-top: 80px;
+}
+.contact{
+    color: #979797;
+    margin-top: 50px;
+}

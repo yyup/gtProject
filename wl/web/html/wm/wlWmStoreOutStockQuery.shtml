@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script language="javascript" src="../../js/prj/cLodopFuncs.js"></script> 	
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+
+</head>
+<body> 
+	<!-- 工具栏 开始-->
+	<div class="k-page-toolbar"> 
+			
+			<span class="joy-lang" label="lg:wmOutTypeEk" style="font-weight:bold;"></span>: 							
+		    <input id="wmOutTypeEk"  class="joy-combobox joy-enum" 
+				   placeholder="lgc:pleaseToSelect"  databind="value:wmOutTypeEk,source:WM_OUT_TYPE_EKEnum" style="width:23%;">					
+		      <span class="joy-lang" label="lg:from" style="font-weight:bold;"></span>: 							
+		    	<input class="joy-datepicker" dataFormat="yyyy-MM-dd"  id="txtDate_begin" style="width:23%;"> 
+		    	
+			 <span class="joy-lang" label="lg:to"" style="font-weight:bold;"></span>						
+		    	<input class="joy-datepicker"   dataFormat="yyyy-MM-dd"  id="txtDate_end" style="width:23%;" >         
+	</div>
+	
+	<div class="k-page-toolbar"> 
+			<span class="joy-lang" label="lg:storageName" style="font-weight:bold;"></span>: 							
+		    <input id="storageId" label="lg:storageName" class="joy-combobox joy-enum" 
+					placeholder="lgc:pleaseToSelect" dataTextField="storageName" dataValueField="storageId" 
+					databind="value:storageId,source:allStorageEnum" style="width:23%;">	
+				   			
+		     <span class="joy-lang" label="lg:itemCd" style="font-weight:bold;"></span>: 									    	
+	         <input
+				id="itemCd"  class="joy-textbox" 	style="width:23%;"	databind="value:itemCd" >
+					 							
+			 <span class="joy-lang" label="lg:itemName" style="font-weight:bold;"></span>: 									      	
+				 <input id="itemName"  class="joy-textbox" style="width:23%;" databind="value:itemName" >	 			
+		     
+	</div>
+		<div class="k-page-toolbar"> 				
+			 <span class="joy-lang" label="lg:spec" style="font-weight:bold;"></span>: 							
+		     <input id="spec"  class="joy-textbox" style="width:23%;" databind="value:spec" >	 	
+		        <div class="fit1024" style="float: right; ">
+			<button class="joy-button joy-smc" icon="search" onClick="searchData"
+				label="lgc:search" dataBind="visible:READSmc"></button>
+		<button class="joy-button joy-smc" icon="" onClick="createPrintPage"
+				 label="lg:print" dataBind="visible:READSmc"></button>		
+				</div>
+	</div>
+		<!-- 工具栏 结束-->
+	<!-- 列表 -->
+	<div class="listContent" >
+	<table id="grid" class="joy-grid"   reorderable="false"   showPageControl="false"    >
+		<thead>
+			<tr>  
+				<th field="sequ" dataType="string"  align="center" label="lg:sequ" colWidth="5%"></th> 
+				<th field="storageName" dataType="string"  label="lg:storageName"	colWidth="15%"></th>
+				<th field="wmOutTypeEkValue" dataType="string"  align="center" label="lg:wmOutTypeEk" 	colWidth="9%"></th>   				  
+				<th field="expectOutDate"  dataFormat="yyyy-MM-dd" dataType="date"   label="lg:expectOutDate" colWidth="10%"></th> 				
+				<th field="itemCd" dataType="string" label="lg:itemCd" colWidth="11%"></th>   
+				<th field="itemName" dataType="string" label="lg:itemName" colWidth="16%"></th>   				
+				<th field="spec" dataType="string" label="lg:spec"  colWidth="10%"></th>   				
+				<th field="baseUnitName" dataType="string" label="lg:baseUnitName" align="center" colWidth="8%"></th>   
+				<th field="baseUnitQty" dataType="string" label="lg:baseUnitQty" align="right" colWidth="8%"></th>   				
+			</tr>
+		</thead>
+	</table>
+</div>
+<!-- 打印页面 -->
+    <div id="printDiv"  style="display:none;width:100%;">
+	   <form>
+	      <!-- 头部开始 -->
+		  <table  id="printHead" style="width:100%;">
+		     <tbody>
+		        <tr >
+				  <td width="100%"  align="center"  colspan="8" style="font-weight: bold;" class="joy-lang" label="lg:waterrower">
+				           
+				   </td>
+			    </tr> 
+			    <tr>
+				  <td width="100%"  align="center" colspan="8" class="joy-lang" label="lg:stockOrder">
+				  
+				   </td>
+			    </tr> 			   
+			  </tbody> 			 
+		   </table>
+		    <!-- 头部结束-->
+		     <!-- 中间开始 -->
+		   	  <table cellspacing="0"  width="91%" cellpadding="0" style="margin-top:10px;border-collapse:collapse;" >
+		   	    <colgroup>
+                                       <col style="width:5%;">
+									    <col style="width:15%;">
+									    <col style="width:15%;">
+									    <col style="width:15%;">        
+									   <col style="width:15%;">
+									   <col style="width:10%;">
+									    <col style="width:10%;">
+									    <col style="width:5%;">
+									     <col style="width:10%;">
+									</colgroup>
+		   	  <tbody id="stockList">
+		   	    <tr  id="printHeadTitle">
+					<!--   	<th class="first" >序号</th>
+						<th>物料编码</th>
+						 <th>物料名称</th>
+						<th>型号规格</th>
+						<th>商品序列号</th>  
+						<th>数量</th>
+						<th>单位</th>
+						<th>备注</th>
+				</tr>	
+				    		   
+			    <tr >
+				      <td class="first">
+				 		10000
+				 	 </td>
+					  <td>
+				 		1010001
+				 	 </td>
+				 	  <td >
+				 		划船器
+				 	 </td>
+				 	  <td>
+				 		A1 Home
+				 	 </td>
+				 	  <td>
+				 		1010001
+				 	 </td>
+				 	  <td  >
+				 		10000
+				 	 </td>
+				 	  <td>
+				 		台
+				 	 </td>
+				 	  <td>
+				 		无
+				 	 </td>
+			     </tr>
+			      <tr >
+				      <td class="first">			 	
+				 	 </td>
+					  <td>				 	
+				 	 </td>
+				 	  <td>				 	
+				 	 </td>
+				 	  <td>			 	
+				 	 </td>
+				 	   <td align="left" class="joy-lang" label="lg:total">
+				 		
+				 	 </td>
+				 	  <td id="totalBaseUnitQty">
+				 		0
+				 	 </td>
+				 	  <td>	 		
+				 	 </td>
+				 	  <td>				 		
+				 	 </td> 	-->	  
+			     </tr> 					 
+			   </tbody> 
+		   </table>
+		    <!-- 中间结束-->
+		    <!-- 尾部开始 -->
+		     <table  style="margin-top:20px;">
+			     <tbody>
+				        <tr >
+						  <td width="10%"  align="center" height="12"  class="joy-lang" label="lg:finance">
+						    
+						   </td>
+						     <td  width="23%"   colspan="2" ></td>
+						    <td width="10%"  align="center"    class="joy-lang" label="lg:audit" >
+						        
+						   </td>
+						     <td  width="23%"   colspan="2" ></td>
+						    <td width="10%"  align="center" class="joy-lang" label="lg:receipt" >
+						  
+						   </td>
+						     <td  width="24%"   colspan="1" ></td>
+					    </tr> 					   
+				    </tbody>
+			 </table>
+			  <!-- 尾部结束 -->
+</form>
+    </div>
+    <!-- 打印页面结束 -->
+    <!-- 验证是否安装控件页面 -->
+    <div id="checkIsInstallLodopDiv" style="display:none;">
+    
+    </div>
+</body>
+<script>
+	var  grid, initResult, lgc, lg;
+	var searchUrl="../../wl/wm/WlWmStoreOutStockQueryAction.do?action=findStoreOutStockList";
+	var wmOutTypeEkComboBox,txtDateBeginDatePicker,txtDateEndDatePicker,storageIdComboBox,itemCdTextBox,itemNameTextBox,specTextBox;
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();	
+		wmOutTypeEkComboBox=$("#wmOutTypeEk").getJoyComboBox();
+		txtDateBeginDatePicker=$("#txtDate_begin").getJoyDatePicker();
+		txtDateEndDatePicker=$("#txtDate_end").getJoyDatePicker();
+		var date=new Date();
+		txtDateBeginDatePicker.value(date);
+		txtDateEndDatePicker.value(date);
+		storageIdComboBox=$("#storageId").getJoyComboBox();
+		itemCdTextBox=$("#itemCd").getJoyTextBox();
+	    itemNameTextBox=$("#itemName").getJoyTextBox();
+		 specTextBox=$("#spec").getJoyTextBox();
+		/**数据初始化*/
+		joy.getJSON("../../wl/wm/WlWmStoreOutStockQueryAction.do?action=init",{enumTypes:['WM_OUT_TYPE_EK']},function(resultObject) {
+			initResult = resultObject;
+		    var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+	    	//grid.fetch(initResult, searchUrl); 
+	    	//load(initResult,noticeInDetlDataSource); 
+	        searchData();
+		});
+	})
+	/**
+	*搜索数据
+	*/
+    function searchData(){
+		var obj=new Object();
+		obj.wmOutTypeEk=wmOutTypeEkComboBox.value();
+		obj.beginDate=txtDateBeginDatePicker.value();
+		obj.endDate=txtDateEndDatePicker.value();
+		obj.storageId=storageIdComboBox.value();
+		obj.itemCd=itemCdTextBox.value();
+		obj.itemName=itemNameTextBox.value();
+		obj.spec=specTextBox.value();
+		var paraMap=joy.getParaMap(obj);
+		joy.postJSON(searchUrl,paraMap,function(resultObject) {
+	    	//grid.fetch(initResult, searchUrl); 
+	    	grid.load(initResult,resultObject); 
+		});
+	}
+	
+	
+	/**
+	 * 生成打印页面
+	 **/
+	 function createPrintPage(storeInId){
+		
+		//	var txt = $("#stockList tr:first").prop('outerHTML');
+		  	 var txt='<tr  id="printHeadTitle" >';
+				   	txt+='<td class="first" style="border:1px solid #000;">'+lg.sequ+'</td>';
+				   	txt+='<td style="border:1px solid #000;">'+lg.storageName+'</td>';
+				   	txt+='<td style="border:1px solid #000;">'+lg.wmOutTypeEk+'</td>';
+				   	txt+='<td style="border:1px solid #000;">'+lg.expectOutDate+'</td>';
+				   	txt+='<td style="border:1px solid #000;">'+lg.itemCd+'</td>'; 
+				   	txt+='<td style="border:1px solid #000;">'+lg.itemName+'</td>';
+				   	txt+='<td style="border:1px solid #000;">'+lg.spec+'</td>';
+				   	txt+='<td style="border:1px solid #000;">'+lg.baseUnitName+'</td>';
+				 	txt+='<td style="border:1px solid #000;">'+lg.baseUnitQty+'</td>';
+				   	txt+='</tr>';
+			//var  lastTxt = $("#stockList tr:last").prop('outerHTML');
+				var obj=new Object();
+			obj.wmOutTypeEk=wmOutTypeEkComboBox.value();
+			obj.beginDate=txtDateBeginDatePicker.value();
+			obj.endDate=txtDateEndDatePicker.value();
+			obj.storageId=storageIdComboBox.value();
+			obj.itemCd=itemCdTextBox.value();
+			obj.itemName=itemNameTextBox.value();
+			obj.spec=specTextBox.value();
+			var paraMap=joy.getParaMap(obj);
+			joy.postJSON(searchUrl,paraMap,function(resultObject) {
+				 $("#stockList").empty();
+			 for(var i=0;i<resultObject.length;i++){
+				   ob=resultObject[i];
+				     txt+='<tr height="35px">';
+				     txt+='<td class="first" style="border:1px solid #000;">';
+				    txt+=ob.sequ;
+					 txt+='</td>';
+					txt+='<td style="border:1px solid #000;">';
+					txt+=ob.storageName;
+					txt+='</td>';
+					 txt+='<td style="border:1px solid #000;">';
+					 txt+=ob.wmOutTypeEkValue;
+					 txt+='</td>';
+					txt+='<td style="border:1px solid #000;">';
+					if(ob.expectOutDate!==null){
+					 txt+=ob.expectOutDate.substr(0,10);
+					}
+					txt+='</td>';
+					txt+='<td style="border:1px solid #000;">';
+					txt+=ob.itemCd;
+					txt+='</td>';
+					txt+='<td style="border:1px solid #000;">';
+					txt+=ob.itemName;
+					txt+='</td>';
+					txt+='<td style="border:1px solid #000;">';
+					txt+=ob.spec;
+				 	txt+='</td>';
+				 	txt+='<td style="border:1px solid #000;">';
+				 	txt+=ob.baseUnitName;
+				 	txt+='</td>';
+				 	txt+='<td style="border:1px solid #000;">';
+				 	txt+=ob.baseUnitQty;
+				 	txt+='</td>';
+				 	txt+='</tr>';
+			 }
+			 //txt+=lastTxt;
+			 $("#stockList").append(txt);
+			 // $("#totalBaseUnitQty").html(resultObject.total);			  
+				startPrint();
+			});				 
+	 }	 
+	 /**
+	 *	开始打印
+	 **/
+	 function startPrint(){
+		 var LODOP=getLodop();
+			var strHTML=document.getElementById("printDiv").innerHTML;
+			LODOP.ADD_PRINT_HTM("2%","5%","100%","BottomMargin:20mm",strHTML);
+			LODOP.NewPageA();
+			LODOP.PREVIEW();	
+	 }
+
+	
+</script>
+</html>

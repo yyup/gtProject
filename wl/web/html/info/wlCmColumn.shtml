@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css"
+	href="../../style/prj/wl.common.css" />
+</head>
+<body style="height: 100%">
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+		<button class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+			label="lgc:add" databind="visible:ADDSmc"></button>
+		<button class="joy-button joy-smc" icon="close" onClick="deleteData"
+			label="lgc:delete" databind="visible:DELETESmc"></button>
+		<button id="ableBtn" class="joy-button joy-smc" onClick="able"
+			label="lg:able" databind="visible:ISENABLESmc"></button>
+		<button id="enableBtn" class="joy-button joy-smc" onClick="enable"
+			label="lg:enable" databind="visible:ISENABLESmc"></button>
+	</div>
+
+	<!-- TreeGrid列表 -->
+	<table id="treeGrid" class="joy-treegrid" pkField="columnId"
+		treeField="columnName" rowHeightFit="true">
+		<thead>
+			<tr>
+				<th field="columnId" templateType="checkbox"></th>
+				<th field="columnName" dataType="string" label="lg:columnName"
+					colWidth="75"></th>
+				<th field="colTypeEk" enumData="COL_TYPE_EKEnum" align="center"
+					dataType="string" label="lg:colTypeEk" colWidth="20"></th>
+				<th field="url" dataType="string" label="lg:url" colWidth="50"></th>
+				<th field="sequ" dataType="string" label="lg:sequ" colWidth="15"
+					align="center"></th>
+				<th field="isEnableFlag" enumData="STATEEnum" dataType="string"
+					label="lg:isEnableFlag" colWidth="15" align="center"></th>
+				<th field="none" templateType="button" colWidth="40" align="center"
+					label="lgc:control">
+					<button icon="pencil" onClick="openEditWindow('#:columnId#')"
+						smcBind="ADDSmc" label="lgc:edit"></button>
+					<button icon="insert-m" onClick="openDetailWindow('#:columnId#')"
+						smcBind="READSmc" label="lgc:detail"></button></th>
+			</tr>
+		</thead>
+	</table>
+
+	<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:columnId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left"><input class="joy-textbox" required="true"
+							label="lg:columnName" maxByte="100" databind="value:columnName">
+						</td>
+						<td align="left"><input id="parentColumnId"
+							class="joy-textbox" onclick="openParentSelectWindow()"
+							onfocus="openParentSelectWindow()" style="cursor: pointer;"
+							label="lg:rootType" databind="value:parentColumnName" /> <input
+							type="hidden" databind="value:parentColumnId"></td>
+					</tr>
+					<tr>
+						<td align="left"><input id="colTypeEk"
+							class="joy-combobox joy-enum" label="lg:colTypeEk"
+							placeholder="lg:selectType" required="true"  change="changeType"
+							databind="value:colTypeEk,source:COL_TYPE_EKEnum" /></td>
+						<td align="left"><input id="isLastFlag"
+							class="joy-combobox joy-enum" label="lg:isLastFlag"
+							placeholder="lg:pleaseSelect" required="true"
+							databind="value:isLastFlag,source:YESORNOEnum" /></td>
+					</tr>
+					<tr>
+						<td align="left"><input class="joy-textbox" maxByte="128" label="lg:url"
+							databind="value:url">
+						</td>
+						<td align="left"><input class="joy-numerictextbox"	label="lg:serialNumber" id="sequ" min="1" max="99999" databind="value:sequ">
+						</td>
+					</tr>
+					<tr>
+						<td id="downloadUploadTd">
+							<input id="downloadUpload" class="joy-upload" label="lg:file" 
+								databind="value:path" multiple="false" type="file"  upload="downloadFile"											
+								async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.dox?action=uploadVideoFile&sourceCode=downloadFile', removeUrl:'../../wl/cm/wlCmDocumentAction.dox?action=deleteVideoFile'}"
+								allowType='pdf,doc,docx,rar,zip'  maxSize="5" required="true"
+								style="width: 250px;" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+
+
+	<!-- 父级选择框 -->
+	<div id="parentselectWindow" class="joy-window" width="320px"
+		center="true" title="lg:paretWindowTitle">
+
+		<div id="smallTreeView" style="width: 300px; height: 300px;"></div>
+
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lgc:cancel"></button></td>
+			</tr>
+		</table>
+	</div>
+	<script id="small_tree" type="text/joy-ui-template">
+			 <input type="hidden" value="#=item.main.columnId#" ><span class="itemName" onclick="treeviewclick('#=item.main.columnId#','#=item.main.columnName#')" >#=item.main.columnName#</span>
+	 </script>
+
+
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail">
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:columnName"></td>
+					<td width="230" class="joy-label" databind="value:columnName"></td>
+					<td width="100" class="joy-lang head" label="lg:rootType"></td>
+					<td width="230" class="joy-label" databind="value:parentColumnName"></td>
+				</tr>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:colTypeEk"></td>
+					<td width="230" class="joy-label joy-enum"
+						databind="value:colTypeEk,source:COL_TYPE_EKEnum"></td>
+					<td width="100" class="joy-lang head" label="lg:url"></td>
+					<td width="230" class="joy-label" databind="value:url"></td>
+				</tr>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:isEnableFlag"></td>
+					<td width="230" class="joy-label joy-enum"
+						databind="value:isEnableFlag,source:STATEEnum"></td>
+					<td width="100" class="joy-lang head" label="lg:sequ"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:sequ"></td>
+
+				</tr>
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script>
+	var dataForm, searchForm, treegrid, editWindow, lgc, lg, grid, parentselectWindow, smallTreeView, initResult, detailWindow,downloadFile;
+
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		treegrid = $("#treeGrid").getJoyTreegrid();
+		editWindow = $("#editWindow").getJoyWindow();
+		dataForm = $("#dataForm").getJoyForm();
+		parentselectWindow = $("#parentselectWindow").getJoyWindow();
+		detailWindow = $("#detailWindow").getJoyWindow();
+		downloadUpload=$("#downloadUpload").getJoyUpload();
+		//数据初始化
+		joy.getJSON("../../wl/cm/wlCmColumnAction.do?action=init", {
+			enumTypes : [ 'COL_TYPE_EK', 'STATE', 'YESORNO' ]
+		}, function(resultObject) {
+			initResult = resultObject;
+			//将后台action得到的枚举ENUM,和前台的databind的枚举,如果值相同进行绑定
+			var viewModel = joy.observable(initResult);
+			//测试veiwmodel
+			//alert(joy.stringify(viewModel));
+			joy.bind($(".joy-smc,.joy-enum"), viewModel); //class为smc enum时进行绑定
+
+			treeviewBind();
+			smallTreeViewBild();
+		});
+	});
+	//treeview数据初始化   传入状态
+	function treeviewBind() {
+		joy.getJSON("../../wl/cm/wlCmColumnAction.do?action=getTree", {
+			isEnableFlag : "",
+			isLastFlag : "",
+			rootId:"0"	
+		}, function(resultObject) {
+			treegrid.load(initResult, resultObject.items);
+		});
+	}
+	//父级选择框绑定树
+	function smallTreeViewBild() {
+		joy.getJSON("../../wl/cm/wlCmColumnAction.do?action=getTree", {
+			isEnableFlag : "1",
+			isLastFlag : "0",
+			rootId:"0"
+		}, function(resultObject) {
+			smallTreeView = $("#smallTreeView").joyTreeView({
+				dataSource : [ resultObject ],
+				templateID : "small_tree"
+			});
+		});
+	}
+
+	/**
+	 *打开父节点选择窗体
+	 */
+	function openParentSelectWindow() {
+		parentselectWindow.open();
+		parentselectWindow.center();
+	}
+
+	//菜单点击事件
+	function treeviewclick(columnId, columnName) {
+		var json = dataForm.getDataModel().toJSON();
+		json.parentColumnId = columnId;
+		json.parentColumnName = columnName;
+		dataForm.load(json);
+		downloadUploadChange(json.colTypeEk);
+		parentselectWindow.close();
+		
+	}
+
+	//打开新增窗体
+	function openAddWindow() {
+		downloadUpload._reflash();
+		$("#downloadUploadTd").hide();
+		dataForm.load({sequ:1});//编辑框form加载
+		editWindow.title(lgc.add);
+		editWindow.open();//编辑窗口打开
+		editWindow.center();//编辑窗口居中
+	}
+	
+	//类型改变发生事件
+	function changeType(){
+		var	colTypeEk=$("#colTypeEk").getJoyComboBox().value();
+		downloadUploadChange(colTypeEk);
+	}
+	//上传文件显示隐藏
+	function downloadUploadChange(colTypeEk){
+		if(colTypeEk=="DOWNLOAD")
+		{
+			$("#downloadUploadTd").show();	
+			downloadUpload.options.required=true;//将下载上传设置为必输
+			
+		}else{
+			$("#downloadUploadTd").hide();
+			downloadUpload.options.required=false;//将下载上传设置为不必输
+		}
+	}
+
+	/**
+	 * 打开编辑窗体
+	 */
+
+	function openEditWindow(columnId) {
+		joy.getJSON("../../wl/cm/wlCmColumnAction.do?action=getData", {
+			columnId : columnId
+		}, function(resultObject) {
+			downloadUpload._reflash();
+			//resultObject返回值是getData方法的返回结果
+			dataForm.load(resultObject);
+			smallTreeReflash(columnId);
+			editWindow.title(lgc.edit);
+			downloadUploadChange(resultObject.colTypeEk);
+			editWindow.open();
+			editWindow.center();
+		});
+	}
+	//smallTree刷新数据
+	function smallTreeReflash(columnId) {
+		if (!columnId) {
+
+			joy
+					.getJSON(
+							"../../wl/cm/wlCmColumnAction.do?action=getTree&isEnableFlag=1&isLastFlag=0&rootId=0",
+							function(resultObject) {
+								$("#smallTreeView").getJoyTreeView()
+										.setDataSource([ resultObject ]);
+							});
+		} else {
+			//获取父类型
+			joy
+					.getJSON(
+							"../../wl/cm/wlCmColumnAction.do?action=getParentTree&isEnableFlag=1&isLastFlag=0&columnId="
+									+ columnId, function(resultObject) {
+								$("#smallTreeView").getJoyTreeView()
+										.setDataSource([ resultObject ]);
+							});
+		}
+	}
+
+	/*
+	 * 保存数据
+	 */
+	function saveData(buttonObject) {
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+
+		//如果form表单里的值校验不通过
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+
+		//点击保存调用保存action
+		dataForm.submit("../../wl/cm/wlCmColumnAction.do?action=saveData",
+				buttonObject, function(resultObject) {
+					//重新刷新树			
+
+					if (resultObject === "") {
+						joy.showMessage(lgc.opSuccess, "success");
+						editWindow.close();
+						treeviewBind();
+						smallTreeReflash(false);
+					} else {
+						joy.showMessage(resultObject, "warning");
+					}
+
+				});
+	}
+	/**
+	 * 打开详细窗体
+	 */
+	function openDetailWindow(columnId) {
+
+		joy.getJSON("../../wl/cm/wlCmColumnAction.do?action=getData", {
+			columnId : columnId
+		}, function(resultObject) {
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#detailTable"), viewModel);
+			detailWindow.open();
+			detailWindow.center();
+		});
+	}
+	/**
+	 * 删除数据
+	 */
+	function deleteData() {
+		var ids = treegrid.getChecked();
+
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy
+					.showMessageDialog(
+							lgc.deleteConfirm,
+							"ok,cancel",
+							function(e) {
+								if (e.btnName == "ok") {
+									joy
+											.getJSON(
+													"../../wl/cm/wlCmColumnAction.do?action=deleteData",
+													{
+														ids : ids,
+													},
+													function(resultObject) {
+														//重新刷新树						
+														treeviewBind();
+														smallTreeReflash(false);
+														joy.showMessage(
+																lgc.opSuccess,
+																"success");
+													});
+								}
+							});
+		}
+	}
+	/**
+	 * 启用
+	 **/
+
+	function able() {
+		modifyColumnStateEk("1");
+	}
+	/**
+	 *禁用
+	 **/
+	function enable() {
+		modifyColumnStateEk("0");
+	}
+	function modifyColumnStateEk(isEnableFlag) {
+
+		var ids = treegrid.getChecked();
+
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			var isEnableFlagTitle;
+			if (isEnableFlag == "1") {
+				isEnableFlagTitle = lg.isColumnStateEkAble;
+			} else if (infoStateEk = "0") {
+				isEnableFlagTitle = lg.isColumnStateEkEnable;
+			}
+			joy
+					.showMessageDialog(
+							isEnableFlagTitle,
+							"ok,cancel",
+							function(e) {
+								if (e.btnName == "ok") {
+									joy
+											.getJSON(
+													"../../wl/cm/wlCmColumnAction.do?action=updateWlCmColumnState",
+													{
+														ids : ids,
+														isEnableFlag : isEnableFlag
+													},
+													function(resultObject) {
+														//重新刷新树						
+														treeviewBind();
+														smallTreeReflash(false);
+													});
+								}
+							});
+		}
+	}
+	
+	//上传图片时触发事件
+	function downloadFile(){ 
+		var id=downloadUpload.value();
+		if(id != null &&$.trim(id) != ""){
+	  	//删除前一张图片
+	  		joy.getJSON("../../wl/cm/wlCmDocumentAction.do?action=deleteFile",{id:id},function(){	    		
+	  	});
+	  }
+		downloadUpload._reflash();
+	}
+</script>
+</html>

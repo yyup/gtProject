@@ -1,0 +1,193 @@
+  #custRepairListBody{width:100%;}
+
+/*账号信息*/
+#accountInfoContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+  border-left:1px solid #fff; display: table; 
+}
+#accountInfoMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+#accountInfoMenu{
+float:left;width:230px;min-height:670px;
+}
+#custRepairContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.accountInfoTitle{width:175px;height:38px;margin:0 auto;margin-top:20px;background: url("../images/accountInfo.png") ;
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px;}
+.item p:not(.itemTitle){padding-bottom:4px;
+ }
+ .item a{
+    color:#000;
+	text-decoration:none;
+ }
+
+/*账号信息左边栏结束*/
+
+
+#addRegistration{
+    margin-left: 10px;
+    margin-top: 20px;
+    width: 96px;
+	height:38px;
+   background: url("../images/registration.png"); 
+}
+#addRegistration:hover{
+   background: url("../images/registration1.png");
+}
+#custRepairList{
+ font-size:14px;
+ margin-top:10px;
+ margin-left:10px;
+ margin-right:10px;
+}
+
+#custRepairList .tbl-main {
+    border: 1px solid #5D5D5D;
+    table-layout: fixed;
+    width: 100%;
+	border-collapse:collapse;
+}
+.thead-tbl-grade th {
+    background: #f2f2f2 none repeat scroll 0 0;
+    border-bottom: 1px solid #5D5D5D;
+    border-top: 1px solid #5D5D5D;
+    height: 40px;
+    padding: 0 5px;
+    text-align: left;
+	
+	font-style: normal;
+    font-weight: 400;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+#custRepairList tr{
+ background: #f2f2f2 none repeat scroll 0 0;
+    border-bottom: 1px solid #5D5D5D;
+}
+#custRepairList .col-repairOrderNumber {
+    width: 95px;
+}
+#custRepairList .col-equipmentCoding {
+    width: 84px;
+}
+#custRepairList .col-applyDate {
+    width: 96px;
+}
+#custRepairList .col-problemModule {
+	    width: 90px;
+}
+
+#custRepairList .col-paymentStatusEkValue {
+    width: 102px;
+}
+#custRepairList .col-orderNo {
+    width: 129px;
+}
+#custRepairList .col-operation {
+    width: 117px;
+}
+#custRepairList .note{
+   background: #ffd6cc none repeat scroll 0 0;
+    border-color: #ff3800;
+    border-radius: 3px;
+    color: #f30;
+    padding: 2px 5px;
+	border: 1px solid #f60;
+	 text-decoration: none;
+}
+.setDefaultAdress{
+     background: #f60 none repeat scroll 0 0;
+    border: 1px solid #f60;
+    border-radius: 3px;
+    color: #fff;
+    padding: 2px 5px;
+    text-decoration: none;
+}
+.tbl-main td{
+    padding: 5px;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+#custRepairContent a{
+   text-decoration:none;
+}
+table a{
+  color:#36c;
+}
+
+
+ #deliverGoodsForm p{
+	display:table;
+	margin-top:10px;
+   
+ }
+ #deliverGoodsForm label{
+   height:26px;
+   display:block;
+   float:left;
+   line-height:26px;
+   text-align:right;
+ }
+  #deliverGoodsForm input{
+  padding:3px;
+  width:280px;
+ }
+  #repairOrderNumber{
+    float:right;
+ }
+
+ #deliverGoodsSaveBut{
+  width:54px;
+  height:24px;
+  margin-left:125px;
+  margin-top:13px; 
+}
+
+#deliverGoodsTitle{
+   background: #000 none repeat scroll 0 0;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+    width: 500px;
+}
+#shut{
+     background:  url("../images/sprite.png") no-repeat scroll -32px -16px;
+
+    border-color: transparent;
+    float: right;
+    height: 17px;
+    margin-right: 10px;
+    margin-top: 8px;
+    width: 13px;
+}
+.tbl-main td a{
+   cursor:pointer;
+}
+#repairNo{
+    margin-left:5px;
+    line-height: 26px;
+    margin-left: 5px;
+}
+#isDefalutAccount{
+ float:left;
+ margin-top:5px;
+}

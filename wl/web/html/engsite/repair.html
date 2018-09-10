@@ -1,0 +1,519 @@
+﻿﻿﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="waterrower Team">
+    <meta name="Author" content="waterrowerTeam">
+    <meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+    <script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/getSystemPlatform.js"></script>
+    <script src="../../js/engsite/wlcommon.js"></script>
+    <script src="../../js/newsite/cnzz.js"></script>
+	<script src="../../js/newsite/bootstrapValidator.min.js"></script>
+    <link href="../../style/prj/engsite/bootstrapValidator.min.css" rel="stylesheet">
+	
+    <link rel="stylesheet" href="../../style/prj/engsite/header.css"/>
+    <link rel="stylesheet" href="../../style/prj/engsite/footer.css"/>
+    <link rel="stylesheet" href="../../style/prj/engsite/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../style/prj/engsite/wlcommon.css"/>
+    <link rel="stylesheet" href="../../style/prj/engsite/repair.css"/>
+    <link rel="stylesheet" href="../../style/prj/engsite/pagination.css"/>
+    <!-- 分页 -->
+  <!--   <script src="../../js/newsite/bootstrap-paginator.js"></script> -->
+	<script src="https://cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
+ 	<script src="../../js/engsite/jquery.pagination.js"></script>
+ 	<style type="text/css">
+ 		.table-striped .tableContent {
+ 			 border: solid 1px #D9D9D9;
+ 		}
+ 		.table-striped .tableTitle {
+ 			 border: solid 1px #D9D9D9;
+ 		}
+ 		
+		.radio {
+			word-wrap: break-word;
+		}
+		.tableContent {
+			font-size:14px;
+		}
+ 	</style>
+</head>
+
+<body>
+<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+<!-- 内容 -->
+<div id="wlBody"  class="contentMargin" >
+    <div class="container" style="margin-top: 80px;">
+        <div class="row rightLeft" id="rightLeft">
+            <div class="col-md-9" style="margin-top:35px;">
+                <div class="row">
+                    <input type="button" class="addButton" value="ADD" style="margin-bottom: 20px;" onclick="javascript:window.location.href='repairManagement.html'">
+                    <table class="table table-striped" id="repairList">
+                        <tr>
+                            <td class="tableTitle tableBorder">Item</td>
+                            <td class="tableTitle tableBorder">Serial No.</td>
+                            <td class="tableTitle tableBorder">Application Time</td>
+                            <td class="tableTitle tableBorder" >Problem Module</td>
+                            <td class="tableTitle tableBorder" >Order No.</td>
+                            <td class="tableTitle tableBorder" >Status</td>
+                            <td class="tableTitle tableBorder" >Operate</td>
+                        </tr>
+                        <!-- <tr>
+                            <td class="tableContent">201700322</td>
+                            <td class="tableContent">239518</td>
+                            <td class="tableContent">2018-01-26</td>
+                            <td class="tableContent">冰箱</td>
+                            <td class="tableContent">12345678910</td>
+                            <td class="tableContent">已支付</td>
+                            <td class="tableContent" style="color: #0D7DDF;">
+                                <span>编辑</span>
+                                <span>|</span>
+                                <span>详细</span>
+                            </td>
+                        </tr> -->
+                    </table>
+                </div>
+                <!--分页-->
+                <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+            </div>
+
+        </div>
+        <div class="topBottom" id="topBottom">
+          
+            <div class="row" style="margin-left: 20px;margin-right: 20px;">
+                <input type="button" class="addButton" value="ADD" style="margin-bottom: 20px;" onclick="javascript:window.location.href='repairManagement.html'">
+                <table class="table table-striped" id="repairListSmall">
+                    <!-- <tr>
+                        <td class="tableTitle tableBorder" style="border-right: solid 1px white;width: 120px;">维修单号</td>
+                        <td class="tableContent">201700322</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder">序列号</td>
+                        <td class="tableContent">12345678910</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder">申请时间</td>
+                        <td class="tableContent">2018-01-29</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder" >问题模块</td>
+                        <td class="tableContent">冰箱</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder" >订单号</td>
+                        <td class="tableContent">12345678910</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder" >支付状态</td>
+                        <td class="tableContent">已支付</td>
+                    </tr>
+                    <tr>
+
+                        <td class="tableTitle tableBorder" >操作</td>
+                        <td class="tableContent" style="color: #0D7DDF;cursor: pointer;">
+                            <span>编辑</span>
+                            <span>详细</span>
+                        </td>
+                    </tr> -->
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--第一个商品结束-->
+<!-- 内容结束 -->
+<!--尾部开始-->
+<div id="footerPart">
+    
+</div>
+<!-- 模态框 -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="z-index: 999999;">  
+    <div class="modal-dialog" role="document">  
+        <div class="modal-content">  
+            <div class="modal-header">  
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span  
+                        aria-hidden="true">×</span></button>  
+                <h4 class="modal-title" id="exampleModalLabel">Deliver</h4>  
+            </div>  
+            <div class="modal-body">  
+                <form  id="deliverGoodsForm"  method="post" class="joy-form">  
+                	<div class="form-group">  
+                        <label for="recipient-name" class="control-label">Repair No.:</label>  
+                        <span id="repairNo" name="repairNo" v-text="vModalData.repairNo"></span>
+                        <!-- <input type="text" class="form-control" id="repairNo" name="repairNo"  v-model="vModalData.repairNo">   -->
+                    </div>  
+                    <div class="form-group">  
+                        <label for="recipient-name" class="control-label">Express:</label>  
+                        <input type="text" class="form-control" id="userLogistic" name="userLogistic"  v-model="vModalData.userLogistic">  
+                    </div>  
+                    <div class="form-group">  
+                        <label for="message-text" class="control-label">Shipping No.:</label>  
+                        <input type="text" class="form-control" id="userDeliveryNo" name="userDeliveryNo"  v-model="vModalData.userDeliveryNo">
+                    </div>  
+                    <div class="form-group">  
+                        <label for="message-text" class="control-label">Repair parts:</label>  
+                        <input type="text" class="form-control" id="accDesc" name="accDesc"  v-model="vModalData.accDesc">
+                    </div>  
+                    <div class="form-group">  
+	                    <label for="message-text" class="control-label">Confirm your delivery address:</label>  
+						<div>
+							<div id="radioAddr">
+							</div>
+						</div>
+					</div>
+                </form>  
+            </div>  
+            <div class="modal-footer">  
+                <button type="button" class="btn btn-primary" @click="fh">SAVE</button>  
+                <button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>  
+            </div>  
+        </div>  
+    </div>  
+</div>
+<!--尾部结束-->
+<script type="text/javascript">
+	var pageIndex = 1;     //页面索引初始值   
+	var pageSize = 10;     //每页显示条数初始化，修改显示条数，修改这里即可 
+	var addrs = new Object();
+	var modalData={};//显示发货弹窗数据
+	$().ready(function() {
+		initTop();
+		initClick();
+		initBottom();
+		initAccountInfo();
+		initRepairList(pageIndex, 1);
+		validateFrm();//表单验证初始化
+		//重置模态框
+		$('#exampleModal').on('hidden.bs.modal', function() {
+	        $("#deliverGoodsForm").data('bootstrapValidator').destroy();
+	        $('#deliverGoodsForm').data('bootstrapValidator', null);
+	    });
+    });
+	//验证表单
+	function validateFrm(){
+		$('#deliverGoodsForm').bootstrapValidator({
+            feedbackIcons: {//根据验证结果显示的各种图标  
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+            	userLogistic:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Please describe the problems you have encountered!'
+                        }
+                    }
+                },
+                userDeliveryNo:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Please describe the problems you have encountered!'
+                        }
+                    }
+                }
+            }
+        })
+	}
+	//查询列表
+	function initRepairList(pageIndex, type){
+		//查询是移动端登录还是pc端登录
+		if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {  
+			pageSize=99;
+		}
+		var obj=new Object(); 	
+ 		obj.keyId="memberId";
+ 		var paraMap=joy.getParaMap(obj);
+ 		paraMap.currPage=pageIndex;
+ 		paraMap.pageSize=pageSize;
+		joy.getJSON(
+				"../../wl/es/wlEsCustRepairAction.web?action=findDataList&langType=EN",
+				paraMap,
+				function(resultObject) {
+					$("#repairList tr:not(:first)").remove();
+					if(resultObject.items.length!==0){
+						$("#repairListSmall").html("");
+						$("#repairList tr:gt(0)").remove();
+						totalCount = resultObject.totalCount;
+						if (type!=0) {
+							pagination(resultObject.totalCount,pageIndex);
+						}
+					}
+					var txt = '';
+					var sTxt = '';
+					//刷新收货地址列表
+					for ( var i = 0; i < resultObject.items.length; i++) {
+						myRepairList = resultObject.items[i];
+						var ordNo = myRepairList.orderNo;
+						var processStatusEk = myRepairList.processStatusEk;
+						var repairId = myRepairList.repairId;
+						var isReturnFlag = myRepairList.isReturnFlag;
+						var paymentStatusEk = myRepairList.paymentStatusEk;
+						var repairNo = '<td class="tableContent">' + myRepairList.repairNo + '</td>';
+						var deviceCd = '<td class="tableContent">' + myRepairList.deviceCd + '</td>';
+						var applyTime = '<td class="tableContent">' + myRepairList.applyTime + '</td>';
+						var moduleEkValue = '<td class="tableContent">' + myRepairList.moduleEkValue + '</td>';
+						var orderNo = '<td class="tableContent">' + ordNo + '</td>';
+						var paymentStatusEkValue;
+						var paymentStatusEkValue = myRepairList.paymentStatusEkValue;
+						if (myRepairList.orderNo=='') {
+							paymentStatusEkValue = '<td class="tableContent"></td>';
+						} else {
+							if (paymentStatusEk==0) {
+								paymentStatusEkValue = '<td class="tableContent">' +paymentStatusEkValue + '|<br><a style="font-size: 14px;" href="javascript:toPay(\''+ordNo+'\')">Pay Now</a>' + '</td>';
+							} else {
+								paymentStatusEkValue = '<td class="tableContent">' +paymentStatusEkValue + '</td>';
+							}
+						}
+						
+						//大屏幕
+						txt += '<tr >';
+						txt += repairNo + deviceCd + applyTime + moduleEkValue + orderNo + paymentStatusEkValue;
+						txt += '<td class="tableContent" style="color: #0D7DDF;">';
+						/* txt += '<a  href="repairManagement.html?repairId=' + repairId+'">编辑</a>'; */
+						if(processStatusEk=='REJECT' || processStatusEk=='0'){
+						  txt += '<a  href="repairManagement.html?repairId=' + repairId+'">Edit</a>';
+					    }else{
+							txt += '<span  style="color:#A1A1A1;cursor: auto;">Edit</span>';
+					    } 
+						txt += '<span class="sp">|</span><a target="_blank" href="repairDetails.html?repairId=' + repairId+'">Details</a>';
+						if(processStatusEk=='1' && isReturnFlag=='1'){
+							if (paymentStatusEk==0 && ordNo!="") {//有订单未支付
+								txt += '<span class="sp">|</span><span class="" style="color:#A1A1A1;cursor: auto;">Deliver</span>';
+							} else {
+								txt += '<span class="sp">|</span><a class="deliverGoodsBut" style="cursor: pointer;" data-toggle="modal" >Deliver<input type="hidden" value="'+repairId+'"></a></td>';
+							}
+						 }else{
+							 txt += '<span class="sp">|</span><span class="" style="color:#A1A1A1;cursor: auto;">Deliver</span>';
+						 }
+						txt += '</td></tr>';
+						
+						
+						//小屏幕
+						sTxt += '<tr >';
+						sTxt += '<td class="tableTitle tableBorder" style="width: 120px;">Item</td>' + repairNo;
+						sTxt += '</tr><tr><td class="tableTitle tableBorder">Serial No.</td>' + deviceCd;
+						sTxt += '</tr><tr><td class="tableTitle tableBorder">Application Time</td>' + applyTime;
+						sTxt += '</tr><tr><td class="tableTitle tableBorder" >Problem Module</td>' + moduleEkValue;
+						sTxt += '</tr><tr><td class="tableTitle tableBorder" >Order No.</td>' + orderNo;
+						sTxt += '</tr><tr><td class="tableTitle tableBorder" >Status</td>' + paymentStatusEkValue;
+						sTxt += '</tr><tr><td class="tableTitle tableBorder" >Operate</td><td class="tableContent" style="color: #0D7DDF;cursor: pointer;">';
+						if(processStatusEk=='REJECT' || processStatusEk=='0'){
+							sTxt += '<a  href="repairManagement.html?repairId=' + repairId+'">Edit</a>';
+					    }else{
+					    	sTxt += '<span  style="color:#A1A1A1;cursor: auto;">Edit</span>';
+					    }
+						sTxt += '<span class="sp">&nbsp;|&nbsp;</span><a target="_blank" href="repairDetails.html?repairId=' + repairId+'">Details</a>';
+						if(processStatusEk=='1' && isReturnFlag=='1'){
+							if (paymentStatusEk==0 && ordNo!="") {//有订单未支付
+								sTxt += '<span class="sp">|</span><span class="" style="color:#A1A1A1;cursor: auto;">Deliver</span>';
+							} else {
+								sTxt += '<span class="sp">|</span><a class="deliverGoodsBut" style="cursor: pointer;">Deliver<input type="hidden" value="'+repairId+'"></a></td>';
+							}
+						 }else{
+							 sTxt += '<span class="sp">|</span><span class="" style="color:#A1A1A1;cursor: auto;">Deliver</span>';
+						 }
+						sTxt += '</td></tr>';
+						sTxt += '';
+						sTxt += '<tr><td colspan="2" class="jg"></td></tr>';
+					}
+					$("#repairListSmall").append(sTxt);
+					$("#repairList").append(txt);
+
+					$(".deliverGoodsBut").bind("click",function(){
+						var repairId = $(this).find("input").val();
+						$('#exampleModal').modal('toggle');
+						validateFrm();
+						openDeliverWindow(repairId);
+					})
+					
+				});
+    }
+	//发货
+	function openDeliverWindow(repairId){
+		joy.getJSON("../../wl/es/wlEsCustRepairAction.web?action=getDetailData",{repairId:repairId},  function(resultObject){	
+			modalData = resultObject;
+			vm.showModalData();//触发vue里面的发货方法
+			//加载收货地址
+			joy.getJSON("../../wl/es/wlEsMyDeliveryAddrAction.web?action=getMyDeliveryAddrList",{}, 
+  			    function(resultObject) {	
+   						if(resultObject.length>0){
+   							$("#radioAddr").html("");
+   							var addrTxt = '';
+   							addrs = resultObject;
+   		                	for ( var i = 0; i < resultObject.length; i++ ) {//拼接并展示收货地址radio
+   		                		var isDefaultFlag = resultObject[i].isDefaultFlag;
+   		                		addrTxt += '<div class="radio">';
+   		                		if ( isDefaultFlag == 1) {//默认地址选中
+   		                			radioChange(i);
+   		                			addrTxt += '<label class="selectClass"><input type="radio" onchange="radioChange(' + i + ')" name="optionsRadios" value="' + resultObject[i].deliveryAddrId + '" checked>';
+   		                		} else {
+   		                			addrTxt += '<label class="text-color"><input type="radio"  onchange="radioChange(' + i + ')" name="optionsRadios" value="' + resultObject[i].deliveryAddrId + '">';
+   		                		}
+   		                		addrTxt += '';
+   		                		addrTxt += resultObject[i].addr + ",&nbsp;"+ resultObject[i].area+ ",&nbsp;"+ resultObject[i].city+ ",&nbsp;" + resultObject[i].province +  '&nbsp;&nbsp;(' + resultObject[i].receiver +')&nbsp;&nbsp;'+ resultObject[i].mobile;
+   		                		if ( isDefaultFlag == 1) {//默认地址显示文字
+   		                			addrTxt += '&nbsp;&nbsp;<span>*Default Address</span>';
+   		                		}
+   		                        addrTxt += '</label></div>';
+   		                	}
+							$("#radioAddr").append(addrTxt);
+   						}
+			});
+    	})  
+	}
+	//地址选择后更改参数
+	function radioChange(i){
+		  modalData.provinceId=addrs[i].provinceId;
+		  modalData.province=addrs[i].province;
+		  modalData.cityId=addrs[i].cityId;
+		  modalData.city=addrs[i].city;
+		  modalData.areaId=addrs[i].areaId;
+		  modalData.area=addrs[i].area;
+		  modalData.area=addrs[i].area;
+		  modalData.addr=addrs[i].addr;
+   }
+	//vue处理绑定数据
+	var vm = new Vue({
+		  el: '#exampleModal',
+		  data: {
+		    message: 'Hello Vue.js!',
+		    vModalData:{}
+		  },
+		  methods:{
+			//发货弹窗数据
+			showModalData:function(){
+				this.vModalData = modalData;
+			},
+	  		//发货修改数据提交表单
+				fh:function(){
+					this.vModalData = modalData;
+					var val=$('input:radio[name="optionsRadios"]:checked').val();
+		            if(val==null){//验证收货地址是否有选择
+		            	joy.showMessage("Please select the shipping address!", "warning");
+		                return false;
+		            }
+					//表单验证是否通过
+			       var bootstrapValidator = $('#deliverGoodsForm').data('bootstrapValidator');
+			       bootstrapValidator.validate();
+			       if(bootstrapValidator.isValid()){//如果校验成功后执行的操作
+			    	   $.ajax({ 
+				   		    type:'post',  
+				   		    url:'../../wl/es/wlEsCustRepairAction.web?action=saveData', 
+				   		    cache: false,
+				   		    data:this.vModalData,  
+				   		    dataType:'json', 
+				   		    success:function(json){
+				 		     	//是否登记成功
+				 		     	var success=json.success;
+				 		     	if(success){
+				 		     	  tankuang(150,"Success!");
+				 			      $('#exampleModal').modal('hide');
+				 				  initRepairList(pageIndex, 1);
+				 		     	}else{
+				 				    joy.showMessage(json.resultObject.result, "warning");
+				 		     	}
+				 				return; 
+				   		    },
+				   		    error:function(){ 
+				   		    	joy.showMessage("Request failed!", "warning");
+				   		    }
+			   		   })
+			       }
+				}
+		  }
+	})
+	
+	//分页展现
+	function pagination(totalCount,pageIndex){
+			$("#Pagination").html("");
+			var pageCount = 1;
+			 if(totalCount > 0){
+				pageCount = Math.ceil(totalCount/pageSize);
+			 }
+			var initPagination = function() {
+				// 创建分页
+				$("#Pagination").pagination(pageCount, {
+					num_edge_entries: 1, //边缘页数
+					num_display_entries: 4, //主体页数
+					callback: pageselectCallback,
+					items_per_page:1, //每页显示1项
+					prev_text:"&laquo;",
+					next_text:"&raquo;",
+					current_page:pageIndex-1
+				});
+			 }();
+			 
+			function pageselectCallback(page_index, jq){
+				initRepairList(parseInt(page_index)+1, 0);
+				var idx = parseInt(page_index);
+				$("[name='pageSelect']").val(idx);
+				return false;
+			}
+			
+			$("#Pagination").next().remove();
+			var paginationText = '<div class="text-center" style="float:right;margin-top:26px;font-size: 16px;"><span style="margin-right: 5px;">Total'+pageCount+'page,</span>'+
+	        '<span style="margin-right: 5px;">go to<select name="pageSelect" >';
+	        console.log("pageIndex:"+pageIndex);
+	        for(var i = 0;i < pageCount; i++){
+	        	if (i==parseInt(pageIndex-1)) {
+	        		paginationText +='<option value="'+(i)+'" selected>'+(i+1)+'</option>';	
+	        	} else {
+	        		paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+	        	}
+	        	 //paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+	        }
+	        paginationText +=' </select>page</span>'+
+	        '<input type="button" class="sureAndBack" value="Confirm" onclick="reflashPage($(this))"/></div>';
+			$("#Pagination").after(paginationText);
+	 }
+	//刷新页面操作
+  	function reflashPage(){
+		var pnum = parseInt($("[name='pageSelect']").val());
+		initRepairList(pnum+1, 1);
+  	} 
+	//去支付
+  	function toPay(orderNo){
+		joy.getJSON("../../wl/es/wlEsApplyAction.web?action=getorderByOrderNo",
+		{
+			orderNo : orderNo
+		}, function(resultObject) {
+			if (resultObject.orderStateEk == '4') {
+				tankuang(150, "This order has been closed");
+				return;
+			} else {
+				joy.showMessageDialog("Order No.:"+orderNo+",Checkout now?", "ok,cancel", function(e) {
+					if (e.btnName == "ok") {
+						window.location="payWay.html?orderId="+resultObject.orderId;
+					}
+				});
+				$(".k-window-title").text("Prompt");
+				   $(".k-message-ok").text("Confirm");
+				   $(".k-message-cancel").text("Cancel");
+			}
+		});
+	}
+  	 //弹窗
+    function tankuang(pWidth,content)
+    {    
+        $("#msg").remove();
+        var html ='<div id="msg" style="position:fixed;top:50%;width:100%;height:30px;line-height:30px;margin-top:-15px;"><p style="background:gray;opacity:0.8;width:'+ pWidth +'px;color:#fff;text-align:center;padding:10px 10px;margin:0 auto;font-size:12px;border-radius:4px;">'+ content +'</p></div>'
+                $("body").append(html);
+                var t=setTimeout(next,2000);
+                function next()
+                {
+                    $("#msg").remove();
+                    
+                }
+    }
+</script>
+</body>
+</html>

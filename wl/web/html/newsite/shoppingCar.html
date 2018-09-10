@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="waterrower Team">
+    <meta name="Author" content="waterrowerTeam">
+    <meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+	<script src="../../js/joy.loader.js" modules="dataview"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/getSystemPlatform.js"></script>
+    <script src="../../js/newsite/wlcommon.js"></script>
+    <script src="../../js/newsite/cnzz.js"></script>
+	<link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/shoppingCar.css"/>
+</head>
+
+<body>
+  <!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+  <!-- 内容 -->
+  <div id="wlBody"  class="contentMargin" >
+      <div class="container" style="margin-top: 100px;">
+		  <div class="row rightLeft" id="rightLeft" >
+	          <div class="col-md-9" id="shoppingCar" style="margin-top:35px;">
+                  <div style="font-size: 24px;font-weight: bold;margin-bottom: 10px;">WaterRower购物车</div>
+                  <table id="shopCarTable" class="table table-striped">
+                      <tr id="topTitle" class="text-center" style="font-size: 16px;">
+                          <td colspan="3" class="tableTitle tableLeft">产品</td>
+                          <td class="tableTitle tableLeft">单价</td>
+                          <td class="tableTitle tableLeft" style="width:150px;">数量</td>
+                          <td class="tableTitle tableLeft" >金额</td>
+                          <td class="tableTitle">操作</td>
+                      </tr>
+                      <tr class="text-center" style="background: #F0F0F0;font-size: 16px;">
+                          <td colspan="3" class="tableBottom" style="text-align: left;">
+                              <input type="checkbox" onclick="allChoose()" class="head-checkbox" id="checkAll" name="good" style="margin-right: 10px;">
+                              <span id="allChoose" >全选&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                              <span id="allDelete" style="cursor:pointer;" onclick="deleteAllGood()">删除</span>
+                          </td>
+                          <td  class="tableBottom">
+
+                          </td>
+                          <td  class="tableBottom">
+                                <span id="chooseNum"></span>
+                          </td>
+                          <td colspan="2"  class="tableBottom">
+                              <span style="font-weight: bold;"> 总额：￥<span id="totalPriceNum">13,998</span></span>
+                          </td>
+                      </tr>
+                  </table>
+                  <div>
+                      <input type="button" value="结算" onclick="settleMent()" class="submit">
+                  </div>
+               </div>
+	       </div>
+           <div class="topBottom" id="topBottom">   			 
+           </div>
+      </div>
+  </div>
+  <!-- 内容结束 -->
+<!--尾部开始-->
+    <div id="footerPart">
+        
+    </div>
+<!--尾部结束-->
+
+<script>
+	var totalCount=[];	//全部的价格
+	var intTotalCount=0;//商品总额
+	var curTotalCheckBox;	//当前已选择商品数量
+	var totalCheckBox;	//全部商品数量
+	var numState=true;  //用来改变数量的状态
+	//进行页面初始化操作
+	$(function(){
+		initTop();
+		initClick();
+		initBottom();
+		initAccountInfo();
+	    getMyShopCarList();    
+
+	});
+
+
+	 
+	//获取布局
+	function getMyShopCarList(){
+	    var txt="";
+	    var hiddenTxt = "";
+	    $("#personCarContent").attr("style","min-height: 670px;");
+	    joy.getJSON("../../wl/es/wlEsMyShoppingCartAction.web?action=findMyShoppingCartPage",{pageSize:100,currPage:1,isThumFlag:"1"},function(resultObject){
+	    	totalCheckBox=resultObject.items.length;
+	    	if(totalCheckBox==0){
+	    		txt+='<div class="text-center">';
+				txt+='<div style="font-size: 25px;color: #898989;margin-bottom: 25px;">购物车空空如也，快去选购吧</div></div>';
+				txt+='<div class="text-center" style="margin-top: 20px;">';
+				txt+='<input type="button" value="选购" onClick="goShop()" class="goShopButton"></div>';		
+				$("#shoppingCar").empty();
+				$("#shoppingCar").append(txt);
+				 $("#topBottom").append(txt);
+			}else{
+		    	hiddenTxt += 
+	            	'<div id="smallScreenContainer"  class="smallScreenContainer">'+
+	            	     '<div id="firstRow" class= "row">'+
+	            	          '<div class="text-center" style="font-size: 26px;margin-bottom: 30px;">WaterRower购物车</div>'+
+	           	          '</div>';
+	           	      
+		            for(var i=0;i<resultObject.items.length;i++){
+				                var ob=resultObject.items[i];
+				                intTotalCount+=ob.amt;
+				                totalCount[i]=ob.amt;
+				            	//大屏布局
+				                txt += '<tr class="text-center">'
+				                txt += '    <td  class="tableContent" style="text-align: left;">' +
+				                          '     <input id="check'+i+'" position="'+i+'" sellId="'+ob.sellId+'" value="'+ob.shoppingCartId+'" onclick="check('+i+')" class="body-checkbox " type="checkbox" name="good" style="margin-right: 10px;"></td>'+
+				                                ' <td class="tableContent" > <img class="goodImg" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id=' + ob.path + ' "></td>'+
+				                                		'<td class="tableContent" width="120px;"><span>'+ob.productName+'</span></td>'+
+				                            '<td class="tableContent" ><span>￥</span><span id="goodPrice'+i+'">'+ob.price+'</span></td>'+
+				                            '<td class="tableContent">      ' +
+			                                '<div><span class="countAddAndReduce"  onclick="reduceNum('+i+')"   style="border-right:none;display:inline-block;width:25px;height:30px;" >-</span>'+
+			                                    '<input  type="text" id="goodInput'+i+'" class="goodCount" value="'+ob.num+'"  onkeyup="textChange(this,'+i+')" />'+
+			                                    '<span class="countAddAndReduce text-center"  onclick="addNum('+i+')" style="border-left:none;display:inline-block;width:25px;height:30px;">+</span>'+
+			                                    ' </div>' +
+			                                '</td>' +
+				                            '<td class="tableContent" ><span>￥</span><span id="goodCount'+i+'">'+ob.amt+'</span></td>' +
+				                            '<td class="tableContent"><img src="../../style/prj/images/delete.png" id="delGoods'+i+'" style="cursor:pointer;" onclick="delGoods('+i+',\''+ob.shoppingCartId+'\')"></td>'+
+				                        '</tr>';
+				                       
+				                  //小屏布局
+			                   	hiddenTxt += '<div class="row" style="margin-top:4px;">'+
+							                    '<div class="col-xs-6 text-right">'+
+									                    '<input id="smallCheck'+i+'" position="'+i+'" sellId="'+ob.sellId+'"  value="'+ob.shoppingCartId+'" onclick="smallCheck('+i+')" type="checkbox" name="good" class="small-body-checkbox" style="margin-right:10px;">'+
+							                            '<img src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id=' + ob.path + ' " class="goodImg img-responsive ">'+
+					                            '</div>'+
+					                            '<div class="col-xs-6 smallGoodName" >'+
+					                            	'<div class="smallMargin">'+ob.productName+'</div>' +
+						                            '<div class="smallMargin">'+
+							                                 '<span class="countAddAndReduce"  onclick="reduceNum('+i+')"   style="border-right:none;display:inline-block;width:25px;height:30px;" >-</span>'+
+							                                 '<input  type="text" id="smallGoodInput'+i+'" class="goodCount" value="'+ob.num+'" onkeyup="textChange(this,'+i+')" />'+
+							                                 '<span class="countAddAndReduce text-center"  onclick="addNum('+i+')" style="border-left:none;display:inline-block;width:25px;height:30px;">+</span>'+
+						                            '</div>'+
+						                            '<div>'+
+							                                '<div class="smallMoney"><span>￥</span><span id="smallGoodCount'+i+'">'+ob.amt+'</span></div>'+
+							                                '<img id="smallDelGoods'+i+'" src="../../style/prj/images/delete.png" onclick="delGoods('+i+',\''+ob.shoppingCartId+'\')" class="img-responsive" style="display:inline-block;cursor:pointer">'+
+				                           			 '</div>'+
+				                        		'</div>'+
+					                       '</div>'; 
+	                        
+		            		}
+		            hiddenTxt+=   
+		   	        	'<div class="row" style="margin-top:5px;" >'+
+						    		'<div class="col-xs-12 col-sm-5 smallLeft">'+
+						                '<span style="text-align: left;">'+
+						                    '<input type="checkbox" onclick="smallAllChoose()" class="small-head-checkbox" id="smallCheckAll" name="good" style="margin-right: 7px;">'+
+						                    '<span >全选&nbsp&nbsp&nbsp&nbsp&nbsp</span>'+
+						                    '<span id="smallAllDelete" style="cursor:pointer;" onclick="deleteAllGood()">删除</span>'+
+						                '</span>'+
+							        '</div>'+
+							        '<div class="col-xs-12 col-sm-7 smallRight" >'+
+							            '<div style="vertical-align: bottom;">'+
+							                '<span style="margin-left:15px;">已选商品<span id="smallChooseNum" ></span>件    总额：￥<span id="smallTotalPrice">0.00</span></span>'+
+							                '<input type="checkbox" style="opacity: 0;">'+
+							            '</div>'+
+							        '</div>'+							        
+				     	'</div>'+
+				     	'<div style="text-align:center;margin-top: 5px;">'+
+				      	  '<input type="button" value="结算" onclick="settleMent()" class="smallSubmit">'+
+				        '</div>'+
+			       '</div>';
+		        $("#topTitle").after(txt);
+		        $("#topBottom").append(hiddenTxt);
+		        $("[type=checkbox]").prop("checked",true);
+		        getTotalCount();
+			}
+	    });
+	
+	}
+	
+	 //文字改变
+	 function textChange(obj,i){		
+	    var t = (obj.value.match(/\d+(\.\d{0,2})?/)||[''])[0];//只能输入数字的正则
+	    if(obj.value!=t||obj.value==""){
+	    	if(t==""){
+	    		t=1;
+	    	}
+	    	obj.value=t;
+	    }else if(obj.value==0){
+	    	obj.value=1;
+	    }
+	    else if(obj.value.length>2){	//数量不能大于两位数
+	    	obj.value=obj.value.substr(0,2);
+	    }
+	    var goodNum=obj.value;//商品数量
+		if(obj.value>=1){	
+			$("#goodInput"+i).val(goodNum);	//大屏输入框
+			$("#smallGoodInput"+i).val(goodNum);//小屏输入框
+			var price=parseFloat($("#goodPrice"+i).text());	//单价
+			$("#goodCount"+i).text(parseFloat(price*goodNum).toFixed(2));	//大屏商品价格
+			$("#smallGoodCount"+i).text(parseFloat(price*goodNum).toFixed(2));	//小屏商品价格
+			var checkState=$("#check"+i).prop("checked");//查看是否是选中状态
+			totalCount[i]=price*goodNum;	//总价格数组里面改变
+			if(checkState){
+				getTotalCount();	//获取总价格
+			}
+			var shoppingCartId=$("#check"+i).val();
+			updateCarNum(goodNum,shoppingCartId);
+		 }
+	    
+	 }
+	
+
+    //减少商品数量
+	function reduceNum(i){
+		 //alert(i);
+		if(numState==true){
+			numState=false;
+			var goodNum=parseFloat($("#goodInput"+i).val());
+	    	goodNum=--goodNum;
+			if(goodNum>=1){
+				$("#goodInput"+i).val(goodNum);
+				$("#smallGoodInput"+i).val(goodNum);
+				var price=parseFloat($("#goodPrice"+i).text());
+				$("#goodCount"+i).text(parseFloat(price*goodNum).toFixed(2));
+				$("#smallGoodCount"+i).text(parseFloat(price*goodNum).toFixed(2));
+				var checkState=$("#check"+i).prop("checked");//查看是否是选中状态
+				totalCount[i]=price*goodNum;
+				if(checkState){				
+					intTotalCount-=price;
+					$("#totalPriceNum").text(parseFloat(intTotalCount).toFixed(2));
+					$("#smallTotalPrice").text(parseFloat(intTotalCount).toFixed(2));
+				}
+				var shoppingCartId=$("#check"+i).val();
+				updateCarNum(goodNum,shoppingCartId);
+			 }
+			else{
+				 numState=true;
+			 }
+		 }
+		
+    }
+    
+    
+    
+    //增加商品数量
+    function addNum(i){
+    	if(numState==true){
+    		numState=false;
+	    	var goodNum=parseFloat($("#goodInput"+i).val());
+	    	goodNum=++goodNum;
+	    	if(goodNum<100){
+				$("#goodInput"+i).val(goodNum);
+				$("#smallGoodInput"+i).val(goodNum);
+				var price=parseFloat($("#goodPrice"+i).text());
+				$("#goodCount"+i).text(parseFloat(price*goodNum).toFixed(2));
+				$("#smallGoodCount"+i).text(parseFloat(price*goodNum).toFixed(2));		
+				var checkState=$("#check"+i).prop("checked");//查看是否是选中状态
+				totalCount[i]=price*goodNum;
+				if(checkState){
+					
+					intTotalCount+=price;
+					$("#totalPriceNum").text(parseFloat(intTotalCount).toFixed(2));
+					$("#smallTotalPrice").text(parseFloat(intTotalCount).toFixed(2));
+				}
+				var shoppingCartId=$("#check"+i).val();
+				updateCarNum(goodNum,shoppingCartId);
+	    	}
+	    	else{
+	    		numState=true;
+	    	}
+    	}
+        //changeTotalPrice(obj,priceValue+"");
+  }
+    
+    
+  //进行删除商品操作
+	function updateCarNum(num,shoppingCartId){	  	 
+		  joy.getJSON("../../wl/es/wlEsMyShoppingCartAction.web?action=updateCarNum",{shoppingCartId:shoppingCartId,num:num},function(resultObject){	
+			  numState=true;
+		 });
+	  }
+
+	//大屏多选框点击事件
+	function check(i,checkState){
+		var checkState=$("#check"+i).prop("checked");	//是否选中
+		$("#smallCheck"+i).prop("checked",checkState);
+		if(checkState==false){
+			$("#smallCheckAll").prop("checked",false);
+			$("#checkAll").prop("checked",false);
+		}
+		getCheckTotalCount(i,checkState);		
+	};
+	
+	//小屏多选框点击事件
+	function smallCheck(i){
+		var checkState=$("#smallCheck"+i).prop("checked");
+		$("#check"+i).prop("checked",checkState);
+		if(checkState==false){
+			$("#smallCheckAll").prop("checked",false);
+			$("#checkAll").prop("checked",false);
+		}
+		getCheckTotalCount(i,checkState);		
+	}
+	
+	//大屏全选事件
+	function allChoose(){
+		var checkState=$("#checkAll").prop("checked");
+		if(checkState==true){
+			$("[type=checkbox]").prop("checked",true);
+		}else{
+			$("[type=checkbox]").prop("checked",false);
+		}
+		getTotalCount();
+	}
+	//小屏全选事件
+	function smallAllChoose(){
+		var checkState=$("#smallCheckAll").prop("checked");
+		if(checkState==true){
+			$("[type=checkbox]").prop("checked",true);
+		}else{
+			$("[type=checkbox]").prop("checked",false);
+		}
+		getTotalCount();
+	}
+	
+	//获取当前总价格
+	function getCheckTotalCount(i,checkState){
+		var goodCount=parseFloat($("#goodCount"+i).text());
+		if(checkState==false){
+			intTotalCount=intTotalCount-goodCount;
+		}else{
+			intTotalCount+=goodCount;
+		}
+		$("#totalPriceNum").text(parseFloat(intTotalCount).toFixed(2));
+		$("#smallTotalPrice").text(parseFloat(intTotalCount).toFixed(2));
+		chooseGood();
+		
+	}
+	
+	//获取总价格
+	function getTotalCount(){
+		intTotalCount=0;
+		$(".body-checkbox:checked").each(function(){
+			var position=parseFloat($(this).attr("position"));			
+			intTotalCount+=totalCount[position];
+		});		
+		$("#totalPriceNum").text(parseFloat(intTotalCount).toFixed(2));
+		$("#smallTotalPrice").text(parseFloat(intTotalCount).toFixed(2));
+		chooseGood();
+	}
+
+	
+	//已选择商品
+	function chooseGood(){
+		curTotalCheckBox=parseFloat($(".body-checkbox:checked").size());
+		if(curTotalCheckBox==totalCheckBox){
+			$("#checkAll").prop("checked",true)
+			$("#smallCheckAll").prop("checked",true)
+		}
+		$("#chooseNum").html("已选商品"+curTotalCheckBox+"件");//选中商品个数
+		$("#smallChooseNum").html(curTotalCheckBox);//小屏选中商品个数
+		
+	}
+
+	//进行删除商品操作
+	function delGoods(i,shoppingCartId){	  	 
+		  joy.showMessageDialog("确定要删除该商品吗?", "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					   $("#personCarContent").attr("style","min-height: 670px;");
+						  joy.getJSON("../../wl/es/wlEsMyShoppingCartAction.web?action=delCarGoods",{shoppingCartId:shoppingCartId},function(resultObject){	
+							  $("#delGoods"+i).parent().parent().remove();
+							  $("#smallDelGoods"+i).parent().parent().parent().remove();
+							  totalCount[i]=0;
+							  getTotalCount();
+							  emptyList();
+						 });
+				}
+			});
+	  }
+	//删除全部商品操作
+	function deleteAllGood(){
+		var ids=new Array();
+		$(".body-checkbox:checked").each(function(){
+			ids[ids.length]=$(this).val();						
+		});
+		if(ids.length==0){
+			joy.showMessage("请选择相应记录", "warning");
+		}else{
+		 joy.showMessageDialog("确定要删除该商品吗?", "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					
+					  joy.getJSON("../../wl/es/wlEsMyShoppingCartAction.web?action=delCarGoods",{ids:ids},function(resultObject){		    
+						$(".body-checkbox:checked").each(function(){
+							$("[value="+$(this).val()+"]").parent().parent().remove();
+							var position=parseFloat($(this).attr("position"));
+							totalCount[i]=0;
+						});
+						getTotalCount();
+						emptyList();
+					 });
+				}
+			});
+		}
+	}
+
+   //结算
+   function settleMent(){
+ 	  var nums=new Array();
+ 	  var sellIds=new Array();
+ 	  var goodsCount=-1;
+ 	  var i=0;
+ 	  $(".body-checkbox:checked").each(function(index){
+ 	   		sellId=$(this).attr("sellId");
+ 	   		var carNum=parseFloat($(this).parent().siblings().eq(3).find(".goodCount").val());
+ 			 goodsCount=index;
+ 			 sellIds[i]=sellId;
+ 			 nums[i]= carNum;
+ 			 i++;
+ 	  });
+ 	  if(goodsCount>=0){
+ 		 joy.getJSON("../../wl/es/wlEsMyShoppingCartAction.web?action=validateInventory",{sellIds:sellIds,nums:nums,language:"chinese"},function(resultObject){			   		  
+	 		  joy.getJSON("../../wl/es/wlEsMyShoppingCartAction.web?action=setOrGetShopSellId",{sellIds:sellIds,nums:nums,isSet:"set"},function(resultObject){			  
+	 			 window.location="submitOrder.html?source=myCar";
+	 		  });
+ 		});
+ 	  }else{
+ 			joy.showMessage("您当前没有勾选商品，请先选择!", "warning");
+ 	  }
+   }
+   //购物车为空时触发事件
+   function emptyList(){	   
+	    joy.getJSON("../../wl/es/wlEsMyShoppingCartAction.web?action=findMyShoppingCartPage",{pageSize:100,currPage:1,isThumFlag:"1"},function(resultObject){
+	    	var txt="";
+	    	if(resultObject.items.length==0){
+	    		txt+='<div class="text-center" >';
+				txt+='<div style="font-size: 25px;color: #898989;margin-bottom: 25px;">购物车空空如也，快去选购吧</div></div>';
+				txt+='<div class="text-center" style="margin-top: 20px;">';
+				txt+='<input type="button" value="选购" onClick="goShop()" class="goShopButton"></div>';		
+				$("#shoppingCar").empty();
+				$("#shoppingCar").append(txt);
+			}
+	    });
+   }
+   
+   //跳转到选购页面
+   function goShop(){
+	   window.location = "productCenter.html";	     
+   }
+   /**
+    * 跳转登录页
+    */
+   function countDown(){
+       var count=$("#countDown").text();
+       var intcount=parseFloat(count);
+       if(intcount>0){
+           intcount--
+           $("#countDown").text(intcount);
+       }else{
+           clearTimeout(start);
+       }
+
+   }
+  var start= setInterval(countDown,1000);
+
+
+</script>
+</body>
+</html>

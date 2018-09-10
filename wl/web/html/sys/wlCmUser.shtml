@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+</head>
+<body style="height:100%"> 
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+		<button class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+			 label="lgc:add" dataBind="visible:ADDSmc" ></button>
+		<button class="joy-button joy-smc" icon="close" onClick="deleteData"
+			  label="lgc:delete" dataBind="visible:DELETESmc" ></button>
+		<!-- <button class="joy-button joy-smc" icon="restore" onClick="recoverData"
+			  label="lgc:recover" dataBind="visible:ADMINSmc" ></button>-->
+		<div id="searchForm" class="joy-form" style="float: right"
+			layout="freedom"> 
+			<span class="joy-lang" label="lg:name"></span>:
+			<input class="joy-textbox" label="lg:name" style="width: 120px;" databind="value:name"  /> 
+			<input class="joy-combobox joy-enum" style="width:120px;" label="lg:state"  databind="value:state,source:EFFECTEnum"> 
+			<button class="joy-button" icon="search" onClick="searchData" label="lgc:search" ></button>
+		</div>
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid"   rowHeightFit="38">
+		<thead>
+			<tr>
+				<th field="id" templateType="checkbox" colWidth="40px"></th>
+				<th field="name" dataType="string" label="lg:name" colWidth="100"></th>
+				<th field="loginName" label="lg:loginName" align="left"
+					colWidth="100" dataType="string"></th>
+			 	<th field="email" dataType="string" label="lg:email"
+					colWidth="100"></th>  
+				<th field="sex" align="center" enumData="SEXEnum" label="lg:sex" dataType="string" colWidth="50px"></th>   
+				<th field="state" align="center" enumData="STATEEnum" label="lg:state" dataType="string" colWidth="50px"></th>   
+				 <th colWidth="280px" templateType="button" > 
+					<button icon="pencil" onClick="openEditWindow('#:id#')"
+						smcBind="ADDSmc" label="lgc:edit" dataBind="visible:ADMINSmc" ></button>
+					<button icon="insert-m" onClick="openDetailWindow('#:id#')"
+						smcBind="READSmc" label="lgc:detail"></button>
+					<button icon="insert-m" onClick="modifyPassword('#:id#')"
+						smcBind="RESETPASSWORDSmc" label="lg:modifyPwd"></button>
+				</th>
+			</tr>
+		</thead>
+	</table>
+
+
+
+
+	<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window" width="860px" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:id">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left"><input class="joy-textbox"  required="true"  label="lg:name"  style="width:230px;"
+							databind="value:name"></td>
+						<td align="left"><input id="loginName" class="joy-textbox"  required="true"   style="width:230px;"
+							label="lg:loginName" databind="value:loginName"></td>
+						<td align="left" rowspan="7" style="width:300px;vertical-align: top;">
+								<!-- 用户组设置 -->
+									<button class="joy-button" style="margin-bottom:8px;margin-top:23px;"  icon="plus" onClick="addRow" label="lg:addGroup"></button>
+							 <table id="groupgrid" class="joy-grid" height="230px"  sortable="false" reorderable="false" resizable="false" showPageControl="false"  >
+								<thead>
+									<tr>
+									 	<th field="groupId" dataType="string" label="lg:group"  enumData="groupAllEnum"  dataTextField="name" dataValueField="id"   colWidth="200px"></th>  
+										<th colWidth="80px" templateType="button" > 
+											<button icon="pencil" onClick="editRow('#:index#')"
+												smcBind="editSmc"  ></button>
+											<button icon="close"  onClick="deleteRow('#:index#')"
+												smcBind="deleteSmc" ></button>
+										</th>
+									</tr>
+								</thead>
+							</table> 
+						
+						</td>
+					</tr>
+					<tr>
+						<td align="left"><input class="joy-textbox"  required="true"  type="password"  style="width:230px;"
+							label="lg:password" minByte="6" maxByte="" databind="value:password"></td> 
+						<td><input class="joy-textbox"  style="width:230px;" maxByte="100" 
+							label="lg:mobileTel" databind="value:mobileTel"  dataType ="mobileTel" ></td>
+					</tr> 
+					<tr>
+						<td>
+						<input class="joy-combobox joy-enum" label="lg:sex"  style="width:230px;"
+							databind="value:sex,source:SEXEnum"/>
+						</td>
+						<td>
+						<input class="joy-datepicker" style="width:230px;"
+							label="lg:birthday" databind="value:birthday">
+						</td>
+					</tr> 
+					<tr>
+						<td align="left"><input class="joy-numerictextbox" dataType="+int"  min="0" max="9999" style="width:230px;"
+							label="lg:sequ" databind="value:sequ" ></td>
+						<td align="left"><input class="joy-textbox" label="lg:code"  style="width:230px;"
+							databind="value:code"></td>    
+					</tr> 
+					<tr>
+						<td align="left"><input class="joy-textbox" label="lg:email"   dataType ="email" style="width:230px;"
+							databind="value:email"></td>   
+						<td align="left"><input class="joy-textbox" label="lg:tel"  style="width:230px;"
+							databind="value:tel"  dataType ="tel"></td>  
+					</tr>
+					 
+ 					
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<!-- 部门选择框 -->
+    <div id="departmentSelectWindow" class="joy-window" width="320px" center="true"
+		  title="lg:departmentwindowTitle"> 
+   		 <script id="small_tree" type="text/joy-ui-template">
+			 <input type="hidden" value="#=item.main.id#" ><span class="itemName" onclick="treeviewclick('#=item.main.id#','#=item.main.name#')" >#=item.main.name#</span>
+		 </script>
+		 <div id="smallTreeView"  style="width:300px;height:300px;"  ></div> 
+		 
+		 <table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+	</div>
+
+	<!-- 用户组设置 -->
+    <div id="dutyroleWindow" class="joy-window" center="true"
+		  title="lg:dutyroleTitle"> 
+   		 	<form id="dutyroleForm" class="joy-form">
+   		 	<input type="hidden" databind="value:id"> 
+   		 	<input type="hidden" databind="value:index">  
+			<input type="hidden" databind="value:type">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody> 
+					<tr>	
+						<td align="left" > 
+							<input  class="joy-combobox joy-enum" required="true"   dataTextField="name" dataValueField="id"  label="lg:group" databind="value:groupId,source:groupEnum" />
+						</td>  
+					</tr>
+					<tr>
+						<td align="left" > 
+							<input  class="joy-numerictextbox" dataType="+int"   label="lg:sequ" databind="value:sequ" />
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveRow" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lg:windowTitle"> 
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:name"></td>
+					<td width="230" class="joy-label" databind="value:name"></td>
+					<td width="100" class="joy-lang head" label="lg:loginName"></td>
+					<td width="230" class="joy-label" databind="value:loginName"></td>
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:sex"></td>
+					<td width="230" class="joy-label  joy-enum" databind="value:sex,source:SEXEnum"></td>
+					<td width="100" class="joy-lang head" label="lg:birthday"></td>
+					<td width="230" class="joy-label" dataFormat="yyyy-MM-dd" dataType="date" databind="value:birthday"></td>
+			 	</tr>  
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:code"></td>
+					<td width="230" class="joy-label" databind="value:code"></td>
+					<td width="100" class="joy-lang head" label="lg:mobileTel"></td>
+					<td width="230" class="joy-label" databind="value:mobileTel"></td>
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:email"></td>
+					<td width="230" class="joy-label" databind="value:email"></td>
+					<td width="100" class="joy-lang head" label="lg:tel"></td>
+					<td width="230" class="joy-label" databind="value:tel"></td>
+				</tr> 
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="40" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script>
+	var dataForm,smallTreeView,loginNameText, searchForm,thisForm,editWindow,dutyroleWindow,dutyroleForm,groupDataSource, detailWindow,departmentSelectWindow, grid,groupgrid, initResult, lgc, lg;
+	var searchUrl = "wlCmUserAction.do?action=findDataList";
+
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();
+		groupgrid = $("#groupgrid").getJoyGrid();
+		dataForm = $("#dataForm").getJoyForm();
+		searchForm = $("#searchForm").getJoyForm();
+		dutyroleForm = $("#dutyroleForm").getJoyForm();
+		editWindow = $("#editWindow").getJoyWindow();
+		detailWindow = $("#detailWindow").getJoyWindow();
+		dutyroleWindow = $("#dutyroleWindow").getJoyWindow();
+		departmentSelectWindow = $("#departmentSelectWindow").getJoyWindow();
+		loginNameText = $("#loginName").getJoyTextBox();
+
+		//数据初始化
+		joy.getJSON("wlCmUserAction.do?action=init",
+			{enumTypes:['SEX','EFFECT','USERRATE','STATE']},
+			function(resultObject) {
+			initResult = resultObject; 
+	        	 var viewModel = joy.observable(initResult);    
+	        		joy.bind($(".joy-smc,.joy-enum"), viewModel); 
+	        		searchForm.load({state:1}); 
+	    			grid.fetch(initResult, searchUrl);  
+		});
+		
+		//treeview数据初始化
+		//initDepartmentTree();
+	
+	});
+	
+	//treeview数据初始化
+	function initDepartmentTree(){
+		joy.getJSON("wlCmDepartmentAction.do?action=getTree&state=1", function(resultObject) {   
+				 smallTreeView =  $("#smallTreeView").joyTreeView({
+		             dataSource:resultObject.items,
+		             templateID:"small_tree" 
+		         });    
+		});
+	}
+	//树型菜单点击事件
+	function treeviewclick(id,name){ 
+    	var json = thisForm.getDataModel().toJSON();
+    	json.departmentId = id;
+    	json.departmentName = name;
+    	thisForm.load(json);
+    	departmentSelectWindow.close();
+	}
+	
+	
+	//新增所属用户组
+	function addRow(){  
+		dutyroleForm.load({index:groupDataSource.length,type:3});  
+		dutyroleWindow.open(); 
+		dutyroleWindow.center();
+	}
+	//保存所属用户组
+	function saveRow(){ 
+		//设置按钮不可用，防止重复提交 
+		if (!dutyroleForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning"); 
+			return;
+		}   
+		var obj = dutyroleForm.getDataModel().toJSON();  
+		groupDataSource[obj.index]=obj;
+		groupgrid.load(initResult,groupDataSource);
+		dutyroleWindow.close();
+	}
+	//编辑所属用户组
+	function editRow(index){ 
+		var model = groupDataSource[index]; 
+		var departmentlist =  initResult.departmentEnum;
+		for(var i=0;i<departmentlist.length;i++){
+			var dep = departmentlist[i];
+			if(dep.id == model.departmentId){
+				model.departmentName = dep.name;
+				break;
+			}
+		} 
+		dutyroleForm.load(model);
+		
+		dutyroleWindow.open(); 
+		dutyroleWindow.center();
+	}
+	//删除所属用户组
+	function deleteRow(index){ 
+		for(var i=0;i<groupDataSource.length-1;i++){ 
+			if(i>=index){
+				var obj = groupDataSource[i+1];
+				obj.index = i;
+				groupDataSource[i]=obj;
+			}
+		}
+		groupDataSource.pop(); 
+		groupgrid.load(initResult,groupDataSource); 
+	}
+	
+	//选择用户所属部门
+	function opendepartmentWindow(){
+		thisForm = dataForm;//设置需要回调数据版定的form
+		departmentSelectWindow.open(); 
+		departmentSelectWindow.center();
+	}
+	
+	//设置用户组
+	function opendepartmentWindow2(){
+		thisForm = dutyroleForm;//设置需要回调数据版定的form
+		departmentSelectWindow.open(); 
+		departmentSelectWindow.center();
+	}
+	
+	/**
+	 * 打开新增窗体
+	 */
+	function openAddWindow() {
+		dataForm.load();
+		editWindow.title(lgc.add);
+		editWindow.open();
+		editWindow.center();
+		groupDataSource=new Array();
+		groupgrid.load(initResult,groupDataSource); 
+		loginNameText.enable(true);
+	}
+
+	/**
+	 * 打开编辑窗体
+	 */
+	function openEditWindow(id) {
+		joy.getJSON("wlCmUserAction.do?action=getUser", {
+			id : id
+		}, function(resultObject) {
+			
+			groupDataSource=new Array();
+			groupDataSource=resultObject.usergroup; 
+		    
+			for(var i = 0;i<groupDataSource.length;i++){
+				groupDataSource[i].index = i;
+			} 
+			 
+			dataForm.load(resultObject.user);
+			editWindow.title(lgc.edit);
+			editWindow.open();
+			editWindow.center();
+			groupgrid.load(initResult,groupDataSource); 
+			loginNameText.enable(false);
+		});
+	}
+
+	/**
+	 * 保存数据
+	 */
+	function saveData(buttonObject) {
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		//将用户与用户组关系绑定表单提交后台
+		var submitda = dataForm.getDataModel().toJSON();
+		submitda.userGroupJson=joy.stringify(groupDataSource);
+		dataForm.load(submitda);
+		
+		dataForm.submit("wlCmUserAction.do?action=saveData", buttonObject,
+				function(resultObject) {
+					editWindow.close();
+					grid.dataSource.fetch();
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+	}
+
+	/**
+	 * 打开详细窗体
+	 */
+	function openDetailWindow(id) {
+
+		joy.getJSON("wlCmUserAction.do?action=getUser", {
+			id : id
+		}, function(resultObject) {
+			var viewModel = joy.observable(resultObject.user);
+			joy.bind($("#detailTable"), viewModel);
+			detailWindow.open();
+			detailWindow.center();
+		});
+	}
+
+	/**
+	 * 删除
+	 */
+	function deleteData() {
+		var ids = grid.getChecked();
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("wlCmUserAction.do?action=updateState", {
+						ids : ids,
+						state:0
+					}, function(resultObject) {
+						grid.dataSource.fetch();
+						joy.showMessage(lgc.opSuccess, "success");
+					});
+				}
+			});
+		}
+	}
+	/**
+	 * 恢复
+	 */
+	function recoverData() {
+		var ids = grid.getChecked();
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.recoverConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("wlCmUserAction.do?action=updateState", {
+						ids : ids,
+						state:1
+					}, function(resultObject) {
+						grid.dataSource.fetch();
+						joy.showMessage(lgc.opSuccess, "success");
+					});
+				}
+			});
+		}
+	}
+
+	/**
+	 * 搜索数据
+	 */
+	function searchData() { 
+		grid.fetch(initResult, searchUrl, searchForm.getDataModel().toJSON());
+	}
+	/**
+	 * 重置密码
+	 */
+	function modifyPassword(id){
+		joy.showMessageDialog(lg.modifyPwdTitle,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+				joy.getJSON("wlCmUserAction.do?action=updateUserPwd",{id:id}, function(resultObject){	
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+			}
+		});
+				
+	}
+</script>
+</html>

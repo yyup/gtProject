@@ -1,0 +1,111 @@
+#wlCmSuccessPage{width:100%;}
+#wlCmSuccessPageContainer{width:1000px;display:table;margin:20px auto;background:#B8B8B8;height:579px;}
+#result{ color: #3F3F25;
+     
+    font-size: 20px;
+    margin: 0 auto;
+    padding-left: 25px;
+    width: 1000px;
+    border-bottom:1px solid #929292;
+    padding-bottom:70px;
+    padding-top:70px;
+    }
+    
+  .payContentTitle{
+	border-bottom: 20px none;
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom:4px;
+    width: 563px;
+}
+#orderInfo dl{
+   border: 1px solid #5D5D5D;
+    clear: both;
+    display: table;
+    margin:0 auto;
+    padding-top: 15px;
+    width: 563px;
+}
+#orderInfo dl dt,#orderInfo  dd{
+  display:inline;
+	  float:left;
+	  min-height:30px;
+     
+}
+#orderInfo dl dt{
+    
+      text-align:right;
+	  width:80px;
+}
+#orderInfo  dd{    
+      text-align:left;
+	  width:150px;	  
+}
+#goodSInfoTable,#deliverAddrContent{
+	width:563px;
+	  margin:0 auto; 
+     
+}
+.tb-main {
+   
+    width:100%;
+}
+.tb-main  .col-name{
+	width:240px;
+}
+.tb-main  .col-price{
+	width:100px;
+}
+.tb-main  .col-num{
+	width:90px;
+}
+.tb-main  .col-total{
+	width:100px;
+}
+
+#goodSInfoTable tr {
+    background: #f2f2f2 none repeat scroll 0 0;
+   
+}
+.thead-tbl-grade th {
+    padding: 5px 5px;
+    text-align: left;
+	font-style: normal;
+    font-weight: 400;
+  word-wrap: break-word;
+}
+.tb-main td {
+    padding: 5px;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+  
+}
+ 
+ #orderDeliverAddr {
+    margin-top: 20px;
+}
+#markedWords{
+  width:563px;
+  margin:20px auto 0;
+  padding:5px;
+  color:#454545;
+ text-align: right;
+}
+#goodSInfo{
+ border-top:1px solid #CDCDCD;
+  margin:0 auto;
+}
+#deliverAddrContent{
+   border-top:1px solid #E7E7E7;
+   padding-left:2px;
+}
+#deliverAddrContent div{
+	word-break:break-all;	
+}
+#deliverAddress,#call{
+    padding-left: 16px;
+}

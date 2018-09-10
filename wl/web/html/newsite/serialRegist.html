@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="waterrower Team">
+    <meta name="Author" content="waterrowerTeam">
+    <meta name="Keywords"
+          content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <meta name="Description"
+          content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/getSystemPlatform.js"></script>
+    <script src="../../js/newsite/wlcommon.js"></script>
+    <script src="../../js/joy.loader.js" modules="dataview"></script> 
+    <script src="../../js/prj/windowCenter.js"></script>
+    <script type="text/javascript" src="../../js/site/jquery-ui.js"></script>
+    <script src="../../js/newsite/cnzz.js"></script>
+    <link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/serialRegist.css"/>
+    <link href="../../style/prj/newsite/bootstrapValidator.min.css" rel="stylesheet">
+	<script src="../../js/newsite/bootstrapValidator.min.js"></script>
+</head>
+
+<body>
+<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+<!-- 内容 -->
+<div id="wlBody" class="contentMargin" style="margin-top: 100px;margin-bottom: 50px;">
+	<form id="serialNumberForm" method="post">
+    <div class="container" id="serialRegist">
+        <div class="text-center titleMargin tableTitle" style="font-size: 24px;margin-bottom: 30px;">序列号登记</div>
+        <div class="row trMargin form-group">
+            <div class="col-sm-4 text-right tableTitle">联&nbsp;<span style="margin-left: 3px;margin-right:3px;">系</span>&nbsp;人</div>
+            <div class="col-sm-5 text-left"> <input name="receiver" id="receiver"  type="text" class="tableValue form-control" placeholder="请使用购买时收货人姓名"/></div>
+        </div>
+        <div class="row trMargin form-group">
+            <div class="col-sm-4 text-right tableTitle" >手机号码</div>
+            <div class="col-sm-5 text-left"> <input name="contact" id="contact"  type="text" class="tableValue form-control" placeholder="请输入手机号码"/></div>
+        </div>
+        <div class="row trMargin form-group" >
+            <div class="col-sm-4  text-right tableTitle">购买型号</div>
+            <div class="col-sm-5 text-left" >	
+                <table>
+                    <tbody>
+                          <tr>
+                              <td>
+                              	<input id="productName" name="productName" class="tableValue form-control" placeholder="请选择购买型号"
+                              	onclick="openParentSelectWindow()" onfocus="openParentSelectWindow()"/>	
+                              </td>
+                              <td>
+                                  <!-- <div class="btn-group">
+                                      <span class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></span>
+                                      <ul id="select" class="dropdown-menu dropdown-menu-right" style="height: 200px;overflow: scroll;width: 370px;">
+                                      </ul>
+                                  </div> -->
+                              </td>
+                          </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row trMargin form-group" >
+            <div class="col-sm-4 text-right tableTitle">序&nbsp;<span style="margin-left: 3px;margin-right:3px;">列</span>&nbsp;号</div>
+            <div class="col-sm-5 text-left"> <input name="deviceCd" id="deviceCd" type="text" onkeyup="toGetItem(this)" class="tableValue form-control" placeholder="双轨:电子表背面;单轨:水箱背面"/></div>
+        </div>
+        <div class="row trMargin form-group">
+            <div class="col-sm-4 text-right"></div>
+            <div class="col-sm-5 text-left" >
+
+            </div>
+        </div>
+        <div class="row trMargin" >
+            <div class="col-sm-5 text-right"></div>
+            <div class="col-sm-4 text-left" >
+                <input id="sbmt" onclick="saveSerialReg(this)" type="button" class="sureAndBack" value="确定"  />
+                <input onclick="javascript:window.location.href='serialRegistDetail.html'" type="button" class="sureAndBack" value="返回"  />
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<!-- 内容结束 -->
+<!--尾部开始-->
+<div id="footerPart">
+   
+</div>
+<!-- 父级选择框 -->
+<div id="parentselectWindow" class="joy-window" width="320px"
+	center="true" title="购买型号">
+
+	<div id="smallTreeView" style="width: 300px; height: 300px;"></div>
+
+	<table width="100%" border="0" align="center" cellpadding="0"
+		cellspacing="0">
+		<tr>
+			<td height="50" align="right" valign="bottom">
+				<button class="joy-button  joy-window-close" icon="cancel"
+					label="lgc:cancel"></button></td>
+		</tr>
+	</table>
+</div>
+
+<script id="small_tree" type="text/joy-ui-template">
+              #if(item.main.last){#
+			    <span class="itemName" onclick="treeviewclick('#=item.main.name#')" >#=item.main.name#</span>
+              #}else {#
+			    <span class="itemName" >#=item.main.name#</span>
+              #}#
+</script>
+<!--尾部结束-->
+
+<script>
+var parentselectWindow,productNameTextBox,isSuccess;
+var productName;
+    //进行初始化操作
+    $(function () {
+    	initTop();
+    	initClick();
+    	initBottom();
+    	parentselectWindow = $("#parentselectWindow").getJoyWindow();
+    	treeviewBind();
+    	//表单验证
+    	lgc = joy.getCommonLang();
+       	validate();
+    });
+    function validate(){
+    	 $('#serialNumberForm').bootstrapValidator({
+             feedbackIcons: {//根据验证结果显示的各种图标  
+                 valid: 'glyphicon glyphicon-ok',
+                 invalid: 'glyphicon glyphicon-remove',
+                 validating: 'glyphicon glyphicon-refresh'
+             },
+             fields: {
+                 inputAccount: {
+                     validators: {
+                         notEmpty: {
+                             message: '不能为空！'
+                         }
+                     }
+                 },
+                 receiver:{
+                     validators: {
+                         notEmpty: {
+                             message: '不能为空！'
+                         }
+                     }
+                 },
+                 contact:{
+                     validators: {
+                         notEmpty: {
+                             message: '不能为空！'
+                         },
+                         regexp: {
+                             regexp: /^\d+$/,
+                             message: '请输入正确格式,如：05922188888,如有疑问请拨打客服热线400-808-4546'
+                         }
+                     }
+                 },
+                 productName:{
+                     validators: {
+                         notEmpty: {
+                             message: '不能为空！'
+                         }
+                     }
+                 },
+                 deviceCd:{
+                     validators: {
+                         notEmpty: {
+                             message: '不能为空！'
+                         }
+                     }
+                 }
+             }
+         })
+    }
+  //treeview数据初始化   传入状态
+	function treeviewBind() {
+		joy.getJSON("../../wl/cm/wlCmSellAction.web?action=getSellTree",
+				function(resultObject) {
+					var data = resultObject.sellTreeMap.items;
+					var robj = new Array();
+					for(var i = 0;i<data.length; i++){//去掉配件的选项
+						if (data[i].main.name!='配件') {
+							robj.push(data[i]);
+						}
+					}
+					smallTreeView = $("#smallTreeView").joyTreeView({
+						dataSource : robj,
+						templateID : "small_tree"
+					});
+				});
+		
+	}
+    //保存数据
+    function saveSerialReg(obj){
+    	//按钮不可用，防止重复提交
+        $(obj).attr("disabled","disabled");
+    	//表单验证是否通过
+    	var bootstrapValidator = $('#serialNumberForm').data('bootstrapValidator');
+        bootstrapValidator.validate();
+        if(bootstrapValidator.isValid()){//如果校验成功后执行的操作
+	   		  var data = $("#serialNumberForm").serialize();     
+	   		   $.ajax({ 
+	   		    type:'post',  
+	   		    url:'../../wl/es/wlEsSerialRegAction.web?action=saveData', 
+	   		    cache: false,
+	   		    data:data,  
+	   		    dataType:'json', 
+	   		    success:function(json){  
+	 		     	//是否有异常
+	 		     	var success=json.success;
+	 		     	//是否登记成功
+	 		     	var isSuccess=json.resultObject.isSuccess;
+	 		     	if (success) {
+		 		     	if(isSuccess){
+		 			      joy.showMessage("登记成功！", "success");
+		 			      location.href="serialRegistDetail.html";
+		 		     	}else{
+		 		     		//根据不同情况，定位错误
+		 		     		if (json.resultObject.type == '3') {//没有输入序列号或序列号已被注册,定位序列号框
+			 		       		bootstrapValidator.updateStatus('deviceCd', 'INVALID', 'deviceCd1');
+		 		     		} else if (json.resultObject.type == '2') {
+		 		     			var productName= json.resultObject.productNameMap.productName;
+		 		     			bootstrapValidator.updateStatus('productName', 'INVALID', 'deviceCd1');
+		 		     		} else {//其他信息不匹配,定位不匹配位置
+		 		     			var contact = json.resultObject.contact;
+		 		     			var receiver = json.resultObject.receiver;
+		 		     			var inputReceiver = $("#receiver").val();
+		 		     			var inputContact = $("#contact").val();
+		 		     			if (receiver != inputReceiver) {
+		 		     				bootstrapValidator.updateStatus('receiver', 'INVALID', 'deviceCd1');
+		 		     			}
+		 		     			if (contact != inputContact) {
+		 		     				bootstrapValidator.updateStatus('contact', 'INVALID', 'deviceCd1');
+		 		     			}
+		 		     			
+		 		     		}
+		 				    joy.showMessage(json.resultObject.result, "warning");
+		 		     	}
+	 		     	} else {
+	 		     		joy.showMessage(json.resultObject, "warning");
+	 		     	}
+	 		     	$(obj).removeAttr("disabled");
+	 				if(json.resultObject.result==""){//如果没输入序列号，上传图片，直接跳转列表界面
+	 					window.location="serialRegistDetail.html";
+	 				}
+	 				return; 
+	   		    },
+	   		    error:function(){ 
+	   		    	joy.showMessage("请求失败！", "warning");
+	   		    	$(obj).removeAttr("disabled");
+	   		    }
+	   		   })
+        }else{//校验不通过
+            joy.showMessage(lgc.validateFaile, "warning");
+            $(obj).removeAttr("disabled");
+        }
+	}
+    /**
+	 *打开父节点选择窗体
+	 */
+	function openParentSelectWindow() {
+		parentselectWindow.open();
+		parentselectWindow.center();
+	}
+	//菜单点击事件
+	function treeviewclick(productName){
+		$("#productName").val(productName);	
+		parentselectWindow.close();
+		var bootstrapValidator = $("#serialNumberForm").data('bootstrapValidator');  
+		bootstrapValidator.updateStatus('productName', 'NOT_VALIDATED').validateField('productName'); 
+	}
+
+	//回车提交
+	$("body").keydown(function(e){
+        if(e.keyCode == 13)
+        {
+            $("#sbmt").click();
+        }
+    });
+	//根据序列号查询物料信息
+	function toGetItem(obj){
+		var cd = $(obj).val();
+		$.ajax({ 
+   		    type:'post',  
+   		    url:'../../wl/es/wlEsSerialRegAction.web?action=getproductName', 
+   		    cache: false,
+   		    data:{"serialNo":cd},  
+   		    dataType:'json', 
+   		    success:function(json){  
+ 		     	//是否登记成功
+ 		     	var isSuccess=json.success;
+ 		     	if(isSuccess && null!=json.resultObject){
+ 		     		productName = json.resultObject.productName;
+ 		     		if (json.resultObject.productName!=null && json.resultObject.productName!="") {
+ 	 		     		$("#productName").val(json.resultObject.productName);
+ 		     		}
+ 		     	}
+ 		     	//重新验证表单
+	     		$("#serialNumberForm").data('bootstrapValidator').destroy(); 
+	     		$('#serialNumberForm').data('bootstrapValidator', null);
+	     		validate();
+ 				return; 
+   		    },
+   		    error:function(){ 
+   		    	joy.showMessage("请求失败！", "warning");
+   		    	return; 
+   		    }
+  		})
+	}
+</script>
+</body>
+</html>

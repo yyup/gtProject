@@ -1,0 +1,40 @@
+  h2{
+	  margin-top:20px;
+	  margin-bottom:20px;
+  }
+.image-block {
+        background: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        font-size: 17px;
+        line-height: 32px;
+        margin-left: 33.5%;
+        margin-right: auto;
+        margin-top: 14%;
+        position: absolute;
+        z-index:9;
+    }
+    .mobile-text {
+        font-size: 17px;
+        line-height: 25px;
+    }
+
+    .customer_img{
+    	width:100%;
+        opacity:0.5;
+        filter: alpha(opacity=50);
+    }
+   .customer_img:hover{
+       opacity:1;
+       filter: alpha(opacity=50);
+   }
+   .customer_background{
+       background: #000;
+       max-width: 100%;
+       margin: 0;
+   }
+   .backgroundImg{
+       width:100%;
+   }
+   .customerCenterBody{
+	color:#337ab7 !important
+}

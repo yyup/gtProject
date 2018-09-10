@@ -1,0 +1,21 @@
+/*css black2 style pagination*/
+
+div.black2 {
+    padding-right: 7px; padding-left: 7px; padding-bottom: 7px; margin: 3px; padding-top: 7px; text-align: center; font-family:Verdana; font-size:12px;
+}
+div.black2 a {
+    border-right: #000000 1px solid; padding-right: 5px; border-top: #000000 1px solid; padding-left: 5px; padding-bottom: 2px; margin: 2px; border-left: #000000 1px solid; color: #000000; padding-top: 2px; border-bottom: #000000 1px solid; text-decoration: none
+}
+div.black2 a:hover {
+    border-right: #000000 1px solid; border-top: #000000 1px solid; border-left: #000000 1px solid; color: #fff; border-bottom: #000000 1px solid; background-color: #000
+}
+div.black2 a:active {
+    border-right: #000000 1px solid; border-top: #000000 1px solid; border-left: #000000 1px solid; color: #fff; border-bottom: #000000 1px solid; background-color: #000
+}
+div.black2 span.current {
+    border-right: #000000 1px solid; padding-right: 5px; border-top: #000000 1px solid; padding-left: 5px; font-weight: bold; padding-bottom: 2px; margin: 2px; border-left: #000000 1px solid; color: #fff; padding-top: 2px; border-bottom: #000000 1px solid; background-color: #000000
+}
+div.black2 span.disabled {
+    border-right: #eee 1px solid; padding-right: 5px; border-top: #eee 1px solid; padding-left: 5px; padding-bottom: 2px; margin: 2px; border-left: #eee 1px solid; color: #ddd; padding-top: 2px; border-bottom: #eee 1px solid
+}
+

@@ -1,0 +1,59 @@
+#newMoreBody{width:100%;}
+/*账号信息*/
+#newMoreContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#newMoreMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#newMoreMenu{
+float:left;width:235px;min-height:670px;
+}
+#newMoreContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.newMoreTitle{width:175px;height:38px;margin:0 auto;margin-top:20px;
+background:url('../images/customerServiceMore.png');
+}
+.MenuContent{width:180px;margin:0 auto;}
+
+ #newMoreList{
+    margin-left: 50px;
+    margin-top: 65px;
+ }
+ #newMore{
+  list-style:none;
+ }
+ #newMore li{
+    background: rgba(0, 0, 0, 0) url("../images/iconLi.png") no-repeat scroll 0 0;
+    cursor: pointer;
+    font-size: 17px;
+    margin-top: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    word-break: break-all;
+    word-wrap: break-word;
+ }
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px; cursor: pointer;}
+.item p:not(.itemTitle){padding-bottom:4px;
+ }
+ /*左边关于沃特*/
+ #abouttraining{
+   margin-top:20px;
+   margin-left:20px;
+   margin-right:20px;
+ }

@@ -1,0 +1,246 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/wbase.wlCmStorage.css" />
+</head>
+<body>
+
+	<!-- 搜索栏-->
+	<div class="searchContent">
+		<div class="searchContent_l">
+			<button class="joy-button joy-smc" icon="plus" onClick="openAdd"
+				 label="lgc:add" databind="visible:ADDSmc"></button>
+			
+		</div>
+		<div class="searchContent_r">
+			<span class="joy-lang" label="lg:storageId"></span>: <input
+				id="text_storage" class="joy-combobox joy-enum"
+				style="width: 120px;"  dataTextField="storageName" dataValueField="storageId" placeholder="lgc:pleaseToSelect"
+				databind="value:storageId,source:storageEnum">
+				<span class="joy-lang" label="lg:storageAreaName"></span>: <input id="txt_search" class="joy-textbox"   style="width: 120px;"  
+				maxByte="20">
+			<button class="joy-button" icon="search" onClick="searchData"
+				label="lgc:search"></button>
+		</div>
+	</div>
+	<!-- 搜索栏end-->
+	<!-- 列表栏-->
+
+	<!--产品信息列表 -->
+	<table id="grid" class="joy-grid" rowHeightFit="38">
+		<thead>
+			<tr>
+			<!--
+				<th field=storageId templateType="checkbox" colWidth="40px"></th> -->
+				<th field="storageAreaName" dataType="string" label="lg:storageAreaName" colWidth="40%"></th>
+				<th field="storageId" dataTextField="storageName" dataValueField="storageId"  enumData="storageEnum" dataType="string" label="lg:storageId" colWidth="40%"></th>				
+				<th field="isEnableFlag" dataType="string" enumData="STATEEnum" label="lg:isEnableFlag" colWidth="20%" align="center"></th>
+			    <th colWidth="280px" templateType="template"  align="center" > 										
+				 #if(initResult.ISENABLESmc){<!--启用禁用有权限 -->
+				         if(isEnableFlag=='0'){#
+					   <button class="k-button k-gridBtn k-button-icontext"  onClick="modifyStateEk('#:storageAreaId#','#:isEnableFlag#')"><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyLOCK#</button>
+				         #}else{# 
+					<button class="k-button k-gridBtn k-button-icontext"  onClick="modifyStateEk('#:storageAreaId#','#:isEnableFlag#')"><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyUSE#</button>
+				         # }	    
+					}else{<!-- 启用禁用没有权限 -->
+					      if(isEnableFlag==='0'){#
+					   <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyLOCK#</button>
+					      #}else{#
+				        	<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyUSE#</button>
+					     # }					
+					}#			
+									
+					  #if(initResult.ADDSmc){#<!--编辑有权限 -->
+					<button class="k-button k-gridBtn k-button-icontext" onClick="openEditWindow('#:storageAreaId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}else{#	<!--编辑没有权限 -->
+					<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}#	
+				
+			     	  #if(initResult.READSmc){#<!--详细有权限 -->
+					   <button class="k-button k-gridBtn k-button-icontext"  onClick="openDetailWindow('#:storageAreaId#')"><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>	
+			    	#}else{#	<!--详细没有权限-->
+					    <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>	
+			    	#}#	
+				
+				</th>
+			</tr>
+		</thead>
+	</table>
+	
+<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:storageAreaId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left"><input class="joy-textbox" id="storageName" required="true"  label="lg:storageAreaName" 
+							databind="value:storageAreaName" maxByte="64" >
+						</td>
+					</tr>
+					<tr>
+						<td align="left">
+						<input id="storageId" class="joy-combobox joy-enum" required="true" label="lg:storageId" dataTextField="storageName" dataValueField="storageId" placeholder="lgc:pleaseToSelect"
+				         databind="value:storageId,source:enAbleStorageEnum"  /> 
+                      </td>
+					</tr>
+					
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+
+
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail"  center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:storageAreaName"></td>
+					<td width="230" class="joy-label" databind="value:storageAreaName"></td>
+					<td width="100" class="joy-lang head" label="lg:storageId"></td>
+					<td width="230" class="joy-label joy-enum" dataTextField="storageName" dataValueField="storageId" databind="value:storageId,source:storageEnum"></td>
+				</tr> 							
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:isEnableFlag"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:isEnableFlag,source:STATEEnum"></td>
+					
+					<td width="100" class="joy-label head" ></td>
+					<td width="100" class="joy-label" ></td>
+				</tr> 								
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+	<script type="text/javascript">
+	 var lg,lgc,editWindow,dataForm,grid,initResult,detailWindow;
+	 var searchUrl = "../../wl/cm/wlCmStorageAreaAction.do?action=findDataList";
+
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		editWindow = $("#editWindow").getJoyWindow();
+		dataForm = $("#dataForm").getJoyForm();
+		grid = $("#grid").getJoyGrid();
+		detailWindow=$("#detailWindow").getJoyWindow();	
+		//数据初始化
+		joy.getJSON("../../wl/cm/wlCmStorageAreaAction.do?action=init",
+			{enumTypes:['STATE']},
+			function(resultObject) {			
+			initResult = resultObject; 
+	        var viewModel = joy.observable(initResult);    
+	         joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+	         grid.fetch(initResult, searchUrl);  
+		});
+	});
+	//打开新增窗口
+	function openAdd(){
+		dataForm.load();    
+		editWindow.title(lgc.add);
+		editWindow.open();
+		editWindow.center();	     
+	}
+	//保存
+	function saveData(buttonObject){
+		buttonObject.enable(false);
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		
+		var submitda = dataForm.getDataModel().toJSON();
+		dataForm.load(submitda);
+	    	dataForm.submit("../../wl/cm/wlCmStorageAreaAction.do?action=saveData", buttonObject,
+				function(resultObject) {
+					editWindow.close();
+					grid.dataSource.fetch();
+				 joy.showMessage(lgc.opSuccess, "success");
+		});	 
+}
+	/**
+	 * 打开编辑窗体
+	 */
+	function openEditWindow(storageAreaId) {
+		joy.getJSON("../../wl/cm/wlCmStorageAreaAction.do?action=getData",{storageAreaId:storageAreaId}, function(resultObject) {			
+			dataForm.load(resultObject);
+			editWindow.title(lgc.edit);
+			editWindow.open();
+			editWindow.center();
+		});
+	}
+	/**
+	 * 搜索数据
+	 */
+	function searchData() { 
+		var obj=new Object();	
+		var storageId= $("#text_storage").getJoyComboBox().value();
+		var txt_search= $("#txt_search").getJoyTextBox().value();		
+		obj.storageId=storageId;
+		obj.storageAreaName=txt_search;	
+		//alert(joy.stringify(searchForm.getDataModel().toJSON()));
+		grid.fetch(initResult, searchUrl, obj);
+	}
+	/**
+	 * 打开详细窗体 
+	 */
+	function openDetailWindow(storageAreaId){		
+		joy.getJSON("../../wl/cm/wlCmStorageAreaAction.do?action=getData",{storageAreaId:storageAreaId}, function(resultObject){				
+			var viewModel = joy.observable(resultObject); 
+			joy.bind($("#detailTable"), viewModel);			
+			detailWindow.open();	
+			detailWindow.center();
+		});	
+	}
+	/**
+	* 启用/锁定
+	**/
+	function modifyStateEk(storageAreaId,isEnableFlag){
+		var isEnableFlagModifyTitle;
+		if(isEnableFlag=="0"){
+			isEnableFlagModifyTitle=lg.isEnableFlagLOCKTitle;
+		}else{
+			isEnableFlagModifyTitle=lg.isEnableFlagkModifyUSETitle;
+		}
+		joy.showMessageDialog(isEnableFlagModifyTitle,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+				joy.getJSON("../../wl/cm/wlCmStorageAreaAction.do?action=updateOrgState",{storageAreaId:storageAreaId}, function(resultObject){	
+					joy.showMessage(lgc.opSuccess, "success");
+					grid.dataSource.fetch();
+					
+				});
+			}
+		});			
+	}
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,134 @@
+ #successOrderBody{width:100%;}
+#successOrderContainer{
+   margin:20px auto;
+   display:table;
+   background:#B8B8B8;
+   width:1000px;
+  
+}
+/*支付标头*/
+#payModes{
+ display:table;
+ width:1000px;
+}
+#successOrderTitle{
+  width:1000px;
+ display:table;
+ padding-left:5px;
+ padding-top:10px;
+}
+.tick {
+    background:  url("../images/anniu.png") repeat scroll 0 -576px;
+    display: block;
+    height: 14px;
+    position: absolute;
+    width: 14px;
+	 font-style: normal;
+    overflow: hidden;
+	margin-top:4px;
+}
+.fs14,.cl{
+   margin-left: 20px;
+}
+.fs14{
+    font-size: 15px; 
+	color:#535353;
+}
+.fs16{
+    font-size: 16px;
+	color: #e60012;
+    font-family: Arial;
+}
+.cl{
+    color:#666;
+	font-size:12px;
+	clear:both;
+}
+
+/*选项卡*/
+.tabs{margin:0 auto;margin-top:20px;width:700px;display:table;} 
+.tabs-nav a{color:#fff;text-decoration:none;border-top:1px solid #FFF;font-size:16px; } 
+.tabs-nav a{background:#1A1A1A;line-height:30px;padding:0 30px;display:inline-block;border-right:2px solid #F3F3F3;border-bottom:1px solid #a0b3d6;float:left;} 
+.tabs-nav .on{background:#626262;border-bottom:1px solid white;_position:relative;} 
+.tabs-content{padding:20px;border-top:1px solid #a0b3d6;margin-top:-1px;} 
+.active{
+	display:block;
+}
+.noActive{
+	 display:none; 
+}
+#tabs h2{
+	float:left;
+}
+.tabsContent{
+	  float:left;
+	  width:810px;
+	  border:1px solid #000;
+	  min-height:290px;
+	  padding:20px 10px;
+}
+.payTitle{
+   color: #535353;
+   font-size:12px;
+  
+}
+.bank li{
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #ddd;
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    position: relative;
+    width: 214px;
+	list-style:none;
+}
+
+.bank li.checked {
+    border: 2px solid #ffa200;
+    margin: -1px 9px 9px -1px;
+}
+
+.tabsContent input {
+    left: 12px;
+    position: absolute;
+    top: 15px;
+}
+.tabsContent img{
+    height: 40px;
+    margin-left: 35px;
+    width: 147px;
+}
+.mailTablePlan_bt{
+   clear: both;
+	margin-top: 20px;
+}
+.bank{
+ margin-top:20px;
+ display:table;
+  
+}
+#settleMent{
+ background:url("../images/xinban_ann.png") repeat scroll center bottom;
+    border: 0 none;
+    cursor: pointer;
+    height: 32px;
+    margin-top: 10px;
+    width: 172px;
+}
+.submit_success_sm{
+    line-height: 23px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    width: 716px;
+	color: #535353;
+	font-size:12px;
+}
+.mailTablePlan_bt{
+   margin-top:20px;
+ 
+}
+.submit_success_sm p{
+word-break:break-all;
+}

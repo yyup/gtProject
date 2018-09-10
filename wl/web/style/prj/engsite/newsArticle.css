@@ -1,0 +1,24 @@
+.titleMargin {
+	margin-top: 100px;
+	margin-bottom: 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.contentTextColor {
+	color: #898989;
+}
+
+.hengxian {
+	height: 1px;
+	width: 100%;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	background: #B2B2B2;
+}
+
+#articleContent img{
+	display: block;
+	max-width: 100%;
+	height: auto;
+}

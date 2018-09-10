@@ -1,0 +1,1346 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout,editor"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/info.wlCmSell.css" />
+</head>
+<body>
+
+	<!-- 搜索栏 -->
+	<div class="searchContent">
+		<div class="searchContent_l">
+			<button class="joy-button joy-smc" icon="plus" onClick="openAdd"
+				 label="lgc:add" databind="visible:ADDSmc"></button>
+			<button class="joy-button joy-smc" icon="close" onClick="deleteData"
+				 label="lgc:delete" databind="visible:ADMINSmc"></button>
+			<button class="joy-button joy-smc" icon="seek-n" onClick="upState"
+				label="lg:upState" databind="visible:SELLSTATESmc"></button>
+			<button class="joy-button joy-smc" icon="seek-s" onClick="downState"
+				label="lg:downState" databind="visible:SELLSTATESmc"></button>
+			<button class="joy-button joy-smc" icon="pencil"  onClick="openFirstAuditListWindow"
+						label="lg:firstAudit" databind="visible:FIRSRAUDITSmc"></button>
+	     	<button class="joy-button joy-smc" icon="pencil"  onClick="openFinalAuditListWindow"
+					 label="lg:finalAudit" databind="visible:FINALAUDITSmc"></button>	
+		</div>
+		<div class="searchContent_r">
+			<div class="fit1024" style="float: left; padding-right: 5px;">
+
+				<span class="joy-lang" label="lg:productType"></span>: <input
+					id="typeName" style="width: 120px;cursor:pointer" class="joy-textbox"
+					onclick="openParentSelectWindow()"
+					onfocus="openParentSelectWindow()" style="cursor: pointer;"
+					label="lg:rootType" databind="value:typeName" /> <input
+					type="hidden" class="joy-textbox" id="typeId"
+					databind="value:typeId">
+
+			</div>
+			
+			<button class="joy-button" icon="search" onClick="searchGrid"
+				label="lg:search"></button>
+			<button class="joy-button" icon="search" onClick="openSearch"
+								label="lgc:advSearch"></button>	
+		</div>
+	</div>
+	<!-- 搜索栏end -->
+	<!-- 列表栏 -->
+
+	<!--产品信息列表 -->
+	<table id="grid" class="joy-grid" rowHeightFit="38">
+		<thead>
+			<tr>
+				<th field="sellId" templateType="checkbox" colWidth="40px"></th>
+				<th field="productName" dataType="string" label="lg:productName"
+					colWidth="18%"></th>
+				<th field="typeName" align="center" dataType="string"
+					label="lg:productType" colWidth="20%"></th>
+				<th field="price" align="right" label="lg:price" colWidth="12%"></th>
+				<th field=sellTime align="center" label="lg:sellTime" colWidth="20%" ></th>
+				<th field="sellStateEk" dataType="string"
+					enumData="SELL_STATE_EKEnum" label="lg:sellStateEk" colWidth="10%"
+					align="center"></th>
+				   <th field="auditNodeEk" enumData="AUDIT_NODE_EKEnum" 	label="lg:auditNodeEk" colWidth="10%" dataType="string" align="center"></th>															
+				  <th field="auditState" enumData="AUDIT_STATEEnum" 		label="lg:auditState" colWidth="10%" dataType="string" 	align="center"></th>	
+				<th colWidth="370px" templateType="button" align="center">
+					<button icon="pencil" smcBind="ADDSmc" onClick="openEditWindow('#:sellId#')"
+						label="lgc:edit"></button>
+					<button icon="restore" smcBind="UPLOADSmc" onClick="openPicWindow('#:sellId#')"
+						label="lg:pictEdit"></button>
+					<button icon="insert-m" onClick="openDetailWindow('#:sellId#')"
+						smcBind="READSmc" label="lgc:detail"></button>
+					<button icon="insert-m" onClick="openAllocationWindow('#:sellId#')"
+						smcBind="ADDSmc" label="lg:addAllocation"></button>
+				</th>
+			</tr>
+		</thead>
+	</table>
+	<!--产品信息列表end -->
+
+	<!--编辑开始 -->
+	<div id="editDiv">
+
+		<div class="editBody">
+			<form id="dataForm" class="joy-form">
+				<div id="editTitle" class="headTitle"></div>
+				<!--基础信息 -->
+
+				<input type="hidden" databind="value:sellId"> 
+				<div class="base" id="div_base">
+					<div class="baseBor">
+						<div class="baseBor_tit">
+							<span class="joy-lang" label="lg:base"></span>
+						</div>
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_f">
+							<input class="joy-textbox" style="width: 97%" required="true"
+								label="lg:productName" databind="value:productName" maxByte="64">
+						</div>
+						<div class="layThree_row_f">
+
+
+							<input id="editTypeName" class="joy-textbox" style="width: 97%;cursor:pointer;"
+								onclick="openEditParentSelectWindow()" required="true"
+								onfocus="openEditParentSelectWindow()" 
+								label="lg:productType" databind="value:typeName" />
+
+
+						</div>
+						<div class="layThree_row_f">
+							<input class="joy-textbox" style="width: 97%" maxByte="64" label="lg:unitName"
+								databind="value:unitName">
+						</div>
+					</div>
+					<div class="layThree_row">
+					<div class="layThree_row_f">
+
+
+							<input id="itemCd" class="joy-textbox" style="width: 97%;cursor:pointer;"
+								onclick="itemAddWindow()" required="true"
+								onfocus="itemAddWindow()" 
+								label="lg:itemCd" databind="value:itemCd" />
+
+
+						</div>
+						<div class="layThree_row_f">
+							<input class="joy-numerictextbox" label="lg:price" id="price"
+								value="0" min="0" max="999999" style="width: 97%"
+								required="true" databind="value:price">
+						</div>
+						<div class="layThree_row_f">
+
+							<input class="joy-numerictextbox" label="lg:disct" id="disct"
+								value="0" min="0" max="999999" style="width: 97%"
+								databind="value:disct">
+						</div>
+						
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_f">
+								   <input id="isHasGift" class="joy-combobox joy-enum"  style="width: 97%" label="lg:isHasGift" placeholder="lgc:pleaseToSelect" 
+				     databind="value:isHasGift,source:YESORNOEnum"  /> 
+						</div>
+						<div class="layThree_row_f">
+							<input class="joy-textbox" style="width: 97%"  maxByte="255" label="lg:giftDesc"
+								databind="value:giftDesc">
+						</div>
+						<div class="layThree_row_f">
+							<input class="joy-numerictextbox" label="lg:sequ" id="sequ"
+								value="0" min="1" max="99999" style="width: 97%"
+								databind="value:sequ">
+						</div>
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_f">
+								  <input class="joy-numerictextbox" label="lg:outStockNum" id="outStockNum"
+								value="0"  max="99999" style="width: 97%"
+								databind="value:outStockNum">
+						</div>
+						<div class="layThree_row_f">
+							<input class="joy-numerictextbox" label="lg:lackStockNum" id="lackStockNum"
+								value="0"  max="99999" style="width: 97%"
+								databind="value:lackStockNum">
+						</div>
+						<div class="layThree_row_f">
+							<input class="joy-textbox" style="width: 97%" maxByte="128" label="lg:tmallLink"
+								databind="value:tmallLink">
+						</div>
+						
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_f">
+							<input class="joy-textbox" style="width: 97%" maxByte="128" label="lg:jdLink"
+								databind="value:jdLink">
+						</div>
+						<div class="layThree_row_f">
+						   <input id="isIndexEk" class="joy-combobox joy-enum"  style="width: 97%" label="lg:isIndexEk" placeholder="lgc:pleaseToSelect" 
+		    					 databind="value:isIndexEk,source:IS_INDEX_EKEnum"  /> 
+						</div>
+					</div>
+				</div>
+				<!--详细信息 -->
+				<div class="base" id="div_detail">
+					<div class="baseBor">
+						<div class="baseBor_tit">
+							<span class="joy-lang" label="lg:otherInfo"></span>
+						</div>
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_f">
+							<input class="joy-textbox" style="width: 97%"
+								databind="value:outlineDim" id="outlineDim"
+								label="lg:outlineDim" maxByte="255">
+						</div>
+						<div class="layThree_row_f">
+							<input class="joy-textbox" style="width: 97%"
+								label="lg:netWeight" databind="value:netWeight" maxByte="64" >
+						</div>
+					</div>
+					<div class="detailClass">
+						<textarea id="memo" class="joy-textbox" label="lg:memo" databind="value:memo" maxByte="1024" style="height:100px;width:100%;"></textarea>
+					</div>
+					<div class="detailClass">
+						<textarea class="joy-editor" id="contentId"
+							databind="value:content" label="lg:content" rows="10" cols="30"
+							maxByte="6000" style="height: 300px; width: 100%;"
+							toolbarOptions="['bold','italic','underline','strikethrough','justifyLeft','justifyCenter','justifyRight','justifyFull','insertUnorderedList','insertOrderedList','indent','outdent','createLink','unlink','insertImage','subscript','superscript','createTable','addRowAbove','addRowBelow','addColumnLeft','addColumnRight','deleteRow','deleteColumn','viewHtml','formatting','fontName','fontSize', 'foreColor','backColor']"
+							sourceCode="goodsPictureFile">  			   
+				             </textarea>
+					</div>
+				</div>
+				<!--button -->
+				<div class="layTwo_row_button" align="right">
+					<button class="joy-button" btnType="importantbtn" icon="tick"
+						onClick="saveData" label="lg:saveAndSubmit"></button>
+					<button id="editPreview"  class="joy-button joy-smc" btnType="importantbtn" icon="insert-m"
+									   onClick="editPreview" label="lg:preview"></button>
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lg:back" onClick="editDivClose"></button>
+
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--编辑结束-->
+
+
+	<!--详情开始-->
+	<div id="detailDiv">
+		<div class="editBody">
+			<div id="detailTitle" class="headTitle"></div>
+			<!--基础信息 -->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="baseBor_tit ">
+						<span class="joy-lang" label="lg:base"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left">
+					<table id="detailTable" width="93%" align="center"
+						class="k-info-table comDetailTable" border="0" cellspacing="0"
+						cellpadding="0">
+						<tbody>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:productName"></td>
+								<td width="230" class="joy-label" databind="value:productName"></td>
+								<td width="100" class="joy-lang head" label="lg:productType"></td>
+								<td width="230" class="joy-label" databind="value:typeName"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:price"></td>
+								<td width="230" class="joy-label" databind="value:price"></td>
+								<td width="100" class="joy-lang head" label="lg:disct"></td>
+								<td width="230" class="joy-label" databind="value:disct"></td>
+
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:unitName"></td>
+								<td width="230" class="joy-label" databind="value:unitName"></td>
+								<td width="100" class="joy-lang head" label="lg:sequ"></td>
+								<td width="230" class="joy-label" databind="value:sequ"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:itemCd"></td>
+								<td width="230"class="joy-label" databind="value:itemCd"></td>
+								<td width="100" class="joy-lang head" label="lg:outStockNum"></td>
+								<td width="230"class="joy-label" databind="value:outStockNum"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:lackStockNum"></td>
+								<td width="230"class="joy-label" databind="value:lackStockNum"></td>
+								<td width="100" class="joy-lang head"></td>
+								<td width="230"class="joy-label" ></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--基础信息结束 -->
+			<!--附加信息开始 -->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="baseBor_tit ">
+						<span class="joy-lang" label="lg:otherInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left">
+					<table id="detailTable" width="93%" align="center"
+						class="k-info-table comDetailTable" border="0" cellspacing="0"
+						cellpadding="0">
+						<tbody>
+
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:outlineDim"></td>
+								<td width="230" class="joy-label" databind="value:outlineDim"></td>
+								<td width="100" class="joy-lang head" label="lg:netWeight"></td>
+								<td width="230" class="joy-label" databind="value:netWeight"></td>
+							</tr>
+							
+							<tr height="130">
+								<td width="100" class="joy-lang head" label="lg:pic"></td>
+								<td colspan="3" style="padding:5px" >
+									<div  id="picInforTd" style="height: 120px; overflow: auto;">
+									
+									</div>
+									
+								</td>
+							</tr>
+							<tr height="80" cellpadding="3px">
+								<td width="100" class="joy-lang head" label="lg:content"></td>
+								<td colspan="3">
+									<div class="joy-label" databind="value:content"  style="height:270px; overflow: auto;word-break:break-all;"></div>
+									</td>
+							</tr>
+						</tbody>
+					</table>
+					
+				</div>
+			</div>
+				<!--附加信息结束 -->
+				<!-- 审核日志开始  -->
+					<div class="detailbase" id="div_base">
+						 <div class="detailbaseBor">
+					        <div class="baseBor_tit ">
+						      <span class="joy-lang" label="lg:bizLog"></span>
+					        </div>
+			           	</div>
+			           	<div id="" class="detail" center="true" align="left" >
+			           	     <table id="detailTable" width="93%" align="center"  border="0" cellspacing="0" 	cellpadding="0">																			
+									<tbody>
+										<tr>
+											<td>										 
+								           	      <table id="bizLogGrid" class="joy-grid" height="130px" showPageControl="false" width="93%">	   
+														<thead>
+															<tr>							
+																<th field="auditorName"  colWidth="15%" dataType="string" label="lg:auditorName"  ></th>
+																<th field="auditNodeEk" colWidth="15%" enumData="AUDIT_NODE_EKEnum"  dataType="string" align="center" label="lg:auditNodeEk"></th>
+																<th field=auditOperateEk colWidth="20%"  enumData="AUDIT_OPERATE_EKEnum"  dataType="string" align="center" label="lg:auditOperateEk"></th>
+																<th field="auditTime"  colWidth="25%" dataType="string" label="lg:auditTime"  align="center"></th>
+																<th field="auditRemark"  colWidth="25%"  dataType="string" label="lg:auditRemark" ></th>
+															
+															</tr>							
+														</thead>
+										    	</table>
+											</td>
+										</tr>
+									</tbody>
+							</table>
+			           	     
+			           	    
+			           	</div>
+			           	<table width="93%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+							<tr>
+								<td height="50" align="right" valign="bottom">
+								   <button id="detailPreview"  class="joy-button joy-smc" btnType="importantbtn" icon="insert-m"
+									   onClick="detailPreview" label="lg:preview"></button>
+									<button class="joy-button joy-window-close" icon="cancel"
+										label="lg:back" onclick="detailClose"></button></td>
+							</tr>
+					   </table>
+					</div>
+				<!-- 审核日志结束 -->
+		</div>
+	</div>
+	<!--详情结束 -->
+	<!-- 父级选择框 -->
+	<div id="parentselectWindow" class="joy-window" width="320px"
+		center="true" title="lg:paretWindowTitle">
+
+		<div id="smallTreeView" style="width: 300px; height: 300px;"></div>
+
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lgc:cancel"></button></td>
+			</tr>
+		</table>
+	</div>
+     <!-- 图片上传 -->
+	<div id="picWindow" class="joy-window" width="660px" center="true"
+		title="lg:pictEdit">
+		<form id="dataForm" class="joy-form">
+			<div class="picDiv">
+				<div class="picTop">
+					<input label="lg:picType" id="baseUpload" class="joy-upload"
+						databind="value:path" multiple="false" label="lg:logoImg"
+						type="file" complete="onBaseSuccess" select="selectFile"
+						async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.dox?action=uploadFile&sourceCode=goodsPictureFile', removeUrl:'../../wl/cm/wlCmDocumentAction.dox?action=deleteFile'}"
+						allowType='jpg,png,gif' maxSize="1" />
+				</div>
+				<div class="picBottom">
+					<div class="picAlert">
+						<span class="joy-lang" label="lg:picNone1"></span><br> <span
+							class="joy-lang" label="lg:picNone2"></span>
+					</div>
+					<!--  
+					 <div  class="imgDiv " id="">					
+					  <img style="width:100%;height:88%;" class="isThumFlag"  src="../../wl/cm/wlCmDocumentAction.do?action=downloadFile&id=402881b74ce051aa014ce053b53d0002" title="" >
+					  <span class="joy-lang" label="lg:thum" style="margin-left:25%"></span>
+					 </div>	
+					-->
+					 									 					 
+				  </div>
+			</div>
+			<div style="width: 100%;">
+				<div style="float: right;">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close" ></button>
+				</div>
+			</div>
+		</form>
+	</div>
+<!-- 弹开的新增界面（库存）start -->
+	<div id="itemWindow" class="joy-window detail"  center="true"
+		align="left" title="lg:selectCategory" style="padding-top:0;"> 
+		   <!-- 列表栏 -->
+		<table class="main">
+			<tr>
+				<td class="list_left">
+					<div class="rightTitle"><span class="joy-lang " label="lg:categoryName"></span></div>
+					<div class="leftTreeBox" > 
+			  			<!-- 物料类别树 -->  
+						<div id="categoryTree" ></div>
+						<!-- 物料类别树 end--> 
+	 				 </div>
+				</td>
+				<td class="list_height">			
+					<!--库存列表 --> 
+	 				<table id="itemGrid" class="joy-grid"   pageSize="10" >
+					<thead>
+						<tr> 
+							<th field="itemId" templateType="checkbox" colWidth="40px"></th>
+							<th field="itemCd"   dataType="string"  label="lg:itemCd" colWidth="25%" ></th> 
+							<th field="itemName"    dataType="string" label="lg:itemName" colWidth="25%"></th>
+		                     <th field="spec"    dataType="string" label="lg:spec" colWidth="25%"></th>
+							<th field="baseUnitName"    dataType="string" label="lg:baseUnitName" colWidth="25%" align="center"   ></th>
+						</tr>
+					</thead>
+					</table> 
+					<!--库存列表end --> 
+				</td>
+			</tr>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="40" align="right" valign="bottom">
+						<button class="joy-button joy-smc" btnType="importantbtn" icon="tick"
+							onClick="itemAdd" label="lg:add"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+			</tr>
+		</table>				
+	</div>
+	<!-- 弹开的新增界面（库存）end -->
+	<!-- 高级查询窗口开始 -->
+<div id="searchWindow" class="joy-window" title="lgc:search">
+	<form id="searchForm" class="joy-form" >
+		<table>
+		    <tr>
+		        <td>                
+					 <input
+						id="text_sellStateEk" class="joy-combobox joy-enum"
+						style="width: 160px;" label="lg:sellStateEk" placeholder="lgc:pleaseToSelect"
+						databind="value:sellStateEk,source:SELL_STATE_EKEnum">			  
+				</td>
+			    <td>
+			        	  <input	id="auditNodeEk" class="joy-combobox joy-enum" label="lg:auditNodeEk"
+								placeholder="lgc:pleaseToSelect" style="width: 160px;"
+								databind="value:auditNodeEk,source:AUDIT_NODE_EKEnum" />	
+			    </td>
+			</tr>	
+			    <tr>
+		        <td>
+			    	<input	 id="auditState" class="joy-combobox joy-enum" label="lg:auditState"
+								placeholder="lgc:pleaseToSelect" style="width: 160px;"
+								databind="value:auditState,source:AUDIT_STATEEnum" />	
+			    
+			    </td>
+			    <td>               
+			  	   <input id="txt_search" class="joy-textbox" style="width: 160px;"
+				      maxByte="20" label="lg:productName">
+			    </td>
+			</tr>			
+		</table>	
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lgc:search"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>		 
+	</form>
+</div>
+		<!-- 高级查询窗口结束 -->
+			
+	<!-- 初审界面开始 -->
+<div id="firstAuditWindow" class="joy-window" center="true"
+		title="lg:firstAudit">
+		<form id="firstAuditForm" class="joy-form">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>			
+					<tr>
+						<td align="left"><textarea class="joy-textbox"  maxByte="255" label="lg:auditRemark"
+							databind="value:auditRemark"></textarea>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="firstAuditPass" label="lg:pass"></button>						
+						<button class="joy-button"  icon="close" onClick="firstAuditReject" btnType="importantbtn"  label="lg:reject"></button>							
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 初审核界面结束 -->
+	<!-- 终审界面开始 -->
+<div id="finalAuditWindow" class="joy-window" center="true"
+		title="lg:finalAudit">
+		<form id="finalAuditForm" class="joy-form">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>			
+					<tr>
+						<td align="left"><textarea class="joy-textbox"  maxByte="255" label="lg:auditRemark"
+							databind="value:auditRemark"></textarea>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="finalAuditPass" label="lg:pass"></button>						
+						<button class="joy-button"  icon="close" onClick="finalAuditReject" btnType="importantbtn"  label="lg:reject"></button>							
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 配置列表-->
+	<div id="allocationWindow" class="joy-window"  center="true"
+		title="lg:addAllocation">
+		<form id="allocationForm" class="joy-form">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<!-- 配置列表 -->
+						<td align="left" rowspan="4">
+						<div style="width:635px;height:auto;">
+						<button class="joy-button" icon="plus" onClick="openAddAllocationWindow" label="lgc:add" style="margin-bottom:10px;"></button> 
+						<table id="allocationGrid" class="joy-grid" height="200px"  reorderable="false" resizable="true" showPageControl="false"  >
+							<thead>
+								<tr>  			
+									<th field="productName" dataType="string" label="lg:productName" colWidth="40%"></th> 
+									<th field="typeName" dataType="string" label="lg:productType" colWidth="30%"></th> 
+									<th field="price"  label="lg:price" colWidth="30%" align="right" dataType="string"></th> 
+									<th colWidth="100px" templateType="button" > 
+										<button icon="close"  onClick="deleteAllocation(#:allocationIndex#)"
+											 label="lgc:delete"></button>
+									</th>
+								</tr>
+							</thead>
+						</table>  
+						</div>
+						</td> 
+					</tr>   
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="60" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveAllocation" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	
+		    <!-- 弹开的配置选择 -->
+	<div id="addAllocationWindow" class="joy-window detail"  center="true"
+		align="left"  style="padding-top:0;"> 
+		   <!-- 列表栏 -->
+		<table class="main">
+			<tr>
+				<td class="list_left">
+					<div id="rightTitle" class="rightTitle"></div>
+					<div class="leftTreeBox" > 
+			  			<!-- 配置类别树 -->  
+						<div id="allocationTypeTree" style="min-height: 100%;"></div>
+						<!-- 配置类别书树 end--> 
+	 				 </div>
+				</td>
+				<td class="list_height" id="deviceGridTd">	
+			      <!--   	<div style="height:20px;width:100%;padding-top: 10px;">
+							<span class="joy-lang" label="lg:productName" style="font-weight:bold;"></span>: 
+					         <input id="productNameSearch" class="joy-textbox"  style="width: 160px;" databind="value:productName"   />
+					        <button class="joy-button" icon="search" onClick="searchAllocation" label="lgc:search" ></button>
+						</div>		
+						-->
+					<!--配置信息列表 --> 
+	 				<table id="addAllocationGrid" class="joy-grid"   pageSize="10" resizable="true">
+						<thead>
+							<tr> 
+								<th field="sellId" templateType="checkbox" colWidth="40px"></th>
+								<th field="productName"   dataType="string"  label="lg:productName" colWidth="40%" ></th> 
+								<th field="typeName"    dataType="string" label="lg:productType" colWidth="30%"></th>
+								<th field="price"    dataType="string" label="lg:price" colWidth="30%"  ></th>			
+							</tr>
+						</thead>
+					</table> 
+					<!--配置信息列表end --> 
+				</td>
+			</tr>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="40" align="right" valign="bottom">
+						<button id="deviceParentAdd" class="joy-button joy-smc"  icon="tick" id="deviceChildAdd"
+							onClick="addAllocation" label="lg:add"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+			</tr>
+		</table>				
+	</div>
+	 <script id="allocation_Type_Tree" type="text/joy-ui-template">
+ 		<input type="hidden" value="#=item.main.typeId#" ><span class="itemName" onclick="allocationTypeClick('#=item.main.typeId#')" >#=item.main.typeName#</span>
+	 </script>
+	<!-- 终审审核界面结束 -->
+<script id="category_tree" type="text/joy-ui-template">
+			<span class="itemName" onclick="categoryTreeviewclick('#=item.main.categoryId#','#=item.main.isLastFlag#')" >#=item.main.name#</span>   
+	 </script>
+
+	<script id="small_tree" type="text/joy-ui-template">
+			<span class="itemName" style="cursor:pointer;" onclick="treeviewclick('#=item.main.typeId#','#=item.main.typeName#')" >#=item.main.typeName#</span>
+	 </script>
+	<script type="text/javascript">
+		var initResult,parentselectWindow,typeNameTextBox,typeIdTextBox,curClickProductType,grid,picWindow,baseUpload,dataForm;
+		var curThumId="",itemGrid,curItemId="",curItemCd="";//当前缩略图id
+		var initThumId="";
+		var thum="",clickThum="",itemWindow;
+		var curDetailTypeId,searchWindow,auditNodeEkComboBox,auditStateComboBox;
+		var searchUrl = "../../wl/cm/wlCmSellEnAction.do?action=searchSellPage";
+		var firstAuditWindow,firstAuditForm,finalAuditWindow,finalAuditForm,bizLogGrid;
+		var curSellId="",smc="0";
+		var allocationWindow,allocationForm,allocationGrid,delAllocationId,allocationDataSource;
+		var addAllocationWindow,addAllocationGrid,filterSellIds;
+		$().ready(function() {
+			lgc = joy.getCommonLang();
+			lg = joy.getLang();
+			thum=lg.thum;
+			clickThum=lg.clickThum;
+			dataForm = $("#dataForm").getJoyForm();
+			parentselectWindow = $("#parentselectWindow").getJoyWindow();
+			grid = $("#grid").getJoyGrid();
+			picWindow=$("#picWindow").getJoyWindow();
+			baseUpload  = $("#baseUpload").getJoyUpload();
+			itemWindow = $("#itemWindow").getJoyWindow();
+			itemGrid=$("#itemGrid").getJoyGrid();
+			searchWindow=$("#searchWindow").getJoyWindow();
+			auditNodeEkComboBox=$("#auditNodeEk").getJoyComboBox();
+			auditStateComboBox=$("#auditState").getJoyComboBox();
+			firstAuditWindow=$("#firstAuditWindow").getJoyWindow();
+			firstAuditForm=$("#firstAuditForm").getJoyForm();
+			finalAuditWindow=$("#finalAuditWindow").getJoyWindow();
+			finalAuditForm=$("#finalAuditForm").getJoyForm();
+			bizLogGrid=$("#bizLogGrid").getJoyGrid();
+			typeNameTextBox = $("#editTypeName").getJoyTextBox();
+			allocationWindow=$("#allocationWindow").getJoyWindow();
+			allocationForm=$("#allocationForm").getJoyForm();
+			allocationGrid = $("#allocationGrid").getJoyGrid();
+			addAllocationWindow=$("#addAllocationWindow").getJoyWindow();
+			addAllocationGrid = $("#addAllocationGrid").getJoyGrid();
+			$("#rightTitle").html(lg.productType); 
+			//数据初始化
+			joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=init", {
+				enumTypes : [ 'SELL_STATE_EK','YESORNO','AUDIT_NODE_EK','AUDIT_OPERATE_EK','AUDIT_STATE','IS_INDEX_EK']
+			}, function(resultObject) {
+				allocationDataSource=new Array();
+				delAllocationId=new Array();
+				filterSellIds=new Array();
+				initResult = resultObject;
+				//将后台action得到的枚举ENUM,和前台的databind的枚举,如果值相同进行绑定
+				var viewModel = joy.observable(initResult);
+				joy.bind($(".joy-smc,.joy-enum"), viewModel); //class为smc enum时进行绑定
+				    if(resultObject.FINALAUDITSmc){//终审权限
+						smc="2";
+					} else if(resultObject.FIRSRAUDITSmc){//初审权限
+						smc="1";
+					}
+				searchGrid();
+			});
+			treeviewBind();
+			alloctionTypeBind();
+
+		});
+		
+		/**
+		 *打开配置框
+		 */
+		 var curParentSellId="";
+		function openAllocationWindow(sellId){
+			joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=findAllocationList", {
+				parentSellId : sellId
+			},function(resultObject) {
+				curParentSellId=sellId;
+				delAllocationId=new Array();
+				allocationDataSource=new Array();			
+				filterSellIds=new Array();	
+				filterSellIds[filterSellIds.length]=sellId;
+				allocationDataSource=resultObject; 
+				for(var i = 0;i<allocationDataSource.length;i++){
+					allocationDataSource[i].allocationIndex  = i;
+					filterSellIds[filterSellIds.length]=allocationDataSource[i].sellId;
+				} 
+				allocationGrid.load(initResult,allocationDataSource); 
+				allocationWindow.open();
+				allocationWindow.center();
+			});
+		}
+		
+		//打开新增配置窗口
+		function openAddAllocationWindow()
+		{
+				allocationTypeClick("-1");
+				//deviceCdSearch.value("");//将用来搜索的下级配置CD清空
+				//deviceNameSearch.value("");//将用来搜索的下级配置名称清空
+				addAllocationWindow.title(lg.allocationChoose);
+				addAllocationWindow.open();
+				addAllocationWindow.center();	
+		}
+		
+		//产品类型treeview数据初始化
+		function alloctionTypeBind(){
+			joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=getTree",function(resultObject) { 
+				allocationTypeTree =  $("#allocationTypeTree").joyTreeView({
+						 dataSource:resultObject.items,
+			             templateID:"allocation_Type_Tree" 		
+		   			 }); 		
+			});
+		}
+		
+		//树点击事件
+		var curParentTypeId
+		function allocationTypeClick(typeId){ 
+			curParentTypeId=typeId;
+			//deviceNameSearch.value("");//将用来搜索的下级配置名称清空
+			//curChildDeviceTypeId=deviceTypeId;
+			var obj=new Object();	
+			obj.typeId=typeId;
+			obj.filterSellIds=filterSellIds;
+			addAllocationGrid.fetch(initResult, searchUrl, obj);		
+		}
+		
+		//添加配置
+		  function addAllocation(){
+			    var ids = addAllocationGrid.getChecked();
+				if (ids.length == 0) {//当选择的配置为0时
+					joy.showMessage(lgc.chooseRecord, "warning");
+				} 
+				else
+				{
+					joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=findSellListByIds",{sellIds:ids},function(resultObject) {
+						for(i=0;i<resultObject.length;i++){							
+							 obj=resultObject[i];
+							 var allocationIndex=allocationDataSource.length;
+							 allocationDataSource[allocationIndex]=new Object();
+							 allocationDataSource[allocationIndex].sellId=obj.sellId;
+							 allocationDataSource[allocationIndex].productName=obj.productName;
+							 allocationDataSource[allocationIndex].price=obj.price;
+							 allocationDataSource[allocationIndex].typeName=obj.typeName;
+							 allocationDataSource[allocationIndex].parentSellId=curParentSellId;
+							 allocationDataSource[allocationIndex].allocationIndex=allocationIndex;
+							 allocationDataSource[allocationIndex].sequ=1;
+							 filterSellIds[filterSellIds.length]=obj.sellId
+						}
+						allocationGrid.load(initResult,allocationDataSource);
+						allocationTypeClick(curParentTypeId);
+					});
+				}
+		  }
+			//删除配置
+		  function deleteAllocation(allocationIndex){ 
+				if(typeof(allocationDataSource[allocationIndex].allocationId)!="undefined"){
+					delAllocationId[delAllocationId.length]=allocationDataSource[allocationIndex].allocationId;	
+				}		
+				for(var i=0;i<allocationDataSource.length-1;i++){ 
+					if(i>=allocationIndex){
+						var obj = allocationDataSource[i+1];
+						obj.allocationIndex = i;					
+						allocationDataSource[i]=obj;
+						var sellId=filterSellIds[i+2];
+						filterSellIds[i+1]=sellId;
+					}
+				}
+				allocationDataSource.pop(); 
+				filterSellIds.pop();
+				allocationGrid.load(initResult,allocationDataSource);
+		}
+			
+		//保存配置列表 
+			function saveAllocation(buttonObject)
+			{			
+				buttonObject.enable(false);
+				var submitda = allocationForm.getDataModel().toJSON();
+				submitda.allocationJson=joy.stringify(allocationDataSource);
+				submitda.delAllocationId=delAllocationId;		
+				allocationForm.load(submitda);
+				allocationForm.submit("../../wl/cm/wlCmSellEnAction.do?action=saveAllocation", buttonObject,
+						function(resultObject) { 					
+							allocationWindow.close();
+							//grid.dataSource.fetch();
+							joy.showMessage(lgc.opSuccess, "success");
+						});
+			}
+		
+		//treeview数据初始化   传入状态
+		function treeviewBind() {
+			joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=getTree",
+					function(resultObject) {
+
+						smallTreeView = $("#smallTreeView").joyTreeView({
+							dataSource : resultObject.items,
+							templateID : "small_tree"
+						});
+					});
+			joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=getCategoryTree",{
+				isEnableFlag : "1",
+				isLastFlag:"",
+				rootId:"0"	
+			}, function(resultObject) { 
+				//alert(joy.ifstringy(resultObject));
+					categoryTreeView =  $("#categoryTree").joyTreeView({
+			             dataSource:resultObject.items,
+			             templateID:"category_tree" 
+			        }); 			  
+			});
+		}
+		//菜单点击事件(新增按钮旁边的树点击事件)
+		function categoryTreeviewclick(categoryId,isLastFlag){
+			var obj=new Object();	
+			 /*if(isLastFlag=='0'){
+				 categoryId="-1";//当不是末级节点的时候，清空grid数据
+			}*/					
+				obj.categoryId=categoryId;	
+			   itemGrid.fetch(initResult, "../../wl/cm/wlCmSellEnAction.do?action=findItemDataList", obj);			
+		}
+		/**打开物料添加窗口
+		*/
+		function itemAddWindow(){	
+			   var ids = itemGrid.getChecked();
+			   if(ids.length>0){//将已选中的取消选中
+				  $("[value='"+ids[0]+"']").prop("checked",false);
+			   }
+				itemWindow.open();	
+				itemWindow.center();	           
+		}		
+		/**物料保存
+		*/
+		function itemAdd(){
+			var ids = itemGrid.getChecked();
+			if (ids.length == 0) {
+				joy.showMessage(lgc.chooseRecord, "warning");
+			} else  if (ids.length >1) {				
+				joy.showMessage(lg.itemGtTwo, "warning");
+			}else{
+				joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=getItem",{				
+					itemId:ids[0],curItemCd:curItemCd	
+				}, function(resultObject) { 
+					itemCdTextBox = $("#itemCd").getJoyTextBox();
+					itemCdTextBox.value(resultObject.itemCd);
+					curItemId=resultObject.itemId;
+					curItemCd=resultObject.itemCd;
+					itemWindow.close();	           
+				});
+		}
+		}
+		/**
+		 *打开父节点选择窗体
+		 */
+		function openParentSelectWindow() {
+			
+			curClickProductType = "grid";
+			parentselectWindow.open();
+			//parentselectWindow.center();
+			$("#parentselectWindow").parent('.k-widget').css({'top':'40px','right':"240px"});
+			$("#parentselectWindow").parent('.k-widget').css('left',"");
+		}
+		function openEditParentSelectWindow() {
+			curClickProductType = "detail";
+			parentselectWindow.open();
+			//parentselectWindow.center();
+			$("#parentselectWindow").parent('.k-widget').css({'top':'130px','right':"480px"});
+			$("#parentselectWindow").parent('.k-widget').css('left',"");
+		}
+
+		//菜单点击事件
+		function treeviewclick(typeId, typeName) {
+			if (curClickProductType === 'grid') {
+				//typenameTextBox = $("#typeName").getJoyTextBox();
+				$("#typeName").getJoyTextBox().value(typeName);
+				typeIdTextBox = $("#typeId").getJoyTextBox();
+				typeIdTextBox.value(typeId);
+			} else if (curClickProductType === "detail") {
+				typeNameTextBox.value(typeName);
+				//typeIdTextBox = $("#editTypeId").getJoyTextBox();
+				//typeIdTextBox.value(typeId);
+				curDetailTypeId=typeId;
+			}
+
+			parentselectWindow.close();
+		}
+		//打开新增窗口
+		function openAdd() {
+			curSellId="add";
+			var height = $(window).height();
+			$("#editDiv").css({
+				"min-height" : height + "px",
+				"height" : "auto"
+			});
+			$("#editTitle").text(lg.addTitle);
+			$("#editDiv").show();
+			dataForm.load({price:0,disct:0,sequ:1});
+		}
+		//保存信息
+		function saveData(buttonObject) {
+			buttonObject.enable(false);
+			if (!dataForm.validate()) {
+				joy.showMessage(lgc.validateFaile, "warning");
+				buttonObject.enable(true);
+				return;
+			}
+			var price=$("#price").getJoyNumericTextBox().value();
+			 if(price<=0){
+				 joy.showMessage(lg.priceAlert, "warning");
+				 buttonObject.enable(true);
+				return;
+			 }
+			 var outStockNum=$("#outStockNum").getJoyNumericTextBox().value();
+			 var lackStockNum=$("#lackStockNum").getJoyNumericTextBox().value();
+              if(outStockNum>lackStockNum){
+            	  joy.showMessage(lg.outLgLack, "warning");
+ 				  buttonObject.enable(true);
+ 				  return;
+              }
+			//typeIdTextBox = $("#editTypeId").getJoyTextBox();			
+			var submitda = dataForm.getDataModel().toJSON();
+			typeId =curDetailTypeId;
+			submitda.typeId = typeId;
+			submitda.itemId=curItemId;
+			submitda.itemCd=curItemCd;
+			if(smc!=="2"){//如果不是终审权限
+				submitda.auditNodeEk="1";
+				submitda.auditState="0";
+				submitda.sellStateEk="NO_SHELVE";
+			}
+			dataForm.load(submitda);
+			dataForm.submit("../../wl/cm/wlCmSellEnAction.do?action=saveSell",
+					buttonObject, function(resultObject) {
+						$("#editDiv").hide();
+						grid.dataSource.fetch();
+						joy.showMessage(lgc.opSuccess, "success");
+					});
+
+		}
+		//搜索表格数据
+		function searchGrid() {
+		
+			var typeId = $("#typeId").getJoyTextBox().value();
+			var obj = new Object();
+			obj.typeId = typeId;
+			obj.isThumFlag="";
+			grid.fetch(initResult, searchUrl, obj);
+
+		}
+		//打开高级搜索
+		function openSearch()
+		{
+			$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+			$("#searchWindow").parent('.k-widget').css('left',"");
+			//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+			searchWindow.open();
+		}
+		function moreSelect(){
+			var obj=new Object();
+			obj.auditNodeEk=auditNodeEkComboBox.value();
+			obj.auditState=auditStateComboBox.value();
+			obj.sellStateEk = $("#text_sellStateEk").getJoyComboBox().value();
+			obj.typeId = $("#typeId").getJoyTextBox().value();
+			obj.productName = $("#txt_search").getJoyTextBox().value();
+			obj.productName = $("#txt_search").getJoyTextBox().value();
+			obj.isThumFlag="";
+			grid.fetch(initResult, searchUrl, obj);
+		}
+	//编辑
+	//打开编辑窗口
+		function openEditWindow(sellId) {
+			curSellId=sellId;
+			joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=getSellDetail",{
+				sellId:sellId
+			},function(resultObject) {
+				if(resultObject.sell.auditState=='0'&&resultObject.sell.auditNodeEk=='1'){//初审未审核不能编辑
+					joy.showMessage(lg.notFirstAudit, "warning");
+				}else{
+					curDetailTypeId=resultObject.sell.typeId;
+					curItemId=resultObject.sell.itemId;
+					curItemCd=resultObject.sell.itemCd;
+					dataForm.load(resultObject.sell);
+					var height = $(window).height();
+					$("#editDiv").css({
+						"min-height" : height + "px",
+						"height" : "auto"
+					});
+					$("#editTitle").text(lg.editTitle);
+					$("#editDiv").show();
+					}
+			});			
+			
+			
+		}
+	//关闭编辑窗口
+	function editDivClose(){
+		$("#editDiv").hide();
+	}
+	
+	//关闭详细窗口
+	function detailClose(){
+		$("#detailDiv").hide();
+	}
+	//打开详细窗
+	var curSellId="";
+	function openDetailWindow(sellId){
+		curSellId=sellId;
+		joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=getSellDetail",{
+			sellId:sellId
+		},function(resultObject) {
+			var viewModel = joy.observable(resultObject.sell);
+			joy.bind($(".comDetailTable"), viewModel);
+			bizLogGrid.load(initResult,resultObject.bizAuditLog)
+		});		
+		$("#picInforTd").html("");
+		joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=findSellPic",{sellId:sellId},function(result){			
+			for(var i=0;i<result.length&&i<=allowImgCount;i++)
+				{
+					var ob=result[i];					
+				      txt='<div  class="imgDiv " id="'+ob.path+'"><img class="'+ob.path+'" style="width:100%;height:88%;"    src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ob.path+'"  ></div>';
+				      $("#picInforTd").append(txt);			    				
+				}			
+			
+		});
+		
+		
+		var height = $(window).height();
+		$("#detailDiv").css({
+			"min-height" : height + "px",
+			"height" : "auto"
+		});
+		$("#detailTitle").text(lg.detailTitle);										
+		$("#detailDiv").show();
+	}
+	/**
+	 * 删除数据
+	 */
+	function deleteData() {
+		var ids = grid.getChecked();
+
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=deleteData",{ids : ids,}, 
+							function(resultObject) {							
+								grid.dataSource.fetch();
+								joy.showMessage(lgc.opSuccess, "success");
+							});
+				}
+			});
+		}
+	}
+	
+	//上架
+	function upState()
+	{
+		var ids = grid.getChecked();
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+		 joy.showMessageDialog(lg.upStateAlert, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=updateUpState", {
+						sellIds : ids
+					}, function(resultObject) {
+						if(resultObject!=""){
+							joy.showMessage(resultObject, "warning");
+						}else{
+						grid.dataSource.fetch();
+						joy.showMessage(lgc.opSuccess, "success");
+					}
+						
+					});
+				}
+			});
+		}
+	}
+	//下架
+	function downState()
+	{
+		var ids = grid.getChecked();
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+		 joy.showMessageDialog(lg.downStateAlert, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=updateDownState", {
+						sellIds : ids
+					}, function(resultObject) {
+						grid.dataSource.fetch();
+						joy.showMessage(lgc.opSuccess, "success");
+					});
+				}
+			});
+		}
+	}
+	//图片上传模块
+	var imgCount=0;//上传图片数量
+	var updateSellId;	
+	var allowImgCount=8;
+	function openPicWindow(id)
+	{	
+		$(".picAlert").hide();
+		imgCount=0;
+		updateSellId=id;
+		findPic();
+		picWindow.open();
+	}
+	//获取sellId 原来上传的图片
+	function findPic()
+	{
+		$(".imgDiv").remove();
+		joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=findSellPic",{sellId:updateSellId},function(result){
+			$(".imgDiv").remove();
+			if(result.length<1) $(".picAlert").show();
+			else $(".picAlert").hide();
+			for(var i=0;i<result.length&&i<=allowImgCount;i++)
+				{
+					var ob=result[i];
+					imgCount++;
+					if(ob.isThumFlag==='1'){
+					  curThumId=ob.path;
+					  initThumId=ob.path;
+				      txt='<div  class="imgDiv " id="'+ob.path+'"><img class="'+ob.path+' isThumFlag" style="width:100%;height:88%;cursor:pointer;"  ondblclick="delPic(\''+ob.path+'\')"  src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ob.path+'" title="'+lg.clickDel+'" ><a onClick="choiceThum(\''+ob.path+'\')"><span class="joy-lang" label="lg:thum" style="margin-left:25%;cursor:pointer;" title="'+clickThum+'">'+thum+'</span></a></div>';
+					}else{
+				      txt='<div  class="imgDiv " id="'+ob.path+'"><img class="'+ob.path+'" style="width:100%;height:88%;cursor:pointer;"  ondblclick="delPic(\''+ob.path+'\')"  src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ob.path+'" title="'+lg.clickDel+'" ><a onClick="choiceThum(\''+ob.path+'\')"><span class="joy-lang" label="lg:thum" style="margin-left:25%;cursor:pointer;" title="'+clickThum+'">'+thum+'</span></a></div>';
+					}
+					
+				    $(".picBottom").append(txt);					
+				}			
+			picWindow.center();
+		});
+	}
+	//上传图片时触发事件
+	function selectFile(){ 
+			if(imgCount>=allowImgCount) return false;
+			else return true;
+	}
+	//上传图片成功触发事件
+	function onBaseSuccess(){		
+		var id=$("#baseUpload").getJoyUpload().value();
+		if(id != null &&$.trim(id) != ""){
+			if(imgCount>=allowImgCount)
+				{
+				joy.showMessage(lg.picMaxAlert, "warning");
+					return;
+				}
+			joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=savePic",{sellId:updateSellId, picId:id,imgCount:imgCount},function(){
+			        imgCount++;
+			       $(".picAlert").hide();
+			        if(imgCount==1){
+			        	curThumId=id;
+			          var txt='<div  class="imgDiv " id="'+id+'"><img class="'+id+' isThumFlag" style="width:100%;height:88%;cursor:pointer;"  ondblclick="delPic(\''+id+'\')"  src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+id+'" title="'+lg.clickDel+'" ><a onClick="choiceThum(\''+id+'\')"><span class="joy-lang" label="lg:thum" style="margin-left:25%;cursor:pointer;" title="'+clickThum+'">'+thum+'</span></a></div>';
+			        }else{
+			          var txt='<div  class="imgDiv " id="'+id+'"><img class="'+id+'" style="width:100%;height:88%;cursor:pointer;"  ondblclick="delPic(\''+id+'\')"  src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+id+'" title="'+lg.clickDel+'" ><a onClick="choiceThum(\''+id+'\')"><span class="joy-lang" label="lg:thum" style="margin-left:25%;cursor:pointer;" title="'+clickThum+'">'+thum+'</span></a></div>';
+			        }
+			      $(".picBottom").append(txt);
+			   
+			      picWindow.center();
+			});
+			
+		}	
+		baseUpload._reflash();
+	}
+	
+	//双击图片删除
+	function delPic(id)
+	{
+		 if(id!==curThumId){
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+				joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=removePic",{sellId:updateSellId, picId:id},function(){
+					joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=deleteFile",{id:id},function(){
+						$("#"+id).remove();
+						imgCount--;
+						picWindow.center();
+						joy.showMessage(lgc.opSuccess, "success");
+					});
+				});
+				}
+			});
+	   }else{
+			joy.showMessage(lg.thumFlagNoDel, "warning");
+	   }
+	   
+	}
+//选择缩略图
+	function choiceThum(thumId){
+		//
+		if(curThumId!==""){
+			$("."+curThumId).removeClass("isThumFlag");
+		}
+		$("."+thumId).addClass("isThumFlag");
+		initThumId=curThumId;
+		curThumId=thumId;
+		saveThum();
+	}
+//保存缩略图initThumId
+function saveThum(){
+	joy.getJSON("../../wl/cm/wlCmSellEnAction.do?action=saveThum",{initThumId:initThumId,curThumId:curThumId},function(){
+		joy.showMessage(lgc.opSuccess, "success");
+	});
+}
+//打开初审窗口
+var sellIds=new Array();
+
+function openFirstAuditListWindow(){
+	sellIds = grid.getChecked();
+	if (sellIds.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	}else{
+		firstAuditForm.load();
+		firstAuditWindow.open();
+		firstAuditWindow.center();
+	}
+}
+//打开终审窗口
+function openFinalAuditListWindow(){
+	sellIds = grid.getChecked();
+	if (sellIds.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	}else{
+		finalAuditForm.load();
+		finalAuditWindow.open();
+		finalAuditWindow.center()
+	}
+}
+//初审通过
+function firstAuditPass(buttonObject){
+	updateFirstAudit(buttonObject,"1","1");
+}
+//初审驳回
+function firstAuditReject(buttonObject){
+	updateFirstAudit(buttonObject,"1","2");
+}
+//初审更新
+function updateFirstAudit(buttonObject,auditNodeEk,auditState){
+	var data=firstAuditForm.getDataModel().toJSON();
+	data.sellIds=sellIds;
+	data.auditNodeEk=auditNodeEk;
+	data.auditState=auditState;
+    firstAuditForm.load(data);
+    firstAuditForm.submit("../../wl/cm/wlCmSellEnAction.do?action=updateFirstAudit",
+    		buttonObject, function(resultObject) {
+    		grid.dataSource.fetch();
+    		firstAuditWindow.close();
+    	joy.showMessage(lgc.opSuccess, "success");
+	});
+}
+//终审通过
+function finalAuditPass(buttonObject){
+	updateFinalAudit(buttonObject,"2","3");
+}
+//终审驳回
+function finalAuditReject(buttonObject){
+	updateFinalAudit(buttonObject,"2","2");
+}
+//终审更新
+function updateFinalAudit(buttonObject,auditNodeEk,auditState){
+	var data=finalAuditForm.getDataModel().toJSON();
+	data.sellIds=sellIds;
+	data.auditNodeEk=auditNodeEk;
+	data.auditState=auditState;
+    finalAuditForm.load(data);
+    finalAuditForm.submit("../../wl/cm/wlCmSellEnAction.do?action=updateFinalAudit",
+			buttonObject, function(resultObject) {
+	    	grid.dataSource.fetch();
+	    	finalAuditWindow.close();
+	    	joy.showMessage(lgc.opSuccess, "success");
+	});
+}
+//详细预览
+function detailPreview(){
+	window.open("../preview/wlCmSellDetail.html?type=detail&sellId="+curSellId);
+}
+function editPreview(){
+	 var gotoUrl = window.open();
+	submitda = dataForm.getDataModel().toJSON();
+	productName=submitda.productName;
+	content=submitda.content;
+	typeName=typeNameTextBox.value();
+	//curSellId
+	joy.postJSON("../../wl/cm/wlCmSellEnAction.do?action=getOrSetInfo",{type:"set",content:content,productName:productName,typeName:typeName},function(){
+		//window.open("../preview/wlCmSellDetail.html?type=edit&sellId="+curSellId);
+		 gotoUrl.location.href ="../preview/wlCmSellDetail.html?type=edit&sellId="+curSellId;
+	});
+}
+
+	</script>
+
+</body>
+</html>

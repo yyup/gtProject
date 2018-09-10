@@ -1,0 +1,98 @@
+.titleMargin{
+    margin-left: 100px;
+}
+.forgetPassword{
+    margin-left: 300px;
+    font-size:16px;
+}
+#select li a:hover{
+    color: #008fa1;
+}
+.btn.btn-default.dropdown-toggle{
+    height: 35px;
+    border-radius: 0px;
+    border-color: #abadb3;
+}
+#sellType{
+    color: black;
+    padding:0px;
+    width: 337px;
+    height: 35px;
+
+}
+#wlBody{
+    margin: 0px auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+.btn{
+    border-radius: 4px;
+    border-left: none;
+}
+#serialRegist .text-right{
+	text-align:right;
+}
+@media screen and (max-width: 991px) {
+    table{
+        margin: auto;
+    }
+    /* #serialRegist .text-right{
+        text-align: center;
+    } */
+    #serialRegist .text-left {
+        text-align: center;
+    }
+    .inputStyle{
+        height:30px;
+        border:1px solid black;
+        width: 300px;
+    }
+    .titleMargin{
+        margin-left: 0px;
+    }
+    .forgetPassword{
+        margin-left: 0px;
+    }
+    #productName{
+		width:100%;
+		cursor:pointer;
+		height: 35px;
+	}
+}
+@media screen and (max-width: 768px){
+	#serialRegist .text-right {
+	    text-align: center;
+	}
+}
+
+.tableTitle{
+    font-size: 18px;
+    line-height:35px;
+}
+.tableValue{
+    width: 370px;
+    height: 35px;
+}
+
+.trMargin{
+    margin-top: 10px;
+}
+.sureAndBack{
+    background: #111111;
+    color: white;
+    width: 105px;
+    height: 35px;
+}
+#productName{
+	width:100%;
+}
+.has-feedback .form-control-feedback {
+    right: 15px;
+}
+.tableValue{
+  	 width: 100%; 
+     height: auto; 
+}
+table {
+   width:100%;
+}

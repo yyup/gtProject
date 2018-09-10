@@ -1,0 +1,56 @@
+#contactUsBody{width:100%;}
+/*左边菜单信息*/
+#contactUsContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#contactUsMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#contactUsMenu{
+float:left;width:235px;min-height:670px;
+}
+#contactUsContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.contactUsTitle{
+	width:175px;height:20px;margin:0 auto;margin-top:20px;
+height:38px;    background: url("../images/0105.png") 
+
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px;cursor:pointer;padding-bottom:4px;word-break: break-all;
+    word-wrap: break-word;}
+
+ .item a{
+    color:#000;
+	text-decoration:none;
+ }
+ /*左边关于沃特*/
+ #aboutcontactUs{
+   margin-top:65px;
+   margin-left:20px;
+   margin-right:20px;
+    word-break: break-all;
+    word-wrap: break-word;
+   
+ }
+  .noContent{
+   height: 145px;
+    margin: 180px auto 0;
+    width: 304px;
+    background:url('../images/noContent.png')
+ }

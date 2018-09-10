@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/wm.wlWmInventoryQuery.css" />
+
+</head>
+<body> 
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar"> 
+		<div style="float: left;">
+			<button class="joy-button joy-smc" icon="seek-s" onClick="downloadClick"
+				 label="lg:exportExcel" dataBind="visible:ADMINSmc"></button>		
+		</div>
+		
+		<div id="searchForm" class="joy-form" style="float: right"
+			layout="freedom">	
+			<span class="joy-lang" label="lg:storageName" ></span>: 							
+		    <input id="storageId" label="lg:storageName" class="joy-combobox joy-enum" 
+					placeholder="lgc:pleaseToSelect" dataTextField="storageName" dataValueField="storageId" 
+					databind="value:storageId,source:allStorageEnum" style="width:120px;">								
+			 <input id="txt_search" class="joy-textbox" style="width: 160px;" maxByte="20">				
+			<button class="joy-button" icon="search" onClick="searchQuery"
+				label="lgc:search"></button>			
+		</div>
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid"  rowHeightFit="38">
+		<thead>
+			<tr>  
+				<th field="itemCd" dataType="string" label="lg:itemCd" colWidth="15%"></th> 
+				<th field="itemName" dataType="string"  label="lg:itemName"	colWidth="20%"></th>  
+				<th field="name" dataType="string"  label="lg:name"	colWidth="15%"></th>  
+				<th field="spec" dataType="string"  label="lg:spec" colWidth="10%"></th>   
+				<th field="storageName" dataType="string" label="lg:storageName"  colWidth="19%"></th>   
+				<th field="baseUnitName" dataType="string" label="lg:baseUnitName" align="center" colWidth="10%"></th>   
+				<!--  <th field="baseUnitQty" dataType="string" label="lg:baseUnitQty" align="right" colWidth="10%"></th>   -->
+				<th colWidth="10%" templateType="template" align="right"  label="lg:baseUnitQty">
+				#if(initResult.INVENTORYQUERYSmc){#
+				   <span class="pointer" onClick="findSerialNo('#:inventoryId#','#:itemName#','#:spec#')">#:baseUnitQty#</span>
+				#}
+				else{#
+				  <span>#:baseUnitQty#</span>
+				#}
+				#
+				</th>
+			</tr>
+		</thead>
+	</table>
+ <!-- 序列号界面开始 -->
+    <div id="serialWindow" class="joy-window" width="320px"
+		center="true">
+          <div>
+          <span class="joy-lang" label="lg:serialNo"></span>: 
+           <input id="librarySerialNo" class="joy-textbox" style="width: 160px;" maxByte="20">
+           <button class="joy-button" icon="search" onClick="searchSerialNo"
+				label="lgc:search"></button>
+          </div>
+		<div id="serialList" >
+			<table id="serialNoList" width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<!--	<tr height="25">
+				  <td>123456</td>
+				  <td>123456</td>
+				  <td>123456</td>
+				</tr> -->
+			</table>
+		
+		</div>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+				<button class="joy-button" btnType="importantbtn" icon="seek-s"
+						onClick="downSerialNo" label="lg:exportExcel"></button>
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lgc:cancel"></button></td>
+			</tr>
+		</table>
+	</div>
+	 <!-- 序列号界面结束 -->
+	
+
+</body>
+<script>
+	var searchForm, grid, initResult, lgc, lg,storageComboBox,txt_search,serialWindow;
+	var searchUrl="../../wl/wm/wlWmInventoryAction.do?action=search";
+	
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();		
+		searchForm = $("#searchForm").getJoyForm(); 
+		searchContent =lg.searchContent;
+		$("#txt_search").attr("placeholder",searchContent);
+		storageComboBox=$("#storageId").getJoyComboBox();	
+		txt_search=$("#txt_search").getJoyTextBox();
+		serialWindow = $("#serialWindow").getJoyWindow();	
+		//数据初始化
+		joy.getJSON("../../wl/wm/wlWmInventoryAction.do?action=init",{enumTypes:[]},function(resultObject) {
+			initResult = resultObject;
+		    var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+
+	    	//尾接总数量html
+	    	var txt='<table><tbody><tr> <td id="totalCount"  style="font-weight:bold;" align="right"></td></tr></tbody></table>';
+	    	$("#grid").parent().append(txt);
+			searchForm.load();
+	    	//grid.fetch(initResult, searchUrl); 
+			searchQuery();
+		});
+	})
+
+	/**
+	 * 搜索数据(查询)*/
+	 
+		function searchQuery(){			
+			var obj=new Object();
+			obj.content=txt_search.value();
+			obj.storageId=storageComboBox.value();
+			var paraMap=joy.getParaMap(obj);
+	        grid.fetch(initResult, searchUrl, paraMap);
+	      //改变总数量
+	        joy.getJSON("../../wl/wm/wlWmInventoryAction.do?action=getTotalQty", 
+	        	paraMap
+				, function(resultObject){
+	        	   $("#totalCount").html(lg.totalCount+resultObject);
+	          	});	
+		}
+	
+		//导出EXCEL
+	function downloadClick(){
+			joy.showMessageDialog(lg.exportConfirm, "ok,cancel", function(e) {
+			if (e.btnName == "ok") {
+				//搜索条件param构成为
+				var param="";						
+				param+="&content="+encodeURI(encodeURI(txt_search.value()));
+				param+="&storageId="+storageComboBox.value();
+				window.location.href="../../wl/wm/wlWmInventoryAction.do?action=exportDataList"+param;				  
+			}
+		});
+	}
+	/**
+	*查找在库序列号(点击库存数量)
+	*/
+	var curInventoryId="";
+	function findSerialNo(inventoryId,itemName,spec){
+		curInventoryId=inventoryId;
+		title=itemName;
+		if(spec!==""){
+			title+="("+spec+")"
+		}
+		title+=lg.librarySerial;
+		serialWindow.title(title);
+		$("#librarySerialNo").getJoyTextBox().value("");
+		searchSerialNo();
+	}
+	//查询在库序列号（点击查询按钮）
+	function searchSerialNo(){
+		serialNo=$("#librarySerialNo").getJoyTextBox().value();
+		var txt="";
+		joy.getJSON("../../wl/wm/wlWmInventoryAction.do?action=findSerialNoList", 
+	        	{inventoryId:curInventoryId,serialNo:serialNo}
+				, function(resultObject){
+					for(i=0;i<=(resultObject.length-1)/3;i++){
+						txt+='<tr height="25">';
+						for(j=i*3;j<(i+1)*3&&j<resultObject.length;j++){						 								
+						     txt+='<td>'+resultObject[j].serialNo+'</td>';																					
+						}
+						txt+='</tr> ';
+					}
+					$("#serialNoList").empty();
+					$("#serialNoList").append(txt);
+				   serialWindow.open();
+					serialWindow.center();
+	          	});	
+	}
+	function downSerialNo(){
+		joy.showMessageDialog(lg.exportConfirm, "ok,cancel", function(e) {
+			if (e.btnName == "ok") {
+				serialNo=$("#librarySerialNo").getJoyTextBox().value();
+				//搜索条件param构成为
+				var param="";						
+				param+="&inventoryId="+curInventoryId;
+				param+="&serialNo="+serialNo;		
+				window.location.href="../../wl/wm/wlWmInventoryAction.do?action=exportSerialNoList"+param;				  
+			}
+		});
+		
+	}
+</script>
+</html>

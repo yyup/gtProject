@@ -1,0 +1,1493 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="../../js/jquery.min.js"></script>
+   <div id="objectDiv" style="display: none">   
+	<object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0"> 
+		<embed id="LODOP_EM" type="application/x-print-lodop" width="0" height="0" pluginspage="install_lodop32.exe"></embed>
+	</object>
+	</div>
+	<script language="javascript" src="../../js/prj/LodopFuncs.js"></script> 
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout,editor"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/wm.wlWmNoticeOut.css" />
+
+</head>
+<body>
+
+	<!-- 搜索栏 -->
+	<div class="searchContent">
+		<div class="searchContent_l">
+			<button class="joy-button joy-smc" icon="plus" onClick="openAdd"
+				 label="lgc:add" databind="visible:INPUTSmc"></button>
+			<button class="joy-button joy-smc" icon="close" onClick="deleteData"
+				 label="lgc:delete" databind="visible:INPUTSmc"></button>
+			<button class="joy-button joy-smc" icon="seek-s" onClick="issue"
+				label="lg:issued" databind="visible:AUDITSmc"></button>
+			<button class="joy-button joy-smc" icon="cancel" onClick="cancel"
+				label="lg:cancel" databind="visible:AUDITSmc"></button>
+			<button class="joy-button joy-smc" icon="" onClick="deliveryCreatePrintPage"
+				 label="lg:deliveryPrint" dataBind="visible:DELIVERYPRINTSmc"></button>
+			<button class="joy-button joy-smc" icon="seek-n" onClick="openUploadWindow"
+				 label="lg:upload" databind="visible:INPUTSmc"></button>	 	
+		</div>
+		<div class="searchContent_r">
+			<div class="fit1024" style="float: left; padding-right: 5px;">
+
+			<span class="joy-lang" label="lg:billStateEk"></span>: <input
+				id="text_billStateEk" class="joy-combobox joy-enum"
+				style="width: 120px;" placeholder="lgc:pleaseToSelect"
+				databind="value:billStateEk,source:BILL_STATE_EKEnum">
+			</div>
+			 <input
+				id="txt_search" class="joy-textbox" style="width: 120px;"
+				maxByte="20">
+			<button class="joy-button" icon="search" onClick="searchQuery"
+				label="lgc:search"></button>
+			<button class="joy-button" icon="search" onClick="openSearch"
+				label="lgc:advSearch"></button>
+		</div>
+	</div>
+	<!-- 搜索栏end -->
+	<!-- 列表栏 -->
+
+	<!--产品信息列表 -->
+	<table id="grid" class="joy-grid" rowHeightFit="38">
+		<thead>
+			<tr>
+				<th field="noticeOutId" templateType="checkbox" colWidth="40px"></th>
+				<th field="noticeNo" dataType="string" label="lg:noticeNo"
+					colWidth="12%"></th>
+				<th field="allItemName"  dataType="string"
+					label="lg:itemName" colWidth="18%"></th>
+				<th field="consignee"  dataType="string"
+					label="lg:consignee" colWidth="7%"></th>	
+				<th field="totalQty" align="right" label="lg:totalQty" colWidth="8%"></th>
+				<th field=wmOutTypeEk enumData="WM_OUT_TYPE_EKEnum"  align="center" label="lg:wmOutTypeEk" colWidth="10%" ></th>
+				<th field="storageName" dataType="string"
+					label="lg:storageName" colWidth="10%"
+					></th>
+				<th field="createTime"  dataFormat="yyyy-MM-dd HH:mm" dataType="date"  label="lg:createTime" colWidth="15%" ></th>
+				<th field="billStateEk" enumData="BILL_STATE_EKEnum" align="center" label="lg:billStateEk" colWidth="10%" ></th>
+				<th field="orgId" enumData="orgEnum" align="center" label="lg:orgId" colWidth="10%"  dataTextField="orgName" dataValueField="orgId"  ></th>
+				<!-- <th field=resultEk enumData="RESULT_EKEnum" align="center" label="lg:resultEk" colWidth="10%" ></th> -->
+				<th colWidth="10%" templateType="template" align="center" label="lg:resultEk">	
+						#if(resultEk=='ABNORMAL'){#						
+						<span class="blue" onClick="openAbnormalWindow('#:noticeOutId#')">#:resultEkValue#</span>
+						#}else{#
+						#:resultEkValue#
+						 #}#			
+				</th>
+				<th colWidth="280px" templateType="template" align="center">					
+					 #if(initResult.INPUTSmc){<!--编辑有权限 -->
+				         if(billStateEk=='NO_ISSUE'){#
+				            <button class="k-button k-gridBtn k-button-icontext"  onClick="openEditWindow('#:noticeOutId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>						
+				         #}else{# <!--有权限但不是未下发，不能点击 -->
+						     <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+				         # }	    
+					}else{ #<!-- 编辑没有权限 -->
+			        	<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>						
+					# }#	
+					
+					  #if(initResult.PRINTSmc){#<!--打印有权限 -->
+				      	<button class="k-button k-gridBtn k-button-icontext" ><span class="k-icon k-i-pencil"></span>#:lg.print#</button>						
+			    	#}else{#	<!--打印没有权限 -->
+					    <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.print#</button>						
+			    	#}#		
+			    	
+			    	#if(initResult.READSmc){#<!--详细有权限 -->
+				     	<button class="k-button k-gridBtn k-button-icontext" smcBind="READSmc" onClick="openDetailWindow('#:noticeOutId#')"><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>	
+			    	#}else{#	<!--详细没有权限-->
+					   <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>	
+			    	#}#										
+						
+				</th>
+			</tr>
+		</thead>
+	</table>
+	<!--产品信息列表end -->
+
+	<!--编辑开始 -->
+	<div id="editDiv">
+
+		<div class="editBody">
+			<form id="dataForm" class="joy-form">
+				<div id="editTitle" class="headTitle"></div>
+				<!--基础信息 -->
+
+				<input type="hidden" databind="value:noticeOutId"> 
+				<div class="base" id="div_base">
+					<div class="baseBor">
+						<div class="baseBor_tit">
+							<span class="joy-lang" label="lg:basicInfo"></span>
+						</div>
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_f">
+							<input id="systemInfo" class="joy-textbox" style="width: 97%" required="true"
+								label="lg:noticeNo" databind="value:noticeNo" disabled="disabled">
+						</div>
+						<div class="layThree_row_f">                    
+						<input
+							id="storageId" label="lg:storageName" class="joy-combobox joy-enum" required="true"
+							style="width: 97%" placeholder="lgc:pleaseToSelect" dataTextField="storageName" dataValueField="storageId" 
+							databind="value:storageId,source:enAbleStorageEnum" change="clearNoticeOutDetlConfirm">		
+								
+						</div>
+						<div class="layThree_row_f">							
+								<input
+							id="storageAreaId" label="lg:storageAreaName" class="joy-combobox joy-enum" 
+							style="width: 97%" placeholder="lgc:pleaseToSelect" dataTextField="storageAreaName" dataValueField="storageAreaId" 
+							databind="value:storageAreaId,source:storageAreaEnum" >		
+						</div>
+					</div>
+					<div class="layThree_row">
+						  <div class="layThree_row_f">						
+							<input
+								id="wmOutTypeEk" label="lg:wmOutTypeEk" class="joy-combobox joy-enum"  required="true"
+								style="width: 97%" placeholder="lgc:pleaseToSelect"
+								databind="value:wmOutTypeEk,source:WM_OUT_TYPE_EKEnum" >			
+									
+							</div>
+					
+						<div class="layThree_row_f">
+							<input class="joy-datepicker"  style="width: 97%"  id="expectOutDate" required="true"
+							label="lg:expectOutDate" databind="value:expectOutDate" >
+						</div>
+						<div class="layThree_row_f">
+							<input
+							id="orgId" label="lg:orgId" class="joy-combobox joy-enum" 
+							style="width: 97%" placeholder="lgc:pleaseToSelect"  dataTextField="orgName" dataValueField="orgId" 
+							databind="value:orgId,source:orgEnum" >				
+								
+						</div>						
+					</div>
+						<div class="layThree_row">
+						  <div class="layThree_row_f">						
+							<input class="joy-textbox" style="width: 97%" label="lg:consignee" maxByte="30" required="true"
+								databind="value:consignee">		
+									
+							</div>
+					
+						<div class="layThree_row_f">
+							<input class="joy-textbox" style="width: 97%" label="lg:contactWay" maxByte="64" required="true"
+								databind="value:contactWay">
+						</div>
+						<div class="layThree_row_f">
+						<input class="joy-textbox" style="width: 97%" label="lg:addr" maxByte="128"
+								databind="value:addr">	
+								
+						</div>						
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_f">
+						<input class="joy-textbox" style="width: 97%" label="lg:memo" maxByte="1024"
+								databind="value:memo">
+						</div>
+					
+					</div>
+				</div>
+				<!--物料信息 -->
+				<div class="base" id="div_detail">
+					<div class="baseBor">
+						<div class="baseBor_tit">
+							<span class="joy-lang" label="lg:itemInfo"></span>
+						</div>
+					</div>
+					
+					<div class="detailClass">
+						<div class="layThree_button detailClass">
+						  <button class="joy-button joy-smc" icon="plus" onClick="itemAdd"
+					       label="lgc:add" ></button>
+						</div>
+					<table align="center" id="noticeOutDetlGrid" class="joy-grid"  reorderable="false"  
+										showPageControl="false"  height="240px"  >
+								<thead>
+									<tr>							
+											<th field="itemCd"  dataType="string" label="lg:itemCd" ></th>
+											<th field="itemName" dataType="string" label="lg:itemName" ></th>
+											<th field="spec" dataType="string" label="lg:spec"></th>
+											<th field="baseUnitName" dataType="string" align="center" label="lg:baseUnitId"></th>
+											<th field="baseUnitQty" dataType="string" align="right" label="lg:baseUnitQty"></th>
+											<th colWidth="190px" templateType="button" align="center">
+												<button icon="pencil" onClick="openBaseUnitQtyInputWindow('#:index#',#:baseUnitQty#)"
+													label="lg:editBaseUnitQty"></button>					
+												<button icon="close" onClick="deleteRow('#:index#')"
+													label="lgc:delete"></button>
+												</th>
+									</tr>							
+								</thead>
+						</table>
+					</div>
+				</div>
+				<!--button -->
+				<div class="layTwo_row_button" align="right">
+					<button class="joy-button" btnType="importantbtn" icon="tick"
+						onClick="saveData" label="lgc:save"></button>
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lg:back" onClick="editDivClose"></button>
+
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--编辑结束 -->
+
+
+	<!--详情开始 -->
+	<div id="detailDiv">
+		<div class="editBody">
+			<div id="detailTitle" class="headTitle"><span class="joy-lang" label="lg:detailTitle"></span></div>
+			<!--基础信息 -->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="baseBor_tit ">
+						<span class="joy-lang" label="lg:basicInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left">
+					<table id="detailTable" width="93%" align="center"
+						class="k-info-table comDetailTable" border="0" cellspacing="0"
+						cellpadding="0">
+						<tbody>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:noticeNo"></td>
+								<td width="230" class="joy-label" databind="value:noticeNo"></td>
+								<td width="100" class="joy-lang head" label="lg:wmOutTypeEk"></td>
+								<td width="230" class="joy-label joy-enum" databind="value:wmOutTypeEk,source:WM_OUT_TYPE_EKEnum"  ></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:storageName"></td>
+								<td width="230" class="joy-label" databind="value:storageName" ></td>
+								<td width="100" class="joy-lang head" label="lg:expectOutDate"></td>
+								<td width="230" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd"  databind="value:expectOutDate"></td>
+
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:storageAreaName"></td>
+								<td width="230" class="joy-label" databind="value:storageAreaName"></td>
+								<td width="100" class="joy-lang head" label="lg:orgId"></td>
+								<td width="230" class="joy-label" databind="value:orgName"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:consignee"></td>
+								<td width="230" class="joy-label" databind="value:consignee"></td>
+								<td width="100" class="joy-lang head" label="lg:contactWay"></td>
+								<td width="230" class="joy-label" databind="value:contactWay"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:addr"></td>
+								<td width="230" class="joy-label" databind="value:addr"></td>
+								<td width="100" class="joy-lang head" label="lg:linkedBillNo"></td>
+								<td width="230" class="joy-label" databind="value:linkedBillNo"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:billStateEk"></td>
+								<td width="230" class="joy-label joy-enum" databind="value:billStateEk,source:BILL_STATE_EKEnum"></td>
+								<td width="100" class="joy-lang head" label="lg:resultEk"></td>
+								<td width="230" class="joy-label joy-enum" databind="value:resultEk,source:RESULT_EKEnum"></td>
+							</tr><!--
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:linkedBillNo"></td>
+								<td width="230" class="joy-label" databind="value:linkedBillNo"></td>
+								<td width="100" class="joy-lang head" ></td>
+								<td width="230" class="joy-label" ></td>
+							</tr>-->
+							<tr height="25">								
+								<td width="100" class="joy-lang head" label="lg:memo"></td>
+								<td width="230" colspan="3" class="joy-label" style="word-break:break-all;" databind="value:memo"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--基础信息结束 -->
+			<!--附加信息开始 -->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="baseBor_tit ">
+						<span class="joy-lang" label="lg:itemInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left"  style="width:93%;margin:0 auto;">
+					<table  align="center"  id="detailNoticeOutDetlGrid" class="joy-grid"  reorderable="false"  
+										showPageControl="false"  height="240px"  >
+								<thead>
+									<tr>							
+											<th field="itemCd"  dataType="string" label="lg:itemCd" colWidth="10%"></th>
+											<th field="itemName" dataType="string" label="lg:itemName" colWidth="20%"></th>
+											<th field="spec" dataType="string" label="lg:spec" colWidth="10%"></th>
+											<th field="baseUnitId" enumData="unitEnum" dataTextField="unitName"  dataValueField="unitId"  dataType="string" align="center" label="lg:baseUnitId" colWidth="10%"></th>
+											<th field="baseUnitQty" dataType="string" align="right" label="lg:baseUnitQty" colWidth="10%"></th>
+											<th field="consignee" dataType="string"  label="lg:consignee" colWidth="10%"></th>											
+											<th field="contactWay" dataType="string"  label="lg:contactWay" colWidth="10%"></th>											
+											<th field="addr" dataType="string"  label="lg:addr" colWidth="20%"></th>																						
+									</tr>							
+								</thead>
+						</table>
+					<table width="100%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+						<tr>
+							<td height="50" align="right" valign="bottom">
+								<button class="joy-button joy-window-close" icon="cancel"
+									label="lg:back" onclick="detailClose"></button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		<!--附加信息结束 -->
+		</div>
+	</div>
+	<!--详情结束 -->
+	<!-- 弹开的新增界面（库存）start -->
+	<div id="itemWindow" class="joy-window detail"  center="true"
+		align="left" title="lg:selectCategory" style="padding-top:0;"> 
+		   <!-- 列表栏 -->
+		<table class="main">
+			<tr>
+				<td class="list_left">
+					<div id="rightTitle"></div>
+					<div class="leftTreeBox" > 
+			  			<!-- 物料类别树 -->  
+						<div id="categoryTree" ></div>
+						<!-- 物料类别树 end--> 
+	 				 </div>
+				</td>
+				<td class="list_height">			
+					<!--库存列表 --> 
+					<div style="height:20px;width:100%;padding-top: 10px;">
+						<span class="joy-lang" label="lg:itemName" style="font-weight:bold;"></span>: 
+				         <input id="itemNameSearch" class="joy-textbox"  style="width: 160px;" databind="value:itemName"   />
+				           <span class="joy-lang" label="lg:itemCd" style="font-weight:bold;"></span>: 
+				         <input id="itemCdSearch" class="joy-textbox"  style="width: 160px;" databind="value:itemCd"   />
+				        <button class="joy-button" icon="search" onClick="searchItem" label="lgc:search" ></button>
+					</div>
+	 				<table id="itemGrid" class="joy-grid"   pageSize="10" >
+					<thead>
+						<tr> 
+							<th field="itemId" templateType="checkbox" colWidth="40px"></th>
+							<th field="itemCd"   dataType="string"  label="lg:itemCd" colWidth="20%" ></th> 
+							<th field="itemName"    dataType="string" label="lg:itemName" colWidth="20%"></th>
+		                     <th field="spec"    dataType="string" label="lg:spec" colWidth="20%"></th>
+							<th field="baseUnitName"    dataType="string" label="lg:baseUnitId" colWidth="20%" align="center"  ></th>
+					          <th field="baseUnitQty" dataType="string"  label="lg:inventoryQty" colWidth="15%" align="right"></th>					
+						</tr>
+					</thead>
+					</table> 
+					<!--库存列表end --> 
+				</td>
+			</tr>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="40" align="right" valign="bottom">
+						<button class="joy-button joy-smc" btnType="importantbtn" icon="tick"
+							onClick="addRow" label="lg:add"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+			</tr>
+		</table>				
+	</div>
+	<!-- 弹开的新增界面（库存）end -->
+	<!-- 修改数量编辑窗口 开始 -->
+	    <div id="baseUnitQtyInputWindow" class="joy-window" center="true"
+		  title="lg:baseUnitQty"> 
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>					
+					<tr>
+						<td align="left" > 
+							<input class="joy-numerictextbox"	label="lg:baseUnitQty" id="editBaseUnitQty" min="0" max="99999" databind="value:upperLimit">
+						</td>  
+					</tr>   
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveBaseUnitQty" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+	</div>
+		<!-- 修改数量编辑窗口结束 -->
+	<!-- 高级查询窗口开始 -->
+<div id="searchWindow" class="joy-window" title="lgc:search">
+	<form  class="joy-form" >
+		<table>
+		    <tr>
+		        <td>
+			        <input class="joy-datepicker" label="lg:from" dataFormat="yyyy-MM-dd"  id="txtDate_begin" style="width:160px;"> 
+			    </td>
+			    <td>
+			        <input class="joy-datepicker" label="lg:to"  dataFormat="yyyy-MM-dd"  id="txtDate_end" style="width:160px;" > 
+			    </td>
+			</tr>	
+			    <tr>
+		        <td>
+			    		<input
+							id="moreStorageId" label="lg:storageName" class="joy-combobox joy-enum" 
+							 placeholder="lgc:pleaseToSelect" dataTextField="storageName" dataValueField="storageId" 
+							databind="value:storageId,source:allStorageEnum" style="width:160px;">	
+			    
+			    </td>
+			    <td>
+			        <input
+							id="resultEk" label="lg:resultEk" class="joy-combobox joy-enum" 
+							 placeholder="lgc:pleaseToSelect" 
+							databind="value:resultEk,source:RESULT_EKEnum" style="width:160px;">	 
+			    </td>
+			</tr>			
+		</table>	
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lgc:search"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>		 
+	</form>
+</div>
+		<!-- 高级查询窗口结束 -->
+	<!-- 异常界面 开始 -->
+	 <div id="abnormalWindow" class="joy-window detail" center="true"
+		align="left" title="lg:abnormalDetail"> 
+		
+			<!--基础信息 -->
+			<div class="detailbase" id="div_base">
+				<div class="abnormalbaseBor">
+					<div class="abnormalBor_tit">
+						<span class="joy-lang" label="lg:basicInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left">
+					<table id="abnormalTable" width="100%" align="center"
+						class="k-info-table comDetailTable" border="0" cellspacing="0"
+						cellpadding="0">
+						<tbody>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:noticeNo"></td>
+								<td width="230" class="joy-label" databind="value:noticeNo"></td>
+								<td width="100" class="joy-lang head" label="lg:wmOutTypeEk"></td>
+								<td width="230" class="joy-label joy-enum" databind="value:wmOutTypeEk,source:WM_OUT_TYPE_EKEnum"  ></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:storageName"></td>
+								<td width="230" class="joy-label" databind="value:storageName" ></td>
+								<td width="100" class="joy-lang head" label="lg:resultEk"></td>
+								<td width="230" class="joy-label joy-enum"  databind="value:resultEk,source:RESULT_EKEnum" ></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:abnormalDesc"></td>			 	
+								<td colspan="3" >
+								  <div class="joy-label"  databind="value:abnormalDesc"  style="height:40px;width:630px;overflow:auto;word-break:break-all;"></div>
+								</td>
+							</tr> 															
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--基础信息结束 -->
+			<!--附加信息开始 -->
+			<div class="detailbase" id="div_base">
+				<div class="abnormalbaseBor">
+					<div class="abnormalBor_tit ">
+						<span class="joy-lang" label="lg:itemInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left"  style="width:100%;margin:0 auto;">
+					<table  align="center"  id="abnormalGrid" class="joy-grid"   reorderable="false"  
+										showPageControl="false"  height="240px"  >
+								<thead>
+									<tr>							
+											<th field="itemCd"  dataType="string" label="lg:itemCd"  colWidth="12%"></th>
+											<th field="itemName" dataType="string" label="lg:itemName"  colWidth="12%" ></th>
+											<th field="spec" dataType="string" label="lg:spec"  colWidth="13%"></th>
+											<th field="baseUnitName" dataType="string" align="center" label="lg:baseUnitId"  colWidth="12%"></th>
+											<th field="baseUnitQty" dataType="string" align="right" label="lg:baseUnitQty"  colWidth="12%"></th>
+											<th field="storeBaseUnitQty" dataType="string" align="right" label="lg:storeOutBaseUnitQty"  colWidth="11%"></th>																						
+											<th field="result" dataType="string"  label="lg:resultEk"  colWidth="22%"></th>											
+											<th field="consignee" dataType="string"  label="lg:consignee"  colWidth="14%"></th>																					
+									</tr>							
+								</thead>
+						</table>
+					<table width="100%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+						<tr>
+							<td height="50" align="right" valign="bottom">
+								<button class="joy-button" icon="pencil" onclick="openAbnormalDescWindow"
+									label="lg:fillAbnormalDesc" ></button>
+								<button class="joy-button joy-window-close" icon="cancel"
+									label="lgc:close"></button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		
+	</div>
+		<!-- 异常界面 结束 -->
+	<!-- 异常备注界面开始 -->
+		 <div id="abnormalDescWindow" class="joy-window" center="true"
+		  title="lg:abnormalDesc"> 
+		  		<form id="abnormalDescDataForm" class="joy-form">		 
+		  				<input type="hidden" databind="value:noticeOutId"> 
+						<table cellspacing=1 cellpadding=3 width="100%" align="center"
+							border=0>
+							<tbody>					
+								<tr>
+									<td id="abnormalDescInfo" align="left" > 
+			                              <textarea class="joy-textbox" maxByte="1024" style="height:70px;resize:none;" databind="value:abnormalDesc" ></textarea>		
+										</td>  
+								</tr>   
+							</tbody>
+						</table>
+						<table width="100%" border="0" align="center" cellpadding="3"
+							cellspacing="0">
+							<tr>
+								<td height="40" align="right" valign="bottom">
+									<button class="joy-button" btnType="importantbtn" icon="tick"
+										onClick="saveAbnormalDesc" label="lgc:save"></button>
+									<button class="joy-button  joy-window-close" icon="cancel"
+										label="lgc:cancel"></button></td>
+							</tr>
+						</table>
+				</form>
+	</div>
+	
+	 <!-- 打印页面 -->
+    <div id="printDiv"  style="display:none;">
+	   <form>
+	     <!-- 头部开始 -->
+		  <table  id="printHead">
+		     <tbody>
+		        <tr >
+				  <td width="100%" class="joy-lang" label="lg:waterrower" align="center"  colspan="8" style="font-weight: bold;">
+				             
+				   </td>
+			    </tr> 
+			    <tr>
+				  <td width="100%" class="joy-lang" label="lg:outOrder"   align="center" colspan="8">
+				  
+				   </td>
+			    </tr> 
+			    <tr>
+				      <td width="15%" class="joy-lang" label="lg:customerName" height="12" align="right" >
+				 		
+				 	 </td>
+					  <td  width="40%"   colspan="4" class="joy-label" databind="value:consignee" >
+					  
+					  </td>
+					   <td  width="20%"   align="right" class="joy-lang" label="lg:printNoticeNo">
+				 		
+				 	   </td>
+				 	    <td width="20%"   colspan="2"  class="joy-label" databind="value:noticeNo">
+					  
+					  </td>
+			  </tr> 
+			  <tr>
+				      <td  align="right" height="12" class="joy-lang" label="lg:distributor">
+				 		
+				 	 </td>
+					  <td    colspan="4"   class="joy-label" databind="value:orgName">
+					 
+					  </td>
+					   <td   align="right"  class="joy-lang" label="lg:printOutDate">
+				 		
+				 	   </td>
+				 	    <td    colspan="2" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd"  databind="value:expectOutDate">
+					  	
+					  </td>
+			  </tr> 
+			  <tr>
+				      <td  align="right" height="12"  class="joy-lang" label="lg:printStorageName" >
+				 		
+				 	 </td>
+					  <td    colspan="4"   class="joy-label" databind="value:storageName">
+					  	
+					  </td>
+					   <td  align="right"   class="joy-lang" label="lg:printWmOutTypeEk" >
+				 		
+				 	   </td>
+				 	    <td   colspan="2" class="joy-label joy-enum" databind="value:wmOutTypeEk,source:WM_OUT_TYPE_EKEnum">
+					  	
+					  </td>
+			  </tr>
+			  </tbody> 			 
+		   </table>
+		    <!-- 头部结束 -->
+		     <!-- 中间开始 -->
+		   	  <table cellspacing="0" cellpadding="0" style="margin-top:10px;" >
+		   	    <colgroup>
+                                       <col style="width:8%;">
+									    <col style="width:10%;">
+									    <col style="width:20%;">
+									    <col style="width:20%;">        
+									   <col style="width:16%;">
+									   <col style="width:8%;">
+									    <col style="width:8%;">
+									    <col style="width:10%;">
+									</colgroup>
+		   	  <tbody id="itemList">
+		   	   <!--        <tr  id="printHeadTitle">
+						<th class="first">序号</th>
+						<th>物料编码</th>
+						 <th>物料名称</th>
+						<th>型号规格</th>
+						<th>商品序列号</th>  
+						<th>数量</th>
+						<th>单位</th>
+						<th>备注</th>
+				</tr>
+				  		   
+			    <tr >
+				      <td class="first">
+				 		10000
+				 	 </td>
+					  <td>
+				 		1010001
+				 	 </td>
+				 	  <td >
+				 		划船器
+				 	 </td>
+				 	  <td>
+				 		A1 Home
+				 	 </td>
+				 	  <td>
+				 		1010001
+				 	 </td>
+				 	  <td  >
+				 		10000
+				 	 </td>
+				 	  <td>
+				 		台
+				 	 </td>
+				 	  <td>
+				 		无
+				 	 </td>
+			     </tr> 	-->				
+			      <tr  height="35px;">
+				      <td class="first">			 	
+				 	 </td>
+					  <td>				 	
+				 	 </td>
+				 	  <td >				 	
+				 	 </td>				 	 
+				 	  <td align="left" class="joy-lang" label="lg:total">
+				 		
+				 	 </td>
+				 	  <td id="totalBaseUnitQty">
+				 		0
+				 	 </td>
+				 	  <td>	 		
+				 	 </td>
+				 	  <td>				 		
+				 	 </td>
+			     </tr> 			 
+			   </tbody> 
+		   </table>
+		    <!-- 中间结束-->
+		    <!-- 尾部开始 -->
+		     <table  style="margin-top:20px;">
+			     <tbody>
+				        <tr  height="35px">
+						  <td width="10%" class="joy-lang" label="lg:finance" height="12" align="center">
+						  
+						   </td>
+						    <td width="23%"  colspan="2" ></td>
+						    <td width="10%"  class="joy-lang" label="lg:audit"  align="center">
+						  
+						   </td>
+						    <td  width="23%" colspan="2" ></td>
+						    <td width="10%" class="joy-lang" label="lg:delivery"  align="center">
+						     
+						   </td>
+						    <td  width="24%"   colspan="1" ></td>
+					    </tr> 					   
+				    </tbody>
+			 </table>
+			  <!-- 尾部结束 -->
+</form>
+    </div>
+    <!-- 打印页面结束 -->
+	 <!-- 发货打印页面开始 -->
+     <div id="deliveryPrintDiv"  style="display:none;">
+	        <div style="width:300px;height:300px;">
+		          <!-- 头部信息开始 -->
+		           <div >
+		                <div id="logoImg" >
+		                   <img  width="283px;" height="60px;" />
+		                </div>
+		           </div>
+		            <!-- 头部信息结束 -->
+		             <!-- 中间信息开始 -->
+		           <div style="font-size:large;">
+		           
+		                   <div >
+			                     <div  id="left" style="float:left;width:180px;">
+			                      <table cellspacing="0" style="font-size:20px;font-weight:bold;"cellpadding="0" width="100%;">	
+			                      		 <tr>
+				                      		  <td id="dConsignee"height="40px;">
+				                      		
+				                      		  </td>
+				                      		 
+			                      		 </tr>
+			                      		 <tr>
+				                      		  <td height="40px;" id="dContactWay">
+				                      	
+				                      		  </td>
+				                      		  
+			                      		 </tr>
+	                               </table>
+			                     </div>
+			                     <div id="right"  style="float:right;width:80px;height:80px;">
+			                           <img id="dQrCode" width="80px" height="80px"/>
+			                     </div>
+		                   </div>
+		                    
+			            <table cellspacing="0" style="font-size:20px;font-weight:bold;"cellpadding="0" width="100%;">			            
+				             <tr>
+					              <td height="60px;" width="280px" valign="top"  id="dAddr" >
+					                                     
+					              </td>
+					         
+				             </tr>
+				            <tr>
+					             <td    height="40px;" valign="top" id="dName">
+					                           
+					              </td>
+					             
+				            </tr>
+				            <tr>
+					            <td   height="40px" valign="top" id="dOrgName">
+					                     
+					            </td> 
+				            </tr>
+			            </table>		           
+		           </div>
+		           <!-- 中间信息结束 -->
+		           <!-- 尾部信息开始 -->
+		           <div class="joy-lang" label="lg:waterRowerGrateful" style="font-weight:bold;text-align:center;padding-top:5px;font-family:Microsoft Yahei Font">
+		                     
+		           </div>
+		           <!-- 尾部信息结束 -->
+	        </div>
+      </div>
+    <!-- 发货打印页面结束 -->
+    <!-- 验证是否安装控件页面 -->
+    <div id="checkIsInstallLodopDiv">
+    
+    </div>
+    
+<!-- 上传文件窗口 开始 -->
+<div id="uploadWindow" class="joy-window"  center="true" title="lg:uploadTitle" onClose="closeExcelWindow">
+	<form id="uploadForm" class="joy-form" >
+		<table cellspacing=1 cellpadding=3 width="100%" align="center"	border=0>
+			<tbody>
+			   <tr>				        
+					<td>						
+					<input
+							id="agency" label="lg:agency" class="joy-combobox joy-enum"  required="true"
+							 placeholder="lgc:pleaseToSelect"  dataTextField="orgName" dataValueField="orgId" 
+							databind="value:orgId,source:orgEnum" >			    							    				
+					</td>																
+				</tr>	
+				<tr>
+				  <td>
+				    <input id="agencyStorageId" label="lg:storageName" class="joy-combobox joy-enum" required="true"
+							placeholder="lgc:pleaseToSelect" dataTextField="storageName" dataValueField="storageId" 
+							databind="value:storageId,source:enAbleStorageEnum" >		
+				  </td>
+				</tr>
+				 <tr>
+				  <td>
+				    <input
+							id="agencywmOutTypeEk" label="lg:wmOutTypeEk" class="joy-combobox joy-enum"  required="true"
+								 placeholder="lgc:pleaseToSelect"
+								databind="value:wmOutTypeEk,source:WM_OUT_TYPE_EKEnum" >	
+				  </td>
+				 </tr>
+				<tr>
+				  <td>
+				   <input class="joy-datepicker"    id="agencyExpectOutDate" required="true"
+							label="lg:expectOutDate" databind="value:expectOutDate" >
+				  </td>
+				</tr>
+			    <tr>				        
+					<td>						
+						<input id="excelUpload" class="joy-upload" databind="value:path"  multiple="false" type="file"  label="lg:upload"   upload="excelUploadFile"
+		    					async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.do?action=uploadFile&sourceCode=excelFile', removeUrl:'../../wl/cm/wlCmDocumentAction.do?action=deleteFile'}"
+		    					allowType='xls'  maxSize="2" required="true" />			    							    				
+					</td>																
+				</tr>
+				
+							    																												
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveExcelData" label="lgc:save"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+<!-- 上传文件窗口 结束 -->
+		<!-- 异常备注界面结束  -->
+<script id="category_tree" type="text/joy-ui-template">
+			<span class="itemName" onclick="categoryTreeviewclick('#=item.main.categoryId#','#=item.main.isLastFlag#')" >#=item.main.name#</span>   
+	 </script>
+
+	<script type="text/javascript">
+		var initResult,lgc,lg,dataForm,grid,itemWindow,curStorageId,noticeOutDetlGrid,itemGrid,noticeOutDetlDataSource,curStorageId,systemInfoTextBox;
+		var baseUnitQtyInputWindow,itemIds,searchWindow,txtDate_begin,txtDate_end,detailNoticeOutDetlGrid,abnormalWindow,abnormalGrid;
+		var abnormalDescWindow,abnormalDescDataForm,uploadWindow,uploadForm,agencyComboBox,excelUpload;
+		var searchUrl = "../../wl/wm/wlWmNoticeOutAction.do?action=findDataList";
+		var itemSearchUrl = "../../wl/wm/wlWmNoticeOutAction.do?action=findItemDataList";
+		$().ready(function() {
+			lgc = joy.getCommonLang();
+			lg = joy.getLang();
+			searchContent =lg.searchContent;
+			$("#txt_search").attr("placeholder",searchContent);
+			systemInfoTextBox=$("#systemInfo").getJoyTextBox();
+			itemWindow = $("#itemWindow").getJoyWindow();
+			abnormalWindow = $("#abnormalWindow").getJoyWindow();			
+			baseUnitQtyInputWindow = $("#baseUnitQtyInputWindow").getJoyWindow();
+		     $("#rightTitle").text(lg.categoryId); 
+			dataForm = $("#dataForm").getJoyForm();			
+			grid = $("#grid").getJoyGrid();
+			itemGrid=$("#itemGrid").getJoyGrid();
+			abnormalGrid=$("#abnormalGrid").getJoyGrid();
+			noticeOutDetlGrid=$("#noticeOutDetlGrid").getJoyGrid();
+			detailNoticeOutDetlGrid=$("#detailNoticeOutDetlGrid").getJoyGrid();
+			searchWindow = $("#searchWindow").getJoyWindow();	
+			var date=new Date();
+			txtDate_begin=$("#txtDate_begin").getJoyDatePicker();
+			txtDate_end=$("#txtDate_end").getJoyDatePicker();
+			txtDate_begin.value(date.Format("yyyy-MM-dd"));
+			txtDate_end.value(date.Format("yyyy-MM-dd"));
+			abnormalDescDataForm=$("#abnormalDescDataForm").getJoyForm();
+			abnormalDescWindow=$("#abnormalDescWindow").getJoyWindow();
+			uploadWindow=$("#uploadWindow").getJoyWindow();	
+			uploadForm=$("#uploadForm").getJoyForm();
+			excelUpload=$("#excelUpload").getJoyUpload();
+			agencyComboBox=$("#agency").getJoyComboBox();		
+			//数据初始化
+			joy.getJSON("../..//wl/wm/wlWmNoticeOutAction.do?action=init", {
+				enumTypes : [ 'WM_OUT_TYPE_EK','RESULT_EK','BILL_STATE_EK']
+			}, function(resultObject) {
+				initResult = resultObject;
+				//将后台action得到的枚举ENUM,和前台的databind的枚举,如果值相同进行绑定
+				var viewModel = joy.observable(initResult);
+				joy.bind($(".joy-smc,.joy-enum"), viewModel); //class为smc enum时进行绑定
+				  treeviewBind();
+				  clearNoticeOutDetl();//清除从表数据
+			       grid.fetch(initResult, searchUrl);  
+			});						
+		});
+		
+		//打开新增窗口
+		function openAdd() {
+			curStorageId="";
+				dataForm.load();
+				  clearNoticeOutDetl();//清除从表数据
+				var height = $(window).height();
+				$("#editDiv").css({
+					"min-height" : height + "px",
+					"height" : "auto"
+				});
+				$("#editTitle").text(lg.addTitle);
+				systemInfoTextBox.value(lg.systemInfo);
+				$("#editDiv").show();
+							 		
+		}
+		  //打开编辑编辑
+		 function openEditWindow(noticeOutId){
+			// noticeOutDetlDataSource
+			 //itemIds
+			 joy.getJSON("../../wl/wm/wlWmNoticeOutAction.do?action=getData", {
+				 noticeOutId : noticeOutId
+				}, function(resultObject) {
+					
+					
+					curStorageId=resultObject.noticeOut.storageId;
+					//获取仓库下的下的库区数据
+					joy.getJSON(
+							"../../wl/wm/wlWmNoticeOutAction.do?action=findWlCmStorageAreaList",
+							{
+								storageId : curStorageId,
+								isEnableFlag:"1"
+							}, function(result) {
+								//areaModel.addCity = resultObject;
+							 joy.bind($("#storageAreaId"), result);	
+							   noticeOutDetlDataSource=resultObject.noticeOutDetl; 				    
+								for(var i = 0;i<noticeOutDetlDataSource.length;i++){
+									noticeOutDetlDataSource[i].index = i;
+									itemIds[i]=noticeOutDetlDataSource[i].itemId;//用于排除从表的数据在新增界面不再显示
+								} 		
+								dataForm.load(resultObject.noticeOut);//加载主表		
+								storageAreaId=resultObject.noticeOut.storageAreaId;					
+								$("#storageAreaId").getJoyComboBox().value(storageAreaId);
+								noticeOutDetlGrid.load(initResult,noticeOutDetlDataSource);//加载从表
+								storageIsEnableFlag=resultObject.storageIsEnableFlag;//仓库是否锁定
+								storageAreaIsEnableFlag=resultObject.storageAreaIsEnableFlag;//库区是否锁定
+								if(storageIsEnableFlag==='0'&&storageAreaIsEnableFlag==='0'){//仓库和库区都停用
+								    joy.showMessage(lg.storageLock+","+lg.storageAreaLock, "warning");
+									$("#storageId").getJoyComboBox().value("");
+									$("#storageAreaId").getJoyComboBox().value("");
+								}else if(storageIsEnableFlag==='0'&&storageAreaIsEnableFlag==='1'){//仓库停用，库区启用
+									 joy.showMessage(lg.storageLock, "warning");
+									  $("#storageId").getJoyComboBox().value("");
+								}else if(storageIsEnableFlag==='1'&&storageAreaIsEnableFlag==='0'){//仓库启用，库区停用
+									 joy.showMessage(lg.storageAreaLock, "warning");
+										$("#storageAreaId").getJoyComboBox().value("");
+								}
+									
+								var height = $(window).height();
+								$("#editDiv").css({
+									"min-height" : height + "px",
+									"height" : "auto"
+								});
+								$("#editTitle").text(lg.editTitle);
+								$("#editDiv").show();
+							    
+						});										
+					
+				});
+			  
+		 }
+		//关闭编辑窗口
+		function editDivClose(){
+			$("#editDiv").hide();
+		}
+		//打开详细窗
+		function openDetailWindow(noticeOutId){
+			
+			 joy.getJSON("../../wl/wm/wlWmNoticeOutAction.do?action=getData", {
+				 noticeOutId: noticeOutId
+				}, function(resultObject){
+					var viewModel = joy.observable(resultObject.noticeOut); 
+					joy.bind($("#detailTable"), viewModel);
+					detailNoticeOutDetlGrid.load(initResult,resultObject.noticeOutDetl);//加载从表
+						var height = $(window).height();
+						$("#detailDiv").css({
+							"min-height" : height + "px",
+							"height" : "auto"
+						});									
+						$("#detailDiv").show();
+	          	});			
+		
+		}
+		//关闭详细窗口
+		function detailClose(){
+			$("#detailDiv").hide();
+		}
+		
+		/**
+		 * 打开物料添加
+		 */
+		function itemAdd(){
+			curStorageId = $("#storageId").getJoyComboBox().value();
+           if(curStorageId===""){
+				joy.showMessage(lg.pleaseSelectStorage, "warning");
+           }else{
+        	   categoryTreeviewclick("0","0");
+				itemWindow.open();	
+				itemWindow.center();	
+           }
+		}		
+		//treeview数据初始化   传入状态
+		function treeviewBind(){
+			joy.getJSON("../../wl/wm/wlWmNoticeInAction.do?action=getTree",{
+				isEnableFlag : "1",
+				isLastFlag:"",
+				rootId:"0"	
+			}, function(resultObject) { 
+				//alert(joy.ifstringy(resultObject));
+					categoryTreeView =  $("#categoryTree").joyTreeView({
+			             dataSource:resultObject.items,
+			             templateID:"category_tree" 
+			        }); 			  
+			});
+		}
+		//确认是否更换仓库
+		function clearNoticeOutDetlConfirm(){
+			 if(noticeOutDetlDataSource.length>0){//如果从表有数据
+					joy.showMessageDialog(lg.clearNoticeOutDetlByStorage, "ok,cancel", function(e) {
+						if (e.btnName == "ok") {
+							bindStorageArea();	
+							curStorageId=$("#storageId").getJoyComboBox().value();
+						}else{							
+							$("#storageId").getJoyComboBox().value(curStorageId);
+						}
+					});		  
+			  }else{
+				  bindStorageArea();
+			  }	
+		}
+	  function bindStorageArea(){
+		  clearNoticeOutDetl();//清除从表数据
+			var storageId = $("#storageId").getJoyComboBox().value();
+			if (storageId == "") {
+				return;
+			}
+			//获取仓库下的下的库区数据
+			joy.getJSON(
+					"../../wl/wm/wlWmNoticeOutAction.do?action=findWlCmStorageAreaList",
+					{
+						storageId : storageId,
+						isEnableFlag:"1"
+					}, function(resultObject) {
+						//areaModel.addCity = resultObject;
+						joy.bind($("#storageAreaId"), resultObject);	
+					//	$("#storageAreaId").getJoyComboBox().setDataSource(resultObject);
+						$("#storageAreaId").getJoyComboBox().value("");
+					});
+	      }
+	
+	  //清除从表数据
+	  function clearNoticeOutDetl(){
+		  noticeOutDetlDataSource=new Array();
+		  itemIds=new Array();
+		  noticeOutDetlGrid.load(initResult,noticeOutDetlDataSource);
+	  }
+		//菜单点击事件(新增按钮旁边的树点击事件)
+		var curCategoryId="";
+		function categoryTreeviewclick(categoryId,isLastFlag){
+			var obj=new Object();	
+			 if(isLastFlag=='0'){
+				 categoryId="-1";//当不是末级节点的时候，清空grid数据
+			}					
+				obj.categoryId=categoryId;	
+				curCategoryId=categoryId;
+			   obj.storageId=curStorageId;
+			   obj.itemIds=itemIds;
+			   itemGrid.fetch(initResult, itemSearchUrl, obj);			
+		}
+		//添加保存物料信息
+	  function addRow(buttonObject){
+		  var ids = itemGrid.getChecked();
+			if (ids.length == 0) {
+				joy.showMessage(lgc.chooseRecord, "warning");
+			} else{
+				joy.getJSON(
+						"../../wl/wm/wlWmNoticeOutAction.do?action=findItemList",
+						{
+							itemIds : ids
+						}, function(resultObject) {
+							
+							for(i=0;i<resultObject.length;i++){							
+								 obj=resultObject[i];
+								 index=noticeOutDetlDataSource.length;
+								 obj.index=index;
+								 noticeOutDetlDataSource[index]=obj;
+									itemIds[index]=obj.itemId;
+								 noticeOutDetlGrid.load(initResult,noticeOutDetlDataSource); 
+								// itemWindow.close();	
+							}
+							   var obj=new Object();	
+							   obj.categoryId=curCategoryId;	
+							   obj.storageId=curStorageId;
+							   obj.itemIds=itemIds;
+							   itemGrid.fetch(initResult, itemSearchUrl, obj);	
+						});
+			} 
+	  }
+	  function deleteRow(index){ 
+		  joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {	  
+				if (e.btnName == "ok") {
+					for(var i=0;i<noticeOutDetlDataSource.length-1;i++){ 
+						if(i>=index){
+							var obj = noticeOutDetlDataSource[i+1];
+							var itemObj=itemIds[i+1];
+							obj.index = i;					
+							noticeOutDetlDataSource[i]=obj;
+							itemIds[i]=itemObj;
+						}
+					}
+					 noticeOutDetlDataSource.pop(); 
+					 itemIds.pop(); 
+					 noticeOutDetlGrid.load(initResult,noticeOutDetlDataSource); 
+		 }});
+
+	}
+	  var curIndex;
+	  //打开数量编辑窗口
+		function openBaseUnitQtyInputWindow(index,baseUnitQty){
+			var editBaseUnitQty=$("#editBaseUnitQty").getJoyNumericTextBox();
+			editBaseUnitQty.value(baseUnitQty);
+			curIndex=index;
+			baseUnitQtyInputWindow.open();
+			baseUnitQtyInputWindow.center();
+		}
+	  //保存预入数量
+	  function saveBaseUnitQty(buttonObject){
+		  buttonObject.enable(false);
+		  var curBaseUnitQty=$("#editBaseUnitQty").getJoyNumericTextBox().value();
+		  if(curBaseUnitQty>0){
+			  noticeOutDetlDataSource[curIndex].baseUnitQty=curBaseUnitQty;
+				baseUnitQtyInputWindow.close();
+			 noticeOutDetlGrid.load(initResult,noticeOutDetlDataSource); 
+			  buttonObject.enable(true);
+		  }else{
+				joy.showMessage(lg.baseUnitQtyLessthanZero, "warning");
+				 buttonObject.enable(true);
+		  }
+	  }
+	  //保存数据
+	  function saveData(buttonObject){
+		  buttonObject.enable(false);
+		  if (!dataForm.validate()) {
+				joy.showMessage(lgc.validateFaile, "warning");
+				buttonObject.enable(true);
+				return;
+			}
+		    if(noticeOutDetlDataSource.length===0){
+		    	 joy.showMessage(lg.pleaseAddItem, "warning");
+		    	 buttonObject.enable(true);
+		    	 return;
+		     }
+		   for(var i=0;i<noticeOutDetlDataSource.length;i++){
+			   baseUnitQty=noticeOutDetlDataSource[i]. baseUnitQty;
+			   if(baseUnitQty<=0){
+				   itemName=noticeOutDetlDataSource[i].itemName;
+					joy.showMessage(itemName+lg.lessThanZero, "warning");
+					buttonObject.enable(true);
+				   return;				   
+			   }
+		   }
+		  
+		  var submitda = dataForm.getDataModel().toJSON();
+		  var storageAreaId=$("#storageAreaId").getJoyComboBox().value();
+		   submitda.storageAreaId=storageAreaId;
+			submitda.wlWmNoticeOutDetls=joy.stringify(noticeOutDetlDataSource);
+			dataForm.load(submitda);
+			dataForm.submit("../../wl/wm/wlWmNoticeOutAction.do?action=saveData", buttonObject,
+					function(resultObject) { 		
+				         editDivClose();
+				         buttonObject.enable(true);
+						joy.showMessage(lgc.opSuccess, "success");
+						grid.dataSource.fetch();
+					});		  
+	  }
+	
+	  //查询
+	  function searchQuery(){
+		  //搜索条件obj构成为
+			var obj=new Object();
+			var billStateEk=$("#text_billStateEk").getJoyComboBox().value();
+			var noticeNo = $("#txt_search").getJoyTextBox().value();
+			obj.billStateEk=billStateEk;
+			obj.noticeNo=noticeNo;
+			var paraMap=joy.getParaMap(obj);
+	        grid.fetch(initResult,searchUrl,paraMap);  
+	  }
+	//打开高级搜索
+	  function openSearch()
+	  {
+	  	$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+	  	$("#searchWindow").parent('.k-widget').css('left',"");
+	  	//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+	  	searchWindow.open();
+	  }
+	//高级搜索执行搜索
+
+	  function moreSelect(){
+		  //搜索条件obj构成为
+			var obj=new Object();
+		  beginDate=txtDate_begin.value();
+		  endDate=txtDate_end.value();
+		  var billStateEk=$("#text_billStateEk").getJoyComboBox().value();
+			var noticeNo = $("#txt_search").getJoyTextBox().value();
+			var storageId = $("#moreStorageId").getJoyComboBox().value();
+				var resultEk = $("#resultEk").getJoyComboBox().value();		
+				obj.beginDate=beginDate;
+				obj.endDate=endDate;
+				obj.billStateEk=billStateEk;
+				obj.noticeNo=noticeNo;
+				obj.storageId=storageId;
+				obj.resultEk=resultEk;
+				var paraMap=joy.getParaMap(obj);
+		        grid.fetch(initResult,searchUrl,paraMap);  
+	  }
+	//下发
+	function issue(){
+		var ids = grid.getChecked();
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else{
+			
+			joy.showMessageDialog(lg.issueConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/wm/wlWmNoticeOutAction.do?action=updateBillStateToIssue",{noticeOutIds:ids},function(resultObject){
+						if(resultObject!=""){
+							joy.showMessage(resultObject, "warning");
+						}else{			
+						joy.showMessage(lgc.opSuccess, "success");
+					      grid.fetch(initResult, searchUrl);
+						}
+					});		
+					
+				}
+			});
+		}		
+	}
+	//作废
+	function cancel(){
+		var ids = grid.getChecked();
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else{			
+			joy.showMessageDialog(lg.cancelConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/wm/wlWmNoticeOutAction.do?action=updateBillStateToCancle",{noticeOutIds:ids},function(resultObject){
+							if(resultObject!=""){
+								joy.showMessage(resultObject, "warning");
+							}else{			
+							joy.showMessage(lgc.opSuccess, "success");
+						      grid.fetch(initResult, searchUrl);
+							}
+					});	
+				}
+			});
+		}		
+	}
+	/**
+	 * 删除数据
+	 */
+	function deleteData() {
+		var ids = grid.getChecked();
+
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/wm/wlWmNoticeOutAction.do?action=deleteData",{noticeOutIds : ids}, function(resultObject) {															
+								if(resultObject!=""){
+									joy.showMessage(resultObject, "warning");
+								}else{			
+									grid.dataSource.fetch();
+									joy.showMessage(lgc.opSuccess, "success");
+								}
+							});
+				}
+			});
+		}
+	}
+	//打开异常窗口
+	function openAbnormalWindow(noticeOutId){
+		//detailTable
+		 joy.getJSON("../../wl/wm/wlWmNoticeOutAction.do?action=getAbnormalData", {
+			 noticeOutId : noticeOutId
+			}, function(resultObject){
+				var viewModel = joy.observable(resultObject.noticeOut);
+				abnormalDescDataForm.load(viewModel);
+				joy.bind($("#abnormalTable"), viewModel);
+				abnormalGrid.load(initResult,resultObject.abnormal);//加载从表																								
+					abnormalWindow.open();	
+					abnormalWindow.center();	
+          	});			
+	}
+	//打开异常备注界面
+	function openAbnormalDescWindow(){
+		$("#abnormalDescInfo .k-form-label").remove();//将输入框的标题代码去掉
+		abnormalDescWindow.open();
+		abnormalDescWindow.center();	
+	}
+	//保存异常备注
+	function saveAbnormalDesc(buttonObject){
+		buttonObject.enable(false);
+		if (!abnormalDescDataForm.validate()){
+			joy.showMessage(lgc.validateFaile,"warning");
+			buttonObject.enable(true);
+			return;
+		}			
+		  var submitda =  abnormalDescDataForm.getDataModel().toJSON();
+			joy.bind($("#abnormalTable"), submitda);//修改异常明细界面的异常备注
+		  abnormalDescDataForm.submit("../../wl/wm/wlWmNoticeOutAction.do?action=saveData", buttonObject,function(resultObject){
+			  abnormalDescWindow.close();	
+			  joy.showMessage(lgc.opSuccess,"success");
+		});		
+	}
+	
+	/**
+	 * 生成打印页面(单据)
+	 **/
+	 var LODOP;
+	 function createPrintPage(noticeOutId){
+		
+				   	 var txt='<tr  id="printHeadTitle" height="35px">';
+				   	txt+='<th class="first">'+lg.sequ+'</th>';
+				   	txt+='<th>'+lg.itemCd+'</th>';
+				   	txt+='<th>'+lg.itemName+'</th>';
+				   	txt+='<th>'+lg.spec+'</th>';
+				   	txt+='<th>'+lg.totalQty+'</th>';
+				   	txt+='<th>'+lg.unit+'</th>';
+				   	txt+='<th>'+lg.memo+'</th>';
+				   	txt+='</tr>';
+			var  lastTxt = $("#itemList tr:last").prop('outerHTML');
+		 joy.getJSON("../../wl/wm/wlWmNoticeOutAction.do?action=getData",{noticeOutId:noticeOutId}, function(resultObject){	
+			 $("#itemList").empty();
+			 joy.bind($("#printHead"), resultObject.noticeOut);
+			  obj=resultObject.noticeOutDetl;
+			  var total=0;
+			 for(var i=0;i<obj.length;i++){
+				   ob=obj[i];
+				     txt+='<tr height="35px;">';
+				     txt+='<td class="first">';
+				    txt+=(i+1);
+					 txt+='</td>';
+					txt+='<td>';
+					txt+=ob.itemCd;
+					txt+='</td>';
+					 txt+='<td >';
+					 txt+=ob.itemName;
+					 txt+='</td>';
+					txt+='<td>';
+					txt+=ob.spec;
+					txt+='</td>';					
+					txt+='<td>';
+					txt+=ob.baseUnitQty;
+					txt+='</td>';
+					txt+='<td>';
+					txt+=ob.baseUnitName;
+				 	txt+='</td>';
+				 	txt+='<td>';
+				 	txt+=ob.memo;
+				 	txt+='</td>';
+				 	txt+='</tr>';	
+				 	total+=ob.baseUnitQty;
+			 }
+			 txt+=lastTxt;
+			 $("#itemList").append(txt);
+			  $("#totalBaseUnitQty").html(total);
+			 
+				startPrint();
+			});				 
+	 }	 
+	 /**
+	 *	开始打印
+	 **/
+	 function startPrint(){
+		CreateOneFormPage();	
+		LODOP.PREVIEW();	
+	 }
+	
+	 /**
+	 *	创建打印页面(单据)
+	 **/
+	 function CreateOneFormPage(){
+					
+		 $("#objectDiv").show();//将object所在的div打开
+			LODOP=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM')); 
+			  $("#objectDiv").hide();//将object所在的div隐藏
+			strCenterStyle="<style>";
+			strCenterStyle+="body{background-color:#fff;}table {width:100%;} #printHeadTitle th{font-weight:400;}#itemList{text-align:center;}";//样式
+			strCenterStyle+="#printHeadTitle th,#itemList tr td{border-top:1px solid #000;border-right:1px solid #000;border-bottom:1px solid #000;}#itemList tr td{border-top:none;}.first{border-left:1px solid #000;}";//表格边框设置
+			strCenterStyle+="</style>";
+			//LODOP.PRINT_INITA(0,0,700,400,"打印控件功能演示_Lodop功能_文本居中二");
+			LODOP.ADD_PRINT_HTM("2%","5%","90%","100%",strCenterStyle+document.getElementById("printDiv").innerHTML); //左右空5px
+		};
+	
+	 var dLodop;
+	/**
+	 * 生成打印页面(发货打印)
+	 **/
+	function deliveryCreatePrintPage(){
+		var ids = grid.getChecked();
+
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			 joy.getJSON("../../wl/wm/wlWmNoticeOutAction.do?action=findNoticeOutAndDetlList",{noticeOutIds:ids}, function(resultObject){	
+				 deliveryPrintPage(resultObject.wlWmNoticeOutList,resultObject.basePath);
+			 });				
+		}		
+	}
+	function deliveryPrintPage(data,basePath){
+		//准备数据
+		url=basePath+"style/prj/images/deliveryHeadTitle.png";
+		dQrCodeUrl=basePath+"style/prj/images/dQrCode.jpg"
+		$("#logoImg img").attr("src",url);//沃特罗伦logo
+		$("#dQrCode").attr("src",dQrCodeUrl);//二维码
+		
+		 $("#objectDiv").show();//将object所在的div打开
+		  dLodop=getLodop(document.getElementById('LODOP_OB'),document.getElementById('LODOP_EM')); 
+		  $("#objectDiv").hide();//将object所在的div隐藏
+		  //循环构造要打印的页面
+		  for(var i=0;i<data.length;i++){
+			 for(var j=0;j<data[i].baseUnitQty;j++){
+				   $("#dConsignee").html(lg.dConsignee+data[i].consignee);
+				   $("#dContactWay").html(lg.dContactWay+data[i].contactWay);
+				   $("#dAddr").html(lg.dAddr+data[i].addr);
+				   $("#dName").html(lg.dSpec+data[i].spec);
+				   $("#dOrgName").html(lg.dOrgName+data[i].orgName);   
+				  dLodop.NewPage();
+				strCenterStyle="<style>";
+				strCenterStyle+="body{background-color:#fff;}";//样式
+				strCenterStyle+="";
+				strCenterStyle+="</style>";
+				dLodop.ADD_PRINT_HTM("100px","10%","90%","100%",strCenterStyle+document.getElementById("deliveryPrintDiv").innerHTML); //左右空5px
+			 }
+		  }
+			 dLodop.PREVIEW();				
+	}
+	//打开上传EXCEL窗口
+	function openUploadWindow(){
+		excelUpload._reflash();	
+		uploadForm.load();
+		uploadWindow.open();//打开上传excel窗口
+		uploadWindow.center();		
+	}
+	//上传文件时触发事件
+	function excelUploadFile(){ 
+		var id=excelUpload.value();
+		if(id != null &&$.trim(id) != ""){
+	    	//删除前一张图片
+	    	joy.getJSON("../../wl/cm/wlCmDocumentAction.do?action=deleteFile",{id:id},function(){	    		
+	    	});
+	    }
+	    //excelUpload._reflash();
+	}
+	function saveExcelData(buttonObject){
+		buttonObject.enable(false);
+		if (!uploadForm.validate()){
+			joy.showMessage(lgc.validateFaile,"warning");
+			buttonObject.enable(true);
+			return;
+		}
+		var submitData=uploadForm.getDataModel().toJSON();
+		uploadForm.submit("../../wl/wm/wlWmNoticeOutAction.do?action=saveExcelData",buttonObject,function(resultObject){
+			uploadWindow.close();	
+			grid.dataSource.fetch();
+			joy.showMessage(lgc.opSuccess,"success");
+		});	
+		
+	}
+	/**
+	 * 搜索物料
+	 */
+	function searchItem()
+	{			  
+		var obj=new Object();
+		var itemName=$("#itemNameSearch").getJoyTextBox().value();
+		var itemCd = $("#itemCdSearch").getJoyTextBox().value();	
+		obj.itemName=itemName;
+		obj.storageId=curStorageId;
+		obj.itemCd=itemCd;
+		obj.categoryId=curCategoryId;
+		itemGrid.fetch(initResult, itemSearchUrl, obj);	
+	}
+	</script>
+
+</body>
+</html>

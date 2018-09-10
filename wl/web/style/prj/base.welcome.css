@@ -1,0 +1,116 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
+	{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 0 none;
+	font-size: 100%;
+	margin: 0;
+	outline: 0 none;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+ol,ul {
+	list-style: none outside none;
+}
+
+blockquote,q {
+	quotes: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+	content: none;
+}
+
+:focus {
+	outline: 0 none;
+}
+
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*浠ヤ笂涓篶ss鐨勬牸寮忓寲锛屽噺灏戜笉鍚屾祻瑙堝櫒鐨勫樊寮� */
+.content{
+	margin:auto;
+	width: 1011px;
+}
+
+.welcomeTop{
+	height:60px; 
+	margin-left: 10px;
+    margin-top: 54px;
+}
+.welcomeTop .top{
+	height:35px;
+	line-height:35px;
+	font-size:18px;
+	font-family: 寰蒋闆呴粦;
+	
+}
+.welcomeTop .bottom{
+	font-size:14px;
+	line-height:30px;
+	height:30px;
+	color:#53534F;
+}
+.welcomeTop span{
+	color:#A7A7A7;
+	font-size:18px;
+	margin-right:5px; 
+}
+.welcomeBody{ 
+	margin-left: 10px;
+    margin-top: 23px;
+	width:930px;
+	height:442px;  
+	background-image: url("images/pgmx.png");
+    background-position: 50% center;
+    background-repeat: no-repeat;
+}
+.welcomeBody .pan{
+	width:333px;
+	height:262px;
+	float:left;
+}
+.welcomeBody .border{
+	border-left: 1px solid #E7E6E3;
+	border-right: 1px solid #E7E6E3;
+}
+.welcomeBody .img{
+	height:110px;
+	background-repeat:no-repeat;
+	background-position:50% 50%;
+}
+.welcome1{
+	background-image:url('images/welcome1.png');
+}
+.welcome2{
+	background-image:url('images/welcome2.png');
+}
+.welcome3{
+	background-image:url('images/welcome3.png');
+}
+.welcomeBody .title{
+	color: #5d9cda;
+    font-family: 寰蒋闆呴粦;
+    font-size: 18px;
+    height: 58px;
+    line-height: 58px;
+    text-align: center;
+}
+.welcomeBody .meno{
+	color: #53534f;
+    font-size: 12px;
+    line-height: 25px;
+    margin: 0 auto;
+    width: 247px;
+}
+

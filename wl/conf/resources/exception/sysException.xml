@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<errorcode>
+	<applys>
+		<apply>
+			<code>000000</code>
+			<userMessage>系统应用错误</userMessage>
+			<errorMessage>未找到相关的合同信息</errorMessage>	
+		</apply>
+		<apply>
+			<code>233001</code>
+			<userMessage>系统应用错误</userMessage>
+			<errorMessage>未找到相关的合同信息</errorMessage>	
+		</apply>
+	</applys>
+</errorcode>

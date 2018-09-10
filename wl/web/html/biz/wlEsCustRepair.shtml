@@ -1,0 +1,1267 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<script src="../../js/prj/lightBox.js"></script>
+<script src="../../js/prj/cLodopFuncs.js"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/biz.wlEsCustRepair.css" /> 
+</head>
+<body>
+<div id="forecast">
+    <div class="joy-tabstrip" style="border: none;">
+	    <ul>
+	        <li class="k-state-active">
+	            <label class="joy-lang" label="lg:pageTitle1"></label>
+	        </li>
+	        <li>
+	            <label class="joy-lang" label="lg:pageTitle2"></label>
+	        </li>
+	        <li>
+	            <label class="joy-lang" label="lg:pageTitle3"></label>
+	        </li>                        
+	        <li>
+	            <label class="joy-lang" label="lg:pageTitle4"></label>
+	        </li>
+	    </ul>  
+	    
+        <!----------------------  待处理 -------------------------------> 
+        <div>               
+            <div class="tabOne" style="height:600px;">
+      		    <!-- 工具栏 -->
+				<div class="k-page-toolbar">
+					<div id="oneForm" class="joy-form" style="float:right" layout="freedom">												
+						<input id="keyId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px" databind="value:value,source:searchEnum" >
+						<input id="contentId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+						<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchOneData" label="lgc:search"></button>
+					</div>
+				</div>
+	            <!--信息列表 --> 
+				<table id="gridOne" class="joy-grid"  pageSize = "13" height="560px"  >
+				<thead>
+					<tr>											
+						<th field="repairNo" dataType="string"  dataType="string" label="lg:repairNo" colWidth="130px"></th>											
+						<th field="deviceCd" dataType="string" label="lg:deviceCd"  colWidth="15%"></th>
+						<th field="applyTime" dataType="date" dataFormat="yyyy-MM-dd"  label="lg:applyTime" colWidth="15%"></th>
+						<th field="receiver" dataType="string" label="lg:receiver"  colWidth="15%"></th>	
+						<th field="mobile" dataType="string" label="lg:mobile"  colWidth="15%"></th>											
+						<th field="moduleEk" dataType="string" align="center"  label="lg:moduleEk" enumData="MODULE_EKEnum" colWidth="15%"></th>	
+						<th field="serialVerfEk" dataType="string"  align="center" label="lg:serialVerfEk" enumData="SERIAL_VERF_EKEnum" colWidth="10%"></th>									
+						<th field="billSourceEk" dataType="string"  align="center" label="lg:billSourceEk" enumData="BILL_SOURCE_EKEnum" colWidth="10%"></th>									
+						<th colWidth="370px" templateType="button" align="center">									 		
+					 		<button icon="pencil" smcBind="DEALSmc" onClick="openHandleWindow('#:repairId#','#:reason#','#:dealResult#')"	 label="lg:handle"></button>			 
+					 		<button icon="pencil" smcBind="REJECTSmc" onClick="updateReject('#:repairId#')"	 label="lg:reject"></button>			 	
+					 	   	<button icon="pencil" smcBind="DEALRESULTSmc" onClick="openDealWindow('#:repairId#','#:reason#','#:dealResult#')"	 label="lg:dealResult"></button>			 	
+					 	    <button  icon="insert-m" smcBind="READSmc" onClick="openDetailWindow('#:repairId#','#:billSourceEk#')" label="lgc:detail"></button>	       					
+						</th>								
+					</tr>
+				</thead>
+			    </table>										
+            </div>
+        </div>
+        <!-- 待处理结束 -->
+        
+        <!------------------ -----待确认收货-------------------------- -->
+        <div>
+            <div class="tabTwo" style="height:600px;">
+                <!-- 工具栏 -->
+				<div class="k-page-toolbar">
+					<div id="twoForm" class="joy-form" style="float:right" layout="freedom">												
+						<input id="namesTwoId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px"  databind="value:value,source:searchEnum" >
+						<input id="contentTwoId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+						<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchTwoData" label="lgc:search"></button>
+					</div>
+				</div>
+	            <!--信息列表 --> 
+				<table id="gridTwo" class="joy-grid"  pageSize = "13"  height="520px" >
+				<thead>
+					<tr>											
+						<th field="repairNo" dataType="string"  dataType="string" label="lg:repairNo" colWidth="130px"></th>											
+						<th field="deviceCd" dataType="string" label="lg:deviceCd"  colWidth="15%"></th>
+						<th field="applyTime" dataType="date" dataFormat="yyyy-MM-dd"  label="lg:applyTime" colWidth="15%"></th>
+						<th field="receiver" dataType="string" label="lg:receiver"  colWidth="15%"></th>	
+						<th field="mobile" dataType="string" label="lg:mobile"  colWidth="15%"></th>											
+						<th field="moduleEk" dataType="string" align="center"  label="lg:moduleEk" enumData="MODULE_EKEnum" colWidth="15%"></th>	
+						<th field="billSourceEk" dataType="string"  align="center" label="lg:billSourceEk" enumData="BILL_SOURCE_EKEnum" colWidth="10%"></th>									
+						<th field="paymentStatusEk" dataType="string"  align="center" label="lg:paymentStatusEk" enumData="PAYMENT_STATUS_EKEnum" colWidth="20%"></th>
+						<th colWidth="190px" templateType="button" align="center">					
+					 		<button icon="pencil" smcBind="RECEIVERSmc" onClick="openReceiverWindow('#:repairId#')"	 label="lg:receiverConfirm"></button>										 				 	
+					 	    <button icon="insert-m" smcBind="READSmc" onClick="openDetailWindow('#:repairId#','#:billSourceEk#')" label="lgc:detail"></button>       					
+						</th>								
+					</tr>
+				</thead>
+			    </table>								
+            </div> 
+        </div> 
+        <!-- 待确认收货结束 -->
+        
+        <!-------------------------------待发货-------------------------- -->               		                                 		                 
+        <div>
+            <div class="tabThree" style="height:600px;">
+                <!-- 工具栏 -->
+				<div class="k-page-toolbar">
+					<div id="threeForm" class="joy-form" style="float:right" layout="freedom">												
+						<input id="namesThreeId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px" databind="value:value,source:searchEnum" >
+						<input id="contentThreeId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+						<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchThreeData" label="lgc:search"></button>
+					</div>
+				</div>
+	            <!--信息列表 --> 
+				<table id="gridThree" class="joy-grid"  pageSize = "13"  height="520px" >
+				<thead>
+					<tr>											
+						<th field="repairNo" dataType="string"  dataType="string" label="lg:repairNo" colWidth="130px"></th>											
+						<th field="deviceCd" dataType="string" label="lg:deviceCd"  colWidth="15%"></th>
+						<th field="applyTime" dataType="date" dataFormat="yyyy-MM-dd"  label="lg:applyTime" colWidth="15%"></th>
+						<th field="receiver" dataType="string" label="lg:receiver"  colWidth="15%"></th>	
+						<th field="mobile" dataType="string" label="lg:mobile"  colWidth="15%"></th>											
+						<th field="moduleEk" dataType="string" align="center"  label="lg:moduleEk" enumData="MODULE_EKEnum" colWidth="15%"></th>	
+						<th field="billSourceEk" dataType="string"  align="center" label="lg:billSourceEk" enumData="BILL_SOURCE_EKEnum" colWidth="10%"></th>															
+						<th field="paymentStatusEk" dataType="string"  align="center" label="lg:paymentStatusEk" enumData="PAYMENT_STATUS_EKEnum" colWidth="20%"></th>
+						<th colWidth="280px" templateType="button" align="center">
+							<button icon="pencil" smcBind="PRINTSmc" onClick="print('#:repairId#')"	 label="lg:print"></button>	
+						    <button icon="pencil" smcBind="DELIVERYSmc" onClick="openSendWindow('#:repairId#')" label="lg:sendConfirm"></button>										 				 	
+					 	    <button icon="insert-m" smcBind="READSmc" onClick="openDetailWindow('#:repairId#','#:billSourceEk#')" label="lgc:detail"></button>									 	   	       					
+						</th>								
+					</tr>
+				</thead>
+			    </table>
+				<!-- 发货编辑框 -->
+				<div id="sendWindow" class="joy-window double" center="true" title="lg:sendConfirm">
+					<form id="sendForm" class="joy-form">
+						<input type="hidden" databind="value:repairId"/>
+						<table cellspacing=1 cellpadding=3 width="100%" align="center" border=0>
+							<tr>
+							    <td>
+									<input disabled="disabled" class="joy-textbox" label="lg:repairNo" databind="value:repairNo"  >
+								</td>
+								<td>
+									<input class="joy-combobox joy-enum" label="lg:logisticEk" required="true" databind="value:logisticEk,source:LOGISTIC_EKEnum" >											
+							    </td>
+						    </tr>
+						    <tr>											    
+								<td colspan="2">
+									<input class="joy-textbox" label="lg:deliveryNo" databind="value:deliveryNo" required="true" maxBype="30" >											
+							    </td>
+						    </tr>											
+						</table>
+						<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+							<tr>
+								<td height="50" align="right" valign="bottom">
+									<button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveSendData" label="lgc:save"></button>
+									<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button></td>
+							</tr>
+						</table>
+					</form>									
+				</div>								
+            </div> 
+        </div> 
+        <!-- 待发货结束 -->        
+                                               
+        <!-- ----------——------------ 全部维修单---------------------------- -->   
+        <div>
+            <div class="tabFour" style="height:600px;">
+               	<!-- 工具栏 -->
+				<div class="k-page-toolbar">
+					<div id="fourForm" class="joy-form" style="float:right" layout="freedom">												
+						<input id="namesFourId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px" databind="value:value,source:searchEnum" >
+						<input id="contentFourId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+						<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchFourData" label="lgc:search"></button>
+						<button class="joy-button" onclick="openAdvSearch" label="lgc:advSearch"></button>
+					</div>
+				</div>
+	            <!--信息列表 --> 
+				<table id="gridFour" class="joy-grid"  pageSize = "13"  height="520px" >
+				<thead>
+					<tr>											
+						<th field="repairNo" dataType="string"  dataType="string" label="lg:repairNo" colWidth="130px"></th>											
+						<th field="deviceCd" dataType="string" label="lg:deviceCd"  colWidth="15%"></th>
+						<th field="applyTime" dataType="date" dataFormat="yyyy-MM-dd"  label="lg:applyTime" colWidth="15%"></th>
+						<th field="receiver" dataType="string" label="lg:receiver"  colWidth="12%"></th>	
+						<th field="mobile" dataType="string" label="lg:mobile"  colWidth="10%"></th>											
+						<th field="moduleEk" dataType="string" align="center"  label="lg:moduleEk" enumData="MODULE_EKEnum" colWidth="10%"></th>	
+						<th field="paymentStatusEk" dataType="string"  align="center" label="lg:paymentStatusEk" enumData="PAYMENT_STATUS_EKEnum" colWidth="12%"></th>
+						<th field="serialVerfEk" dataType="string"  align="center" label="lg:serialVerfEk" enumData="SERIAL_VERF_EKEnum" colWidth="10%"></th>
+						<th field="processStatusEk" dataType="string"  align="center" label="lg:processStatusEk" enumData="PROCESS_STATUS_EKEnum" colWidth="10%"></th>
+						<th field="billSourceEk" dataType="string"  align="center" label="lg:billSourceEk" enumData="BILL_SOURCE_EKEnum" colWidth="8%"></th>															
+						<th colWidth="100px" templateType="button" align="center">															 		
+					 	    <button icon="insert-m" smcBind="READSmc" onClick="openDetailWindow('#:repairId#','#:billSourceEk#')" label="lgc:detail"></button>	       					
+						</th>								
+					</tr>
+				</thead>
+			    </table>
+            </div>
+        </div>
+        <!-- 全部维修单结束 --> 		                                                       
+    </div>
+</div>
+            
+    <!-- 处理跳转页 -->
+    <div id="editDiv" >    
+	    <div class="editBody" >	    
+			<table id="allInforTable" width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td style="width:100px;" class="joy-lang head" >
+						<span class="joy-lang" label="lg:baseInfo" style="line-height:25px;"></span>
+					</td>
+					<td  style="padding:5px" >
+					
+						<table id="baseTable" width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:repairNo"></td>
+							<td width="230" class="joy-label" databind="value:repairNo"></td>
+							<td width="100" class="joy-lang head" label="lg:applyTime"></td>
+							<td width="230" class="joy-label"  dataFormat="yyyy-MM-dd  HH:mm:ss" databind="value:applyTime"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:moduleEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:MODULE_EKEnum,value:moduleEk"></td>
+							<td width="100" class="joy-lang head" label="lg:deviceCd"></td>
+							<td width="230" class="joy-label"    databind="value:deviceCd"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:receiver"></td>
+							<td width="230" class="joy-label" databind="value:receiver" ></td>
+							<td width="100" class="joy-lang head" label="lg:mobile"></td>
+							<td width="230" class="joy-label" databind="value:mobile"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:name"></td>
+							<td width="230" class="joy-label" databind="value:name" ></td>
+							<td width="100" class="joy-lang head" label="lg:contact"></td>
+							<td width="230" class="joy-label" databind="value:contact"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:serialVerfEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:SERIAL_VERF_EKEnum,value:serialVerfEk"></td>
+							<td width="100" class="joy-lang head" label="lg:processStatusEk"></td>
+							<td width="230" class="joy-label joy-enum" databind="value:processStatusEk,source:PROCESS_STATUS_EKEnum"></td>
+						</tr>
+						</tbody>
+					</table>
+					
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:description"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px;word-break:break-all;"   databind="value:description">
+						
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadPic"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<div id="picInforTd" class="picInforTd" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadViedo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<div id="viedoInforTd" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:handleInfo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<form id="repairDataOneForm" class="joy-form" layout="freedom">
+						<input type="hidden" databind="value:repairId"/>	                    
+							<table  width="100%" align="center"  border="0" cellspacing="0" cellpadding="0">
+								<tbody>
+									<tr height="25">
+										<td width="15%" class="joy-lang head" label="lg:isReturnFlag"></td>
+										<td width="35%">
+										    <input id="isReturnFlag" class="joy-combobox joy-enum" required="true" databind="value:isReturnFlag,source:YESORNOEnum" style="width:97%" change="returnFlagChange">	
+										</td>
+										<td width="15%" class="joy-lang head" label="lg:isDelivery"></td>
+										<td width="35%" class="joy-label">
+										   <input id="isDelivery" class="joy-combobox joy-enum"  databind="value:isSendFlag,source:YESORNOEnum" style="width:97%" >										
+										</td>
+							        </tr>
+							        
+								        <tr height="25">
+								        
+											<td width="15%" class="joy-lang head" label="lg:upkeep"></td>
+											<td width="35%">
+											    <input class="joy-numerictextbox" id="txt_upkeep" value="0" min="0"  max="99999"  databind="value:upkeep" style="width:97%">	
+											</td>
+											<td width="15%" class="joy-lang head" label="lg:freight"></td>
+											<td width="35%">
+											    <input class="joy-numerictextbox" id="txt_freight" value="0" min="0"  max="99999"  databind="value:freight" style="width:97%">
+											</td>
+											
+								        </tr>
+							        <tr>
+								        <td width="15%" class="joy-lang head" label="lg:langType"></td>
+										<td colspan="3">
+											<input id="langType" class="joy-combobox joy-enum" text="中文" databind="value:langType,source:LANGUAGE_TYPE_EKEnum" style="width:50%" >
+											<!-- <label> <input class="joy-checkbox" id="langType" name="langType" type="checkbox" value="EN" style="margin-left:12px;"/>英文</label> -->
+											          	
+										</td>
+									</tr>
+							        <tr height="90">
+										<td width="15%" class="joy-lang head" label="lg:reply"></td>
+										<td colspan="3">
+										    <textarea id="reply" class="joy-textbox" required="true" databind="value:reply" maxByte="255" style="width:99%;height:80px;"></textarea>
+										</td>										
+							        </tr>
+								</tbody>
+							</table>
+						</form>
+					</td>
+				</tr>
+				
+			</table>
+		    <div class="layTwo_row_button" align="right">
+		        <button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveOneData" label="lgc:save"></button>	
+				<button class="joy-button  joy-window-close" icon="cancel" label="lg:back" onClick="closeHandleWindow"></button>								
+		    </div>
+		</div>		
+    </div>  
+    
+    <!-- 详细跳转页 -->
+    <div id="detailDiv" >    
+	    <div class="editBody" >	    
+			<table id="detailTable" width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td style="width:100px;" class="joy-lang head" >
+						<span class="joy-lang" label="lg:baseInfo" style="line-height:25px;"></span>
+					</td>
+					<td  style="padding:5px" >
+					
+						<table width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:repairNo"></td>
+							<td width="230" class="joy-label" databind="value:repairNo"></td>
+							<td width="100" class="joy-lang head" label="lg:applyTime"></td>
+							<td width="230" class="joy-label"  dataFormat="yyyy-MM-dd  HH:mm:ss" databind="value:applyTime"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:moduleEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:MODULE_EKEnum,value:moduleEk"></td>
+							<td width="100" class="joy-lang head" label="lg:deviceCd"></td>
+							<td width="230" class="joy-label"    databind="value:deviceCd"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:receiver"></td>
+							<td width="230" class="joy-label" databind="value:receiver" ></td>
+							<td width="100" class="joy-lang head" label="lg:mobile"></td>
+							<td width="230" class="joy-label" databind="value:mobile"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:name"></td>
+							<td width="230" class="joy-label" databind="value:name" ></td>
+							<td width="100" class="joy-lang head" label="lg:contact"></td>
+							<td width="230" class="joy-label" databind="value:contact"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:serialVerfEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:SERIAL_VERF_EKEnum,value:serialVerfEk"></td>
+							<td width="100" class="joy-lang head" label="lg:processStatusEk"></td>
+							<td width="230" class="joy-label joy-enum" databind="value:processStatusEk,source:PROCESS_STATUS_EKEnum"></td>
+						</tr>
+						<tr  height="25">
+							<td width="100" class="joy-lang head" label="lg:orderNo"></td>
+						   <td  width="230" class="joy-label" databind="value:orderNo"></td>
+						    <td width="100" class="joy-lang head" label="lg:paymentStatusEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:PAYMENT_STATUS_EKEnum,value:paymentStatusEk"></td>				
+						</tr>
+						<tr  height="25">
+							<td width="100" class="joy-lang head" label="lg:logisticEk"></td>
+						   <td  width="230" class="joy-label joy-enum" databind="value:logisticEk,source:LOGISTIC_EKEnum"></td>
+						    <td width="100" class="joy-lang head" label="lg:deliveryNo"></td>
+							<td width="230" class="joy-label joy-enum"  databind="value:deliveryNo"></td>				
+						</tr>
+						<tr  height="25">
+						    <td width="100" class="joy-lang head" label="lg:billSourceEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:BILL_SOURCE_EKEnum,value:billSourceEk"></td>
+						   <td width="100" class="joy-lang head" label="lg:accDesc"></td>
+						   <td  width="230" class="joy-label" databind="value:accDesc"></td>
+						</tr>
+						<tr  height="25">
+						    <td width="100" class="joy-lang head" label="lg:userLogistic"></td>
+							<td width="230" class="joy-label joy-enum"  databind="value:userLogistic"></td>
+						   <td width="100" class="joy-lang head" label="lg:userDeliveryNo"></td>
+						   <td  width="230" class="joy-label" databind="value:userDeliveryNo"></td>
+						</tr>
+						<tr  height="25">
+						    <td width="100" class="joy-lang head" label="lg:province"></td>
+							<td width="230" class="joy-label joy-enum"  databind="value:province"></td>
+						   <td width="100" class="joy-lang head" label="lg:city"></td>
+						   <td  width="230" class="joy-label" databind="value:city"></td>
+						</tr>
+						<tr  height="25">
+						    <td width="100" class="joy-lang head" label="lg:area"></td>
+							<td width="230" class="joy-label joy-enum"  databind="value:area"></td>
+						   <td width="100" class="joy-lang head" label="lg:addr"></td>
+						   <td  width="230" class="joy-label" databind="value:addr"></td>
+						</tr>
+						<tr  height="25">
+							<td width="100" class="joy-lang head" label="lg:spec"></td>
+					        <td width="230" class="joy-label"    databind="value:spec"></td>
+						   	<td width="100" class="joy-lang head" label="lg:outDate"></td>
+					        <td width="230" class="joy-label" dataFormat="yyyy-MM-dd" dataType="date"  databind="value:outDate" ></td>				
+						</tr>
+						<tr height="25">
+						    <td width="100" class="joy-lang head" label="lg:agency"></td>
+					        <td width="230" class="joy-label"    databind="value:agency"></td>
+						   	<td width="100" class="joy-lang head" ></td>
+					        <td width="230" class="joy-label"  ></td>
+						</tr>
+						</tbody>
+					</table>					
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:description"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px;word-break:break-all;"   databind="value:description">
+						
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:reason"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px;word-break:break-all;"   databind="value:reason">
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:dealResult"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px;word-break:break-all;"   databind="value:dealResult">
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadPic"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<div id="picInfo" class="picInforTd" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadViedo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<div id="viedoInfo" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:handleInfo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">							                    
+							<table  width="100%" align="center"  border="0" cellspacing="0" cellpadding="0">
+								<tbody>
+									<tr height="25">
+										<td width="100" class="joy-lang head" label="lg:isReturnFlag"></td>
+										<td width="230" class="joy-label joy-enum" databind="value:isReturnFlag,source:YESORNOEnum" ></td>																				
+										<td width="15%" class="joy-lang head"  label="lg:isDelivery"></td>
+										<td width="35%" class="joy-label joy-enum" databind="value:isSendFlag,source:YESORNOEnum"></td>
+							        </tr>							        
+							        <tr height="25">							        
+										<td width="100" class="joy-lang head" label="lg:upkeep"></td>
+										<td width="230" class="joy-label" databind="value:upkeep" ></td>
+										<td width="15%" class="joy-lang head" label="lg:freight"></td>
+										<td width="230" class="joy-label" databind="value:freight" ></td>											
+							        </tr>							        
+							        <tr height="130">
+										<td width="15%" class="joy-lang head" label="lg:reply"></td>
+										<td colspan="3" style="padding:5px">
+										    <table align="center" id="replyGrid" class="joy-grid" sortable="false" reorderable="false"
+															showPageControl="false"  height="120px"  >
+												<thead>
+													<tr>							
+														<th field="processStatusEk" align="center" enumData="PROCESS_STATUS_EKEnum" dataType="string" label="lg:process" ></th>
+														<th field="reply" dataType="string" label="lg:reply" ></th>
+														<th field="replyName" dataType="string" label="lg:replyName"></th>
+														<th field="replyTime" dataType="date" dataFormat="yyyy-MM-dd HH:mm" label="lg:replyTime"></th>														
+													</tr>							
+												</thead>
+											</table>
+										</td>										
+							        </tr>
+								</tbody>
+							</table>				
+					</td>
+				</tr>
+				
+			</table>
+		    <div class="layTwo_row_button" align="right" style="height:30px;padding-bottom:10px;">		        	
+				<button class="joy-button  joy-window-close" icon="cancel" label="lg:back" onClick="closeDetailWindow"></button>								
+		    </div>
+		</div>		
+    </div>       
+     <!-- 沃特详细页面 开始-->
+     
+    <div id="wldetailDiv" >    
+	    <div class="editBody" >	    
+			<table id="wldetailTable" width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td style="width:100px;" class="joy-lang head" >
+						<span class="joy-lang" label="lg:baseInfo" style="line-height:25px;"></span>
+					</td>
+					<td  style="padding:5px" >
+					
+						<table width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:repairNo"></td>
+							<td width="230" class="joy-label" databind="value:repairNo"></td>
+							<td width="100" class="joy-lang head" label="lg:applyTime"></td>
+							<td width="230" class="joy-label"  dataFormat="yyyy-MM-dd  HH:mm:ss" databind="value:applyTime"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:deviceCd"></td>
+							<td width="230" class="joy-label"    databind="value:deviceCd"></td>
+							<td width="100" class="joy-lang head" label="lg:receiver"></td>
+							<td width="230" class="joy-label" databind="value:receiver" ></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:mobile"></td>
+							<td width="230" class="joy-label" databind="value:mobile"></td>
+							<td width="100" class="joy-lang head" label="lg:name"></td>
+							<td width="230" class="joy-label" databind="value:name" ></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:contact"></td>
+							<td width="230" class="joy-label" databind="value:contact"></td>
+								<td width="100" class="joy-lang head" label="lg:serialVerfEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:SERIAL_VERF_EKEnum,value:serialVerfEk"></td>
+						</tr> 
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:processStatusEk"></td>
+							<td width="230" class="joy-label joy-enum" databind="value:processStatusEk,source:PROCESS_STATUS_EKEnum"></td>
+							<td width="100" class="joy-lang head" label="lg:logisticEk"></td>
+						   <td  width="230" class="joy-label joy-enum" databind="value:logisticEk,source:LOGISTIC_EKEnum"></td>		
+						</tr>
+						<tr  height="25">
+						    <td width="100" class="joy-lang head" label="lg:deliveryNo"></td>
+							<td width="230" class="joy-label joy-enum"  databind="value:deliveryNo"></td>
+							<td width="100" class="joy-lang head" label="lg:billSourceEk"></td>
+							<td width="230" class="joy-label joy-enum"  databind="source:BILL_SOURCE_EKEnum,value:billSourceEk"></td>				
+						</tr>					
+						<tr  height="25">
+						   <td width="100" class="joy-lang head" label="lg:addr"></td>
+						   <td  width="230" class="joy-label" databind="value:addr"></td>
+						   		   <td width="100" class="joy-lang head" label="lg:spec"></td>
+					        <td width="230" class="joy-label"    databind="value:spec"></td>
+						</tr>	
+						<tr  height="25">
+					        <td width="100" class="joy-lang head" label="lg:outDate"></td>
+					        <td width="230" class="joy-label" dataFormat="yyyy-MM-dd" dataType="date"  databind="value:outDate" ></td>		
+					         <td width="100" class="joy-lang head" label="lg:serviceTime"></td>
+					        <td width="230" class="joy-label" dataFormat="yyyy-MM-dd" dataType="date"  databind="value:serviceTime" ></td>						
+						</tr>
+						<tr height="25">
+						    <td width="100" class="joy-lang head" label="lg:agency"></td>
+					        <td width="230" class="joy-label"    databind="value:agency"></td>
+						   	<td width="100" class="joy-lang head" ></td>
+					        <td width="230" class="joy-label"  ></td>
+						</tr>
+						</tbody>
+					</table>					
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:description"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px;word-break:break-all;"   databind="value:description">
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:reason"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px;word-break:break-all;"   databind="value:reason">
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:dealResult"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px;word-break:break-all;"   databind="value:dealResult">
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:otherDescription"  style="line-height:25px;"></span>
+					</td>
+					<td class="joy-label"  style="padding:5px;word-break:break-all;"   databind="value:otherDescription">
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadPic"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<div id="wlpicInfo" class="picInforTd" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadViedo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">
+						<div id="wlviedoInfo" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head" >
+						<span class="joy-lang" label="lg:handleInfo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px">							                    
+							<table  width="100%" align="center"  border="0" cellspacing="0" cellpadding="0">
+								<tbody>
+									<tr height="25">
+										<td width="100" class="joy-lang head" label="lg:isReturnFlag"></td>
+										<td width="230" class="joy-label joy-enum" databind="value:isReturnFlag,source:YESORNOEnum" ></td>																				
+										<td width="15%" class="joy-lang head"  label="lg:isDelivery"></td>
+										<td width="35%" class="joy-label joy-enum" databind="value:isSendFlag,source:YESORNOEnum"></td>
+							        </tr>							        
+							        <tr height="25">							        
+										<td width="100" class="joy-lang head" label="lg:upkeep"></td>
+										<td width="230" class="joy-label" databind="value:upkeep" ></td>
+										<td width="15%" class="joy-lang head" label="lg:freight"></td>
+										<td width="230" class="joy-label" databind="value:freight" ></td>											
+							        </tr>							        
+							        <tr height="130">
+										<td width="15%" class="joy-lang head" label="lg:reply"></td>
+										<td colspan="3" style="padding:5px">
+										    <table align="center" id="wlreplyGrid" class="joy-grid" sortable="false" reorderable="false" 
+															showPageControl="false"  height="120px"  >
+												<thead>
+													<tr>							
+														<th field="processStatusEk" align="center" enumData="PROCESS_STATUS_EKEnum" dataType="string" label="lg:process" ></th>
+														<th field="reply" dataType="string" label="lg:reply" ></th>
+														<th field="replyName" dataType="string" label="lg:replyName"></th>
+														<th field="replyTime" dataType="date" dataFormat="yyyy-MM-dd HH:mm" label="lg:replyTime"></th>														
+													</tr>							
+												</thead>
+											</table>
+										</td>										
+							        </tr>
+								</tbody>
+							</table>				
+					</td>
+				</tr>
+				
+			</table>
+		    <div class="layTwo_row_button" align="right" style="height:30px;padding-bottom:10px;">		        	
+				<button class="joy-button  joy-window-close" icon="cancel" label="lg:back" onClick="closewlDetailWindow"></button>								
+		    </div>
+		</div>		
+    </div>       
+    <!-- 沃特详细页面结束 -->
+    <!-- 高级查询窗口 -->
+	<div id="searchWindow" class="joy-window" title="lg:query">
+		<form  class="joy-form" >
+			<table>
+			    <tr>
+			        <td>
+				        <input class="joy-datepicker" label="lg:applyTimeFrom" dataFormat="yyyy-MM-dd"  id="txt_applyTime_begin" style="width:160px;"> 
+				    </td>
+				    <td>
+				        <input class="joy-datepicker" label="lg:to"  dataFormat="yyyy-MM-dd"  id="txt_applyTime_end" style="width:160px;" > 
+				    </td>
+				</tr>
+				<tr>
+			        <td>
+			            <input class="joy-combobox joy-enum" label="lg:paymentStatusEk" id="txt_paymentStatusEk" databind="value:paymentStatusEk,source:PAYMENT_STATUS_EKEnum" style="width:160px;">				        
+				    </td>
+				    <td>
+				        <input class="joy-combobox joy-enum" label="lg:serialVerfEk" id="txt_serialVerfEk" databind="source:SERIAL_VERF_EKEnum,value:serialVerfEk" style="width:160px;"> 
+				    </td>
+				</tr>
+				<tr>
+			        <td>
+			            <input class="joy-combobox joy-enum" label="lg:processStatusEk" id="txt_processStatusEk" databind="value:processStatusEk,source:PROCESS_STATUS_EKEnum" style="width:160px;">				        
+				    </td>
+				    <td>
+				        
+				    </td>
+				</tr>			
+			</table>	
+			<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lg:query"></button>
+						<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>		 
+		</form>
+	</div>   
+	<!-- 打印开始 -->
+	
+            <div id="print" style="display:none;top:0;padding-left:10px;">
+			   <div style="margin-top:60px;width:690px;float: left;">
+			          <table id="printTable" cellspacing="0" cellpadding="0" border="0" width="99%"  style="border: 1px solid #000;border-collapse:collapse"> 
+						 <tr style="border-bottom:1px solid #000;">
+							<td colspan="6" height="40" style="text-align: center;text-align: center; font-weight: bold;font-size:24px;vertical-align: top;">沃特罗伦上门安装费用申请表</td>
+						 </tr>
+						 <tr  height="38">
+							   <td  style="border:1px solid #000;font-weight: bold;width:130px;">客户信息</td>
+							   <td  style="border:1px solid #000;width:110px;"  class="joy-label" dataBind="value:receiver"></td>
+							   <td  style="border:1px solid #000;width:110px;"  class="joy-label" dataBind="value:contact"></td>
+							   <td  style="border:1px solid #000;" colspan="2"  class="joy-label" dataBind="value:addr"></td>
+						 </tr>
+						  <tr  height="31">
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">购买平台</td>
+							   <td style="border:1px solid #000;" colspan="2" class="joy-label" dataBind="value:agency"></td>
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">购买账号</td>
+							   <td style="border:1px solid #000;width:130px;" ></td>
+						 </tr>
+						  <tr  height="31">
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">购买型号</td>
+							   <td style="border:1px solid #000;" colspan="2" class="joy-label" dataBind="value:spec"></td>
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">序列号</td>
+							   <td style="border:1px solid #000;width:130px;" class="joy-label" dataBind="value:deviceCd"></td>
+						 </tr>
+						  <tr  height="31">
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">购买日期</td>
+							   <td style="border:1px solid #000;" colspan="2" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd" dataBind="value:deliveryDate"></td>
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">安装日期</td>
+							   <td style="border:1px solid #000;width:130px;" ></td>
+						 </tr>
+						  <tr  height="31">
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">安装人员</td>
+							   <td style="border:1px solid #000;" colspan="2"></td>
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">联系电话</td>
+							   <td style="border:1px solid #000;width:170px;" ></td>
+						 </tr>
+						  <tr  height="31">
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">安装费用</td>
+							   <td style="border:1px solid #000;" colspan="2"></td>
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">付款账号</td>
+							   <td style="border:1px solid #000;width:170px;" ></td>
+						 </tr>
+						   <tr  height="31">
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">照片存放地址</td>
+							   <td style="border:1px solid #000;" colspan="4"></td>
+						 </tr>
+						  <tr  height="31">
+							   <td style="border:1px solid #000;font-weight: bold;width:130px;">备注</td>
+							   <td style="border:1px solid #000;" colspan="4"></td>
+						 </tr>
+					 </table>
+			          <table cellspacing="0" cellpadding="0" border="0" width="99%" height="50px"  style="border: 1px solid #000;border-top:none;"> 
+					    <td>&nbsp;&nbsp;批准：<td>
+						<td> 财务：<td>
+						<td> 审核：</td>
+						<td> 申请人：</td>
+					  </table>
+
+			   </div>
+			   <div  style="width:28px;height:352px;margin-top: 60px;"><img id="tdImg" src=""/></div>
+		   </div>
+	<!-- 打印结束 -->
+		
+		<!-- 处理结果窗口开始 -->
+	<div id="dealWindow" class="joy-window " center="true"
+		title="lg:dealResult">
+		<form id="dealDataForm" class="joy-form">
+			<input type="hidden" databind="value:columnId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left">
+						   <textarea id="reason" class="joy-textbox" 
+								label="lg:reason"  maxByte="256"  databind="value:reason" style="resize: none;"></textarea>							
+						</td>
+					</tr>
+					<tr>
+						<td align="left">
+						  <textarea id="dealResult" class="joy-textbox" 
+								label="lg:dealResult"  maxByte="256" databind="value:dealResult" style="resize: none;"></textarea>								
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveDealData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 处理结果窗口结束 -->
+	
+</body>
+<script type="text/javascript">
+	var oneForm,twoForm,threeForm,fourForm,gridOne,gridTwo,gridThree,gridFour,replyGrid,initObject,repairDataOneForm,sendForm,sendWindow,searchWindow;
+	var searchUrl="../../wl/es/wlEsCustRepairAction.do?action=findDataList";
+	var obj= new Object();
+	var orderIds,isDeliveryComboBox,isReturnFlagComboBox;
+	var dealWindow,dealDataForm;
+	$().ready(function(){
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		//四个Tab列表grid
+		gridOne = $("#gridOne").getJoyGrid();
+		gridTwo = $("#gridTwo").getJoyGrid();		
+		gridThree = $("#gridThree").getJoyGrid();		
+		gridFour = $("#gridFour").getJoyGrid();	
+		
+		//replyGrid = $("#replyGrid").getJoyGrid();
+		//		
+		oneForm = $("#oneForm").getJoyForm();
+		twoForm = $("#twoForm").getJoyForm();
+		threeForm = $("#threeForm").getJoyForm();		
+		fourForm = $("#fourForm").getJoyForm();
+		
+		repairDataOneForm = $("#repairDataOneForm").getJoyForm();
+		sendForm = $("#sendForm").getJoyForm();			
+		sendWindow = $("#sendWindow").getJoyWindow();
+		searchWindow = $("#searchWindow").getJoyWindow();
+		dealWindow=$("#dealWindow").getJoyWindow();
+		dealDataForm = $("#dealDataForm").getJoyForm();
+
+		$("#txt_upkeep").getJoyNumericTextBox().value(0);
+		$("#txt_freight").getJoyNumericTextBox().value(0);
+		
+		//数据初始化
+		joy.getJSON("../../wl/es/wlEsCustRepairAction.do?action=init",{enumTypes:['MODULE_EK','SERIAL_VERF_EK','PROCESS_STATUS_EK','YESORNO','PAYMENT_STATUS_EK','LOGISTIC_EK','BILL_SOURCE_EK','LANGUAGE_TYPE_EK']},function(resultObject){
+			initObject=resultObject;			
+			var viewModel = joy.observable(initObject);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);
+	        oneForm.load();
+	        twoForm.load();
+	        threeForm.load();	       
+	        fourForm.load();
+	        //为搜索条件下拉框绑定查询条件
+	         var modelData={};
+	         var searchEnum=new Array();
+	         //查询条件-维修单号
+	       	 var obj = new Object();
+	       	 obj.text=lg.repairNo;
+	       	 obj.value="repairNo";
+	       	 searchEnum.push(obj);
+	       	 //查询条件-设备编码
+	       	 obj=new Object();
+	       	 obj.text=lg.deviceCd;
+	       	 obj.value="deviceCd";
+	       	 searchEnum.push(obj);	       
+	       	 modelData.searchEnum=searchEnum;
+	       	 //joy.bind($("#keyId"), modelData);
+	       	 $("#keyId").getJoyComboBox().setDataSource(searchEnum);//使用setDataSource方式
+	        	isDeliveryComboBox=$("#isDelivery").getJoyComboBox();
+	        	isReturnFlagComboBox=$("#isReturnFlag").getJoyComboBox();
+	       	 //使用绑定方式
+	       	 joy.bind($("#namesTwoId"), modelData);
+	       	 joy.bind($("#namesThreeId"), modelData);
+	       	 joy.bind($("#namesFourId"), modelData);	       	 
+	         findData();
+		});
+	});
+	
+	//数据初始化
+	function findData(){
+	        obj= new Object();
+	        //obj.billSourceEk="CUSTOMER,AGENCY";
+	        obj.processStatusEk=0;
+	        var paraMap=joy.getParaMap(obj);	        
+	        gridOne.fetch(initObject,searchUrl,paraMap);
+	        obj = new Object();
+	       // obj.billSourceEk="CUSTOMER,AGENCY";
+	        obj.processStatusEk=2;
+	        var paraMap=joy.getParaMap(obj);
+	        gridTwo.fetch(initObject,searchUrl,paraMap);
+	        obj = new Object();
+	       // obj.billSourceEk="CUSTOMER,AGENCY";
+	        obj.processStatusEk=3;
+	        var paraMap=joy.getParaMap(obj);
+	        gridThree.fetch(initObject,searchUrl,paraMap);
+	        obj = new Object();	  
+	       // obj.billSourceEk="CUSTOMER,AGENCY";
+	        var paraMap=joy.getParaMap(obj);
+	        gridFour.fetch(initObject,searchUrl,paraMap);
+	}
+	
+
+	
+/**************************待处理模块/*****************************/
+	//查询售后维修信息
+	function searchOneData(){
+		var obj={};
+		obj.processStatusEk=0;
+		obj.keyId = $("#keyId").getJoyComboBox().value();
+		obj.keyValue = $("#contentId").getJoyTextBox().value();
+		var paraMap=joy.getParaMap(obj);
+		gridOne.fetch(initObject,searchUrl,paraMap);
+	}
+	
+	//打开处理窗口
+	function openHandleWindow(repairId,reason,dealResult){	
+		var txt="";
+		if(reason==""){
+			txt+=lg.reason+lg.mark;
+		}
+		if(dealResult==""){
+			txt+=lg.dealResult+lg.mark;
+		}
+		if(txt!=""){
+			txt=txt.substr(0,txt.length-1);
+			txt+=lg.dealEmpty;
+			joy.showMessageDialog(txt, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					dealHandle(repairId);
+				}
+			});
+		}else{
+			dealHandle(repairId);
+		}
+
+	}
+	function dealHandle(repairId){
+		
+		//基础信息与处理信息标题显示
+		$("#div_baseTit").text(lg.baseInfo);
+		$("#div_handleTit").text(lg.handleInfo);
+		joy.getJSON("../../wl/es/wlEsCustRepairAction.do?action=getData",{repairId:repairId},function(resultObject){
+			
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#allInforTable"), viewModel);
+			//图片加载		
+			$(".imgDiv").remove();
+			for(var i=0;i<resultObject.picList.length;i++){
+					var ob=resultObject.picList[i];					
+					var txt='<div  class="imgDiv" ><img style="width:100%;height:100%;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ob.path+'" title="'+lg.showTitle+'"/></div>';					
+					$("#picInforTd").append(txt);
+			}		
+			var lightBox=new myLightBox('picInforTd',true,'src');
+			//视频加载		
+			$(".viedoDiv").remove();
+			for(var i=0;i<resultObject.videoList.length;i++){
+					var ob=resultObject.videoList[i];					
+					//var txt='<div  class="viedoDiv" ><embed style="width:100%;height:100%;" src="../../wl/cm/wlCmDocumentAction.do?action=downloadFile&id='+ob.path+'" title="'+lg.showTitle+'"/></div>';
+					//var txt='<div  class="viedoDiv" ><embed style="width:100%;height:100%;" src="../../school.mp4" title="'+lg.showTitle+'"/></div>';
+					joy.getJSON("../../wl/cm/wlCmDocumentAction.web?action=downloadVideoFile",{id:ob.path},function(result){
+					     	result="../../"+result;
+							var txt='<div  class="viedoDiv" >'; 
+						    txt+= '<video autoplay="autoplay" controls="controls" height="100%" width="100%">';
+						    txt+= '<source src="'+result+'">';
+						    txt+= '</source>';
+							txt+= '<object width="100%" height="100%" >';
+							 txt+= '<embed width="100%" height="100%" src="'+result+'" />';
+							txt+= '</object>';
+							txt+= '</video>';
+							txt+= '</div>';
+							$("#viedoInforTd").append(txt);
+					});	
+					//$("#viedoInfo")
+					//$("#viedoInforTd").append(txt);
+			}
+			var height=$(window).height();
+			$("#editDiv").css({"min-height":height+"px","height":"auto"});
+			$("#editDiv").show();
+			reply="";
+			 //如果是沃特，则默认详见处理结果
+                 if(resultObject.billSourceEk=='WL'){
+                	 reply=lg.seeRsult;
+                 }
+			    repairDataOneForm.load({repairId:repairId,upkeep:0,freight:0,reply:reply});
+			
+		});
+		
+	}
+	
+	//关闭处理窗口
+	function closeHandleWindow(){
+		$("#editDiv").hide();
+	}
+	
+	//是否退回维修配件切换
+	function returnFlagChange(){
+		var flag=$("#isReturnFlag").getJoyComboBox().value();		
+		if(flag==="1"){			
+			$("#costDiv").show();			
+		}else{
+			$("#costDiv").hide();			
+		}
+	}
+	
+	//保存处理数据
+	function saveOneData(buttonObject){
+		//设置按钮不可用，防止重复提交isDeliveryComboBox,isReturnFlagComboBox
+		buttonObject.enable(false);
+		//校验必填项
+		if (!repairDataOneForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}		
+		isReturnFlag=isReturnFlagComboBox.value();
+		isDelivery=isDeliveryComboBox.value();
+		if("0"==isReturnFlag&&isDelivery==""){
+			joy.showMessage(lg.choiseIsDelivery, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		var sub=repairDataOneForm.getDataModel().toJSON();	
+		sub.isDelivery=isDelivery;
+		repairDataOneForm.load(sub);
+		//alert(joy.stringify(sub));
+		repairDataOneForm.submit("../../wl/es/wlEsCustRepairAction.do?action=updateHandleData",buttonObject,function(resultObject) {
+			closeHandleWindow();
+			findData();
+			buttonObject.enable(true);
+			joy.showMessage(lgc.opSuccess, "success");
+		});
+	}	
+	
+	
+/****************************待确认收货模块/*******************************************/
+ 	//查询维修信息
+ 	function searchTwoData(){
+ 		var obj={};
+ 		obj.processStatusEk=2;
+ 		obj.keyId = $("#namesTwoId").getJoyComboBox().value();
+ 		obj.keyValue = $("#contentTwoId").getJoyTextBox().value();		
+		var paraMap=joy.getParaMap(obj);
+		gridTwo.fetch(initObject,searchUrl,paraMap);
+	}
+	
+	//确认收货信息
+	function openReceiverWindow(repairId){
+		joy.showMessageDialog(lg.receiverConfirmHint,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+				joy.getJSON("../../wl/es/wlEsCustRepairAction.do?action=updateData",{repairId:repairId,processStatusEk:3},function(resultObject){
+					findData();
+					joy.showMessage(lgc.opSuccess,"success");
+				});
+			}
+		});
+	}	
+	
+	
+/********************************************待发货模块*********************************************************/
+	//查询维修信息
+ 	function searchThreeData(){
+ 		var obj={};
+		obj.orderStateEk=3;
+		obj.keyId = $("#namesThreeId").getJoyComboBox().value();
+		obj.keyValue = $("#contentThreeId").getJoyTextBox().value();
+		var paraMap=joy.getParaMap(obj);
+		gridThree.fetch(initObject,searchUrl,paraMap);
+	}
+	
+ 	//打开发货窗口
+	function openSendWindow(repairId){
+		joy.getJSON("../../wl/es/wlEsCustRepairAction.do?action=getDetailData",{repairId:repairId},function(resultObject){
+			if(resultObject.paymentStatusEk!=='1'){//未支付
+				  joy.showMessageDialog(lg.noPay, "ok,cancel", function(e) {
+						if (e.btnName == "ok") {
+							sendForm.load(resultObject);			
+							sendWindow.open();			
+							sendWindow.center();
+						}
+					});
+			}else{//已支付
+				sendForm.load(resultObject);			
+				sendWindow.open();			
+				sendWindow.center();
+			}
+			
+		});
+	}
+ 	
+	//保存发货成功数据
+	function saveSendData(buttonObject){
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+		//校验必填项
+		if (!sendForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		var submitda=sendForm.getDataModel().toJSON();
+		submitda.processStatusEk=4;
+		//alert(joy.stringify(submitda));
+		sendForm.load(submitda);
+		sendForm.submit("../../wl/es/wlEsCustRepairAction.do?action=updateData",buttonObject,function(resultObject) {
+					sendWindow.close();
+					findData();
+					buttonObject.enable(true);
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+	}
+	
+/********************************************全部维修单模块*********************************************************/
+	//查询维修信息
+ 	function searchFourData(){
+ 		var obj={};		
+		obj.keyId = $("#namesFourId").getJoyComboBox().value();
+		obj.keyValue = $("#contentFourId").getJoyTextBox().value();
+		var paraMap=joy.getParaMap(obj);
+		gridFour.fetch(initObject,searchUrl,paraMap);
+	}
+
+ 	//打开高级搜索
+ 	function openAdvSearch()
+ 	{
+ 		$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+ 		$("#searchWindow").parent('.k-widget').css('left',"");
+ 		//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+ 		searchWindow.open();
+ 	}
+
+ 	//高级搜索执行搜索
+ 	function moreSelect(){
+ 		isAdvanceFlag=true;
+ 		var applyTimeStart=$("#txt_applyTime_begin").getJoyDatePicker().value();
+ 		var applyTimeEnd=$("#txt_applyTime_end").getJoyDatePicker().value();
+ 		
+ 		if(applyTimeStart>applyTimeEnd){
+ 			joy.showMessage(lg.applyTimeAlert, "fail");
+ 			return;
+ 		}		
+ 		//搜索条件obj构成为
+ 		var obj=new Object(); 	
+ 		obj.keyId=$("#namesFourId").getJoyComboBox().value();
+ 		obj.keyValue=$("#contentFourId").getJoyTextBox().value(); 		
+ 		obj.applyTimeStart=applyTimeStart;
+ 		obj.applyTimeEnd=applyTimeEnd; 		
+ 		obj.paymentStatusEk=$("#txt_paymentStatusEk").getJoyComboBox().value();
+ 		obj.serialVerfEk=$("#txt_serialVerfEk").getJoyComboBox().value();
+ 		obj.processStatusEk=$("#txt_processStatusEk").getJoyComboBox().value();
+ 		var paraMap=joy.getParaMap(obj);
+ 		gridFour.fetch(initObject,searchUrl,paraMap);		
+ 	}
+
+/******************************公共/**********************************************/
+	//详细信息
+	function openDetailWindow(repairId,billSourceEk){	
+	     id="";    
+	    if(billSourceEk=="WL"){
+		   id="wl";
+	    }
+		//获取信息		
+		joy.getJSON("../../wl/es/wlEsCustRepairAction.do?action=getData",{repairId:repairId},function(resultObject){
+			
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#"+id+"detailTable"), viewModel);
+			//回复信息
+			 $("#"+id+"replyGrid").getJoyGrid().load(initObject,resultObject.sugList);
+			 //replyGrid.load(initObject,resultObject.sugList);
+			//图片加载		
+			$(".imgDiv").remove();
+			for(var i=0;i<resultObject.picList.length;i++){
+					var ob=resultObject.picList[i];					
+					var txt='<div  class="imgDiv" ><img style="width:100%;height:100%;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ob.path+'" title="'+lg.showTitle+'"/></div>';					
+					$("#"+id+"picInfo").append(txt);
+			}		
+			var lightBox=new myLightBox('picInfo',true,'src');
+			//视频加载		
+			$(".viedoDiv").remove();
+			for(var i=0;i<resultObject.videoList.length;i++){
+					var ob=resultObject.videoList[i];					
+					//var txt='<div  class="viedoDiv" ><embed style="width:100%;height:100%;" src="../../wl/cm/wlCmDocumentAction.do?action=downloadFile&id='+ob.path+'" title="'+lg.showTitle+'"/></div>';
+					//var txt='<div  class="viedoDiv" ><embed style="width:100%;height:100%;" src="../../school.mp4" title="'+lg.showTitle+'"/></div>';
+					joy.getJSON("../../wl/cm/wlCmDocumentAction.web?action=downloadVideoFile",{id:ob.path},function(resultObject){
+						//var txt='<div  class="viedoDiv" ><embed style="width:100%;height:100%;" src="../../'+resultObject+'"/></div>';
+								resultObject="../../"+resultObject;
+							var txt='<div  class="viedoDiv" >'; 
+						    txt+= '<video autoplay="autoplay" controls="controls" height="100%" width="100%">';
+						    txt+= '<source src="'+resultObject+'">';
+						    txt+= '</source>';
+							txt+= '<object width="100%" height="100%" >';
+							 txt+= '<embed width="100%" height="100%" src="'+resultObject+'" />';
+							txt+= '</object>';
+							txt+= '</video>';
+							txt+= '</div>';
+							$("#"+id+"viedoInfo").append(txt);
+					});	
+					//$("#viedoInfo").append(txt);
+			}
+			var height=$(window).height();
+			$("#"+id+"detailDiv").css({"min-height":height+"px","height":"auto"});
+			$("#"+id+"detailDiv").show();			
+		});
+	}
+	
+	//关闭详细窗口
+	function closeDetailWindow(){
+		$("#detailDiv").hide();
+	}
+	function closewlDetailWindow(){
+		$("#wldetailDiv").hide();
+	}
+	function print(repairId){
+		var LODOP=getLodop();
+		joy.getJSON("../../wl/es/wlEsCustRepairAction.do?action=getPrintData",{repairId:repairId},function(resultObject){
+			/*$("#tdDeviceCd").text("");
+			$("#tdReceiver").append(resultObject.receiver);
+			$("#tdContact)").append(resultObject.contact);
+			$("#tdAddr").append(resultObject.addr);
+			$("#tdAgency").append(resultObject.agency);
+			$("#tdSpec").append(resultObject.spec);
+			$("#tdDeliveryDate").text(resultObject.deliveryDate);*/
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#printTable"), viewModel);
+			$("#tdImg").attr("src",resultObject.basePath+"style/prj/images/rightTitle.jpg");
+			var strHTML=document.getElementById("print").innerHTML;
+			LODOP.ADD_PRINT_HTM(0,0,"100%","100%",strHTML);
+			LODOP.NewPageA();
+			LODOP.PREVIEW();
+		});	
+		
+	}
+	function updateReject(repairId){
+		joy.showMessageDialog(lg.rejectTitle,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+				joy.getJSON("../../wl/es/wlEsCustRepairAction.do?action=updateReject",{repairId:repairId}, function(resultObject){	
+					    obj= new Object();
+				        //obj.billSourceEk="CUSTOMER,AGENCY";
+				        obj.processStatusEk=0;
+				        var paraMap=joy.getParaMap(obj);	        
+				        gridOne.fetch(initObject,searchUrl,paraMap);
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+			}
+		});
+	}
+	//打开处理结果窗口
+	function openDealWindow(repairId,reason,dealResult){
+			dealDataForm.load({repairId:repairId,reason:reason,dealResult:dealResult});
+			dealWindow.open();
+			dealWindow.center();
+	}
+	//保存处理结果
+	function saveDealData(buttonObject){
+		dealDataForm.submit("../../wl/es/wlEsCustRepairAction.do?action=savaDealData",
+				buttonObject, function(resultObject) {
+			           gridOne.dataSource.fetch();
+					   dealWindow.close();
+					   joy.showMessage(lgc.opSuccess, "success");
+			});		
+	}
+</script>
+</html>

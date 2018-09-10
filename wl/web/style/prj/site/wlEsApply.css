@@ -1,0 +1,126 @@
+  #applyListBody{width:100%;}
+
+/*账号信息*/
+#accountInfoContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#accountInfoMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#accountInfoMenu{
+float:left;width:230px;min-height:670px;
+}
+#applyContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.accountInfoTitle{width:175px;height:38px;margin:0 auto;margin-top:20px;background: url("../images/accountInfo.png") ;
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px;}
+.item p:not(.itemTitle){padding-bottom:4px;
+ }
+ .item a{
+    color:#000;
+	text-decoration:none;
+ }
+
+/*账号信息左边栏结束*/
+
+
+#addApply{  
+    margin-left: 10px;
+    margin-top: 20px;
+    width: 96px;
+	height:38px;
+	background: url("../images/apply.png");
+}
+#addApply:hover{     
+	background: url("../images/apply1.png");
+}
+ /*净水片列表*/
+#applyList{
+ font-size:14px;
+ margin-top:10px;
+ margin-left:10px;
+ margin-right:10px;
+}
+
+#applyList .tbl-main {
+    border: 1px solid #5D5D5D;
+    table-layout: fixed;
+    width: 100%;
+	border-collapse:collapse;
+}
+.thead-tbl-grade th {
+    background: #f2f2f2 none repeat scroll 0 0;
+    border-bottom: 1px solid #5D5D5D;
+    border-top: 1px solid #5D5D5D;
+    height: 40px;
+    padding: 0 5px;
+    text-align: left;
+	
+	font-style: normal;
+    font-weight: 400;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+#applyList tr{
+ background: #f2f2f2 none repeat scroll 0 0;
+    border-bottom: 1px solid #5D5D5D;
+}
+#applyList .col-code {
+    width: 60px;
+}
+#applyList .col-accessories {
+    width: 52px;
+}
+#applyList .col-postage {
+    width: 65px;
+}
+#applyList .col-consignor {
+    width: 55px;
+}
+
+#applyList .col-logisticsCompany {
+    width: 65px;
+}
+
+#applyList .col-deliveryNumber {
+    width: 105px;
+}
+#applyList .col-deliveryDate {
+    width: 70px;
+}
+#applyList .col-deliveryStatus {
+    width: 69px;
+}
+#applyList .col-orderNo {
+    width: 111px;
+}
+#applyList .col-paymentStatusEk {
+    width: 50px;
+}
+.tbl-main td{
+    padding: 2px;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+#applyContent a{
+   text-decoration:none;
+}

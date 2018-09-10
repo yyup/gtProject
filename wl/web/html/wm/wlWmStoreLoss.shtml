@@ -1,0 +1,271 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<script src="../../js/prj/lightBox.js"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/wm.wlWmStoreCheckAudit.css" /> 
+</head>
+<body>
+<div id="forecast">
+    <div class="joy-tabstrip" style="border: none;">
+	    <ul>
+	        <li class="k-state-active">
+	            <label class="joy-lang" label="lg:pendingAudit"></label>
+	        </li>
+	        <li>
+	            <label class="joy-lang" label="lg:hasBeenAudited"></label>
+	        </li>	      
+	    </ul>  
+	    
+        <!----------------------  待审核 -------------------------------> 
+        <div>               
+            <div class="tabOne" style="height:600px;">
+      		    <!-- 工具栏 -->
+				<div class="k-page-toolbar">
+					<div id="oneForm" class="joy-form" style="float:right" layout="freedom">												
+						<input id="contentId" class="joy-textbox"  style="width:190px" dataBind="value:content" />
+						<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchOneData" label="lgc:search"></button>
+					</div>
+				</div>
+	            <!--信息列表 --> 
+				<table id="gridOne" class="joy-grid"  pageSize = "13" height="560px"  >
+				<thead>
+					<tr>											
+						<th field="billNo" dataType="string"  dataType="string" label="lg:billNo" colWidth="130px"></th>											
+						<th field="allItemName" dataType="string" label="lg:itemName"  colWidth="25%"></th>
+					  <th field="storageName" dataType="string" label="lg:storageName"  colWidth="15%"></th>				
+						<th field="checkDate" dataType="date"  dataFormat="yyyy-MM-dd"  label="lg:checkDate" colWidth="15%"></th>
+						<th field="overage" dataType="string" align="right" label="lg:overage"  colWidth="10%"></th>	
+						<th field="shortage" dataType="string" align="right"label="lg:shortage"  colWidth="10%"></th>											
+						<th field="createor" dataType="string"   label="lg:createor"  colWidth="15%"></th>						
+						<th colWidth="280px" templateType="button" align="center">									 		
+					 		<button icon="insert-m" smcBind="AUDITSmc" onClick="modifyAuditState('#:storeLossId#','1')"	 label="lg:pass"></button>			 	
+					 		<button icon="insert-m" smcBind="AUDITSmc" onClick="modifyAuditState('#:storeLossId#','2')"	 label="lg:deny"></button>			 	
+					 	    <button  icon="insert-m" smcBind="READSmc" onClick="openDetailWindow('#:storeLossId#','0')" label="lgc:detail"></button>	       					
+						</th>								
+					</tr>
+				</thead>
+			    </table>										
+            </div>
+        </div>
+        <!-- 待审核结束 -->
+        
+        <!------------------ -----已审核-------------------------- -->
+        <div>
+            <div class="tabTwo" style="height:600px;">
+                <!-- 工具栏 -->
+				<div class="k-page-toolbar">
+					<div id="twoForm" class="joy-form" style="float:right" layout="freedom">												
+						<input id="contentTwoId" class="joy-textbox"  style="width:190px" dataBind="value:content" />
+						<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchTwoData" label="lgc:search"></button>
+					</div>
+				</div>
+	            <!--信息列表 --> 
+				<table id="gridTwo" class="joy-grid"  pageSize = "13"  height="520px" >
+				<thead>
+					<tr>											
+					<th field="billNo" dataType="string"  dataType="string" label="lg:billNo" colWidth="130px"></th>											
+						<th field="allItemName" dataType="string" label="lg:itemName"  colWidth="25%"></th>
+					  <th field="storageName" dataType="string" label="lg:storageName"  colWidth="25%"></th>				
+						<th field="checkDate" dataType="date" dataFormat="yyyy-MM-dd"  label="lg:checkDate" colWidth="15%"></th>
+						<th field="overage" dataType="string" align="right"  label="lg:overage"  colWidth="10%"></th>	
+						<th field="shortage" dataType="string" align="right"  label="lg:shortage"  colWidth="10%"></th>											
+						<th field="createor" dataType="string"   label="lg:createor"  colWidth="15%"></th>
+						<th field="auditState" dataType="string"  align="center" label="lg:auditState" enumData="AUDIT_STATEEnum" colWidth="10%"></th>									
+						<th colWidth="100px" templateType="button" align="center">					
+					 	    <button icon="insert-m" smcBind="READSmc" onClick="openDetailWindow('#:storeLossId#','1')" label="lgc:detail"></button>       					
+						</th>								
+					</tr>
+				</thead>
+			    </table>								
+            </div> 
+        </div> 
+        <!-- 已审核结束 -->                                         
+    </div>
+</div>
+        <!-- 详细 开始-->
+	 <div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail"> 
+		
+			<!--基础信息 -->
+			<div class="detailbase" id="div_base">				
+				<div id="" class="detail" center="true" align="left">
+					<table id="detailTable" width="100%" align="center"
+						class="k-info-table comDetailTable" border="0" cellspacing="0"
+						cellpadding="0">
+						<tbody>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:billNo"></td>
+								<td width="230" class="joy-label" databind="value:billNo"></td>
+								<td width="100" class="joy-lang head" label="lg:state"></td>
+								<td width="230" class="joy-label joy-enum" databind="value:auditState,source:AUDIT_STATEEnum"  ></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:storageName"></td>
+								<td width="230" class="joy-label" databind="value:storageName" ></td>
+								<td width="100" class="joy-lang head" label="lg:checkDate"></td>
+								<td width="230" class="joy-label " dataType="date" databind="value:checkDate" dataFormat="yyyy-MM-dd"></td>
+							</tr>	
+							<tr height="25" id="isShowAudit">
+								<td width="100" class="joy-lang head" label="lg:auditor"></td>
+								<td width="230" class="joy-label" databind="value:auditor" ></td>
+								<td width="100" class="joy-lang head" label="lg:auditTime"></td>
+								<td width="230" class="joy-label"  databind="value:auditTime"></td>
+							</tr>	
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:createor"></td>
+								<td width="230" class="joy-label" databind="value:createor" ></td>
+								<td width="100" class="joy-lang head" label="lg:linkedBillNo" ></td>
+								<td width="230" class="joy-label"  databind="value:linkedBillNo"></td>
+							</tr>															
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--基础信息结束-->
+			<!--附加信息开始-->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="detailBor_tit ">
+						<span class="joy-lang" label="lg:checkInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left"  style="width:100%;margin:0 auto;">
+					<table  align="center"  id="detailGrid" class="joy-grid"   reorderable="false"  
+										showPageControl="false"  height="240px"  >
+								<thead>
+									<tr>							
+											<th field="itemCd"  dataType="string" label="lg:itemCd"  colWidth="12%"></th>
+											<th field="itemName" dataType="string" label="lg:itemName"  colWidth="16%" ></th>
+											<th field="spec" dataType="string" label="lg:spec"  colWidth="12%"></th>
+											<th field="baseUnitName" dataType="string" align="center" label="lg:baseUnitName"  colWidth="12%"></th>
+											<th field="bookBaseQty" dataType="string" align="right" label="lg:bookBaseQty"  colWidth="12%"></th>
+											<th field="checkBaseQty" dataType="string" align="right" label="lg:checkBaseQty"  colWidth="12%"></th>																						
+											<th field="overage" dataType="string"  label="lg:overage"  colWidth="12%"></th>	
+										    <th field="shortage" dataType="string"  label="lg:shortage"  colWidth="12%"></th>																						
+									</tr>							
+								</thead>
+						</table>
+					<table width="100%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+						<tr>
+							<td height="50" align="right" valign="bottom">
+								<button class="joy-button joy-window-close" icon="cancel"
+									label="lgc:close"></button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		
+	</div>
+		<!-- 详细结束-->    
+
+    
+</body>
+<script type="text/javascript">
+	var oneForm,twoForm,gridOne,gridTwo,initObject,detailWindow,detailGrid;
+	var searchUrl="../../wl/wm/wlWmStoreLossAction.do?action=findDataList";
+	var obj= new Object();
+	var orderIds;
+	$().ready(function(){
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		searchContent =lg.searchContent;
+		$("#contentId").attr("placeholder",searchContent);
+		$("#contentTwoId").attr("placeholder",searchContent);
+		//两个Tab列表grid
+		gridOne = $("#gridOne").getJoyGrid();
+		gridTwo = $("#gridTwo").getJoyGrid();	
+		detailGrid= $("#detailGrid").getJoyGrid();
+		oneForm = $("#oneForm").getJoyForm();
+		twoForm = $("#twoForm").getJoyForm();
+		detailWindow= $("#detailWindow").getJoyWindow();			
+		
+		//数据初始化
+		joy.getJSON("../../wl/wm/wlWmStoreLossAction.do?action=init",{enumTypes:['AUDIT_STATE']},function(resultObject){
+			initObject=resultObject;			
+			var viewModel = joy.observable(initObject);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);
+	        oneForm.load();
+	        twoForm.load();
+	         findData();
+		});
+	});
+	
+	/*数据初始化*/
+	function findData(){
+	        obj= new Object();
+	        obj.auditState=0;
+	        var paraMap=joy.getParaMap(obj);	        
+	        gridOne.fetch(initObject,searchUrl,paraMap);
+	        obj = new Object();
+	        obj.auditState=12;
+	        var paraMap=joy.getParaMap(obj);
+	        gridTwo.fetch(initObject,searchUrl,paraMap);	       
+	}
+	//查询(待审核)
+	function searchOneData(){
+		var obj={};
+		obj.auditState=0;
+		obj.billNo = $("#contentId").getJoyTextBox().value();
+		var paraMap=joy.getParaMap(obj);
+		gridOne.fetch(initObject,searchUrl,paraMap);
+	}
+	function searchTwoData(){
+		var obj={};
+		 obj.auditState=12;
+		obj.billNo = $("#contentTwoId").getJoyTextBox().value();
+		var paraMap=joy.getParaMap(obj);
+		gridTwo.fetch(initObject,searchUrl,paraMap);
+	}
+
+	//关闭详细窗口
+	function closeDetailWindow(){
+		$("#detailDiv").hide();
+	}
+	/**
+	* 通过/驳回
+	*/
+	 function modifyAuditState(storeLossId,auditState){
+		var confirmTitle="";
+		 if(auditState==='1'){//通过
+			 confirmTitle=lg.passTitle;
+		 }else if(auditState){//驳回
+			 confirmTitle=lg.denyTitle;
+		 }
+			joy.showMessageDialog(confirmTitle,"ok,cancel",function(e){
+				if(e.btnName=="ok"){
+					joy.getJSON("../../wl/wm/wlWmStoreLossAction.do?action=updateAuditState",{storeLossId:storeLossId,auditState:auditState}, function(resultObject){	
+						joy.showMessage(lgc.opSuccess, "success");
+						 findData();					
+					});
+				}
+			});			
+		
+	}
+	//打开详细窗口
+		function openDetailWindow(storeLossId,isShowAudit){
+			//isShowAudit//是否显示审核人和审核时间1显示,0不显示
+			  if(isShowAudit==='1'){
+					$("#isShowAudit").show();
+			  }else if(isShowAudit==='0'){
+					$("#isShowAudit").hide();
+			  }
+			 joy.getJSON("../../wl/wm/wlWmStoreLossAction.do?action=getData", {
+				 storeLossId : storeLossId
+				}, function(resultObject){
+					var viewModel = joy.observable(resultObject.storeLoss); 
+					joy.bind($("#detailTable"), viewModel);
+					detailGrid.load(initObject,resultObject.storeLossDetlList);//加载从表																						
+					detailWindow.open();	
+					detailWindow.center();	
+	          	});			
+		
+		}
+</script>
+</html>

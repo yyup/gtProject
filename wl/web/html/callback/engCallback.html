@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>QQConnect JSDK - redirectURI</title>
+<script src="../../js/newsite/cnzz.js"></script>
+<script src="../../js/newsite/jquery.min.js"></script>
+<link rel="stylesheet" href="../../style/prj/engsite/wlcommon.css" />
+<script src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-callback="true" charset="utf-8" type="text/javascript" ></script>
+
+<style type="text/css">
+html,body {
+	font-size: 14px;
+	line-height: 180%;
+}
+</style>
+
+</head>
+<body >
+
+</body>
+</html>
+
+<script type="text/javascript">
+             function getInfo() {
+                 QC.api("get_user_info")
+                 .success(function(s){//成功回调
+                     QC.Login.getMe(function(openId, accessToken){
+                         $.post('../../wl/cm/wlCmMemberAction.dox?action=qqLogin',{name:s.data.nickname,openId:openId,otype:1,token:accessToken},function(data,status){
+                        	 if(resultObject.account==""||resultObject.account=='undefined'){
+                             	 window.location = "bindPhone.html?qqAccount=" + openId;
+	                         }else{
+	                           	 joy.showMessage("login success!", "success");
+	                             location.href = "../engsite/index.html"
+	                         }
+	       	                 QC.Login.signOut()
+                         })
+                     })
+                 })
+                 .error(function(f){//失败回调
+                	 joy.showMessage("login error!", "warning");
+                     location.href = "../engsite/login.html";
+                 })
+                 .complete(function(c){//完成请求回调
+                 	//alert("获取用户信息完成！");
+                 });
+            }  
+</script>

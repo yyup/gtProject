@@ -1,0 +1,26 @@
+
+<!--  版本信息开始 -->
+<div id="versionInfoWindow" class="joy-window" width="340px" height="150px"
+	center="true" title="lg:version">
+	
+		<div  style="width:100%;font-size:15px">
+		<label class="joy-label" value="lg:versionNo"></label>:1.6
+		</div>
+		
+		<div  style="width:100%;font-size:15px">
+		<label class="joy-label" value="lg:versionDate"></label>:2016.1.16
+		</div>
+		
+        <div  style="width:100%;font-size:15px">
+		<label class="joy-label" value="lg:copyright"></label>
+		<label class="joy-label" value="lg:copyrightContent" style="margin-left:-9px;"></label>		
+		</div>
+</div>
+<!--版本信息结束  -->
+<script type="text/javascript">
+	//打开版本信息
+	function openVersionInfo(){
+		var versionInfoWindow = $("#versionInfoWindow").getJoyWindow();
+		versionInfoWindow.open();
+	}
+</script>

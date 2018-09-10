@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="Generator" content="waterrower Team">
+<meta name="Author" content="waterrowerTeam">
+<meta name="Keywords"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<meta name="Description"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<script src="../../js/newsite/jquery.min.js"></script>
+<script src="../../js/newsite/bootstrap.js"></script>
+<script src="../../js/newsite/getSystemPlatform.js"></script>
+<script src="../../js/engsite/wlcommon.js"></script>
+<script src="../../js/newsite/cnzz.js"></script>
+<link rel="stylesheet" href="../../style/prj/engsite/header.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/footer.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/bootstrap.min.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/wlcommon.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/videoPlay.css" />
+<script src="../../js/joy.loader.js" modules=""></script>
+<script src="../../js/site/getParam.js"></script>
+</head>
+
+<body>
+	<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+	<!-- 内容 -->
+	<div id="wlBody">
+		<div class="container ">
+
+			<div id="divTitle" class="titleMargin"></div>
+			<div id="divVideo">
+				<!-- <div style="text-align: center;">
+					<video autoplay="autoplay" controls="controls" height="400" width="640">
+                        <source src="http://7xop1q.com2.z0.glb.qiniucdn.com/row.mp4" type="video/mp4"></source>
+                       <object height="400" width="640">
+                            <embed height="400" src="http://7xop1q.com2.z0.glb.qiniucdn.com/row.mp4" width="640"/>
+                        </object>
+                    </video>
+				</div> -->
+			</div>
+			<div style="margin-bottom: 50px"></div>
+		</div>
+	</div>
+	<!-- 内容结束 -->
+	<!--尾部开始-->
+	<div id="footerPart">
+		
+	</div>
+
+	<script>
+		$(function() {
+			initTop();
+			initClick();
+			initBottom();
+			//$("#online_qq_layer").attr("show", "1");
+			getVideo();
+		});
+		function getVideo() {
+			var infoId = getParam("infoId");
+			var txt = "";
+			joy.getJSON("../../wl/cm/wlCmInfoEnAction.dox?action=getData", {
+				key : "infoId",
+				value : infoId
+			}, function(resultObject) {
+				if (resultObject !== null) {
+					$("#divTitle").empty();
+					$("#divVideo").empty();
+					$("#divTitle").html(resultObject.title);
+					if (resultObject.issueStateEk == '2') {//已发布
+						$("#divVideo").html(resultObject.content);
+						$("video").attr("style", "width:100%;height:auto;");
+						$("object").attr("height", "auto");
+						$("object").attr("width", "100%");
+						$("embed").attr("style", "width:100%;height:auto;");
+						$("embed").attr("height", "auto");
+						$("embed").attr("width", "100%");
+					} else {
+						txt = '<div class="noContent"></div>';
+						$("#divVideo").html(txt);
+					}
+
+				}
+			});
+		}
+	</script>
+	<script type="text/javascript" src="../../js/site/cnzz.js"></script>
+
+
+</body>
+</html>
+<!--尾部结束-->

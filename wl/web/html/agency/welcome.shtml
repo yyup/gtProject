@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
+<script src="../../js/jquery.min.js"></script>   
+<script src="../../js/joy.loader.js" modules="form"></script> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/base.welcome.css" />  
+</head>
+<body >
+	<div class="content">
+	 	<div class="welcomeTop">
+	 		<div class="top"><span class="joy-lang" label="lg:welcome" ></span><label class="joy-lang" label="lg:title" ></label></div>
+	 		<div class="joy-lang bottom"  label="lg:tip" ></div>
+	 	</div> 
+	 	<div class="welcomeBody">
+	 		<!-- 
+	 		<div class="pan">
+	 			<div class="welcome1 img"></div>
+	 			<div class="joy-lang title" label="lg:title1"></div>
+	 			<div class="joy-lang meno"  label="lg:meno1"></div>
+	 		</div>
+	 		<div class="pan border">
+	 			<div class="welcome2 img"></div>
+	 			<div class="joy-lang title"  label="lg:title2"></div>
+	 			<div class="joy-lang meno"  label="lg:meno2"></div>
+	 		</div>
+	 		<div class="pan">
+	 			<div class="welcome3 img"></div>
+	 			<div class="joy-lang title"  label="lg:title3"></div>
+	 			<div class="joy-lang meno"  label="lg:meno3"> </div>
+	 		</div>
+	 		 -->
+	 		 
+	 		 
+	 	</div>
+ 	</div>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/wbase.wlCmStorage.css" />
+</head>
+<body>
+
+	<!-- 搜索栏-->
+	<div class="searchContent">
+		<div class="searchContent_l">
+			<button class="joy-button joy-smc" icon="plus" onClick="openAdd"
+				 label="lgc:add" databind="visible:ADDSmc"></button>
+			
+		</div>
+		<div class="searchContent_r">
+				 <input id="txt_search" class="joy-textbox"   style="width: 145px;"  placeholder=""
+				maxByte="20">
+			<button class="joy-button" icon="search" onClick="searchData"
+				label="lg:search"></button>
+		</div>
+	</div>
+	<!-- 搜索栏end-->
+	<!-- 列表栏-->
+
+	<!--产品信息列表 -->
+	<table id="grid" class="joy-grid" rowHeightFit="38">
+		<thead>
+			<tr>
+			<!--
+				<th field=storageId templateType="checkbox" colWidth="40px"></th> -->
+				<th field="storageCd" dataType="string" label="lg:storageCd" colWidth="15%"></th>
+				<th field="storageName"  dataType="string" label="lg:storageName" colWidth="20%"></th>
+				<th field="isInFlag" dataType="string" enumData="STATEEnum" label="lg:isInFlag" colWidth="15%" align="center"></th>
+				<th field="isOutFlag" dataType="string" enumData="STATEEnum" label="lg:isOutFlag" colWidth="15%" align="center"></th>
+		     	<th field="addr" align="center" label="lg:addr" colWidth="25%" ></th>
+				<th field="isEnableFlag" dataType="string" enumData="STATEEnum" label="lg:isEnableFlag" colWidth="10%" align="center"></th>
+			    <th colWidth="280px" templateType="template"  align="center" > 						
+				  #if(initResult.ISENABLESmc){<!--启用禁用有权限 -->
+				         if(isEnableFlag=='0'){#
+					       <button class="k-button k-gridBtn k-button-icontext"  onClick="modifyStateEk('#:storageId#','#:isEnableFlag#','#:isInFlag#','#:isOutFlag#')"><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyLOCK#</button>
+				         #}else{# 
+					        <button class="k-button k-gridBtn k-button-icontext" onClick="modifyStateEk('#:storageId#','#:isEnableFlag#','#:isInFlag#','#:isOutFlag#')"><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyUSE#</button>
+				         # }	    
+					}else{<!-- 启用禁用没有权限 -->
+					      if(isEnableFlag==='0'){#
+					         <button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyLOCK#</button>
+					      #}else{#
+					           <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyUSE#</button>
+					     # }					
+					}#			
+									
+					  #if(initResult.ADDSmc){#<!--编辑有权限 -->
+					     <button class="k-button k-gridBtn k-button-icontext"  onClick="openEditWindow('#:storageId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}else{#	<!--编辑没有权限 -->
+				      	<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}#	
+				
+			    	  #if(initResult.READSmc){#<!--详细有权限 -->
+						<button class="k-button k-gridBtn k-button-icontext"  onClick="openDetailWindow('#:storageId#')"><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>	
+			    	#}else{#	<!--详细没有权限-->
+						<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>	
+			    	#}#	
+				
+				</th>
+			</tr>
+		</thead>
+	</table>
+	
+
+	<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window double"  center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:storageId">
+			<table id="editTable" cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr >
+						<td align="left"><input class="joy-textbox" id="storageCd" required="true"  label="lg:storageCd" 
+							databind="value:storageCd"  dataType="numCode" maxByte="20" ></td>
+						<td ><input class="joy-textbox" id="storageName" required="true"  label="lg:storageName" 
+							databind="value:storageName" maxByte="64" ></td>
+					</tr>
+				     <tr >
+			            <td align="left">
+			          <input id="isInFlag" class="joy-combobox joy-enum" label="lg:isInFlag" placeholder="lgc:pleaseToSelect" databind="value:isInFlag,source:YESORNOEnum"  /> 
+			             </td>
+						<td ><input id="isOutFlag" class="joy-combobox joy-enum" label="lg:isOutFlag" placeholder="lgc:pleaseToSelect" databind="value:isOutFlag,source:YESORNOEnum"  /> 
+                     </td>
+					</tr> 
+					<tr  rowspan="5">
+						<td align="left" colspan="2">
+						<textarea class="joy-textbox" maxByte="128"   label="lg:addr"  style=" height: 2.17em;;width:620px;"
+							databind="value:addr" ></textarea>
+						</td>   					
+					</tr>	
+					<tr  rowspan="5">
+						<td align="left" colspan="2">
+						<textarea class="joy-textbox" maxByte="1024"  label="lg:memo"  style="height:70px;width:620px;"
+							databind="value:memo" ></textarea>
+						</td>   					
+					</tr>						
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button joy-smc" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!--产品信息列表end -->
+
+	
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail"  center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:storageCd"></td>
+					<td width="230" class="joy-label" databind="value:storageCd"></td>
+					<td width="100" class="joy-lang head" label="lg:storageName"></td>
+					<td  width="230" class="joy-label " databind="value:storageName"  ></td>
+				</tr> 		
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:isInFlag"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:isInFlag,source:YESORNOEnum"></td>
+					<td width="100" class="joy-lang head" label="lg:isOutFlag"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:isOutFlag,source:YESORNOEnum"></td>
+				</tr> 			
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:isEnableFlag"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:isEnableFlag,source:STATEEnum"></td>
+					
+					<td width="100" class="joy-label head" ></td>
+					<td width="100" class="joy-label" ></td>
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:addr"></td>					
+					<td colspan="3"  class="joy-label" databind="value:addr"></td>
+				</tr> 
+				<tr height="80">
+					<td width="100" class="joy-lang head" label="lg:memo"></td>			 	
+					<td colspan="3" >
+					  <div class="joy-label"  databind="value:memo"  style="height:100px;width:630px;overflow:auto;word-break: break-all;"></div>
+					</td>
+				</tr> 
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+     
+
+
+	<script type="text/javascript">
+	 var lg,lgc,editWindow,dataForm,grid,initResult,detailWindow,storageCd,curStorageId;
+	 var searchUrl = "../../wl/cm/wlCmStorageAction.do?action=findDataList";
+
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		editWindow = $("#editWindow").getJoyWindow();
+		dataForm = $("#dataForm").getJoyForm();
+		grid = $("#grid").getJoyGrid();
+		detailWindow=$("#detailWindow").getJoyWindow();
+
+		searchContent =lg.searchContent;
+		$("#txt_search").attr("placeholder",searchContent);
+
+		//数据初始化
+		joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=init",
+			{enumTypes:['YESORNO','STATE']},
+			function(resultObject) {			
+			initResult = resultObject; 
+	        var viewModel = joy.observable(initResult);    
+	         joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+	         grid.fetch(initResult, searchUrl);  
+		});
+	});
+	//打开新增窗口
+	function openAdd(){
+		dataForm.load({isInFlag:"0",isOutFlag:"0"});    
+		editWindow.title(lgc.add);
+		editWindow.open();
+		editWindow.center();	     
+	     curStorageId="";
+
+	}
+	//保存
+	function saveData(buttonObject){
+		buttonObject.enable(false);
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+	    storageCd= $("#storageCd").getJoyTextBox().value();
+
+		joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=getStorageByStorageCd",{storageCd:storageCd,storageId:curStorageId}, function(resultObject){	
+		  if(resultObject!==null){//storageCd!=storageCd1保证编辑的时候可以如果不改值也能通过
+				joy.showMessage(lg.existStorageCd, "warning");
+				buttonObject.enable(true);
+				return ;
+		  }else{
+				var isInFlag= $("#isInFlag").getJoyComboBox().value();
+
+			  if(isInFlag==='1'){//如果选择默认进货仓库
+					joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=getDefaultInStorage",{storageId:curStorageId}, function(resultObject){	
+					    
+						if(resultObject!==null){//如果存在默认进货仓库
+					    	 joy.showMessageDialog(lg.existInStorage, "ok,cancel", function(e) {
+									 if (e.btnName == "ok") {
+										 getDefaultOutStorage(buttonObject);
+									 }else{
+										  buttonObject.enable(true);
+											return;
+									 }
+								});
+					     }else{
+					    	 getDefaultOutStorage(buttonObject);
+					     }
+					});	 
+			  }else{
+				  getDefaultOutStorage(buttonObject);
+				  
+			  }
+			  
+		  }
+		
+		});	 
+		
+		
+		
+}
+	//获取默认出库仓库（保存调用）
+	function getDefaultOutStorage(buttonObject){
+		  var isOutFlag= $("#isOutFlag").getJoyComboBox().value();
+         if(isOutFlag==='1'){//如果选择默认出库仓库
+			joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=getDefaultOutStorage",{storageId:curStorageId}, function(resultObject){
+				if(resultObject!==null){//如果存在默认出库仓库
+			    	 joy.showMessageDialog(lg.existOutstorage, "ok,cancel", function(e) {
+							 if (e.btnName == "ok") {
+								 save(buttonObject);
+							 }else{
+								  buttonObject.enable(true);
+									return;
+							 }
+						});
+			     }else{
+			    	 save(buttonObject);
+			     }
+			});	
+         }else{
+        	 save(buttonObject);
+         }
+	}
+	//保存
+	function save(buttonObject){
+		var submitda = dataForm.getDataModel().toJSON();
+		dataForm.load(submitda);
+	    	dataForm.submit("../../wl/cm/wlCmStorageAction.do?action=saveData", buttonObject,
+				function(resultObject) {
+					editWindow.close();
+					grid.dataSource.fetch();
+				 joy.showMessage(lgc.opSuccess, "success");
+		});	 
+	}
+	
+	/**
+	 * 搜索数据
+	 */
+	function searchData() { 
+		var obj=new Object();			
+		var txt_search= $("#txt_search").getJoyTextBox().value();		
+		obj.content=txt_search;	
+		//alert(joy.stringify(searchForm.getDataModel().toJSON()));
+		grid.fetch(initResult, searchUrl, obj);
+	}
+	/**
+	* 启用/锁定
+	**/
+	function modifyStateEk(storageId,isEnableFlag,isInFlag,isOutFlag){
+		var isEnableFlagModifyTitle;
+		if(isEnableFlag=="0"){
+			isEnableFlagModifyTitle=lg.isEnableFlagLOCKTitle;
+		}else{
+			isEnableFlagModifyTitle=lg.isEnableFlagkModifyUSETitle;
+		}
+		joy.showMessageDialog(isEnableFlagModifyTitle,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+			 if(isEnableFlag=='0'){//如果是启用
+				 if(isInFlag==='1'){//如果选择默认进货仓库
+						joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=getDefaultInStorage",{storageId:storageId}, function(resultObject){	
+							if(resultObject!==null){//如果存在默认进货仓库
+						    	 joy.showMessageDialog(lg.existInStorage, "ok,cancel", function(e) {
+										 if (e.btnName == "ok") {
+											 getDefaultOutStorageWhenModifyState(isOutFlag,storageId);
+										 }else{											
+												return;
+										 }
+									});
+						     }else{
+						    	 getDefaultOutStorageWhenModifyState(isOutFlag,storageId);
+						     }
+						});	 
+				  }else{
+					  getDefaultOutStorageWhenModifyState(isOutFlag,storageId);
+					  
+				  }	  
+			  }	else{//如果是禁用
+				  updateOrgState(storageId);		
+				  
+			  }
+			
+			}
+		});			
+	}
+	//获取默认出库仓库（启用/锁定）
+	function getDefaultOutStorageWhenModifyState(isOutFlag,storageId){	  
+         if(isOutFlag==='1'){//如果选择默认出库仓库
+			joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=getDefaultOutStorage",{storageId:storageId}, function(resultObject){
+				if(resultObject!==null){//如果存在默认出库仓库
+			    	 joy.showMessageDialog(lg.existOutstorage, "ok,cancel", function(e) {
+							 if (e.btnName == "ok") {
+								 updateOrgState(storageId);
+							 }else{
+									return;
+							 }
+						});
+			     }else{
+			    	 updateOrgState(storageId);
+			     }
+			});	
+         }else{
+        	 updateOrgState(storageId);
+         }
+	}
+	
+	//更改仓库状态
+	function updateOrgState(storageId){		
+		joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=updateOrgState",{storageId:storageId}, function(resultObject){	
+			joy.showMessage(lgc.opSuccess, "success");
+			grid.dataSource.fetch();		
+	   });
+	}
+	/**
+	 * 打开编辑窗体
+	 */
+	function openEditWindow(storageId) {
+		joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=getData",{storageId:storageId}, function(resultObject) {				
+			dataForm.load(resultObject);
+			editWindow.title(lgc.edit);
+			editWindow.open();
+			editWindow.center();
+			curStorageId=storageId;
+		});
+	}
+	/**
+	 * 打开详细窗体 
+	 */
+	function openDetailWindow(storageId){		
+		joy.getJSON("../../wl/cm/wlCmStorageAction.do?action=getData",{storageId:storageId}, function(resultObject){				
+			var viewModel = joy.observable(resultObject); 
+			joy.bind($("#detailTable"), viewModel);			
+			detailWindow.open();	
+			detailWindow.center();
+		});	
+	}
+	</script>
+
+</body>
+</html>

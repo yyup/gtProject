@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview"></script>   
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/info.wlCmFocusPic.css" /> 
+</head>
+<body> 
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+		<button class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+			  label="lgc:add" dataBind="visible:ADDSmc"></button> 
+		 <button class="joy-button joy-smc" icon="close" onClick="deleteData" 
+			  label="lgc:delete" dataBind="visible:DELETESmc"></button> 		
+		<button class="joy-button joy-smc" icon="pencil"  onClick="openFirstAuditListWindow"
+						label="lg:firstAudit" databind="visible:FIRSRAUDITSmc"></button>
+		<button class="joy-button joy-smc" icon="pencil"  onClick="openFinalAuditListWindow"
+					 label="lg:finalAudit" databind="visible:FINALAUDITSmc"></button>	
+	</div>
+    
+     <!-- 列表 -->  
+   	<table id="grid"  class="joy-grid"  rowHeightFit="38" >   
+		<thead>  
+              <tr>
+              	  <th field="picId" templateType="checkbox" colWidth="40px" ></th>  
+              	  <th field="path" templateType="template" label="lg:path" colWidth="20%">
+              	      <img height="55px" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id=#:path#"/>
+              	  </th>   
+              	  <th field="url"  dataType="string" label="lg:url" colWidth="20%"></th>                                                
+                  <th field="description" dataType="string" label="lg:description" colWidth="20%"></th> 
+                  <th field="isEnableFlag" dataType="string" enumData="STATEEnum" label="lg:isEnableFlag"  align="center" colWidth="10%"></th> 
+                  <th field="sequ" dataType="string"  label="lg:sequ"  align="center" colWidth="10%"></th>                                                
+                 <th field="auditNodeEk" enumData="AUDIT_NODE_EKEnum" 	label="lg:auditNodeEk" colWidth="10%" dataType="string" align="center"></th>															
+				  <th field="auditState" enumData="AUDIT_STATEEnum" 		label="lg:auditState" colWidth="10%" dataType="string" 	align="center"></th>
+						
+				  <th colWidth="280px" templateType="template"  align="center" > 
+				    #if(initResult.ISENABLESmc){<!--启用禁用有权限 -->
+				         if(isEnableFlag=='0'){#
+				         	<button class="k-button k-gridBtn k-button-icontext" onClick="modifyStateEk('#:picId#','#:isEnableFlag#')"><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyLOCK#</button>				         
+				         #}else{# 
+				         	<button class="k-button k-gridBtn k-button-icontext"  onClick="modifyStateEk('#:picId#','#:isEnableFlag#')" ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyUSE#</button>
+				         # }	    
+					}else{<!-- 启用禁用没有权限 -->
+					      if(isEnableFlag==='0'){#
+					      		<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyLOCK#</button>				         					      
+					      #}else{#
+					      		<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lg.isEnableFlagModifyUSE#</button>				         					      
+					     # }					
+					}#
+							
+				   #if(initResult.ADDSmc){#<!--编辑有权限 -->
+				 	 <button class="k-button k-gridBtn k-button-icontext " onClick="openEditWindow('#:picId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>				 
+			    	#}else{#	<!--编辑没有有权限 -->
+			    		<button class="k-button k-gridBtn k-button-icontext k-state-disabled"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>				 			   
+			    	#}#	
+			    
+			    							
+				   #if(initResult.READSmc){#<!--详细有权限 -->
+				   			<button class="k-button k-gridBtn k-button-icontext"  onClick="openDetailWindow('#:picId#')"><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>				   
+			    	#}else{#	<!--详细没有权限-->
+				   		<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>				   
+			    	#}#	
+			    
+			    	
+				</th>
+               </tr> 
+          </thead>
+    </table>  
+    
+     <!-- 编辑框 -->
+	<div id="editWindow" class="joy-window double"  center="true" title="lg:windowTitle" onClose="closePicWindow">
+		<form id="dataForm" class="joy-form">			
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+				    <tr>
+				        
+						<td >
+						<div class="picLeft">
+							<input id="picUpload" class="joy-upload" databind="value:path"  multiple="false" type="file"  label="lg:focusImg"   success="onPicSuccess" upload="picUploadFile"
+			    					async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.dox?action=uploadFile&sourceCode=pictureFile', removeUrl:'../../wl/cm/wlCmDocumentAction.dox?action=deleteFile'}"
+			    					allowType='jpg,png,gif'  maxSize="1" required="true"   />
+			    		</div>					    				
+						</td>
+						
+												    
+							<td rowspan="4" style="border-left:1px dashed #c5c5c5;"><div class="picRight">
+							    <div class="picAlert">
+									<span class="joy-lang" label="lg:picNone1"></span><br>
+									<span class="joy-lang" label="lg:picNone2"></span>
+							    </div>
+							    <img id="picImageId" height="200px" width="300px"></div>			
+							</td>
+																
+					</tr>
+				    <tr>
+						<td align="left">
+						    <input class="joy-textbox"  label="lg:url"  databind="value:url" maxByte="128">
+						</td>
+					</tr>			
+					<tr>
+						<td align="left">
+						    <input class="joy-textbox"  label="lg:description"  databind="value:description" maxByte="30">
+						</td>
+					</tr>
+					<tr>
+						<td align="left">
+						<input class="joy-numerictextbox"	label="lg:sequ" id="sequ" min="1" max="99999" databind="value:sequ">
+						</td>
+					</tr>																								
+				</tbody>
+			</table>			
+			<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveData" label="lg:saveAndSubmit"></button>
+						<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+    <!-- 详细框 -->
+    <div id="detailWindow" class="joy-window detail" center="true" align="left" title="lgc:detail">
+		<table id="detailTable" width="100%" align="center" class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head"   label="lg:url"></td>
+					<td width="230" class="joy-label" style="word-break: break-all;" databind="value:url"></td>
+					<td width="100" class="joy-lang head" label="lg:description"></td>
+					<td width="230" class="joy-label" databind="value:description"></td>
+				</tr>
+				<tr height="230">					
+					<td width="100" class="joy-lang head" label="lg:focusImg"></td>					
+					<td colspan="3" >																
+						<img id="focusImgId" height="200px" width="300px">		
+					</td>										
+				</tr>
+				<tr>
+				<td width="100" class="joy-lang head" label="lg:bizLog"></td>					
+					<td colspan="3" >																
+						<table id="listBizLogGrid" class="joy-grid" height="130px" showPageControl="false">	   
+							<thead>
+								<tr>							
+									<th field="auditorName"  colWidth="15%" dataType="string" label="lg:auditorName"  ></th>
+									<th field="auditNodeEk" colWidth="15%" enumData="AUDIT_NODE_EKEnum"  dataType="string" align="center" label="lg:auditNodeEk"></th>
+									<th field=auditOperateEk colWidth="20%"  enumData="AUDIT_OPERATE_EKEnum"  dataType="string" align="center" label="lg:auditOperateEk"></th>
+									<th field="auditTime"  colWidth="25%" dataType="string" label="lg:auditTime"  align="center"></th>
+									<th field="auditRemark"  colWidth="25%"  dataType="string" label="lg:auditRemark" ></th>
+								
+								</tr>							
+							</thead>
+					    </table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellspacing="0">
+			<tr>
+				<td height="40" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel" label="lgc:close">
+					</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<!-- 初审界面开始 -->
+<div id="firstAuditWindow" class="joy-window" center="true"
+		title="lg:firstAudit">
+		<form id="firstAuditForm" class="joy-form">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>			
+					<tr>
+						<td align="left"><textarea class="joy-textbox"  maxByte="255" label="lg:auditRemark"
+							databind="value:auditRemark"></textarea>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="firstAuditPass" label="lg:pass"></button>						
+						<button class="joy-button"  icon="close" onClick="firstAuditReject" btnType="importantbtn"  label="lg:reject"></button>							
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 初审核界面结束 -->
+	<!-- 终审界面开始 -->
+<div id="finalAuditWindow" class="joy-window" center="true"
+		title="lg:finalAudit">
+		<form id="finalAuditForm" class="joy-form">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>			
+					<tr>
+						<td align="left"><textarea class="joy-textbox"  maxByte="255" label="lg:auditRemark"
+							databind="value:auditRemark"></textarea>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="finalAuditPass" label="lg:pass"></button>						
+						<button class="joy-button"  icon="close" onClick="finalAuditReject" btnType="importantbtn"  label="lg:reject"></button>							
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 终审审核界面结束 -->
+</body>
+<script>
+
+var dataForm,editWindow,detailWindow,grid,initResult,lgc,lg,userId,picUpload;
+var searchUrl = "../../wl/cm/wlCmFocusPicAction.do?action=findFocusPicList";    
+var firstAuditWindow,firstAuditForm,finalAuditWindow,finalAuditForm;
+var listBizLogGrid,smc="0";
+$().ready(function(){
+	lgc=joy.getCommonLang();
+	lg=joy.getLang();
+	grid = $("#grid").getJoyGrid();
+	dataForm=$("#dataForm").getJoyForm();
+	editWindow=$("#editWindow").getJoyWindow();	
+	detailWindow=$("#detailWindow").getJoyWindow();
+	picUpload  = $("#picUpload").getJoyUpload();
+	firstAuditWindow=$("#firstAuditWindow").getJoyWindow();
+	firstAuditForm=$("#firstAuditForm").getJoyForm();
+	finalAuditWindow=$("#finalAuditWindow").getJoyWindow();
+	finalAuditForm=$("#finalAuditForm").getJoyForm();
+	listBizLogGrid=$("#listBizLogGrid").getJoyGrid();
+	//数据初始化
+	joy.getJSON("../../wl/cm/wlCmFocusPicAction.do?action=init",{enumTypes:['STATE','AUDIT_NODE_EK','AUDIT_OPERATE_EK','AUDIT_STATE']},function(resultObject){
+		 initResult = resultObject;	 
+		 var viewModel = joy.observable(initResult); 
+		 joy.bind($(".joy-smc,.joy-enum"), viewModel);
+		 if(resultObject.FINALAUDITSmc){//终审权限
+				smc="2";
+		 } else if(resultObject.FIRSRAUDITSmc){//初审权限
+				smc="1";
+		 }
+		 grid.fetch(initResult,searchUrl);
+	});	
+})
+
+/**
+ * 打开新增窗体
+ */
+function openAddWindow(){
+	$(".picAlert").show();
+	dataForm.load(); 
+	editWindow.title(lgc.add);
+	editWindow.open();
+	editWindow.center();
+}
+
+/**
+ * 打开编辑窗体
+ */
+function openEditWindow(picId) {
+	$(".picAlert").hide();
+	joy.getJSON("../../wl/cm/wlCmFocusPicAction.do?action=getData",{picId:picId}, function(resultObject) {	
+		if(resultObject.auditState=='0'){
+			joy.showMessage(lg.notAudit, "warning");
+		}else{
+			var pathId=resultObject.path;
+			if(pathId!=""){				
+				$("#picImageId").attr('src','../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+pathId);
+			}else{
+				$("#picImageId").removeAttr('src');
+			}
+			dataForm.load(resultObject);
+			editWindow.title(lgc.edit);
+			editWindow.open();
+			editWindow.center();
+		}
+	});
+}
+
+/**
+ * 打开详细窗体 
+ */
+function openDetailWindow(picId){		
+	joy.getJSON("../../wl/cm/wlCmFocusPicAction.do?action=getData",{picId:picId}, function(resultObject){	
+		var pathId=resultObject.path;
+		if(pathId!=""){				
+			$("#focusImgId").attr('src','../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+pathId);
+		}else{
+			$("#focusImgId").removeAttr('src');
+		}
+		var viewModel = joy.observable(resultObject); 
+		joy.bind($("#detailTable"), viewModel);	
+		listBizLogGrid.load(initResult,resultObject.bizLogList);
+		detailWindow.open();	
+		detailWindow.center();
+	});	
+}
+
+//上传图片时触发事件
+function picUploadFile(){ 
+	/*var id=$("#picUpload").getJoyUpload().value();
+	if(id != null &&$.trim(id) != ""){
+    	//删除前一张图片
+    	joy.getJSON("../../wl/cm/wlCmDocumentAction.do?action=deleteFile",{id:id},function(){	    		
+    	});
+    }*/
+    picUpload._reflash();
+}
+
+//上传图片成功触发事件
+function onPicSuccess(){		
+	var id= dataForm.getDataModel().toJSON().path;
+	if(id != null &&$.trim(id) != ""){
+		$(".picAlert").hide();
+		$("#picImageId").attr('src','../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+id);
+		//$("#picImageId").attr('ondblclick','delPic('+id+')');
+	}else{
+		$("#picImageId").removeAttr('src');
+	}			
+}
+//编辑窗口关闭触发事件
+function closePicWindow(){
+	picUpload._reflash();
+	$("#picImageId").removeAttr('src');
+	dataForm.load();
+}
+
+//双击图片删除
+function delPic(id)
+{
+	joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+		if (e.btnName == "ok") {		
+			joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=deleteFile",{id:id},function(){
+				$("#picImageId").removeAttr('src');			
+				joy.showMessage(lgc.opSuccess, "success");
+			});		
+		}
+	});
+}
+
+/**
+ * 保存数据
+ */
+function saveData(buttonObject){
+	//设置按钮不可用，防止重复提交
+	buttonObject.enable(false);
+	if (!dataForm.validate()){
+		joy.showMessage(lgc.validateFaile,"warning");
+		buttonObject.enable(true);
+		return;
+	}	
+	var submitda = dataForm.getDataModel().toJSON();
+	if(smc!=="2"){//如果不是终审权限，转初审未审核
+		submitda.auditNodeEk = "1";
+		submitda.auditState = "0";
+		submitda.isEnableFlag="0";
+	}
+	dataForm.load(submitda);
+	dataForm.submit("../../wl/cm/wlCmFocusPicAction.do?action=saveData",buttonObject,function(resultObject){
+		editWindow.close();	
+		grid.dataSource.fetch();
+		joy.showMessage(lgc.opSuccess,"success");
+	});	
+}
+
+/**
+ * 删除数据
+ */
+function deleteData(){  	
+	var ids =  grid.getChecked();  
+	if (ids.length==0){
+		joy.showMessage(lgc.chooseRecord,"warning");
+	}
+	else{
+		joy.showMessageDialog(lgc.deleteConfirm,"ok,cancel",function(e){
+			if(e.btnName=="ok"){ 
+				joy.getJSON("../../wl/cm/wlCmFocusPicAction.do?action=deleteData",{ids:ids}, function(resultObject){             		
+            		grid.dataSource.fetch()
+            		joy.showMessage(lgc.opSuccess,"success"); 
+            	});
+			}
+		});
+	}
+}
+
+/**
+* 启用/锁定
+**/
+function modifyStateEk(picId,isEnableFlag){
+	var isEnableFlagModifyTitle;
+	if(isEnableFlag=="0"){
+		isEnableFlagModifyTitle=lg.isEnableFlagLOCKTitle;
+	}else{
+		isEnableFlagModifyTitle=lg.isEnableFlagkModifyUSETitle;
+	}
+	joy.showMessageDialog(isEnableFlagModifyTitle,"ok,cancel",function(e){
+		if(e.btnName=="ok"){
+			joy.getJSON("../../wl/cm/wlCmFocusPicAction.do?action=updateFocusPicState",{picId:picId}, function(resultObject){	
+				joy.showMessage(lgc.opSuccess, "success");
+				grid.dataSource.fetch();
+				
+			});
+		}
+	});			
+}
+/**
+ * 启用
+ **/
+
+function able() {
+	modifyColumnStateEk("1");
+}
+/**
+ *禁用
+ **/
+function enable() {
+	modifyColumnStateEk("0");
+}
+function modifyColumnStateEk(isEnableFlag){
+	var ids = grid.getChecked();
+
+	if (ids.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	} else {
+		var isEnableFlagTitle;
+		if (isEnableFlag == "1") {
+			isEnableFlagTitle = lg.isEnableFlagLOCKTitle;
+		} else if (infoStateEk = "0") {
+			isEnableFlagTitle = lg.isEnableFlagkModifyUSETitle;
+		}
+		joy.showMessageDialog(isEnableFlagTitle,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+				joy.getJSON("../../wl/cm/wlCmFocusPicAction.do?action=updateState",{picIds:ids,isEnableFlag:isEnableFlag}, function(resultObject){	
+					joy.showMessage(lgc.opSuccess, "success");
+					grid.dataSource.fetch();
+					
+				});
+			}
+		});			
+		
+	}
+}
+var picIds=new Array();
+
+//打开初审窗口
+function openFirstAuditListWindow(){
+	picIds = grid.getChecked();
+	if (picIds.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	}else{
+		firstAuditForm.load();
+		firstAuditWindow.open();
+		firstAuditWindow.center();
+	}
+}
+//打开终审窗口
+function openFinalAuditListWindow(){
+	 picIds = grid.getChecked();
+	if (picIds.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	}else{
+		finalAuditForm.load();
+		finalAuditWindow.open();
+		finalAuditWindow.center()
+	}
+}
+//初审通过
+function firstAuditPass(buttonObject){
+	updateFirstAudit(buttonObject,"1","1");
+}
+//初审驳回
+function firstAuditReject(buttonObject){
+	updateFirstAudit(buttonObject,"1","2");
+}
+//初审更新
+function updateFirstAudit(buttonObject,auditNodeEk,auditState){
+	var data=firstAuditForm.getDataModel().toJSON();
+	data.picIds=picIds;
+	data.auditNodeEk=auditNodeEk;
+	data.auditState=auditState;
+    firstAuditForm.load(data);
+    firstAuditForm.submit("../../wl/cm/wlCmFocusPicAction.do?action=updateFirstAudit",
+    		buttonObject, function(resultObject) {
+    		grid.dataSource.fetch();
+    		firstAuditWindow.close();
+    	joy.showMessage(lgc.opSuccess, "success");
+	});
+}
+//终审通过
+function finalAuditPass(buttonObject){
+	updateFinalAudit(buttonObject,"2","3");
+}
+//终审驳回
+function finalAuditReject(buttonObject){
+	updateFinalAudit(buttonObject,"2","2");
+}
+//终审更新
+function updateFinalAudit(buttonObject,auditNodeEk,auditState){
+	var data=finalAuditForm.getDataModel().toJSON();
+	data.picIds=picIds;
+	data.auditNodeEk=auditNodeEk;
+	data.auditState=auditState;
+    finalAuditForm.load(data);
+    finalAuditForm.submit("../../wl/cm/wlCmFocusPicAction.do?action=updateFinalAudit",
+			buttonObject, function(resultObject) {
+	    	grid.dataSource.fetch();
+	    	finalAuditWindow.close();
+	    	joy.showMessage(lgc.opSuccess, "success");
+	});
+}
+</script>
+</html>

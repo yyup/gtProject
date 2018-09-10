@@ -1,0 +1,146 @@
+<div id="systemMessageWindow" class="joy-window" width="720px" height="300px"
+	center="true" title="lg:systemMessage">
+	<form id="systemMessageForm" class="joy-form">
+		<div id="systemMessage" style="width:100%;">
+		<label class="joy-label" value="lg:corpName"></label>	
+		</div>
+	</form>
+</div>
+<!--  鐗堟湰淇℃伅寮� -->
+<div id="versionInfoWindow" class="joy-window" width="340px" height="150px"
+	center="true" title="lg:version">
+	
+		<div  style="width:100%;font-size:15px">
+		<label class="joy-label" value="lg:versionNo"></label>:1.9
+		</div>
+		
+		<div  style="width:100%;font-size:15px">
+		<label class="joy-label" value="lg:versionDate"></label>:2018.06.19
+		</div>
+		
+        <div  style="width:100%;font-size:15px">
+		<label class="joy-label" value="lg:copyright"></label>
+		<label class="joy-label" value="lg:copyrightContent" style="margin-left:-9px;"></label>		
+		</div>
+</div>
+<!--鐗堟湰淇℃伅缁撴潫  -->
+<div id="detailWindow" class="joy-window detail" center="true"
+			align="left" title="lgc:detail">
+		<table id="detailTable" width="100%" align="center"
+				class="k-info-table" border="0" cellspacing="0" cellpadding="0" style="line-height:25px;"> 			 
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:corpName"></td>
+					<td width="230" class="joy-label" databind="value:corpName"></td>
+					<td width="100" class="joy-lang head" label="lg:province"></td>
+					<td width="230" class="joy-label" databind="value:province"></td>
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:city"></td>
+					<td width="230" class="joy-label" databind="value:city"></td>
+					<td width="100" class="joy-lang head" label="lg:area"></td>
+					<td width="230" class="joy-label" databind="value:area"></td>
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:contact"></td>
+					<td width="230" class="joy-label" databind="value:contact"></td>
+					<td width="100" class="joy-lang head" label="lg:tel"></td>
+					<td width="230" class="joy-label" databind="value:tel"></td>
+				</tr>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:email"></td>
+					<td width="230" class="joy-label" databind="value:email"></td>
+					<td width="100" class="joy-lang head" label="lg:legalPerson"></td>
+					<td width="230" class="joy-label" databind="value:legalPerson"></td>
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:createTime"></td>
+					<td width="230" class="joy-label" databind="value:createTime"></td>
+					<td width="100" class="joy-lang head" label=""></td>
+					<td width="230" class="joy-label" databind=""></td>
+				</tr> 
+				
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+					<div style="margin-top:21px;">
+						<button class="joy-button joy-window-close" icon="cancel"
+							label="lgc:close"></button>
+					</div>
+					</td>
+				</tr>
+		</table>
+	</div>
+<script type="text/javascript">
+	//鎵撳紑绯荤粺娑堟伅
+	function opensystemMessageWindow() {
+		var systemMessageWindow = $("#systemMessageWindow").getJoyWindow();
+		var systemMessageForm = $("#systemMessageForm").getJoyForm();
+		var detailWindow = $("#detailWindow").getJoyWindow();	
+		var upload = $("#upload").getJoyUpload();
+		$("#systemMessage").children().remove();
+		joy.getJSON("../../tp/cm/tpCmCorpApplyAction.do?action=findCorpApply", function(resultObject){
+			for(var i=0;i<resultObject.length;i++){
+				var createTime=resultObject[i].createTime;
+				var applyId=resultObject[i].applyId;
+				var corpName=resultObject[i].corpName;
+				var modifyTime=resultObject[i].modifyTime;
+				var modifier=resultObject[i].modifier;
+				var corpId=resultObject[i].corpId;
+				var typeId=resultObject[i].typeId;
+				var content=resultObject[i].content;
+				if(typeId=="B01"){
+					$("#systemMessage").append("<div style='line-height:30px;font-size:15px;width:550px;'>"+createTime+"   <label>"+lg.agency+"</label>   <a style='text-decoration:underline;cursor: pointer;' onclick='openDetailWindow(\""+corpId+"\")'>"+corpName+"</a>  <label>"+lg.agencyMessage+"</label><br><label>"+lg.additionalInformation+"</label><br><label>"+content+"</label></div><div style='margin-top:-26px;float:right;'><button style='cursor: pointer;' class='k-button' onClick='agreeAddApply(\""+applyId+"\")'>鍚屾剰</button> <button style='cursor: pointer;' class='k-button' onClick='refuseAddApply(\""+applyId+"\")'>鎷掔粷</button></div><br><hr style='border-top:1px solid #c5c5c5;border-left:0px;border-bottom:0px;border-right:0px;'>");
+				}else{
+					$("#systemMessage").append("<div style='line-height:30px;font-size:15px;width:550px;'>"+createTime+"   <label>"+lg.corp+"</label>   <a style='text-decoration:underline;cursor: pointer;' onclick='openDetailWindow(\""+corpId+"\")'>"+corpName+"</a>  <label>"+lg.corpMessage+"</label><br><label>"+lg.additionalInformation+"</label><br><label>"+content+"</label></div><div style='margin-top:-26px;float:right;'><button style='cursor: pointer;' class='k-button' onClick='agreeAddApply(\""+applyId+"\")'>鍚屾剰</button> <button style='cursor: pointer;' class='k-button' onClick='refuseAddApply(\""+applyId+"\")'>鎷掔粷</button></div><br><hr style='border-top:1px solid #c5c5c5;border-left:0px;border-bottom:0px;border-right:0px;'>");
+				}
+			}	
+		});
+		systemMessageWindow.open();
+		systemMessageWindow.center();
+	}
+	//鎵撳紑鐗堟湰淇℃伅
+	function openVersionInfo(){
+		var versionInfoWindow = $("#versionInfoWindow").getJoyWindow();
+		versionInfoWindow.open();
+	}
+	//娣诲姞鐢宠
+	function agreeAddApply(applyId) {
+		$.ajax({
+			   type: "POST",
+			   url: "../../tp/cm/tpCmCorpApplyAction.do?action=updateApplyStatusEk",
+			   data: {"id":applyId,"applyStatusEk":"AGREE"},
+			   async:false, 
+			   success: function(data){
+				   joy.showMessage(lgc.opSuccess,"success");
+			   }
+			   });
+	}
+	//娣诲姞鎷掔粷
+	function refuseAddApply(applyId) {
+		$.ajax({
+			   type: "POST",
+			   url: "../../tp/cm/tpCmCorpApplyAction.do?action=updateApplyStatusEk",
+			   data: {"id":applyId,"applyStatusEk":"REFUSE"},
+			   async:false, 
+			   success: function(data){
+				   joy.showMessage(lgc.opSuccess,"success");
+			   }
+			   });
+	}
+	function openDetailWindow(id)
+		{	
+			$("#detailWindow").css=("line-height","25px");
+			var detailWindow = $("#detailWindow").getJoyWindow();
+			joy.getJSON("../../tp/cm/tpCmCorpAction.do?action=getObject", {
+				corpId : id
+			}, function(resultObject) {
+				joy.bind($("#detailTable"), resultObject);
+				detailWindow.open();
+				detailWindow.center();
+			});
+		}
+</script>

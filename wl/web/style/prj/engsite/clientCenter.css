@@ -1,0 +1,46 @@
+.image-block {
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 17px;
+    line-height: 32px;
+    margin-left: 33.5%;
+    margin-right: auto;
+    margin-top: 14%;
+    position: absolute;
+    z-index:99999;
+}
+.contentText {
+    font-size: 17px;
+    line-height: 25px;
+    color: #717171;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.content_background{
+    background: #000;
+    max-width: 100%;
+    margin: 0;
+}
+.rowMargin{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#rowingMachine,#withBully,#flyBird,#bell{
+    padding-bottom: 20px;
+    font-size: 18px;
+}
+.activeTab{
+    border-bottom: 2px solid black;
+    color: black;
+}
+#rowingMachineTabContent,#withBullyTabContent,#flyBirdTabContent,#bellTabContent{
+    padding-top: 50px;
+}
+#agencyTabContain .row .col-md-3{
+    padding: 0px;
+}
+.thumbnail{
+    border: none;
+}

@@ -1,0 +1,10 @@
+#videoBody{width:100%;}
+#videoContainer{width:1000px;display:table;margin:20px auto;background:#B8B8B8;height:579px;}
+#videoTitle{padding-left:20px;padding-top:15px;padding-bottom:10px;border-bottom:1px dotted #666666}
+#videoContent{min-height:350px;padding: 20px 20px 0;}
+ .noContent{
+   height: 145px;
+    margin: 180px auto 0;
+    width: 304px;
+    background:url('../images/noContent.png')
+ }

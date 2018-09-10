@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+
+</head>
+<body style="height:100%">
+<div id="gridDiv">
+  	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+	    <button class="joy-button joy-smc" icon="plus" onClick="openAddWindow" label="lgc:add" dataBind="visible:ADDSmc" ></button>
+	    <button class="joy-button joy-smc" icon="close" onClick="deleteData" label="lgc:delete" dataBind="visible:DELETESmc" ></button>
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid" pageSize = "10"  rowHeightFit="38">
+		<thead>
+			<tr>
+				<th field="keywordsId" templateType="checkbox" colWidth="40px"></th>
+				<th field="keywords" dataType="string" label="lg:keywords" colWidth="50%"></th>
+				<th field="createTime" dataType="string" label="lg:createTime" colWidth="50%"></th>
+				<th colWidth="190px" templateType="button"  align="center" >  
+					<button icon="pencil" onClick="openEditWindow('#:keywordsId#')"
+						smcBind="ADDSmc" label="lgc:edit"></button>
+					<button icon="insert-m" onClick="openDetailWindow('#:keywordsId#')"
+						smcBind="READSmc" label="lgc:detail"></button></th>	
+				</th>
+				
+			</tr>
+		</thead>
+	</table>	
+</div>	
+    <!-- 编辑框 -->
+	<div id="editWindow" class="joy-window" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:memberId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left">
+							<input class="joy-textbox" id="keywords" required="true"  label="lg:keywords"	databind="value:keywords" maxByte="64">
+						</td>					
+					</tr>					
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<!-- 详细 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" align="center" width="100%" 
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:keywords"></td>
+					<td width="230" class="joy-label" databind="value:keywords"></td>
+					<td width="100" class="joy-lang head" label="lg:createTime"></td>
+					<td width="230" class="joy-label"   databind="value:createTime"></td>										
+				</tr> 									
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+<script>
+var initResult,grid,dataForm,editWindow,detailWindow;
+var searchUrl="../../wl/cm/wlCmKeyWordsAction.do?action=findDataList";
+
+$().ready(function(){
+	lgc = joy.getCommonLang();
+	lg = joy.getLang();
+	grid = $("#grid").getJoyGrid();	
+	dataForm = $("#dataForm").getJoyForm();
+	editWindow = $("#editWindow").getJoyWindow();
+	detailWindow = $("#detailWindow").getJoyWindow(); 	
+
+	joy.getJSON("../../wl/cm/wlCmKeyWordsAction.do?action=init",
+			{},	
+			function(resultObject) {
+				initResult = resultObject; 
+	        	var viewModel = joy.observable(initResult);    
+	        	joy.bind($(".joy-smc,.joy-enum"), viewModel); 
+	        	grid.fetch(initResult, searchUrl);  
+		});
+	
+});
+
+/**
+ * 打开新增窗体
+ */
+function openAddWindow() {
+	dataForm.load();
+	editWindow.title(lgc.add);
+	editWindow.open();
+	editWindow.center();	 
+}
+
+/**
+ * 打开编辑窗体
+ */
+function openEditWindow(keywordsId){
+		joy.getJSON("../../wl/cm/wlCmKeyWordsAction.do?action=getData",{keywordsId:keywordsId},  function(resultObject){			
+		dataForm.load(resultObject);	 
+		editWindow.title(lgc.edit);
+		editWindow.open();	
+		editWindow.center();
+	});
+}
+
+/**
+ * 打开详细窗体
+ */
+function openDetailWindow(keywordsId){
+	 
+	joy.getJSON("../../wl/cm/wlCmKeyWordsAction.do?action=getData",{keywordsId:keywordsId}, function(resultObject){	
+		var viewModel = joy.observable(resultObject); 
+		joy.bind($("#detailTable"), viewModel);			
+		detailWindow.open();
+		detailWindow.center();
+	});	
+}
+
+
+/**
+ * 保存数据
+ */
+function saveData(buttonObject) {
+	//设置按钮不可用，防止重复提交
+	buttonObject.enable(false);
+	if (!dataForm.validate()) {
+		joy.showMessage(lgc.validateFaile, "warning");
+		buttonObject.enable(true);
+		return;
+	}	
+	dataForm.submit("../../wl/cm/wlCmKeyWordsAction.do?action=saveData", buttonObject,
+			function(resultObject) {
+				editWindow.close();
+				grid.dataSource.fetch();
+				joy.showMessage(lgc.opSuccess, "success");
+			});
+}
+
+
+
+/**
+ * 删除数据
+ */
+function deleteData() {  
+	var ids = grid.getChecked(); 
+	
+	if (ids.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	} else {
+		joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+			if (e.btnName == "ok") {
+				joy.getJSON("../../wl/cm/wlCmKeyWordsAction.do?action=deleteData", 
+				  {ids:ids}, 
+				  function(resultObject) { 
+						grid.dataSource.fetch();
+						joy.showMessage(lgc.opSuccess, "success");
+				  });
+			}
+		});
+	}
+}
+
+
+</script>
+</body>
+</html>

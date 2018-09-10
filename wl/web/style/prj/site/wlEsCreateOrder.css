@@ -1,0 +1,46 @@
+#createOrderBody{width:100%;}
+#createOrderContainer{
+    display:table;
+	 margin:20px auto;
+	width:998px;
+	background:#B8B8B8;
+	height:578px;
+	 border:1px solid #000;
+	 border-top:none;
+}
+
+.createOrderHeadTtitle,#receiveAddress,#result,#support,#but{
+ border-top:1px solid #000;
+ padding:5px 10px;
+  word-break: break-all;
+}
+#receiveAddress{
+ display:table;
+  font-size:15px;
+	width:97.9%;	
+}
+
+#total{
+		color:#e50112;
+		padding-right:25px;
+}
+#resultTotal{
+   color:red;
+   padding-top:10px;
+}
+#but{
+ width:97.9%;
+ height:32px;
+ border-bottom:1px solid #000;
+}
+#submit{
+   width:120px;
+   height:31px;
+   float:right;
+   margin-right:20px;
+   background: url("../images/submitOrder.png");
+   cursor:pointer;
+}
+.ddd_b_hui {
+    color: #434343 !important;
+}

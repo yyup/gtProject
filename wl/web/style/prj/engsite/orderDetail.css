@@ -1,0 +1,94 @@
+.title{
+    font-size: 30px;
+    text-align: center;
+    font-weight: 900;
+}
+h5{
+    color: #808080;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+#orderMessage{
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: 900;
+}
+.tableTitle{
+    background: #F0F0F0;
+    text-align: center;
+    color: #808080;
+    border-top: solid 1px white  !important;
+    border-bottom:solid 1px white;
+}
+.tableLeft{
+    border-right: solid 1px white;
+    border-left: solid 1px #F0F0F0;
+}
+.tableContent{
+    text-align: center;
+    border:solid 1px #D9D9D9;color: #808080;
+    vertical-align: middle !important;
+    font-size: 12px;
+}
+#picContainer{
+    text-align: right;
+    margin: 5px auto;
+}
+#picContent{
+    color: #808080;
+    text-align: left;
+    padding-left: 0px;
+    margin: 7px auto;
+}
+.goodImg{
+    display:inline-block;
+    text-align:center;
+    width:160px;
+	height:100px;
+}
+.choosePayWay{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 80px;
+}
+.payWaiLine{
+    background: #D9D9D9;
+    height: 1px;
+    width: 50%;
+}
+.text-center{
+    text-align: center;
+}
+.pColor{
+    color: #808080;
+}
+.pMargin{
+    margin-top: 8px;
+    margin-bottom: 30px;
+}
+.text-margin{
+    margin-left: 5px;
+}
+.sure{
+    width: 125px;
+    height: 40px;
+    background: #111111;
+    color: white;
+    margin-top: 20px;
+}
+.goodImgTd{
+	text-align:right;
+	
+}
+@media screen and (max-width: 1083px) {
+  .goodImgTd{
+	text-align:center;
+	}
+}
+@media screen and (max-width: 460px) {
+  .goodImg{
+	text-align:right;
+	width:90px;
+	height:31px;
+}
+}

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<meta name="Generator" content="waterrower Team">
+	<meta name="Author" content="waterrowerTeam">
+	<meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+	<meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+  	<script src="../../js/joy.loader.js" modules="dataview"></script>
+	<script src="../../js/newsite/bootstrap.js"></script>
+	<script src="../../js/site/getParam.js"></script>
+	<script src="../../js/newsite/matchMedia.min.js"></script>
+	<script src="../../js/newsite/matchMedia.addListener.min.js"></script>
+	<script src="../../js/newsite/material.min.js"></script>
+	<script src="../../js/newsite/mashable-menu.js"></script>
+	<script src="../../js/newsite/getSystemPlatform.js"></script>
+	<script src="../../js/newsite/wlcommon.js"></script>
+	<script src="../../js/newsite/cnzz.js"></script>
+	<link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+	<link rel="stylesheet"  href="../../style/prj/newsite/mashable-menu.css">
+	<link rel="stylesheet"  href="../../style/prj/newsite/custom-mashable-menu.css">
+	<link rel="stylesheet"  href="../../style/prj/newsite/choose-language.css">
+	<link rel="stylesheet"   href="../../style/prj/newsite/agencyService.css">
+	<script>
+	       jQuery(document).ready(function ($) {
+	           $('.mash-menu').mashableMenu({
+	               separator                      : true,      //-- Options (true) or (false). This option is used to show the vertical line between menu list items
+	               ripple_effect                  : true,      //-- Options (true) or (false). This option is used to on - off the google ripple effect on menu items. Which is shown on mouse click
+	               search_bar_hide                : false,     //-- Options (true) or (false). This option is used to hide the search bar
+	               top_fixed                      : false,     //-- Options (true) or (false). This option is used to fixed the menu top of the screen. Note: If this option becomes true then the sticky_header option will not work
+	               full_width                     : false,     //-- Options (true) or (false). This option is used to make the menu full with
+	               right_to_left                  : false,     //-- Options (true) or (false). This option is used to align the menu items right to left side order
+	               trigger                        : 'hover',   //-- Options (click) or (hover). This option is used to showing the drop down on mouse click or mouse hover
+	               /* VERTICAL TABS */
+	               vertical_tabs_trigger          : 'click',   // Options (click) or (hover). This option is used to showing the vertical tabs on mouse click or mouse hover
+	               vertical_tabs_effect_speed     : 400,       // Value in milliseconds. This option is used to change the vertical tabs showing or hiding speed
+	               /* DROP DOWN */
+	               drop_down_effect_in_speed      : 200,       // Value in milliseconds. This options is used to change the drop downs showing speed
+	               drop_down_effect_out_speed     : 200,       // Value in milliseconds. This option is used for change the drop downs hiding speed
+	               drop_down_effect_in_delay      : 200,       // Value in milliseconds. This option is used to change the drop downs showing delay speed. It means drop down shows after some time
+	               drop_down_effect_out_delay     : 200,       // Value in milliseconds. This option is used to change the drop downs hiding delay speed. It means drop down hides after some time
+	               outside_close_dropDown         : true,      // Options (true) or (false). This option is used to hide the showing drop downs when user click outside the menu
+	               /* STICKY HEADER */
+	               sticky_header                  : false,     //-- Options (true) or (false). This option is used to make the menu sticky on top of the screen on desktop mode. When user scroll down or reach the specific height
+	               sticky_header_height           : 200,       //-- Value in px. This option is used to define the sticky header height on desktop mode.
+	               sticky_header_animation_speed  : 400,       //-- Value in milliseconds. This option is used to change the sticky header animation effect speed on desktop mode
+	               /* COLORS TIMER SETTINGS */
+	               timer_on                       : false,     //-- Options (true) or (false). This option is used to change the menu color according to time
+	               timer_morning_color            : 'cyan',    //-- Options (red, pink, purple, deep-purple, indigo, cyan, teal, green, light-green, lime, yellow, amber, orange, deep-orange, brown, grey, blue-grey, black-gradient). This option is used for morning time color
+	               timer_afternoon_color          : 'red',     //-- Options (red, pink, purple, deep-purple, indigo, cyan, teal, green, light-green, lime, yellow, amber, orange, deep-orange, brown, grey, blue-grey, black-gradient). This option is used for afternoon time color
+	               timer_evening_color            : 'teal',    //-- Options (red, pink, purple, deep-purple, indigo, cyan, teal, green, light-green, lime, yellow, amber, orange, deep-orange, brown, grey, blue-grey, black-gradient). This option is used for evening time color
+	               /* INTERNAL LINKS */
+	               internal_links_enable          : true,      // Options (true) or (false). This option is used to enable the internal links target buttons to show the drop downs
+	               internal_links_toggle_drop_down: false,     // Options (true) or (false). This option is used for toggle. Means show or hide the drop down with same button. If this option is not true. The drop down is not hide with click on same button
+	               internal_links_target_speed    : 400,       // Value set in milliseconds. This option is used to internal links target animation speed.
+	               /* MOBILE SETTINGS */
+	               mobile_search_bar_hide         : false,     //-- Options (true) or (false). This option is used to hide the search bar on mobile mode
+	               mobile_sticky_header           : false,     //-- Options (true) or (false). This options is used to make the menu sticky on top of the screen on mobile mode
+	               mobile_sticky_header_height    : 100,       //-- Value in milliseconds. This option is used to change the sticky header animation effect speed on mobile mode
+	               /* MEDIA QUERY WIDTH */
+	               media_query_max_width          : 768        //-- This is media query max width in px unit. Which is Used for mobile screen. Don't change if you don't know about media query
+	           });
+	       });
+	</script>
+</head>
+<body>
+<!--头部  -->
+<div id="top">
+	<div id="commonpath" style="display: none;" commonpath=""></div>
+</div>
+<!---->
+  <div id="wlBody">
+   <!--经销商服务图片开始-->
+		       <section>
+						<div class=" text-center hidden-xs hidden-sm hidden-md  content_background">
+							<div class="col-md-4 image-block">
+								<h2>欢迎使用WaterRower经销商服务</h2>
+								<p>请问您需要什么帮助？</p>
+							</div>
+							<img class="img-responsive " src="../../style/prj/images/small_agency_service.png" alt="Responsive image">
+						</div>
+				</section>
+							<!--经销商服务图片结束-->
+			<div class="container">
+				<section id="tabContentContainerPre">
+					<!-- 小屏内容1 -->
+					<div class="row hidden-lg">
+						<div class="col-xs-12">
+							<img style="width:100%" src="../../style/prj/images/small_agency_service.png" alt="">
+							<h2>欢迎使用WaterRower经销商服务</h2>
+						</div>
+						<div class="col-xs-12">
+							<p class="mobile-text">请问您需要什么帮助？</p>
+						</div>
+					</div>
+				</section>
+			</div>
+		       <!--经销商服务图片结束-->
+			   <!--选项卡内容部分开始-->
+
+
+
+			  <div  class="container">
+				  <div class="row">
+					  <div class="col-md-1"></div>
+					  <div class="col-md-10">
+						  <div id="agencyTabContain" class="clearfix">
+							  <div id="shopTab" style="cursor:pointer;" class="activeTab">网点查询</div>
+							  <div id="contactTab" style="cursor:pointer;" class=""> 联系我们</div>
+						  </div>
+						  <!--网店查询开始-->
+						  <div id="shopTabContent">
+							  <!--描述部分开始-->
+							   <div id="agencyDescrition">
+								  <div class="headTitle agencySearch" style="">经销商网点查询</div>
+							  </div>
+							  <!--经销商信息部分结束-->
+						  </div>
+
+					  </div>
+					  <div class="col-md-1"></div>
+				  </div>
+				  <div class="row">
+					  <div class="col-md-12" style="padding-bottom: 250px;">
+						  <!--网店查询结束-->
+						  <!--联系我们开始-->
+						  <div id="contactTabContent" style="display:none;">
+							  <!-- <h2 class="headTitle bold">沃特罗伦中国区</h2>
+                              &lt;!&ndash;联系电话开始&ndash;&gt;
+                              <div  class="container-fluid">
+                                  <div class="row">
+                                      <div class="col-sm-4">客服电话:400-600-4546
+                                      </div>
+                                      <div class="col-sm-4">公司电话:0592-5923128
+                                      </div>
+                                      <div class="col-sm-4">地址：福建省厦门市翔安区翔明路3号楼2楼
+                                      </div>
+                                  </div>
+                              </div>-->
+							  <!--联系电话结束-->
+							  <h2 class="headTitle">请选择地区</h2>
+							  <nav class="mash-menu separator" data-color=""><!--padding-00 -->
+								  <section>
+									  <ul class="mash-list-items" id="liContainer">
+										  <li class="countries-00">
+											  <img alt="" src="../../style/prj/images/north-america.svg">
+											  <a href="javascript:void(0)">North America</a>
+											  <ul class="drop-down">
+												  <li>
+													  <a href="https://www.waterrower.com/us">USA</a>
+												  </li>
+												  <li>
+													  <a href="https://www.waterrower.com/ca">Canada</a>
+												  </li>
+												  <li>
+													  <a href="https://www.waterrower.com/us">Mexico</a>
+												  </li>
+												  <li>
+												  </li>
+											  </ul>
+										  </li>
+										  <li class="countries-00">
+											  <img alt="" src="../../style/prj/images/south-america.svg">
+											  <a href="javascript:void(0)">South America</a>
+											  <ul class="drop-down">
+												  <li style="list-style: none; display: inline">
+													  <a href="http://www.waterrower.com.ar/" target="blank">Argentina</a>
+												  </li>
+												  <li>
+													  <a href="http://www.casadofitness.com.br/">Brasil</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.co/" target="blank">Colombia</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.cl/" target="blank">Chile</a>
+												  </li>
+												  <li style="list-style: none; display: inline">
+													  <hr>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrowermexico.com/">Rest of Central/South America</a>
+												  </li>
+											  </ul>
+										  </li>
+										  <li class="countries-00">
+											  <img alt="" src="../../style/prj/images/europe.svg">
+											  <a href="javascript:void(0)">Europe</a>
+											  <ul class="drop-down">
+												  <li>
+													  <a href="https://www.waterrower.de/" target="blank">Österreich</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.nl/" target="blank">Belgium</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.bg/" target="blank">Bulgaria</a>
+												  </li>
+												  <li>
+													  <a href="http://waterrower.dk/" target="blank">Denmark</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.ee/" target="blank">Estonia</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.si/" target="blank">Ex Yugoslavia</a>
+												  </li>
+												  <li>
+													  <a href="http://waterrower.dk/" target="blank">Finland</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.fr/" target="blank">France</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.de/" target="blank">Deutschland</a>
+												  </li>
+												  <li>
+													  <a href="http://www.orrlabda.hu/" target="blank">Magyarország</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.it/" target="blank">Italia</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.nl/" target="blank">Luxembourg</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.nl/" target="blank">Netherlands</a>
+												  </li>
+												  <li>
+													  <a href="http://waterrower.dk/" target="blank">Norge</a>
+												  </li>
+												  <li>
+													  <a href="http://www.fitlife.ro/" target="blank">Romania</a>
+												  </li>
+												  <li>
+													  <a href="http://waterrower.dk/" target="blank">Scandinavia</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.sk/" target="blank">Slovakia</a>
+												  </li>
+												  <li>
+													  <a href="http://world.waterrower.com/contact.html" target="blank">ESPAÑA/Portugal</a>
+												  </li>
+												  <li>
+													  <a href="http://waterrower.dk/" target="blank">SVERIGE</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.de/" target="blank">Switzerland</a>
+												  </li>
+												  <li>
+													  <a href="http://www.finspor.com.tr/" target="blank">TÜRKİYE</a>
+												  </li>
+												  <li>
+													  <a href="http://waterrower.ru/" target="blank">Ukraine</a>
+												  </li>
+												  <li style="list-style: none; display: inline">
+													  <hr>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.co.uk/" target="blank">Rest of Europe</a>
+												  </li>
+											  </ul>
+										  </li>
+										  <li class="countries-00">
+											  <img alt="" src="../../style/prj/images/africa.svg">
+											  <a href="javascript:void(0)">Africa/<br>Middle East</a>
+											  <ul class="drop-down">
+												  <li>
+													  <a href="http://www.waterrower.co.za/">South Africa</a>
+												  </li>
+												  <li>
+													  <a href="http://www.aerofit.me/waterrower.html">Dubai</a>
+												  </li>
+												  <li style="list-style: none; display: inline">
+													  <hr>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.co.uk/" target="blank">Rest of Africa / Middle East</a>
+												  </li>
+											  </ul>
+										  </li>
+										  <li class="countries-00">
+											  <img alt="" src="../../style/prj/images/asia.svg">
+											  <a href="javascript:void(0)">Asia</a>
+											  <ul class="drop-down">
+												  <li>
+													  <a href="http://www.waterrower.com.cn/">中国大陆</a>
+												  </li>
+												  <li>
+													  <a href="http://www.aibifitness.com/">Singapore</a>
+												  </li>
+												  <li>
+													  <a href="http://www.aibifitness.com/">Malaysia</a>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.co.kr/">대한민국</a>
+												  </li>
+												  <li style="list-style: none; display: inline">
+													  <a href="http://www.waterrower.ru/">РОССИЯ</a>
+												  </li>
+												  <li style="list-style: none; display: inline">
+													  <a href="http://www.waterrower.ru/">Kazakhstan</a>
+												  </li>
+												  <li style="list-style: none; display: inline">
+													  <hr>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.co.uk/" target="blank">Rest of Asia</a>
+												  </li>
+											  </ul>
+										  </li>
+										  <li class="countries-00">
+											  <img alt="" src="../../style/prj/images/oceania.svg">
+											  <a href="javascript:void(0)">Oceania</a>
+											  <ul class="drop-down">
+												  <li>
+													  <a href="http://www.waterrower.com.au/">Australia</a>
+												  </li>
+												  <li>
+													  <a href="http://www.elitefitness.co.nz/">New Zealand</a>
+												  </li>
+												  <li style="list-style: none; display: inline">
+													  <hr>
+												  </li>
+												  <li>
+													  <a href="http://www.waterrower.com.au/row" target="blank">Rest of Oceania</a>
+												  </li>
+											  </ul>
+										  </li>
+									  </ul>
+								  </section>
+							  </nav>
+
+						  </div>
+						  <!--联系我们结束-->
+					  </div>
+					  <!--选项卡内容部分结束-->
+				  </div>
+			  </div>
+
+
+  </div>
+<!---->
+<!--尾部开始-->
+    <div id="footerPart">
+        
+    </div>
+</body>
+</html>
+<!--尾部结束-->
+<script>
+//进行界面初始化操作
+	$(function(){
+		 initTop();
+		 initClick();
+		initBottom();
+		//添加事件
+		addEvent();
+		//初始化经销商信息
+		 var columnId=getParam("columnId");
+		 initInfo(columnId);
+	});
+	//初始化经销商信息
+	function initInfo(columnId){
+		joy.getJSON("../../wl/cm/wlCmInfoAction.dox?action=getData",{
+			key : "columnId",
+			value : "0119"
+		},function(resultObject){
+			$("#agencyDescrition").append(resultObject["content"]);
+		});
+	}
+	//添加事件
+	function addEvent(){
+	     $("#agencyTabContain div").click(function(){
+			 $(".activeTab").removeClass("activeTab");
+			 $(this).addClass("activeTab");
+			 	id=$(this).attr("id");
+			  if(id=="shopTab"){//当前点击的是网店查询
+		           $("#shopTabContent").show();
+				  $("#contactTabContent").hide();
+			  }else if(id=="contactTab"){//当前点击的是联系我们
+				  $("#contactTabContent").show();
+		           $("#shopTabContent").hide();
+			  }
+		 });
+	}
+</script>
+</body>
+</html>

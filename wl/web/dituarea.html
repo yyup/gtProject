@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html {width: 100%;height: 100%;margin:0;font-family:"微软雅黑";font-size:12px;}
+		#allmap{width:100%;height:650px;}
+		p{margin-left:5px; font-size:18px;}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DwfXS9tCyYx4edcwa9gZVAd8"></script>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<title>厦门市消防栓分布图</title>
+</head>
+<body>
+    <p align="center">厦门市消防栓分布图</p>
+    <div style="height:25px;weight:95%;float:right">
+        <img height="20px" src="green.png">正常
+        <img height="20px" src="red.png">水压异常
+        <img height="20px" src="grey.png">未上报
+    </div>
+	<div id="allmap"></div>
+	
+</body>
+</html>
+<script type="text/javascript">
+	// 百度地图API功能	
+	map = new BMap.Map("allmap");	
+	map.centerAndZoom(new BMap.Point(118.112968,24.510863), 15);
+	map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件	
+	var data_info = [[118.115034,24.513058,"序列号：12FFCE23D <br>地址：厦门市湖里区南山路#001<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.11507,24.510386,"序列号：1EFFCE23D <br>地址：厦门市湖里区南山路#002<br>水压：210<br>采集时间：2015-4-8 8:55:13<br>采集人员：赵青山"],
+					 [118.117163,24.511175,"序列号：12FFCE22D <br>地址：厦门市湖里区南山路#003<br>水压：220<br>采集时间：2015-4-7 9:52:20<br>采集人员：赵青山"],
+					 [118.11012,24.510501,"序列号：12FFCE24D <br>地址：厦门市湖里区海天路#001<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.108818,24.51069,"序列号：12FF5E23D <br>地址：厦门市湖里区海天路#002<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.110956,24.510756,"序列号：32FFGE23D <br>地址：厦门市湖里区华泰路#001<br>水压：90<br>采集时间：2015-4-2 8:53:20<br>采集人员：赵青山"],
+					 [118.112105,24.51263,"序列号：12FFCB233 <br>地址：厦门市湖里区华泰路#002<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.118564,24.513066,"序列号：16FRCE23D <br>地址：厦门市湖里区宜宾路#001<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.122041,24.513082,"序列号：17FFFE23D <br>地址：厦门市湖里区兴隆路#001<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.124569,24.512912,"序列号：19FFCEF3D <br>地址：厦门市湖里区兴隆路#002<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.127332,24.512447,"序列号：43FFCE23D <br>地址：厦门市湖里区康乐路#001<br>水压：220<br>采集时间：2015-4-6 8:52:20<br>采集人员：赵青山"],
+					 [118.128059,24.515727,"序列号：67FFCE23D <br>地址：厦门市湖里区火炬园二路#001<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.129277,24.518924,"序列号：44FFCE23D <br>地址：厦门市湖里区火炬园三路#001<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.137927,24.525688,"序列号：90FFCE23D <br>地址：厦门市湖里区火炬东路#001<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					 [118.14294,24.523449,"序列号：80FFCE23D <br>地址：厦门市湖里区枋湖北二路#001<br>水压：220<br>采集时间：2015-4-8 8:52:20<br>采集人员：赵青山"],
+					];
+	var opts = {
+				width : 250,     // 信息窗口宽度
+				height: 110,     // 信息窗口高度
+				title : "水压信息" , // 信息窗口标题
+				enableMessage:true//设置允许信息窗发送短息
+			   };
+	for(var i=0;i<data_info.length;i++){
+		var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
+		var content = data_info[i][2];
+		var icons = "green.png";
+		if(i==5){
+		    icons = "red.png"; //这个是你要显示坐标的图片的相对路径			    
+		    //var myIcon = new BMap.Icon("green.png", new BMap.Size(20,30));
+		    //marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]),{icon:myIcon});  // 创建标注        
+		}
+		if(i==10){
+			icons = "grey.png";
+		}
+		var icon = new BMap.Icon(icons, new BMap.Size(20, 30)); //显示图标大小
+	    marker.setIcon(icon);//设置标签的图标为自定义图标
+		map.addOverlay(marker);               // 将标注添加到地图中
+		addClickHandler(content,marker);
+	}
+	function addClickHandler(content,marker){
+		marker.addEventListener("click",function(e){
+			openInfo(content,e)}
+		);
+	}
+	function openInfo(content,e){
+		var p = e.target;
+		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+		map.openInfoWindow(infoWindow,point); //开启信息窗口
+	}
+</script>

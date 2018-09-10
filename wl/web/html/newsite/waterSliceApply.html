@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="waterrower Team">
+    <meta name="Author" content="waterrowerTeam">
+    <meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/getSystemPlatform.js"></script>
+    <script src="../../js/newsite/wlcommon.js"></script>
+    <script src="../../js/joy.loader.js" modules="dataview"></script>
+    <script src="../../js/newsite/cnzz.js"></script>
+    <link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/waterSliceApply.css"/>
+
+</head>
+
+<body>
+<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+<!-- 内容 -->
+<div id="wlBody"  clss="contentMargin">
+    <div class="container" style="margin-top: 100px;margin-bottom: 50px;" >
+    	
+	        <div class="row">
+	            <div class="col-md-2"></div>
+	            <div class="col-md-8">
+	                <h1>净水片申请</h1>
+	                <div class="row">
+	                    <div class="col-md-2"></div>
+	                    <div class="col-md-8">
+	                        <h5 class="text-color">*保修期内可免费提供净水片，用户需自行支付运费<span id="postAge"></span>元</h5>
+	                    </div>
+	                    <div class="col-md-2"></div>
+	                </div>
+	                <!--下划线-->
+	                <div class="row">
+	                    <div class="col-md-push-2 col-md-10">
+	                        <hr/>
+	                    </div>
+	                    <div class="col-md-2"></div>
+	                </div>
+	                <!--表格账户-->
+	                <div class="row" style="margin-top: 10px;">
+	                    <div class="col-md-3"></div>
+	                    <div class="col-md-6">
+	                        <form class="form-horizontal" id="waterSliceFrm">
+	                            <div class="form-group">
+	                                <label  class="col-sm-4 col-xs-5 text-right labelSize">用户账户</label>
+	                                <div class="col-sm-8 col-xs-7" style="text-align: left;">
+	                                    <span class="labelSize" id="personAccount"></span>
+	                                    <input type="hidden" name="account">
+	                                </div>
+	                            </div>
+	                            <div class="form-group">
+	                                <label class="col-sm-4 col-xs-5 text-right labelSize" for="serial">序&nbsp;<span style="margin-left: 3px;margin-right:3px;">列</span>&nbsp;号</label>
+	                                <div class="col-sm-8 col-xs-7" style="text-align: left;">
+	                                <select id="serial" name="deviceCd" style="width:70%" class="selectpicker show-tick" title="请选择一项" data-live-search="true" data-size="5">  
+				                    </select>  
+				                    </div>
+				                    <input type="hidden" name="machineTypeEk" id="machineTypeEk">
+				                    <input type="hidden" name="payModeEk" id="payModeEk">
+	                            </div>
+	                            <input type="hidden" name="provinceId" id="provinceId"></input>
+			                	<input type="hidden" name="province" id="province"></input>
+			                	<input type="hidden" name="cityId" id="cityId"></input>
+			                	<input type="hidden" name="city" id="city"></input>
+			                	<input type="hidden" name="areaId" id="areaId"></input>
+			                	<input type="hidden" name="area" id="area"></input>
+			                	<input type="hidden" name="addr" id="addr"></input>
+			                	<input type="hidden" name="mobile" id="mobile"></input>
+			                	<input type="hidden" name="receiver" id="receiver"></input>
+	                        </form>
+	                    </div>
+	                    <div class="col-md-3"></div>
+	                </div>
+	                <!--确认收货地址-->
+	                <h3>确认收货地址</h3>
+	            </div>
+	            <div class="col-md-push-2 col-md-10">
+	            	<div id="radioAddr">
+		                <!-- <div class="radio">
+		                    <label class="selectClass">
+		                        <input type="radio" name="optionsRadios" id="option1" value="option1" checked>
+		                        福建省 厦门市 湖里区 望海路航空自贸广场2号楼305大界营销策划有限公司 (bone收) 18850541580 *默认地址
+		                    </label>
+		                </div>
+		                <div class="radio">
+		                    <label class="text-color">
+		                        <input type="radio"  name="optionsRadios" id="option2" value="option2">
+		                        福建省 厦门市 湖里区 望海路航空自贸广场2号楼305大界营销策划有限公司 (bone收) 18850541580 *默认地址
+		                    </label>
+		                </div>
+		                <div class="radio">
+		                    <label class="text-color">
+		                        <input type="radio" name="optionsRadios" id="option3" value="option2">
+		                        福建省 厦门市 湖里区 望海路航空自贸广场2号楼305大界营销策划有限公司 (bone收) 18850541580 *默认地址
+		                    </label>
+		                </div>
+		                <div class="radio">
+		                    <label class="text-color">
+		                        <input type="radio" name="optionsRadios" id="option4" value="option2">
+		                        福建省 厦门市 湖里区 望海路航空自贸广场2号楼305大界营销策划有限公司 (bone收) 18850541580 *默认地址
+		                    </label>
+	                	</div> -->
+	                </div>
+	                <div class="radio">
+	                    <div class="selectClass">
+	                    	<a href="javascript:window.location.href='addAddr.html?addType=waterSlice'" style="text-decoration:none;">
+		                        <input type="hidden"  name="optionsRadios"  value="option2" >
+		                      	  新增收货地址  <img src="../../style/prj/images/add.png">
+	                      	</a>
+	                    </div>
+	                </div>
+	            </div>
+	            <!--确定 返回-->
+                <div class="col-md-12 btncss">
+                    <input type="button" class="sureAndBack" onclick="saveSerialReg(this);" value="确定"  />
+                    <input onclick="javascript:window.location.href='waterSliceApplyDetail.html'" type="button" class="sureAndBack" value="返回"  />
+                </div>
+	        </div>
+    </div>
+</div>
+<!-- 内容结束 -->
+<!--尾部开始-->
+<div id="footerPart">
+  
+</div>
+	            
+	<!--      </form> -->
+<!--尾部结束-->
+<script>
+//变量 
+var lgc;
+var addrs = new Object();
+    //进行初始化出操作
+    $(function(){
+    	initTop();
+    	initClick();
+    	initBottom();
+        //添加事件
+        $(".radio label").click(function(){
+            $(this).addClass("selectClass").css("color","#333");
+            $(this).parent().siblings().find("label").removeClass('selectClass').css("color","#808080");
+        });
+        lgc = joy.getCommonLang();
+        init();
+    });
+  //初始化表单数据
+	function init(){
+		joy.getJSON("../../wl/es/wlEsApplyAction.web?action=init",
+				{enumTypes:['PAY_MODE_EK','MACHINE_TYPE_EK']},	
+				function(resultObject) {
+		        	  $("#postAge").html(resultObject.postAge);
+		        	  $("#machineTypeEk").val(resultObject.PAY_MODE_EKEnum[0].value);
+		        	  $("#payModeEk").val(resultObject.MACHINE_TYPE_EKEnum[0].value);
+						joy.getJSON("../../wl/cm/wlCmMemberAction.web?action=getTableData",{}, function(resultObject){	//获取账号信息
+							if(resultObject!=null){
+    		     				account = resultObject.account;
+    		     				$("#personAccount").html(account);
+    		     				$("#account").val(account);
+							}
+	    			 		joy.getJSON("../../wl/es/wlEsSerialRegAction.web?action=findDeviceCdList",{}, //获取序列号
+	    		 			function(resultObject){	
+	    			 			      if(resultObject.length>0){
+	    			 			    	  var txt = '';
+	    			 			    	  for ( var i = 0; i < resultObject.length; i++ ) {
+	    			 			    		 txt += '<option>' + resultObject[i].deviceCd + '</option>';
+	    			 			    	  }
+	    			 			    	  $("#serial").append(txt);
+	    			 			      }
+	    			    			    //获取收货地址
+	    			    			    joy.getJSON("../../wl/es/wlEsMyDeliveryAddrAction.web?action=getMyDeliveryAddrList",{}, 
+	    			    			  	function(resultObject) {	
+    			    						if(resultObject.length>0){
+    			    							var addrTxt = '';
+    			    							addrs = resultObject;
+    			    		                	for ( var i = 0; i < resultObject.length; i++ ) {
+    			    		                		var isDefaultFlag = resultObject[i].isDefaultFlag;
+    			    		                		addrTxt += '<div class="radio">';
+    			    		                		//addrTxt += '<label class="selectClass"><input type="radio" onchange="radioChange('+i+')" name="optionsRadios" checked>';
+    			    		                		if ( isDefaultFlag == 1) {//默认地址选中
+    			    		                			radioChange(i);
+    			    		                			addrTxt += '<label class="selectClass"><input type="radio" onchange="radioChange(' + i + ')" name="optionsRadios" checked>';
+    			    		                		} else {
+    			    		                			addrTxt += '<label class="text-color"><input type="radio"  onchange="radioChange(' + i + ')" name="optionsRadios">';
+    			    		                		}
+    			    		                		addrTxt += '';
+    			    		                		addrTxt += resultObject[i].province + resultObject[i].city + resultObject[i].area + resultObject[i].addr + '&nbsp;&nbsp;(' + resultObject[i].receiver +'收)&nbsp;&nbsp;'+ resultObject[i].mobile;
+    			    		                		if ( isDefaultFlag == 1) {//默认地址显示文字
+    			    		                			addrTxt += '&nbsp;&nbsp;<span>*默认地址</span>';
+    			    		                		}
+    			    		                        addrTxt += '</label></div>';
+    			    		                	}
+												$("#radioAddr").append(addrTxt);
+    			    						}
+    			    					});	
+								});	
+						});	
+			});	
+	}
+  //地址选择后更改参数
+   function radioChange(i){
+	  $("#provinceId").val(addrs[i].provinceId);
+	  $("#province").val(addrs[i].province);
+	  $("#cityId").val(addrs[i].cityId);
+	  $("#city").val(addrs[i].city);
+	  $("#areaId").val(addrs[i].areaId);
+	  $("#area").val(addrs[i].area);
+	  $("#addr").val(addrs[i].addr);
+	  $("#mobile").val(addrs[i].mobile);
+	  $("#receiver").val(addrs[i].receiver);
+  } 
+  
+	//保存
+   function saveSerialReg(obj){
+	 	var serial = $("#serial").val();
+	 	var addr = $("input[name='optionsRadios']:checked").val();
+	 	if (serial=='' || serial==undefined) {
+	 		joy.showMessage("请填写序列号！", "warning");
+	 		return;
+	 	}
+	 	if (addr=='' || addr==undefined) {
+	 		joy.showMessage("请选填收货地址！", "warning");
+	 		return;
+	 	}
+	 	var data = $("#waterSliceFrm").serialize();  
+	 	//按钮不可用，防止重复提交
+        $(obj).attr("disabled","disabled");
+	 	$.ajax({ 
+   		    type:'post',  
+   		    url:'../../wl/es/wlEsApplyAction.web?action=saveData', 
+   		    cache: false,
+   		    data:data,  
+   		    dataType:'json', 
+   		    success:function(json){   
+   		   		joy.showMessage(lgc.opSuccess, "success");
+   		   		$(obj).removeAttr("disabled");
+   		   		var resultObject = json.resultObject;
+				if(resultObject.orderId==""){//如果为空，则为货到付款,跳转到列表页
+				   window.location="waterSliceApplyDetail.html";
+				}else{//如果不为空,则为在线支付，跳到支付界面					
+					   joy.showMessageDialog("订单已生成，订单号为"+resultObject.orderNo+"，您确定去支付？", "ok,cancel", function(e) {
+							if (e.btnName == "ok") {	
+								   window.location="payWay.html?orderId="+resultObject.orderId;
+							}else{
+								   window.location="waterSliceApplyDetail.html";
+
+							}
+						});
+				}
+				return;
+   		    },
+   		    error:function(){ 
+   		    	joy.showMessage("请求失败！", "warning");
+   		    	$(obj).removeAttr("disabled");
+   		    	return;
+   		    }
+   		   })
+   }
+</script>
+</body>
+</html>

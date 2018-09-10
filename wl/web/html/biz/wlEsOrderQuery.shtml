@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+</head>
+<body> 
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar"> 
+		<div style="float: left;">
+			<button class="joy-button joy-smc" icon="seek-s" onClick="downloadClick"
+				 label="lg:exportExcel" dataBind="visible:ADMINSmc"></button>		
+		</div>
+		
+		<div id="searchForm" class="joy-form" style="float: right"
+			layout="freedom">
+			<span class="joy-lang" label="lg:orderStateEk"></span>:
+			<input id="cmbOrderState" class="joy-combobox joy-enum" placeholder="lg:selectHint" style="width:120px" 
+			 dataBind="value:orderStateEk,source:ORDER_STATE_EKEnum">
+			
+			<span class="joy-lang" label="lg:orderTime"></span>:
+			<input id="fromTime"  class="joy-datepicker" label=""  style="width:120px;" dataBind="value:fromTime"> 
+			<span class="joy-lang" label="lg:to"></span>:
+			<input id="toTime"  class="joy-datepicker" label=""  style="width:120px;" dataBind="value:toTime"> 
+			<button class="joy-button" icon="search" onClick="searchData" label="lgc:search" ></button>
+		</div>
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid"  rowHeightFit="38">
+		<thead>
+			<tr>  
+				<th field="orderNo" dataType="string" label="lg:orderNo" colWidth="15%"></th> 
+				<th field="orderTime"  dataFormat="yyyy-MM-dd HH:mm:ss" dataType="date"  label="lg:orderTime" colWidth="20%"></th> 
+				<th field="amt" dataType="string" align="right" label="lg:amt"	colWidth="10%"></th>  
+				<th field="payAmt" dataType="string" align="right" label="lg:payAmt" colWidth="10%"></th>   
+				<th field="goodNum" dataType="string" align="right" label="lg:goodNum"	colWidth="10%"></th>   
+				<th field="memberName" dataType="string" label="lg:memberName" colWidth="15%"></th>   
+				<th field="payModeEk" dataType="string"  label="lg:payModeEk"  align="center" enumData="PAY_MODE_EKEnum" colWidth="10%"></th>
+				<th field="orderStateEk" dataType="string"  label="lg:orderStateEk"  align="center" enumData="ORDER_STATE_EKEnum" colWidth="10%"></th>
+			</tr>
+		</thead>
+	</table>
+
+</body>
+<script>
+	var dataForm, searchForm, grid, initResult, lgc, lg;
+	var searchUrl="../../wl/es/WlEsOrderQueryAction.do?action=findOrderList";
+	
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();
+		dataForm = $("#dataForm").getJoyForm();
+		searchForm = $("#searchForm").getJoyForm(); 
+
+		//数据初始化
+		joy.getJSON("../../wl/es/WlEsOrderQueryAction.do?action=init",{enumTypes:['ORDER_STATE_EK','PAY_MODE_EK','LOGISTIC_EK']},function(resultObject) {
+			initResult = resultObject;
+		    var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+			searchForm.load();
+	    	grid.fetch(initResult, searchUrl); 
+		});
+	})
+
+	/**
+	 * 搜索数据
+	 */
+	function searchData() {
+		var obj=searchForm.getDataModel().toJSON();
+		 var paraMap=joy.getParaMap(obj);
+		grid.fetch(initResult, searchUrl, paraMap);
+	}
+
+	//导出EXCEL
+	function downloadClick(){
+		joy.showMessageDialog(lg.exportConfirm, "ok,cancel", function(e) {
+			if (e.btnName == "ok") {
+				//搜索条件param构成为
+				var param="";
+				var con=$("#cmbOrderState").getJoyComboBox();
+				param="orderStateEk="+con.value();			
+				param+="&fromTime="+$("#fromTime").getJoyDatePicker().value();	
+				param+="&toTime="+$("#toTime").getJoyDatePicker().value();	
+				
+				window.location.href="../../wl/es/WlEsOrderQueryAction.do?action=exportDataList&"+param;			
+			}
+		});
+	}
+</script>
+</html>

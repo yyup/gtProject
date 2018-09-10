@@ -1,0 +1,65 @@
+  #accountInfoBody{width:100%;}
+
+/*账号信息左边栏开始*/
+#accountInfoContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#accountInfoMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#accountInfoMenu{
+float:left;width:230px;min-height:670px;
+}
+#accountInfoContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.accountInfoTitle{width:175px;height:38px;margin:0 auto;margin-top:20px;background: url("../images/accountInfo.png") ;
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px;}
+.item p:not(.itemTitle){padding-bottom:4px;
+ }
+  .item a{
+    color:#000;
+	text-decoration:none;
+ }
+ /*账号信息左边栏结束*/
+ #personInfo{    
+	  margin-top:20px;
+	  margin-left:60px;
+ }
+ #baseInfoForm p{
+	display:table;
+	margin-top:10px;  
+ }
+ #baseInfoForm label{
+   height:26px;display:block;float:left;width:80px;
+ } 
+ #personAccount{
+    float:right;
+ }
+ #baseInfoForm input{
+  
+    line-height: 22px;
+  padding:3px;
+  width:280px;
+ }
+ #savePersonInfo{ 
+   margin-left:130px;
+   margin-top:10px;
+   height:24px; 
+ }

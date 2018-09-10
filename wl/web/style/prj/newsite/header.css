@@ -1,0 +1,408 @@
+#searchQ {
+	width: 150px;
+}
+
+@media ( min-width :768px) {
+	#bs-example-navbar-collapse-1 ul.navbar-nav>li {
+		text-align: center;
+		padding: 0 10px;
+	}
+}
+
+#topSearchForm {
+	padding: 0px;
+	max-width: 185px;
+}
+
+@media screen and (min-width:1600px) {
+	#bs-example-navbar-collapse-1 {
+		width: 1000px;
+	}
+}
+
+@media screen and (min-width:768px) and (max-width:930px) {
+	#bs-example-navbar-collapse-1 ul.navbar-nav>li {
+		padding: 0 5px;
+	}
+	#topSearchForm {
+		padding: 0px;
+	}
+	#buyCar {
+		margin-right: 9px;
+	}
+	#searchQ {
+		width: 30px !important;
+	}
+}
+
+/* @media screen and (min-width:768px) and(max-width:815px){
+#searchQ{
+	width: 30px !important;
+	}
+} */
+
+/* body{font-family:"Microsoft Yahei"!important;} */
+/* body{font-family: "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif", source-han-serif-sc, serif !important;} */
+.langBuy {
+	float: right;
+	margin-right: 20px;
+	position: fixed;
+	right: 6px;
+	top: 0;
+	z-index: 9999;
+}
+
+#buyCar {
+	display: block;
+	float: left;
+	margin-right: 26px;
+	cursor: pointer;
+}
+
+#loginAccount {
+	float: left;
+	padding-left: 6px;
+}
+
+.navbar-header .headLogo {
+	background: url('../images/top_wlogo.png');
+	height: 50px;
+	margin-left: 15px !important;
+	width: 158px;
+	margin-top: 10px;
+	background-repeat: no-repeat;
+	background-size: 100%
+}
+
+#headerPart {
+	background-color: #111;
+	border: 0px;
+}
+
+#bs-example-navbar-collapse-1>.navbar-nav>li>a {
+	color: #fff;
+}
+
+#bs-example-navbar-collapse-1>.navbar-nav>li>a:hover {
+	color: #4580CC;
+}
+
+.language {
+	color: white;
+	text-align: right;
+	margin-top: 4px;
+}
+
+.engAndChi {
+	font-size: 14px;
+	cursor;
+	pointer;
+}
+
+.engAndChi:hover {
+	font-size: 14px;
+	cursor: pointer;
+	color: #428bca;
+}
+
+.loginInfo {
+	display: table;
+	margin-top:18px;
+}
+
+#headBuyCarNum {
+	background-color: red;
+	border-radius: 20px;
+	color: white;
+	display: table;
+	height: 20px;
+	left: 26px;
+	position: absolute;
+	text-align: center;
+	width: 20px;
+}
+
+#myPersion {
+	cursor: pointer;
+	float: left;
+	margin-left: 2px;
+}
+
+#headArrow {
+	font-size: 17px;
+	padding-top: 1px;
+	color: white;
+	left: 38px;
+	position: absolute;
+	top: 30px;
+	cursor: pointer;
+}
+
+#onlineContact {
+	position: fixed;
+	top: 200px;
+	right: 0;
+	z-index: 9999;
+}
+
+.floatRight {
+	float: right;
+	cursor: pointer;
+}
+
+#contactContain {
+	background-color: #000000;
+	color: white;
+	margin-top: 13px;
+	padding: 10px;
+	display: none;
+}
+
+#qqContain {
+	background-color: #000;
+	padding: 16px;
+	text-align: center;
+	display: none;
+}
+
+.customQQ {
+	background-color: #717171;
+	display: block;
+	padding: 4px;
+	margin-top: 6px;
+	c: pointer;
+}
+
+.qqContactUsText {
+	padding-left: 6px;
+}
+
+.activeQQ {
+	background-color: #4580CC;
+	display: block;
+	padding: 4px;
+	margin-top: 6px;
+	c: pointer;
+}
+
+.headContactUsTxt {
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#headBuyCarIconContain {
+	float: left;
+}
+
+/**ͷ����Ʒ��������ʼ**/
+#headBuyCarContain {
+	display: none;
+	padding: 10px;
+	position: fixed;
+	z-index: 9999;
+	top: 42px;
+	right: 64px;
+	background-color: #000;
+	color: white;
+}
+
+.headProductImg {
+	width: 60px;
+	float: left;
+}
+
+.headProductDesc {
+	float: left;
+	padding-left: 10px;
+}
+
+.headProductName {
+	padding-bottom: 12px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	word-break: break-all;
+	width: 121px;
+}
+
+.headBuyCarItem {
+	display: table;
+	padding-bottom: 10px;
+}
+
+.hasAddBuyCarTitle {
+	font-weight: bold;
+	font-size: 16px;
+	padding-bottom: 10px;
+}
+
+.headGrayLine {
+	border-bottom: 1px solid #4d4d4d;
+}
+
+.anotherBuyCarCount {
+	font-size: 15px;
+	text-align: right;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+#viewCart {
+	border: 1px solid white;
+	float: right;
+	padding-left: 6px;
+	padding-right: 6px;
+	text-align: right;
+	color: white;
+}
+
+.headDeleteCarBut {
+	float: right;
+	cursor: pointer;
+}
+/**ͷ����Ʒ����������**/
+.navigationText {
+	color: white
+}
+
+.backgroundImg {
+	width: 100%;
+}
+
+@media ( max-width :767px) {
+	.langBuy {
+		float: right;
+		margin-right: 60px !important;
+		position: fixed;
+		right: 6px;
+		top: 0;
+		z-index: 9999;
+	}
+	#searchQ {
+		width: 100% !important;
+	}
+	#bs-example-navbar-collapse-1 {
+		width: 100% !important;
+		margin: 8px auto;
+	}
+	.nav>li>a {
+		position: relative;
+		display: block;
+		padding: 8px 0px !important;
+	}
+	#headBuyCarContain {
+		display: none;
+		padding: 10px;
+		position: fixed;
+		z-index: 9999;
+		top: 42px;
+		right: 100px;
+		background-color: #000;
+		color: white;
+	}
+	.loginInfo {
+		display: table;
+		margin-top:0px;
+	}
+	
+}
+/* #bs-example-navbar-collapse-1 form.navbar-form{
+	padding-right: 90px;
+} */
+.qqAndPhone {
+	cursor: pointer;
+}
+
+@media ( max-width : 1225px) {
+	.nav>li>a {
+		position: relative;
+		display: block;
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+	#searchQ {
+		width: 60px;
+	}
+	#bs-example-navbar-collapse-1 {
+		margin: 8px auto;
+	}
+}
+
+@media ( min-width : 1225px) {
+	#bs-example-navbar-collapse-1 {
+		width: 865px;
+		margin: 8px auto;
+	}
+}
+
+a#logout {
+	font-size: 14px;
+	color: white;
+}
+
+a#logout:hover {
+	font-size: 14px;
+	color: #428bca;
+}
+
+a#aPhone {
+	font-size: 14px;
+	color: white;
+}
+
+a#aPhone:hover {
+	font-size: 14px;
+	color: #428bca;
+}
+
+@media screen and (max-width:900px) {
+	.navbar-header .headLogo {
+		background: url('../images/top_wlogo.png');
+		height: 40px;
+		margin-left: 15px !important;
+		width: 120px;
+		margin-top: 10px;
+		background-repeat: no-repeat;
+		background-size: 100%
+	}
+}
+
+@media screen and (max-width:810px) and (min-width:768px){
+	.nav>li>a {
+		font-size:12px;	
+	}
+}
+
+@media screen and (max-width:500px) { /* #headBuyCarIconContain{
+		display:none;
+	} 
+	 #buyCar{
+		margin-right:4px !important;
+	} */
+	.engAndChi {
+		font-size: 12px;
+		cursor;
+		pointer;
+	}
+	.engAndChi:hover {
+		font-size: 12px;
+		cursor: pointer;
+		color: #428bca;
+	}
+	a#aPhone {
+		font-size: 12px;
+		color: white;
+	}
+	a#aPhone:hover {
+		font-size: 12px;
+		color: #428bca;
+	}
+	a#logout {
+		font-size: 12px;
+		color: white;
+	}
+	a#logout:hover {
+		font-size: 12px;
+		color: #428bca;
+	}
+}

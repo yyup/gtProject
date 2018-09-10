@@ -1,0 +1,36 @@
+  .image-block {
+		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+		color: #fff;
+		font-size: 17px;
+		line-height: 32px;
+		margin-left: 17%;
+		margin-right: auto;
+		margin-top: 5%;
+		position: absolute;
+	}
+	.grid-title {
+		font-size: 15px;
+		font-weight: 700;
+		margin-top: 10px;
+		padding-bottom: 10px;
+		text-align: left;
+  }
+  .productHead{margin:0 auto;}
+.productContainer{margin: 20px auto 0;}
+.mall{width: 20px; height: 20px; float: right;}
+.whiteImg{float: right;width:5px;}
+.buyButton{
+	background: #111111;
+	height: 40px;
+	width:150px;
+	color:white;
+	font-size: 16px;
+	border: 0px;
+}
+.sell{
+	cursor:pointer;
+}
+.sell:hover{
+	cursor:pointer;
+	color:#4581ca
+}

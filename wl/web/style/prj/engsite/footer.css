@@ -1,0 +1,31 @@
+ @media screen and (max-width: 768px) {
+       .footerInfo .pull-left,
+       .footerInfo .pull-right {
+            float: none !important;
+            text-align: center;
+        }
+    }
+    .textColor{
+        color:#646464
+    }
+	.underline{
+	  border-bottom:1px solid  #646464;
+	}
+#footerPart{
+    	background:#111111;
+    	width:100%;
+    	position:absolute;
+	    bottom:0;
+	    left:0;
+	}
+ .centerHorizontally{
+     margin: 0 auto;
+     height: 50px;
+     width: 85px;
+ }
+ .imgRow{
+   margin-top: 40px;margin-bottom: 20px;
+ }
+ .waterrowerInfoRow{
+   margin-top: 10px;
+ }

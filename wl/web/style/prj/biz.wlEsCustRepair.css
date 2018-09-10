@@ -1,0 +1,222 @@
+body
+{
+	height:100%;
+	min-width:804px;
+	}
+.searchContent
+{
+	height:35px;
+	width:100%;
+}
+.searchContent_l
+{
+	float:left;
+	height:100%;
+}
+.searchContent_r
+{
+	float:right;
+	height:100%;
+}
+.listContent
+{
+	width:100%;
+
+}
+
+.list_left
+{
+	width:220px;
+}
+.area_tit
+{
+	height:30px;
+	line-height:30px;
+	font-size:15px;
+	border:1px solid #c5c5c5;
+	background-color:#f0f0f0;
+	color:#036eb2;
+	text-indent:1em;
+	
+}
+.area_c
+{
+	border:1px solid #c5c5c5;
+	overflow:auto;
+	height:100%;
+}
+/*************edit**************/
+.base
+{
+	border-left:1px solid #c5c5c5;
+	border-right:1px solid #c5c5c5;
+	border-bottom:1px solid #c5c5c5;
+	padding-bottom:10px;
+}
+.baseBor
+{
+	width:100%;
+	position:relative;
+	border-top:1px solid #c5c5c5;
+	margin-top:25px;
+	height:15px;
+
+}
+.baseBor_tit
+{
+	background-color:white;
+	position:absolute;
+	height:30px;
+	font-size:16px;
+	line-height:30px;
+	left:40px;
+	top:-15px;
+	color:#50a0e2;
+	text-align:center;
+	font-weight: bold;
+	padding-left:5px;
+	padding-right:5px;
+}
+.layThree_row
+{ 
+	   height:55px;
+	   width:100%;
+	   padding:0xp;
+	
+}
+.layThree_row_f
+{
+	float:left;
+	width:32.3%;
+	padding-left:1%;
+}
+.addAlert
+{
+	line-height:30px;
+	height:30px;
+	color:gray;
+	font-size:15px;
+	width:100%;
+	text-align:center;
+}
+.layTwo_row_button
+{
+	height:30px;
+	padding-top:15px;
+	float:right;
+	width:100%;
+	
+}
+#editDiv
+{
+	display:none;
+	position:absolute;
+	left:0px;
+	top:18px;
+	width:100%;
+	height:100%;
+	background-color:white;
+	min-width:824px;
+	min-height:600px;
+	z-index:20000;
+}
+.editBody
+{
+	margin-left: 20px;
+    margin-right: 20px;
+    
+}
+#detailDiv,#wldetailDiv
+{
+	display:none;
+	position:absolute;
+	left:0px;
+	top:18px;
+	width:100%;
+	height:100%;
+	background-color:white;
+	min-width:824px;
+	min-height:600px;
+	z-index:20000;
+}
+
+.imgDiv
+{
+	width:180px;
+	float:left;
+	height:120px;
+	padding:5px;
+}
+
+.viedoDiv
+{
+	width:180px;
+	float:left;
+	height:120px;
+	padding:5px;
+}
+
+/**弹出层样式***/
+.mask{
+	height: 100%;
+	width: 100%;
+	filter:alpha(opacity:0);
+	opacity: 0;
+	background: #000;
+	position: absolute;
+	z-index: 20001;
+	left: 0;
+	top:0;
+	display: -none;
+}
+.popup{
+	background:#fff urlimages/loading.gif) no-repeat center;
+	border: 10px solid #fff;
+	position: absolute;
+	z-index: 20002;
+	overflow:-hidden;
+	width: 320px;
+	height: 240px;
+}
+.popup img{
+	height: auto;
+	width: auto;
+}
+.btn{
+	position: absolute;
+	right: 0;
+	top:0;
+	height: 100%;
+	width: 50%;
+	cursor: pointer;
+}
+.prev{
+	left: 0;
+	background: url(images/lightbox-btn-prev.gif) no-repeat  0 50px;
+}
+.next{
+	background: url(images/lightbox-btn-next.gif) no-repeat  right 50px;
+}
+.popupBottom{
+	position: relative;
+	z-index: 20003;
+	margin-top:8px
+}
+.popupTitle{
+	line-height: 18px;
+	color: #543424;
+	font-family: Arial;
+	font-size: 12px;
+	padding-right: 100px;
+}
+.popupClose{
+	margin-right:15px;
+	height: 22px;
+	width: 66px;
+	background: url(images/lightbox-btn-close.gif) no-repeat;
+	cursor: pointer;
+	z-index: 4;
+	position: absolute;
+	top: 0px;
+	right: 0;
+}

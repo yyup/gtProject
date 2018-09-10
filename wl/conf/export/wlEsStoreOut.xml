@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export>
+	<wlEsStoreOut code = "saleDates" name = "销售日期"/>
+	<wlEsStoreOut code = "deliveryDates" name = "发货日期"/>
+	<wlEsStoreOut code = "agency" name = "经销商"/>
+	<wlEsStoreOut code = "productName" name = "型号"/>
+	<wlEsStoreOut code = "num" name = "数量"/>
+	<wlEsStoreOut code = "price" name = "价格"/>
+	<wlEsStoreOut code = "accessories" name = "配件"/>
+	<wlEsStoreOut code = "accPrice" name = "配件价"/>
+	<wlEsStoreOut code = "receiver" name = "收件人"/>
+	<wlEsStoreOut code = "contact" name = "联系方式"/>
+	<wlEsStoreOut code = "addr" name = "地址"/>
+	<wlEsStoreOut code = "zipCd" name = "邮编"/>
+	<wlEsStoreOut code = "deviceCd" name = "设备序列号"/>
+	<wlEsStoreOut code = "province" name = "地区"/>
+	<wlEsStoreOut code = "salePrice" name = "销售额"/>
+	<wlEsStoreOut code = "logistic" name = "物流公司"/>
+	<wlEsStoreOut code = "trackNo" name = "快递单号"/>	
+</export>

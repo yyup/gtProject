@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="waterrower Team">
+    <meta name="Author" content="waterrowerTeam">
+    <meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+  	<script src="../../js/joy.loader.js" modules="dataview"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/getSystemPlatform.js"></script>
+    <script src="../../js/newsite/wlcommon.js"></script>
+    <script src="../../js/newsite/cnzz.js"></script>
+	<link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/payWay.css"/>
+
+</head>
+
+<body>
+  <!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+<!--头部结束-->
+  <!-- 内容 -->
+  <div id="wlBody"  clss="contentMargin">
+      <div class="container" style="margin-top: 100px;margin-bottom: 50px;" >
+          <div class="hidden-xs">
+              <div class="row" style="margin-bottom: 20px;">
+                  <div class="col-md-6 text-right title" id="bigOrderNo"></div>
+                  <div class="col-md-6 title" id="bigTotalMoney"></div>
+              </div>
+              <table class="table table-striped">
+                  <tr id="bigTableTitle">
+                      <td class="tableTitle tableLeft" style="width:400px;">产品</td>
+                      <td class="tableTitle" style="width:200px;">单价</td>
+                      <td class="tableTitle" style="width:200px;">数量</td>
+                      <td class="tableTitle" style="border-left: solid 1px white;width:300px;">小计</td>
+                  </tr>
+              </table>
+              <div class="choosePayWay">请选择支付方式</div>
+              <hr class="payWaiLine">
+              <div class="row">
+                  <div class="col-sm-6" ><input type="radio" name="small_pay" value ="unionpay" ><img src="../../style/prj/images/yinlian.png" class="img-responsive goodImg" /></div>
+                  <div class="col-sm-6" style="text-align: right;"><input type="radio" name="small_pay" value ="alipay" ><img src="../../style/prj/images/zhifubao.png" class="img-responsive goodImg"/></div>
+              </div>
+              <div style="text-align: center"><input type="button" class="sure" onclick="settleMent()" value="确认"></div>
+          </div>
+          <div class="hidden-lg hidden-md hidden-sm">
+              <div class="text-center" class="smOrderInfo" id="smallOrderNo"></div>
+              <div class="text-center"class="smOrderInfo" style="margin-bottom: 30px;" id="smallTotalMone"></div>
+              <div class="row" id="smallContent">
+                 
+              </div>
+              <hr class="smHengxian">
+              <div class="row" class="smPerosonInfo">
+               	<div class="col-xs-12" >
+                  <span >商品送至：</span>
+                  <span id="smallAddr"></span>
+                </div>
+               	<div class="col-xs-12" >
+                  <span>收货人：</span>
+                  <span id="smallReceiver"></span>
+                  <span id="smallMobile"></span>
+              	 </div>
+              </div>
+              <div class="text-center smSelectPayWay" >请选择支付方式</div>
+              <hr  class="smHengxian" style="background: #D9D9D9;">
+              <div class="row">
+                  <div class="col-xs-6" ><img src="../../style/prj/images/zhifubao.png" class="img-responsive goodImg"/></div>
+                  <div class="col-xs-6" ><div class="pull-right"><input type="radio" name="pay" value ="alipay" ></div></div>
+              </div>
+              <hr class="smHengxian">
+              <div class="row">
+                  <div class="col-xs-6" ><img src="../../style/prj/images/yinlian.png" class="img-responsive goodImg"/></div>
+                  <div class="col-xs-6" ><div class="pull-right"><input type="radio" name="pay" value="unionpay" id="" ></div></div>
+              </div>
+              <hr class="smHengxian">
+               <div style="text-align: center"><input type="button" onclick="settleMent()" class="sure" value="确认"></div>
+          </div>
+      </div>
+
+  </div>
+  <!-- 内容结束 -->
+<!--尾部开始-->
+    <div id="footerPart">
+        
+    </div>
+    <!--头部结束-->
+<form id="form1" name="form1" method="post" action="../../alipay/alipayapi.jsp">
+      <input type="hidden" name="WIDout_trade_no" id="WIDout_trade_no" />
+      <input type="hidden" name="WIDsubject" id="WIDsubject" />
+      <input type="hidden" name="WIDtotal_fee" id="WIDprice" />
+      <input type="hidden" name="WIDreceive_name" id="WIDreceive_name" />
+      <input type="hidden" name="WIDreceive_mobile" id="WIDreceive_mobile" />
+      <input type="hidden" name="WIDreceive_address" id="WIDreceive_address" />
+      <input type="hidden" name="WIDreceive_language" id="WIDreceive_language" />
+</form>
+<form id="form2" name="form2" method="post" action="../../unionpay/unionpayapi.jsp">
+      <input type="hidden" name="WIDout_trade_no" id="unionpayWIDout_trade_no" />
+       <input type="hidden" name="WIDtotal_fee" id="WIDtotal_fee" />
+       <input type="hidden" name="WIDlanguage" id="WIDlanguage" />
+</form>
+<!--尾部结束-->
+
+<script>
+//进行界面初始化操作
+$(function(){
+	initTop();
+	initClick();
+	initBottom();
+	var str=location.href; //取得整个地址栏
+	var arr=str.split("?")[1];//获取参数部分
+	if(arr && arr.length > 0){
+		//添加事件
+		addEvent();
+		var orderId = (arr+"").split("=")[1];
+		getOrderInfo(orderId);//获取订单信息
+	}
+});
+//给radio添加事件
+function addEvent(){
+/* 	$("[type=radio]").bind("click",function(){
+		if($(this).val() == "alipay"){//支付宝
+			$("[value=alipay]").attr("checked",true)
+		}
+		if($(this).val() == "unionpay"){
+			$("[value=unionpay]").attr("checked",true)
+		}//银联
+	}) */
+	$("[value=alipay]").bind("click",function(){
+		$("[value=alipay]").prop("checked",true);
+		$("[value=unionpay]").prop("checked",false)
+	});
+	$("[value=unionpay]").bind("click",function(){
+		$("[value=alipay]").prop("checked",false);
+		$("[value=unionpay]").prop("checked",true);
+	});
+}
+//获取订单信息
+function getOrderInfo(orderId){
+	joy.getJSON("../../wl/es/wlEsOrderAction.web?action=getData",{orderId:orderId},	function(resultObject){
+		var bigTxt = '';//大屏显示
+		var smallTxt='';//小屏显示
+		var name = "";//商品名称
+		var data = resultObject.goodList;
+		for(var i = 0 ; i < data.length ; i++){
+			name += ","+data[i]["productName"];
+		bigTxt+=
+				'<tr>'+
+			        '<td class="tableContent">';
+			        if(data[i]["path"]){//是否有图片
+			        	bigTxt+='<img  style="width:160px;height:100px;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+data[i]["path"]+'"  class="goodImg"/>';
+			        }else{
+			        	if(data[i].productName=="邮费"||data[i].productName=="Postage"){
+                   	  	 bigTxt +=  '<img  src="../../style/prj/images/freight.png"  class="goodImg" style="width:160px;height:100px;">' ;	
+                   	    }else{
+               		     bigTxt +=  '<img  src="../../style/prj/images/upkeep.png"  class="goodImg" style="width:160px;height:100px;">' ;	
+                   	    }
+			        }
+			        bigTxt+=data[i].productName;
+			        bigTxt+='<td class="tableContent">￥'+data[i].price+'</td>'+
+			        '<td class="tableContent">'+data[i].num+'</td>'+
+			        '<td class="tableContent">￥'+parseFloat(data[i].price*data[i].num).toFixed(2)+'</td>'+
+			    '</tr>';
+			    smallTxt +=
+			    	 '<div class="row" style="margin-top:5px;"><div class="col-xs-5" >';
+			    	 if(data[i]["path"]){//是否有图片
+			    		 smallTxt+='<img  style="width:160px;height:100px;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+data[i]["path"]+'" class="img-responsive pull-right" class="sm_img">';
+			    	 }else{
+				        	if(data[i].productName=="邮费"||data[i].productName=="Postage"){
+				        		smallTxt +=  '<img  style="width:160px;height:100px;" src="../../style/prj/images/freight.png" class="img-responsive pull-right" class="sm_img">' ;	
+	                   	    }else{
+	                   	    	smallTxt +=  '<img  style="width:160px;height:100px;" src="../../style/prj/images/upkeep.png" class="img-responsive pull-right" class="sm_img">' ;	
+	                   	    }
+				        }
+			    	 smallTxt+= '</div>'+
+		            '<div class="col-xs-7" style="color: #717171">'+
+		                '<div>'+data[i]["productName"]+'</div>'+
+		                '<div>'+
+		                    '<span>￥'+data[i].price+'</span>'+
+		                    '<span class="pull-right">X'+data[i].num+'</span>'+
+		                '</div>'+
+		            '</div></div>';
+		}
+		if(name.length>255){
+			name=name.substr(1,255);
+		}else{
+			name=name.substr(1,name.length);
+		}
+	    bigTxt +='<tr>'+
+	        '<td colspan="4" class="tableContent">'+
+	            '<span>商品送至：'+resultObject.province+resultObject.city+resultObject.area+resultObject.addr+' 收货人：'+resultObject.receiver+"&nbsp;"+resultObject.mobile+'</span>'+
+	        '</td>'+
+	    '</tr>';
+		var address = resultObject.province+resultObject.city+resultObject.area+resultObject.addr;
+	    //设置小屏拼的内容显示
+	    $("#smallAddr").text(address);//地址
+	    $("#smallReceiver").text(resultObject.receiver);//地址
+	    $("#smallMobile").text(resultObject.mobile);//手机号
+	    $("#smallOrderNo").text("订单号："+resultObject.orderNo);//小屏幕订单号
+	    $("#bigOrderNo").text("订单号："+resultObject.orderNo);//大屏幕订单号
+	    $("#smallTotalMone").text("总金额：￥"+resultObject.payAmt);
+	    $("#bigTotalMoney").text("总金额：￥"+resultObject.payAmt);
+	    $("#bigTableTitle").after(bigTxt);
+	    $("#smallContent").after(smallTxt);
+	    getDeliveryInfo(resultObject.orderNo,name,resultObject,address)//订单编号);//获取地址信息
+	});
+}
+//获取订单信息
+function getDeliveryInfo(orderNo,name,resultObject,address){
+	joy.postJSON("../../wl/es/wlEsMyDeliveryAddrAction.web?action=getMyDeliveryAddrList",{},
+			function(result) {
+		if(resultObject.province==""&&resultObject.city==""){	//如果省和市为空
+			if(result!==null){
+				resultObject.province=result.province;
+				resultObject.city=result.city;
+				resultObject.area=result.area;
+				resultObject.addr=result.addr;
+			}else{
+				resultObject.province="福建省";
+				resultObject.city="厦门市";
+				resultObject.area="思明区";
+				resultObject.addr="观音山国际商务运营中心11号楼8层";
+			}
+		}
+		
+	   $("#WIDout_trade_no").val(orderNo);
+	   $("#WIDsubject").val(name);
+	   $("#WIDprice").val(resultObject.payAmt);
+	   $("#WIDreceive_name").val(resultObject.receiver);
+	   $("#WIDreceive_mobile").val(resultObject.mobile);
+	   $("#WIDreceive_address").val(address);
+	   $("#unionpayWIDout_trade_no").val(orderNo);
+	   $("#WIDtotal_fee").val(resultObject.payAmt);		
+	   $("#WIDreceive_language").val("chinese");
+	   $("#WIDlanguage").val("chinese");
+  });
+}
+//进行支付操作
+function settleMent(){
+	var paymentMethod=$("[type=radio]:checked").val(); //支付宝的值alipay，银联的值unionpay
+	if(!paymentMethod){
+		joy.showMessage("请选择支付方式！","warning"); 
+	}
+	 if(paymentMethod==='alipay'){
+		 $("#form1").submit();
+	 }else if(paymentMethod==='unionpay'){
+		 $("#form2").submit();
+	 }
+}
+</script>
+</body>
+</html>

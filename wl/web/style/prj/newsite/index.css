@@ -1,0 +1,44 @@
+.image-block {background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+color: #fff;font-size: 17px;line-height: 32px;margin-left: 17%;margin-right: auto;margin-top: 5%;position: absolute;}
+#jumbotron{position: relative;}
+#jumbotronLogo{ position: absolute;left: 20%;right:20%;top: 25%;text-align: center;}
+#jumbotronLogo div{color:white;font-size:18px;}
+#jumbotronLogo img{display: block;margin: 0 auto;}
+#newAndVideo{position:relative;}
+#newAndVideoContainer{position:absolute;left:0;top:25%;width:100%;}
+.newAndVideoHead{width:100%;float:left;}
+.newAndVideoHeadTitle{float:left; font-weight: bold;font-size: 1.5em;}
+.newAndVideoHeadMore{float:right;}
+#newAndVideoContainer .container-fluid .row [class^=col]{padding:0;color: #FDFAF3;}
+#newAndVideoContainer .container-fluid .row .video{padding-left:20px;}
+#newContain{ display: table;table-layout: fixed;width: 100%;font-size: 14px;}
+#newContain li{word-break: keep-all; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;margin: 4% 0px;}
+ @media(max-width:766px){
+ 	#newAndVideoContainer .container-fluid .row .col-xs-6{width:100%;}
+    #newAndVideoContainer{top:0;}
+	#newAndVideoContainer .container-fluid .row .video{padding:0px;}
+	#proIntro {    margin-top: 170px !important;}
+	#newContain li{margin: 3px 0px;}
+  }
+.newAndVideoHead{border-bottom:1px solid #FDFAF3;}
+.newAndVideoHeadMore{border:1px solid #FDFAF3;padding:0px 4px;}
+/*≤˙∆∑ΩÈ…‹*/
+#proIntro div{ margin: 0 auto;}
+.grid-title {font-size: 16px;font-weight: 700;margin-top: 10px;padding-bottom: 10px;text-align: center;}
+.grid-desc {font-size: 13px;line-height: 21px; margin: 0;}
+.sellList{
+	cursor:pointer;
+}
+.sellList:hover{
+	cursor:pointer;
+	color:#4581ca
+}
+.imgHeight{
+	height: 300px;
+}
+.hInfoMargin{
+    margin-top: 130px !important;
+}
+  .index{
+	color:#337ab7 !important
+}

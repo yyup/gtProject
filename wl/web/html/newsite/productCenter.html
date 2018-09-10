@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<meta name="Generator" content="waterrower Team">
+	<meta name="Author" content="waterrowerTeam">
+	<meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+	<meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+	<script src="../../js/newsite/bootstrap.js"></script>
+	<script src="../../js/newsite/getSystemPlatform.js"></script>
+	<script src="../../js/joy.loader.js" modules=""></script>
+	 <script src="../../js/newsite/wlcommon.js"></script>
+	 <script src="../../js/newsite/cnzz.js"></script>
+	<link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/productCenter.css"/>
+</head>
+<body>
+     <!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+  <div id="wlBody">
+              <section id="big_section">
+		      </section>
+		      <!-- 大屏时显示结束 -->
+		      <!-- 小屏时显示 -->
+		      <section id="small_section" class="container">       
+		      </section>
+			   <!--九宫格第一行开始-->
+							<div id="productContainer" class="container productContainer">
+								  
+							</div>
+					<!--九宫格第一行结束-->
+	
+  </div>
+<!---->
+<!--尾部开始-->
+    <div id="footerPart">
+        
+    </div>
+</body>
+</html>
+<!--尾部结束-->
+<script>
+
+$().ready(function() {
+	initTop();
+	initClick();
+	initBottom();
+	getTopLayout();
+	getLayout();
+});
+
+	function getTopLayout(){
+	    joy.getJSON("../../wl/cm/wlCmInfoAction.dox?action=findInfoList", {columnId:"0118",issueStateEk:"2"},function(resultObject){
+	        for(var i=0;i<resultObject.length;i++){
+				var layoutTypeEk=resultObject[i].layoutTypeEk;
+				normalLayout(resultObject[i].title,resultObject[i].content,resultObject[i].path);
+	        }
+	    });
+	}
+
+	/**
+	 * 正常样式
+	 * @param title 标题
+	 * @param content 内容
+	 * @param img 图片
+	 */
+	function normalLayout(title, content, img) {
+		var txt = '';
+		txt += '<div class=" text-center hidden-xs hidden-sm hidden-md  content_background"><div class="col-md-4 image-block"><h2>';
+		txt += title + '</h2><br><p>';
+		txt += content + '</p></div>';
+		txt += '<img class="img-responsive" style="width:100%" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ img +'" alt="Responsive image"></div>';
+		$("#big_section").append(txt);
+	
+		var hiddenTxt = '<div class=" hidden-lg"><div class="col-xs-12">';
+		hiddenTxt += '<img style="width: 100%" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ img +'" alt="">';
+		hiddenTxt += '<h2>' + title + '</h2></div><div class="col-xs-12">';
+		hiddenTxt += '<p class="mobile-text">' + content
+				+ '</p></div></div>'
+		$("#small_section").append(hiddenTxt);
+	}
+	function getLayout(){
+	    joy.getJSON("../../wl/cm/wlCmProductTypeAction.dox?action=findLastTypeList", {},function(resultObject){
+	    	$("#productContainer").empty();
+	    	var txt=""
+	        for(var i=0;i<resultObject.length;i++){
+	        	if(i%3==0){
+	        		txt+='<div class="row" style="margin-bottom:50px;">';
+	        	}
+	        	txt+='<div class="col-sm-4 productType" onclick="typeClick(\''+ resultObject[i].typeId +'\',\''+ resultObject[i].backgroundPath +'\')">';
+	        	txt+='<img  src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ resultObject[i].path +'"  class="img-responsive">';
+	        	txt+='<div class="grid-title">'+ resultObject[i].typeName +'</div>';
+	        	txt+=' <div class="grid-desc" style="text-align: center;"><p>'+ resultObject[i].memo+'</p></div></div>'
+	        	if(i==resultObject.length-1){
+	        		txt+='</div>';
+	        	}
+	        	if(i%3==2&&i!=resultObject.length-1){
+	        		txt+='</div>';
+	        	}
+	        }
+	    	$("#productContainer").append(txt);
+	    });
+	}
+	
+	 //编辑
+    function typeClick(typeId,backgroundPath) {
+        window.location = "productCenterDetail.html?typeId=" + typeId+"&backgroundPath="+backgroundPath;	     
+    }
+</script>
+</body>
+</html>

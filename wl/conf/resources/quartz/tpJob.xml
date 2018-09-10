@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quartz xmlns="http://www.opensymphony.com/quartz/JobSchedulingData"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.opensymphony.com/quartz/JobSchedulingData 
+ http://www.opensymphony.com/quartz/xml/job_scheduling_data_1_5.xsd"
+	version="1.5">	
+		  <job>
+		<job-detail>
+			<!-- jobName -->
+			<name>SellJob</name>
+			<job-class>
+				com.gt.wl.es.service.WlEsTodoMsgJob
+			</job-class>
+		</job-detail>
+		<trigger>
+			<cron>
+				<!-- triggerName -->
+				<name>SellJob</name>			
+				<!-- 定时时间 -->
+				<!-- 每天晚上11点30分触发
+				<cron-expression>0 30 23 * * ?</cron-expression> -->
+				<!-- 每5分钟触发一次 -->
+				<cron-expression>0 1/5 * * * ?</cron-expression> 
+			</cron>
+		</trigger>
+	</job>
+	  <job>
+		<job-detail>
+			<!-- jobName -->
+			<name>WlEsOrderJob</name>
+			<job-class>
+				com.gt.wl.es.service.WlEsOrderJob
+			</job-class>
+		</job-detail>
+		<trigger>
+			<cron>
+				<!-- triggerName -->
+				<name>WlEsOrderJob</name>			
+				<!-- 定时时间 -->
+				<!-- 每天晚上11点30分触发
+				<cron-expression>0 30 23 * * ?</cron-expression> -->
+				<!-- 每2小时触发一次 -->
+				<cron-expression>0 0 0/2 * * ?</cron-expression> 
+			</cron>
+		</trigger>
+	</job>
+	 <job>
+		<job-detail>
+			<!-- jobName -->
+			<name>WlEsStoreOutJob</name>
+			<job-class>
+				com.gt.wl.es.service.WlEsStoreOutJob
+			</job-class>
+		</job-detail>
+		<trigger>
+			<cron>
+				<!-- triggerName -->
+				<name>WlEsStoreOutJob</name>			
+				<!-- 定时时间 -->
+				<!-- 每天晚上11点30分触发 -->
+				<cron-expression>0 30 23 * * ?</cron-expression>
+				<!-- 每2小时触发一次
+				<cron-expression>0 0 0/2 * * ?</cron-expression>  -->
+			</cron>
+		</trigger>
+	</job>
+	 <job>
+		<job-detail>
+			<!-- jobName -->
+			<name>WlWmInventoryJob</name>
+			<job-class>
+				com.gt.wl.wm.service.WlWmInventoryJob
+			</job-class>
+		</job-detail>
+		<trigger>
+			<cron>
+				<!-- triggerName -->
+				<name>WlWmInventoryJob</name>			
+				<!-- 定时时间 -->
+				<!-- 每天晚上11点0分触发 -->
+				<cron-expression>0 0 23 * * ?</cron-expression>
+				<!-- 每2小时触发一次 
+				<cron-expression>0 1/1 * * * ?</cron-expression>--> 
+			</cron>
+		</trigger>
+	</job>
+	<job>
+		<job-detail>
+			<!-- jobName -->
+			<name>WlEsTaobaoOrderJob</name>
+			<job-class>
+				com.gt.wl.es.service.WlEsTaobaoOrderJob
+			</job-class>
+		</job-detail>
+		<trigger>
+			<cron>
+				<!-- triggerName -->
+				<name>WlEsTaobaoOrderJob</name>			
+				<!-- 定时时间 -->
+				<!-- 每天晚上11点30分触发
+				<cron-expression>0 30 23 * * ?</cron-expression> -->
+				<!-- 每2小时触发一次 -->
+				<cron-expression>0 0 0/2 * * ?</cron-expression> 
+			</cron>
+		</trigger>
+	</job>
+</quartz>

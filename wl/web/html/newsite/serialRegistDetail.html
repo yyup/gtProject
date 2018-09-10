@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="waterrower Team">
+    <meta name="Author" content="waterrowerTeam">
+    <meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/getSystemPlatform.js"></script>
+    <script src="../../js/newsite/wlcommon.js"></script>
+    <script src="../../js/newsite/cnzz.js"></script>
+    <script src="../../js/joy.loader.js" modules="dataview"></script>
+    <!-- 分页 -->
+   <link rel="stylesheet" href="../../style/prj/newsite/pagination.css"/>
+   <script src="../../js/site/jquery.pagination.js"></script>
+   
+    <link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/serialRegistDetail.css"/>
+
+</head>
+
+<body>
+<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+<!-- 内容 -->
+<div id="wlBody"  class="contentMargin">
+    <div class="container"  style="margin-top: 100px;">
+        <div class="row rightLeft" id="rightLeft">
+       
+            <div class="col-md-9" style="margin-top:35px;">
+                <div class="row">
+                    <input type="button" class="addButton" value="新增登记" style="margin-bottom: 20px;" onclick="javascript:window.location.href='serialRegist.html'">
+                    <table class="table table-striped"  id="applyList">
+                        <tr>
+                            <td class="tableTitle tableBorder" >型号</td>
+                            <td class="tableTitle tableBorder">序列号</td>
+                            <td class="tableTitle tableBorder">购买时间</td>
+                            <td class="tableTitle tableBorder" >整机质保期到期时间</td>
+                            <td class="tableTitle tableBorder" >框架质保到期时间</td>
+                            <!-- <td class="tableTitle tableBorder" >操作</td>
+                        </tr>
+                        <!-- <tr>
+                            <td class="tableContent">Club俱乐部水划船机</td>
+                            <td class="tableContent">12345678910</td>
+                            <td class="tableContent">2018-01-29</td>
+                            <td class="tableContent">2020-01-29</td>
+                            <td class="tableContent">2022-01-29</td>
+                            <td class="tableContent" style="color: #0D7DDF;cursor: pointer;">信息变更</td>
+                        </tr>
+                         -->
+                    </table>
+                </div>
+                <!--分页-->
+                <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+            </div>
+
+        </div>
+        <div class="topBottom" id="topBottom">
+            
+            <div class="row" style="margin-left: 20px;margin-right: 20px;" id="mobileList">
+                <input type="button" class="addButton" value="新增登记" style="margin-bottom: 20px;" onclick="javascript:window.location.href='serialRegist.html'">
+                 <!-- <table class="table table-striped">
+                   <tr>
+                        <td class="tableTitle tableBorder" style="border-right: solid 1px white;width: 120px;">型号</td>
+                        <td class="tableContent">Club俱乐部水划船机</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder">序列号</td>
+                        <td class="tableContent">12345678910</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder">发货时间</td>
+                        <td class="tableContent">2018-01-29</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder" >整机质保到期时间</td>
+                        <td class="tableContent">2020-01-29</td>
+                    </tr>
+                    <tr>
+                        <td class="tableTitle tableBorder" >框架质保到期时间</td>
+                        <td class="tableContent">2022-01-29</td>
+                    </tr>
+                    <tr>
+
+                        <td class="tableTitle tableBorder" >操作</td>
+                        <td class="tableContent" style="color: #0D7DDF;cursor: pointer;">信息变更</td>
+                    </tr>
+                </table> -->
+            </div>
+        </div>
+	</div>
+	
+    </div>
+<!--第一个商品结束-->
+<!-- 内容结束 -->
+<!--尾部开始-->
+<div id="footerPart">
+    
+</div>
+<!--尾部结束-->
+
+<script type="text/javascript">
+	var initPageIndex = 0;     //页面索引初始值   
+	var pageSize = 10;     //每页显示条数初始化，修改显示条数，修改这里即可 
+	$().ready(function() {
+		initTop();
+		initClick();
+		initBottom();
+		initAccountInfo();
+		serialRegList(initPageIndex,1);
+	});
+	
+	function serialRegList(pageIndex, type){
+		//查询是移动端登录还是pc端登录
+		if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {  
+			pageSize=99;
+		}
+		  var txt = "";
+			joy.getJSON(
+					"../../wl/es/wlEsSerialRegAction.web?action=findDataList",
+					{currPage:pageIndex+1,pageSize:pageSize,keyId:"memberId"},
+					function(resultObject) {
+						$("#applyList tr:not(:first)").remove();//列表数据清空
+						$("#mobileList table").remove();//小屏幕列表数据清空
+						if(resultObject.items.length!==0){//分页展现
+							if (type!=0) {
+								pagination(resultObject.totalCount,pageIndex+1);
+							}
+						}
+						for ( var i = 0; i < resultObject.items.length; i++) {
+							var mobileTxt = "";
+							ob = resultObject.items[i];
+							var productName = '<td class="tableContent">'+ob.productName+'</td>';
+							var deviceCd = '<td class="tableContent">'+ob.deviceCd+'</td>';
+							var buyDate = '<td class="tableContent">'+ob.buyDate.substr(0,10)+'</td>'; 
+							var accExpDate = '<td class="tableContent">'+ob.accExpDate.substr(0,10)+'</td>';
+							var frameExpDate = '<td class="tableContent">'+ob.frameExpDate.substr(0,10)+'</td>';
+							txt += '<tr >'+productName+deviceCd+buyDate+accExpDate+frameExpDate;
+							//txt += '<td class="tableContent" style="color: #0D7DDF;">信息变更</td>';
+							mobileTxt += '<table class="table table-striped"><tr> <td class="tableTitle tableBorder" style="width: 120px;">型号</td>';
+							mobileTxt += productName + '</tr><tr><td class="tableTitle tableBorder">序列号</td>';
+							mobileTxt += deviceCd + '</tr><tr><td class="tableTitle tableBorder">购买时间</td>';
+							mobileTxt += buyDate + '</tr><tr><td class="tableTitle tableBorder">整机质保期到期时间</td>';
+							mobileTxt += accExpDate + '</tr><tr><td class="tableTitle tableBorder" >框架质保到期时间</td>';
+							mobileTxt += frameExpDate + '</tr></table>';
+							//mobileTxt += frameExpDate + '</tr><tr><td class="tableTitle tableBorder" >操作</td>';
+							//mobileTxt += '<td class="tableContent" style="color: #0D7DDF;">信息变更</td></tr></table>';
+							$("#mobileList").append(mobileTxt);
+				        /* if(ob.auditState=="1"){//审核通过
+					        txt+='<td style="color:#A1A1A1;" >删除</td>';
+
+				        }else{//驳回或未审核
+					        txt+='<td style="cursor:pointer;" onclick="delReg(\''+ ob.regId+ '\')">删除</td>';
+				        } */
+				    	
+						}
+						$("#applyList").append(txt);
+						//calculateWindowHeight();
+					});
+	   }
+	//分页展现
+	function pagination(totalCount,pageIndex){
+		$("#Pagination").html("");
+		var pageCount = 1;
+		 if(totalCount > 0){
+			pageCount = Math.ceil(totalCount/pageSize);
+		 }
+		var initPagination = function() {
+			// 创建分页
+			$("#Pagination").pagination(pageCount, {
+				num_edge_entries: 1, //边缘页数
+				num_display_entries: 4, //主体页数
+				callback: pageselectCallback,
+				items_per_page:1, //每页显示1项
+				prev_text:"&laquo;",
+				next_text:"&raquo;",
+				current_page:pageIndex-1
+			});
+		 }();
+		 
+		function pageselectCallback(page_index, jq){
+			serialRegList(page_index, 0);
+			var idx = parseInt(page_index);
+			$("[name='pageSelect']").val(idx);
+			return false;
+		}
+		
+		$("#Pagination").next().remove();
+		var paginationText = '<div class="text-center" style="float:right;margin-top:26px;font-size: 16px;"><span style="margin-right: 5px;">共'+pageCount+'页,</span>'+
+        '<span style="margin-right: 5px;">到第<select name="pageSelect" >';
+        for(var i = 0;i < pageCount; i++){
+        	if (i==parseInt(pageIndex-1)) {
+        		paginationText +='<option value="'+(i)+'" selected>'+(i+1)+'</option>';	
+        	} else {
+        		paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+        	}
+        	 //paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+        }
+        paginationText +=' </select>页</span>'+
+        '<input type="button" class="sureAndBack" value="确认" onclick="reflashPage($(this))"/></div>';
+		$("#Pagination").after(paginationText);
+	 }
+	//刷新页面操作
+  	function reflashPage(){
+		var pnum = parseInt($("[name='pageSelect']").val());
+  		serialRegList(pnum, 1);
+  	}
+	
+	//删除收货地址
+	function delReg(regId) {
+		  joy.showMessageDialog("确定要删除当前序列号登记吗？", "ok,cancel", function(e) {
+				if (e.btnName == "ok") {	
+					joy.getJSON(
+						"../../wl/es/wlEsSerialRegAction.web?action=deleteData",
+						{
+							regId : regId
+						}, function(resultObject) {
+							console.log(resultObject);
+							joy.showMessage("删除成功", "success");
+							 serialRegList(initPageIndex);
+						});
+				}
+			});
+				
+	}
+</script>
+</body>
+</html>

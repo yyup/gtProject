@@ -1,0 +1,977 @@
+<!DOCTYPE html >
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,editor"></script>	 
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" 	href="../../style/prj/info.wlCmInfo.css" />
+</head>
+<body>
+	<table class="main">
+		<tr>
+			<td class="leftTree">
+				<div id="rightTitle"  class="headTitle"></div>
+				<div class="leftTreeBox">
+					<!-- 权限树 -->
+					<div id="infoTree"></div>
+					<script id="small_tree" type="text/joy-ui-template">
+            #if(item.main.isLastFlag==='1'){#
+			<span class="itemName" style="cursor:pointer;" onclick="treeviewclick('#=item.main.columnId#','#=item.main.colTypeEk#','#=item.main.columnName#','#=item.main.parentId#')" >#=item.main.columnName#<span class="red">#=item.main.showAuditNum#</span></span>
+            #}else{#
+             <span class="itemName"  >#=item.main.columnName#<span class="red">#=item.main.showAuditNum#</span></span>
+           #}#
+	        </script>
+
+				</div></td>
+			<td class="rightGrid" style="display: none">
+				<!-- 工具栏 -->
+				<div id="pannel">
+
+					<div class="k-page-toolbar" id="toolbar">
+						<button id="addBtn" class="joy-button joy-smc" icon="plus"
+							onClick="openAddWindow" label="lgc:add"
+							databind="visible:ADDSmc"></button>
+						<button id="delBtn" class="joy-button joy-smc" icon="close"
+							onClick="deleteData" label="lgc:delete"
+							databind="visible:DELETESmc"></button>
+						<button id="ableBtn" class="joy-button joy-smc" onClick="able"
+							label="lg:able" databind="visible:ISENABLESmc"></button>
+						<button id="enableBtn" class="joy-button joy-smc" onClick="enable"
+							label="lg:enable" databind="visible:ISENABLESmc"></button>
+						<button class="joy-button joy-smc" icon="pencil"  onClick="openFirstAuditListWindow"
+						         label="lg:firstAudit" databind="visible:FIRSRAUDITSmc"></button>
+						  <button class="joy-button joy-smc" icon="pencil"  onClick="openFinalAuditListWindow"
+						         label="lg:finalAudit" databind="visible:FINALAUDITSmc"></button>
+						<div id="searchForm" class="joy-form" style="float: right"
+							layout="freedom">
+							 <span
+								class="joy-lang" label="lg:title"></span>: <input id="title"
+								class="joy-textbox" label="lg:title" style="width: 120px;"
+								databind="value:title" />
+							<button class="joy-button" icon="search" onClick="searchData"
+								label="lg:search"></button>
+								<button class="joy-button" icon="search" onClick="openSearch"
+								label="lgc:advSearch"></button>
+						</div>
+					</div>
+				</div> <!-- 栏目列表start -->
+				<table id="grid" class="joy-grid" rowHeightFit="38">
+					<thead>
+						<tr>
+							<th field="infoId" templateType="checkbox" colWidth="40px"></th>
+							<th field="title" dataType="string" label="lg:title"
+								colWidth="20%"></th>
+							<th field="issueTime" dataType="string" label="lg:issueTime"
+								colWidth="20%" align="center"></th>
+							<th field="sequ" label="lg:sequ" colWidth="10%" dataType="string"
+								align="center"></th>
+							<th field="issueStateEk" enumData="ISSUE_STATE_EKEnum"
+								label="lg:dataState" colWidth="10%" dataType="string"
+								align="center"></th>
+							<th field="auditNodeEk" enumData="AUDIT_NODE_EKEnum"
+								label="lg:auditNodeEk" colWidth="10%" dataType="string"
+								align="center"></th>
+							<th field="auditState" enumData="AUDIT_STATEEnum"
+								label="lg:auditState" colWidth="10%" dataType="string"
+								align="center"></th>
+							<th colWidth="280px" templateType="button" align="center">
+								<button icon="" onClick="openLinkWindow('#:infoId#')"
+										smcBind="ADMINSmc" label="lg:getLink"></button>
+									<button icon="pencil" onClick="openEditWindow('#:infoId#')"
+										smcBind="ADDSmc" label="lgc:edit"></button>
+									<button icon="insert-m" onClick="openDetailWindow('#:infoId#')"
+										smcBind="READSmc" label="lgc:detail"></button>
+							</th>
+						</tr>
+					</thead>
+				</table> <!--栏目列表 end --></td><!-- 单篇开始 -->
+			<td class="rightGrid" id="column" style="display: none">
+				<div id="editDiv">
+
+					<div class="editBody">
+						   <!--标题-->
+							<div  class="headTitle" style="position:relative;">
+							  <span id="singleTitle"></span>
+							  <div id="auditImg" style="" /></div>
+							</div>						
+						    <form id="dataForm" class="joy-form">
+								<input type="hidden" databind="value:infoId" />						
+								<!--详细信息 -->
+								<div class="base" id="div_detail">
+									
+									<div class="detailClass">
+										<textarea class="joy-editor" id="content"
+											databind="value:content" label="lg:content" required="true"
+											rows="10" cols="30" maxByte="8000"
+											style="height: 400px; width: 100%;"
+											toolbarOptions="['bold','italic','underline','strikethrough','justifyLeft','justifyCenter','justifyRight','justifyFull','insertUnorderedList','insertOrderedList','indent','outdent','createLink','unlink','insertImage','subscript','superscript','createTable','addRowAbove','addRowBelow','addColumnLeft','addColumnRight','deleteRow','deleteColumn','viewHtml','formatting','fontName','fontSize', 'foreColor','backColor']"
+											sourceCode="pictureFile">  			   
+					                   </textarea>
+									</div>
+								</div>
+							</form>
+							<!--button -->
+							<div id="editBut" align="right">
+						    	<button class="joy-button joy-smc" icon="pencil" btnType="importantbtn" onClick="openFirstAuditSingleWindow"
+						         label="lg:firstAudit" databind="visible:FIRSRAUDITSmc"></button>
+						         <button class="joy-button joy-smc" icon="pencil" btnType="importantbtn" onClick="openFinalAuditSingleWindow"
+						         label="lg:finalAudit" databind="visible:FINALAUDITSmc"></button>
+								<button id="saveData" databind="visible:ADDSmc" class="joy-button joy-smc" btnType="importantbtn" icon="tick"
+									onClick="saveData" label="lg:saveAndSubmit"></button>
+                              <button id="singePreview"  class="joy-button joy-smc" btnType="importantbtn" icon="insert-m"
+									   onClick="singePreview" label="lg:preview"></button>
+
+							</div>
+
+						
+					</div>
+				</div>
+			</td><!-- 单篇结束 --><!-- 编辑界面开始 -->
+			<td class="rightGrid" style="display: none">
+				<div id="editDiv1">
+					<div id="addTitle" class="headTitle"></div>
+					<div class="editBody">
+						<form id="otherDataForm" class="joy-form">
+							<input type="hidden" databind="value:infoId" />
+							<table id="editTable" center="true" width="100%" cellpadding="3"
+								cellspacing="1" border="0">
+								<tbody>
+									<tr>
+										<td align="left" width="50%"><input id="title"
+											class="joy-textbox" required="true" label="lg:title"
+											databind="value:title" style="width: 90%" maxByte="100" /></td>
+
+										<td align="left" width="50%"><input
+											class="joy-numerictextbox" label="lg:serialNumber" id="sequ"
+											value="0" min="1" max="99999" databind="value:sequ"
+											style="width: 90%">
+										</td>
+
+									</tr>
+									<tr>
+										<td>
+											<input id="picUpload" class="joy-upload" label="lg:file"
+												databind="value:path" multiple="false" type="file"  upload="picUploadFile"											
+												async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.dox?action=uploadFile&sourceCode=pictureFile', removeUrl:'../../wl/cm/wlCmDocumentAction.dox?action=deleteFile'}"
+												allowType='jpg,png,gif'  maxSize="2"
+												style="width: 250px;" />
+										</td>
+											<td align="left" width="50%"><input id="layoutType"
+												class="joy-combobox joy-enum"  label="lg:layoutType"
+												databind="value:layoutTypeEk,source:LAYOUT_TYPE_EKEnum" style="width: 90%"/></td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<div class="detailClass">
+												<textarea class="joy-editor" id="otherContent"
+													databind="value:content"  label="lg:content" required="true"
+													rows="10" cols="30" maxByte="21000"
+													style="height: 400px; width: 100%;"
+													toolbarOptions="['bold','italic','underline','strikethrough','justifyLeft','justifyCenter','justifyRight','justifyFull','insertUnorderedList','insertOrderedList','indent','outdent','createLink','unlink','insertImage','subscript','superscript','createTable','addRowAbove','addRowBelow','addColumnLeft','addColumnRight','deleteRow','deleteColumn','viewHtml','formatting','fontName','fontSize', 'foreColor','backColor']"
+													sourceCode="pictureFile">  			   
+				             </textarea>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table width="100%" border="0" align="center" cellpadding="0"
+								cellspacing="0">
+								<tr>
+									<td height="50" align="right" valign="bottom">
+										<button class="joy-button" btnType="importantbtn" icon="tick"
+											onClick="otherSaveData" label="lg:saveAndSubmit"></button>										
+								      <button id="listEditPreview"  class="joy-button joy-smc" btnType="importantbtn" icon="insert-m"
+									     onClick="listEditPreview" label="lg:preview"></button>
+									     <button class="joy-button  joy-window-close" icon="cancel"
+											onClick="closeEditWindow" label="lg:back"></button>
+									</td>
+								</tr>
+							</table>
+						</form>
+					</div>
+				</div></td><!-- 编辑界面结束 -->
+		</tr>
+	</table>
+
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail" onClose="closeVideo">
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:title"></td>
+					<td width="230" class="joy-label" databind="value:title"></td>
+					<td width="100" class="joy-lang head" label="lg:sequ"></td>
+					<td width="230" class="joy-label" databind="value:sequ"></td>
+				</tr>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:dataState"></td>
+					<td  class="joy-label joy-enum"
+						databind="value:issueStateEk,source:ISSUE_STATE_EKEnum"></td>
+					<td width="100" class="joy-lang head" label="lg:auditNodeEk"></td>
+					<td  class="joy-label joy-enum"
+						databind="value:auditNodeEk,source:AUDIT_NODE_EKEnum"></td>						
+				</tr>
+					<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:auditState"></td>
+					<td  class="joy-label joy-enum"
+						databind="value:auditState,source:AUDIT_STATEEnum"></td>		
+					<td width="100" class="joy-lang head" label="lg:auditTime"></td>
+				<td width="230" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd HH:mm:ss"  databind="value:auditTime"></td>
+					
+				</tr>
+				<tr height="25">
+					<td width="120" class="joy-lang head" label="lg:pic"></td>
+					<td colspan="3" id="imgId"><!-- <img id="imgId" height="120px" width="135px"> -->
+					</td>
+				</tr>
+				<tr height="80">
+					<td width="100" class="joy-lang head" label="lg:content"></td>
+					<td colspan="3">
+						<div class="joy-label" databind="value:content"
+							style="height: 100px; width: 630px; overflow: auto;word-break: break-all;"></div>
+					</td>
+				</tr>
+				<tr>
+					<td width="100" class="joy-lang head" label="lg:bizLog"></td>
+					<td colspan="3" id="listBizLogTd">
+						<table id="listBizLogGrid" class="joy-grid" height="130px" showPageControl="false">	   
+							<thead>
+								<tr>							
+									<th field="auditorName"  colWidth="15%" dataType="string" label="lg:auditorName"  ></th>
+									<th field="auditNodeEk" colWidth="15%" enumData="AUDIT_NODE_EKEnum"  dataType="string" align="center" label="lg:auditNodeEk"></th>
+									<th field=auditOperateEk colWidth="20%"  enumData="AUDIT_OPERATE_EKEnum"  dataType="string" align="center" label="lg:auditOperateEk"></th>
+									<th field="auditTime"  colWidth="25%" dataType="string" label="lg:auditTime"  align="center"></th>
+									<th field="auditRemark"  colWidth="25%"  dataType="string" label="lg:auditRemark" ></th>
+								</tr>							
+							</thead>
+					    </table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+				 <button id="listDetailPreview"  class="joy-button joy-smc" btnType="importantbtn" icon="insert-m"
+					 onClick="listDetailPreview" label="lg:preview"></button>
+					<button class="joy-button joy-window-close" onclick="closeVideo" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+
+<!--  链接地址开始 -->
+<div id="linkWindow" class="joy-window" width="340px" height="150px"
+	center="true" title="lg:link">	
+		<div  style="width:100%;font-size:15px">
+		<label class="joy-label"  value="lg:articlLink"></label>
+		 <span id="link" ></span>
+		</div>		
+</div>
+<!--链接结束  -->
+<!-- 初审界面开始 -->
+<div id="firstAuditWindow" class="joy-window" center="true"
+		title="lg:firstAudit">
+		<form id="firstAuditForm" class="joy-form">
+			<input type="hidden" databind="value:infoId" />
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>			
+					<tr>
+						<td align="left"><textarea class="joy-textbox"  maxByte="255" label="lg:auditRemark"
+							databind="value:auditRemark"></textarea>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="firstAuditPass" label="lg:pass"></button>						
+						<button class="joy-button"  icon="close" onClick="firstAuditReject" btnType="importantbtn"  label="lg:reject"></button>							
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 初审核界面结束 -->
+	<!-- 终审界面开始 -->
+<div id="finalAuditWindow" class="joy-window" center="true"
+		title="lg:finalAudit">
+		<form id="finalAuditForm" class="joy-form">
+			<input type="hidden" databind="value:infoId" />
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>			
+					<tr>
+						<td align="left"><textarea class="joy-textbox"  maxByte="255" label="lg:auditRemark"
+							databind="value:auditRemark"></textarea>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="finalAuditPass" label="lg:pass"></button>						
+						<button class="joy-button"  icon="close" onClick="finalAuditReject" btnType="importantbtn"  label="lg:reject"></button>							
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 终审审核界面结束 -->
+	<!-- 审核日志列表 开始-->
+	<div id="bizLogWindow" class="joy-window detail"  center="true" title="lg:bizLog">		
+	    <table id="bizLogGrid" class="joy-grid" height="130px" showPageControl="false">	   
+							<thead>
+								<tr>							
+										<th field="auditorName"  colWidth="15%" dataType="string" label="lg:auditorName"  ></th>
+									<th field="auditNodeEk" colWidth="15%" enumData="AUDIT_NODE_EKEnum"  dataType="string" align="center" label="lg:auditNodeEk"></th>
+									<th field=auditOperateEk colWidth="20%"  enumData="AUDIT_OPERATE_EKEnum"  dataType="string" align="center" label="lg:auditOperateEk"></th>
+									<th field="auditTime"  colWidth="25%" dataType="string" label="lg:auditTime"  align="center"></th>
+									<th field="auditRemark"  colWidth="25%"  dataType="string" label="lg:auditRemark" ></th>
+								</tr>							
+							</thead>
+		</table>
+	    
+	    <table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+     </div>
+	<!-- 审核日志列表 结束-->
+	<!-- 高级查询窗口开始 -->
+<div id="searchWindow" class="joy-window" title="lgc:search">
+	<form id="searchForm" class="joy-form" >
+		<table>
+		    <tr>
+		        <td>                
+					  <input	id="issueStateEk" class="joy-combobox joy-enum" label="lg:dataState"
+								placeholder="lgc:pleaseToSelect" style="width: 160px;"
+								databind="value:issueStateEk,source:ISSUE_STATE_EKEnum"/>			  
+				</td>
+			    <td>
+			         <input	id="auditNodeEk" class="joy-combobox joy-enum" label="lg:auditNodeEk"
+								placeholder="lgc:pleaseToSelect" style="width: 160px;"
+								databind="value:auditNodeEk,source:AUDIT_NODE_EKEnum" />	
+			    </td>
+			</tr>	
+			    <tr>
+		        <td>
+			    	 <input	 id="auditState" class="joy-combobox joy-enum" label="lg:auditState"
+								placeholder="lgc:pleaseToSelect" style="width: 160px;"
+								databind="value:auditState,source:AUDIT_STATEEnum" />	
+			    
+			    </td>
+			    <td>
+			       
+			    </td>
+			</tr>			
+		</table>	
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lgc:search"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>		 
+	</form>
+</div>
+		<!-- 高级查询窗口结束 -->
+</body>
+<script>
+	var initResult, columnId, grid, detailWindow, upload, otherDataForm,dataForm,linkWindow,picUpload;
+	var searchUrl = "../../wl/cm/wlCmInfoEnAction.do?action=findDataList";
+    var saveDataButton,smc="0";//0代表没有权限，1代表初审，2代表终审,默认0
+    var isFirstAudit=false,isFinalAudit=false,firstAuditWindow,firstAuditForm,finalAuditWindow,finalAuditForm;
+	var bizLogWindow,bizLogGrid,listBizLogGrid,searchForm,issueStateEkComboBox,auditNodeEkComboBox;
+	var titleTextBox,auditStateComboBox;
+    $().ready(function() {
+		lg = joy.getLang();
+		lgc = joy.getCommonLang();
+		dataForm = $("#dataForm").getJoyForm();
+		grid = $("#grid").getJoyGrid();
+		otherDataForm = $("#otherDataForm").getJoyForm();
+		detailWindow = $("#detailWindow").getJoyWindow();
+		linkWindow=$("#linkWindow").getJoyWindow();
+		picUpload  = $("#picUpload").getJoyUpload();
+		saveDataButton = $("#saveData").getJoyButton();
+		firstAuditWindow=$("#firstAuditWindow").getJoyWindow();
+		firstAuditForm=$("#firstAuditForm").getJoyForm();
+		finalAuditWindow=$("#finalAuditWindow").getJoyWindow();
+		finalAuditForm=$("#finalAuditForm").getJoyForm();
+		bizLogWindow=$("#bizLogWindow").getJoyWindow();
+		bizLogGrid = $("#bizLogGrid").getJoyGrid();
+		listBizLogGrid = $("#listBizLogGrid").getJoyGrid();
+		searchWindow=$("#searchWindow").getJoyWindow();
+		searchForm=$("#searchForm").getJoyForm();
+		issueStateEkComboBox=$("#issueStateEk").getJoyComboBox();
+		auditNodeEkComboBox=$("#auditNodeEk").getJoyComboBox();
+		auditStateComboBox=$("#auditState").getJoyComboBox();
+		titleTextBox=$("#title").getJoyTextBox();
+		joy.getJSON("../../wl/cm/wlCmInfoEnAction.do?action=init", {
+			enumTypes : [ 'ISSUE_STATE_EK', 'STATE','AUDIT_NODE_EK','AUDIT_OPERATE_EK','AUDIT_STATE','LAYOUT_TYPE_EK']
+		}, function(resultObject) {
+			initResult = resultObject;
+			var viewModel = joy.observable(initResult);
+			joy.bind($(".joy-smc,.joy-enum"), viewModel);
+			$("#rightTitle").text(lg.treeTitle);
+			 if(resultObject.FINALAUDITSmc){//终审权限
+				smc="2";
+			} else if(resultObject.FIRSRAUDITSmc){//初审权限
+				smc="1";
+			}
+			treeviewBind();
+			$(".leftTreeBox").css("height", $(".k-grid").height()+(-50)+"px" );
+			$(".k-grid").css("height", $(".k-grid").height()+(-50)+"px" );
+			initializePage();
+			//setsEditStyle();//设置单篇的富文本编辑框
+			setEditStyle();	//设置非单篇的富文本编辑框
+		});
+	});
+	var currentColumnId;
+	var curParentId="";//当前被点击目栏的父节点id
+	var curColumnName="";
+	//treeview数据初始化   传入状态
+	function treeviewBind() {
+		joy.getJSON("../../wl/cm/wlCmInfoEnAction.do?action=getTree",{smc:smc},function(
+				resultObject) {
+			smallTreeView = $("#infoTree").joyTreeView({
+				dataSource : resultObject.items,
+				templateID : "small_tree"
+			});			
+		});
+	}
+	//栏目树点击
+	function treeviewclick(columnId, colTypeEk, columnName,parentId) {
+		currentColumnId = columnId;
+		curParentId=parentId;
+		curColumnName=columnName;
+		firstAuditWindow.close();
+		finalAuditWindow.close();
+		interfaceSwitch(currentColumnId, colTypeEk, columnName);
+		detailWindow.close();//关闭详细窗口
+	}
+	//获取单篇数据
+	function getSingleData(columnId) {
+		joy.getJSON("../../wl/cm/wlCmInfoEnAction.do?action=getData", {
+			key : "columnId",
+			value : columnId
+		}, function(resultObject) {
+			dataForm.load(resultObject);
+			 saveDataButton.enable(true);//保存按钮默认可用
+			 var infoId="",imgSrc="";
+			 if(resultObject!==null){
+				 //
+					 firstAuditForm.load({infoId:resultObject.infoId});
+					 finalAuditForm.load({infoId:resultObject.infoId});
+					  isFirstAudit=false;
+					  isFinalAudit=false;
+				   	   if(resultObject.auditState==="0"){//未审核				     
+					      if(resultObject.auditNodeEk==="1"){//初审未审核环节
+							  isFirstAudit=true;
+							  saveDataButton.enable(false);//禁用保存按钮
+						   }
+					      if(resultObject.auditNodeEk==="2"){//终审未审核环节
+							  isFinalAudit=true;
+						   }
+			      	 }	
+				   if(resultObject.auditNodeEk!=""){//为图片准备数据
+					   imgSrc="background:url('../../style/prj/images/info"+resultObject.auditNodeEk;
+					  imgSrc=imgSrc+resultObject.auditState+".png');";
+				      imgSrc=imgSrc+"cursor:pointer;";
+					  infoId=resultObject.infoId;
+				   }
+			  }else{//新增，不能初审或终审
+				  isFirstAudit=false;
+				  isFinalAudit=false;
+				
+			  }
+			 $("#auditImg").attr("style",imgSrc);
+			 $("#auditImg").attr("infoid",infoId);			
+		});
+	}
+	//设置单篇的富文本编辑框
+	function setsEditStyle(){	
+	     $("iframe").eq(0).attr("name","scontent");
+	     $("iframe").eq(0).attr("id","scontent");
+	    	if(curColTypeEk==='SINGLE'){
+	    		$("#scontent").contents().find("body").css({"font-size":"13px","letter-spacing":"2px","font-family":"microsoft yahei","width":"731px"});
+	    	}else if(curColTypeEk==='ARTICLE'){
+	    		$("#scontent").contents().find("body").css({"font-size":"13px","letter-spacing":"2px","font-family":"microsoft yahei","width":"983px"});
+	    	}
+	    }
+	//根据不同的栏目类型显示对应的界面
+	var curColTypeEk="";
+	function interfaceSwitch(columnId, currentColTypeEk, columnName) {
+		if (currentColTypeEk === 'SINGLE'||currentColTypeEk === 'ARTICLE') {
+			curColTypeEk=currentColTypeEk;
+			setsEditStyle();
+			$("#singleTitle").text(columnName);
+			getSingleData(columnId);
+			show("none", "block", "none");
+		} else {
+			show("block", "none", "none");
+			searchData();
+			$("#otherContent").focus();
+			$("#upload").focus();
+		}
+	}
+	/**
+	 * 搜索数据
+	 */
+	function searchData() {
+		var obj = new Object();
+		 title = titleTextBox.value();
+		obj.title = title;
+		obj.columnId=currentColumnId
+		//alert(joy.stringify(searchForm.getDataModel().toJSON()));
+		grid.fetch(initResult, searchUrl, obj);
+	}
+	//打开高级搜索
+	function openSearch()
+	{
+		$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+		$("#searchWindow").parent('.k-widget').css('left',"");
+		//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+		searchForm.load();
+		searchWindow.open();
+	}
+	function moreSelect(){
+		var obj=new Object();
+		obj.issueStateEk=issueStateEkComboBox.value();
+		obj.auditNodeEk=auditNodeEkComboBox.value();
+		obj.auditState=auditStateComboBox.value();
+		obj.title=titleTextBox.value();
+		obj.columnId=currentColumnId
+		grid.fetch(initResult, searchUrl, obj);
+	}
+	/**
+	 * 保存数据
+	 */
+	function saveData(buttonObject) {
+		buttonObject.enable(false);
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		var submitda = dataForm.getDataModel().toJSON();
+		submitda.columnId = currentColumnId;
+		if(smc!=="2"){//如果不是终审权限，转初审未审核
+			 submitda.auditNodeEk="1";
+			 submitda.auditState="0";
+			 submitda.issueStateEk="1";
+		 }
+		dataForm.load(submitda);
+		dataForm.submit("../../wl/cm/wlCmInfoEnAction.do?action=saveData",
+				buttonObject, function(resultObject) {
+					joy.showMessage(lgc.opSuccess, "success");
+					 getSingleData(currentColumnId)
+				});
+	}
+	/**
+	 * 保存数据
+	 */
+	function otherSaveData(buttonObject) {
+		buttonObject.enable(false);
+
+		if (!otherDataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		var submitda = otherDataForm.getDataModel().toJSON();
+		submitda.columnId = currentColumnId;
+		 if(smc!=="2"){//如果不是终审权限，转初审未审核
+			 submitda.auditNodeEk="1";
+			 submitda.auditState="0";
+			 submitda.issueStateEk="1";
+		 }
+		otherDataForm.load(submitda);
+		otherDataForm.submit("../../wl/cm/wlCmInfoEnAction.do?action=saveData",
+				buttonObject, function(resultObject) {
+					searchData();
+					show("block", "none", "none");
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+	}
+
+	//打开新增窗口
+	function openAddWindow() {
+		$("#addTitle").text(lgc.add);
+		var height = $(window).height();
+		$("#editDiv1").css({
+			"min-height" : height + "px",
+			"height" : "auto",
+			 "width":"100%"
+		});
+		  picUpload._reflash();
+		otherDataForm.load({sequ:1});//编辑框form加载
+		setEditStyle();	//设置非单篇的富文本编辑框
+		show("none", "none", "block");
+
+	}
+	//显示对应的页面
+	function show(displayValue1, displayValue2, displayValue3) {
+		$(".rightGrid").eq(0).css("display", displayValue1);
+		$(".rightGrid").eq(1).css("display", displayValue2);
+		$(".rightGrid").eq(2).css("display", displayValue3);
+	}
+	/**
+	 * 打开编辑窗体
+	 */
+	function openEditWindow(infoId) {
+		detailWindow.close();//关闭详细窗口
+		joy.getJSON("../../wl/cm/wlCmInfoEnAction.do?action=getData", {
+			key : "infoId",
+			value : infoId
+		}, function(resultObject) {
+			if(resultObject.auditState=='0'&&resultObject.auditNodeEk=='1'){//初审未审核不能编辑
+				joy.showMessage(lg.notFirstAudit, "warning");
+			}else{
+				//resultObject返回值是getData方法的返回结果
+				$("#addTitle").text(lgc.edit);
+				otherDataForm.load(resultObject);
+				setEditStyle();	//设置非单篇的富文本编辑框
+			   show("none", "none", "block");
+			}
+		});
+	}
+	//设置非单篇的富文本编辑框
+	function setEditStyle(){
+	     $("iframe").eq(1).attr("name","ocontent");
+	     $("iframe").eq(1).attr("id","ocontent");
+		//var obj=window.frames["ocontent"];
+	   //$(obj.document).find("body").css({"font-size":"13px","letter-spacing":"2px","font-family":"microsoft yahei","width":"981px;"});
+		$("#ocontent").contents().find("body").css({"font-size":"13px","letter-spacing":"2px","font-family":"microsoft yahei","width":"983px"});
+	}
+	//详细窗口
+	var curInfoId="";
+	function openDetailWindow(infoId) {
+		curInfoId=infoId;
+		joy.getJSON("../../wl/cm/wlCmInfoEnAction.do?action=getData", {
+			key : "infoId",
+			value : infoId
+		}, function(resultObject) {
+			//resultObject返回值是getData方法的返回结果
+
+			var pathId = "";
+			if (resultObject != null && resultObject != "") {
+				pathId = resultObject.path;
+			}
+			var viewModel = joy.observable(resultObject);
+			//$("#imgId").attr(
+			//		'src',
+				//	'../../wl/cm/wlCmDocumentAction.do?action=downloadFile&id='
+			//				+ pathId);
+			 $("#imgId").empty();
+			 if(pathId!=""){
+				 txt='<img  src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+pathId+'" height="120px" width="135px">';
+				 $("#imgId").append(txt);
+			 }
+			joy.bind($("#detailTable"), viewModel);
+			listBizLogGrid.load(initResult,resultObject.bizLogList);
+			$("#listBizLogTd").find(".k-grid").attr("style","height:150px;");
+			$("#listBizLogTd").find(".k-grid").find(".k-grid-content").attr("style","height:120px;");
+			detailWindow.open();
+			detailWindow.center();
+		});
+	}
+	/**
+	 * 启用
+	 **/
+
+	function able() {
+		modifyInfoStateEk("2");
+	}
+	/**
+	 *禁用
+	 **/
+	function enable() {
+		modifyInfoStateEk("1");
+	}
+	function modifyInfoStateEk(infoStateEk) {
+
+		var ids = grid.getChecked();
+
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			var InfoStatusEkTitle;
+			if (infoStateEk == "2") {
+				InfoStatusEkTitle = lg.isInfoStateEkAble;
+			} else if (infoStateEk = "1") {
+				InfoStatusEkTitle = lg.isInfoStateEkEnable;
+			}
+			joy
+					.showMessageDialog(
+							InfoStatusEkTitle,
+							"ok,cancel",
+							function(e) {
+								if (e.btnName == "ok") {
+									joy
+											.getJSON(
+													"../../wl/cm/wlCmInfoEnAction.do?action=updateWlCmInfoState",
+													{
+														infoIds : ids,
+														issueStateEk : infoStateEk
+													},
+													function(resultObject) {
+														grid.dataSource.fetch();
+													});
+								}
+							});
+		}
+	}
+
+	/**
+	 * 删除数据
+	 */
+	function deleteData() {
+		var ids = grid.getChecked();
+
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON(
+							"../../wl/cm/wlCmInfoEnAction.do?action=deleteData",
+							{
+								ids : ids
+							}, function(resultObject) {
+								
+								grid.dataSource.fetch();
+								joy.showMessage(lgc.opSuccess, "success");
+							});
+				}
+			});
+		}
+	}
+	//关闭编辑或新增窗口
+	function closeEditWindow() {
+		show("block", "none", "none");
+	}
+//初始化页面的栏目
+function initializePage(){
+	joy.getJSON("../../wl/cm/wlCmInfoEnAction.do?action=getInitializePage", function(resultObject) {
+		//resultObject返回值是getData方法的返回结果				
+		if(resultObject!=null&&resultObject!=""){ 
+		currentColumnId=resultObject.columnId;
+		curParentId=resultObject.parentColumnId;
+		curColumnName=resultObject.columnName;
+		interfaceSwitch(currentColumnId,resultObject.colTypeEk, resultObject.columnName);
+		}
+	});
+}
+//打开获取链接窗口
+function openLinkWindow(infoId){
+	//http://localhost:9092/wl/html/site/wlCmArticle.html?infoId=4028815a4eb34d38014eb35a229a0003
+	joy.getJSON("../../wl/cm/wlCmInfoEnAction.do?action=getLinkAddr",{infoId:infoId}, function(resultObject) {
+		//basePath=resultObject+"html/site/wlCmArticle.html?infoId="+infoId;
+		$("#link").empty();
+		$("#link").append(resultObject);
+		linkWindow.open();
+		linkWindow.center();
+	});
+	
+}
+
+//上传图片时触发事件
+function picUploadFile(){ 
+	var id=picUpload.value();
+	if(id != null &&$.trim(id) != ""){
+  	//删除前一张图片
+  	joy.getJSON("../../wl/cm/wlCmDocumentAction.do?action=deleteFile",{id:id},function(){	    		
+  	});
+  }
+  picUpload._reflash();
+}
+
+var infoIds=new Array();
+var articleType="";//single单篇，list列表
+//打开初审窗口(单篇)
+function openFirstAuditSingleWindow(){
+	if(!isFirstAudit){//不是初审环节
+		joy.showMessage(lg.noFirstAudit, "warning");
+	}else{
+		articleType="single";
+		var data=firstAuditForm.getDataModel().toJSON();
+	    infoIds=new Array();
+	    infoIds[0]=data.infoId;
+		firstAuditWindow.open();
+		firstAuditWindow.center();
+	}
+}
+//打开终审窗口(单篇)
+function openFinalAuditSingleWindow(){
+	if(!isFinalAudit){//不是终审环节
+		joy.showMessage(lg.noFinalAudit, "warning");
+	}else{
+		articleType="single";
+		var data=finalAuditForm.getDataModel().toJSON();
+	    infoIds=new Array();
+	    infoIds[0]=data.infoId;
+		finalAuditWindow.open();
+		finalAuditWindow.center();
+	}
+}
+//打开初审窗口(列表)
+function openFirstAuditListWindow(){
+	 infoIds = grid.getChecked();
+	if (infoIds.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	}else{
+		articleType="list";
+		firstAuditForm.load();
+		firstAuditWindow.open();
+		firstAuditWindow.center();
+	}
+}
+//打开终审窗口(列表)
+function openFinalAuditListWindow(){
+	 infoIds = grid.getChecked();
+	if (infoIds.length == 0) {
+		joy.showMessage(lgc.chooseRecord, "warning");
+	}else{
+		articleType="list";
+		finalAuditForm.load();
+		finalAuditWindow.open();
+		finalAuditWindow.center()
+	}
+}
+//初审通过
+function firstAuditPass(buttonObject){
+	updateFirstAudit(buttonObject,"1","1");
+}
+//初审驳回
+function firstAuditReject(buttonObject){
+	updateFirstAudit(buttonObject,"1","2");
+}
+//初审更新
+function updateFirstAudit(buttonObject,auditNodeEk,auditState){
+	var data=firstAuditForm.getDataModel().toJSON();
+	data.infoIds=infoIds;
+	data.auditNodeEk=auditNodeEk;
+	data.auditState=auditState;
+    data.smc=smc;
+    firstAuditForm.load(data);
+    firstAuditForm.submit("../../wl/cm/wlCmInfoEnAction.do?action=updateFirstAudit",
+			buttonObject, function(resultObject) {
+    	
+    	$("#infoTree").getJoyTreeView().setDataSource( resultObject.items);//更新栏目树	
+    	if("single"===articleType){
+        	getSingleData(currentColumnId);
+    	}else{
+    		searchData();
+    	}
+    	firstAuditWindow.close();
+    	joy.showMessage(lgc.opSuccess, "success");
+	});
+}
+//终审通过
+function finalAuditPass(buttonObject){
+	updateFinalAudit(buttonObject,"2","3");
+}
+//终审驳回
+function finalAuditReject(buttonObject){
+	updateFinalAudit(buttonObject,"2","2");
+}
+//终审更新
+function updateFinalAudit(buttonObject,auditNodeEk,auditState){
+	var data=finalAuditForm.getDataModel().toJSON();
+	data.infoIds=infoIds;
+	data.auditNodeEk=auditNodeEk;
+	data.auditState=auditState;
+    data.smc=smc;
+    data.columnType=articleType;
+    finalAuditForm.load(data);
+    finalAuditForm.submit("../../wl/cm/wlCmInfoEnAction.do?action=updateFinalAudit",
+			buttonObject, function(resultObject) {
+    	$("#infoTree").getJoyTreeView().setDataSource( resultObject.items);//更新栏目树	
+    	if("single"===articleType){
+        	getSingleData(currentColumnId);
+    	}else{
+    		searchData();
+    	}
+    	finalAuditWindow.close();
+    	joy.showMessage(lgc.opSuccess, "success");
+	});
+}
+$("#auditImg").click(function(){
+	infoId=$(this).attr("infoid");
+	//bizLogWindow 
+	if(infoId!=""){
+		joy.getJSON("../../wl/cm/wlCmInfoEnAction.do?action=findBizAuditList",{infoId:infoId}, function(resultObject) {
+			bizLogGrid.load(initResult,resultObject);
+			$("#bizLogWindow").find(".k-grid").attr("style","height:150px;");
+			$("#bizLogWindow").find(".k-grid").find(".k-grid-content").attr("style","height:120px;");
+			bizLogWindow.open();
+			bizLogWindow.center();
+		});
+	}
+});
+//单篇预览
+var leftSingle="0101,0102,0103,0105"; //前端左右界面结构的栏目id，沃特罗伦简介，家庭锻炼，专业训练，联系我们
+function singePreview(){
+	 var gotoUrl = window.open();
+	 submitda = dataForm.getDataModel().toJSON();
+	 content=submitda.content;
+		joy.postJSON("../../wl/cm/wlCmInfoEnAction.do?action=getOrSetInfo",{content:content,title:curColumnName,type:"set"}, function(resultObject) {
+			if(leftSingle.indexOf(curParentId)!=-1){//左右结构的界面
+				//window.open("../preview/wlCmInfo.html?columnId="+currentColumnId+"&parentColumnId="+curParentId);
+			     gotoUrl.location.href = "../preview/wlCmInfo.html?columnId="+currentColumnId+"&parentColumnId="+curParentId;
+			}else{//文章界面
+			//	window.open("../preview/wlCmArticle.html?columnId="+currentColumnId+"&type=edit");
+			     gotoUrl.location.href ="../preview/wlCmArticle.html?columnId="+currentColumnId+"&type=edit";
+			}
+		});				
+}
+//列表编辑预览
+function listEditPreview(){
+	var submitda = otherDataForm.getDataModel().toJSON();
+	content=submitda.content;
+	title=submitda.title;
+	 var gotoUrl = window.open();
+	joy.postJSON("../../wl/cm/wlCmInfoEnAction.do?action=getOrSetInfo",{content:content,title:title,type:"set"}, function(resultObject) {	
+      gotoUrl.location.href = '../preview/wlCmArticle.html?type=edit';
+	});	
+}
+//列表详细预览
+function listDetailPreview(){
+	window.open("../preview/wlCmArticle.html?type=detail&infoId="+curInfoId);
+}
+/* 
+* 暂停视频
+*/
+function closeVideo(){
+ 	$("video").each(function(i,n){
+		//alert($(n).val());
+		$(n).get(0).pause();
+	}) 
+	//alert($("#video").val());
+}
+</script>
+</html>

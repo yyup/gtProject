@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/prj/lightBox.js"></script>
+<script src="../../js/prj/cLodopFuncs.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/biz.wlEsInstallAplly.css" />
+</head>
+<body >
+ <!-- 搜索栏 -->
+<div class="searchContent">
+	<div class="searchContent_l">
+		<button class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+			 label="lgc:add" dataBind="visible:ADDSmc"></button>
+	    			    
+		<button class="joy-button joy-smc" icon="pencil" onClick="modifyInstallStateSuccess"
+			 label="lg:installSuccess" dataBind="visible:DISPATCHSmc"></button>	
+		 <button class="joy-button joy-smc" icon="pencil" onClick="modifyInstallStateDispatch"
+			 label="lg:dispatch" dataBind="visible:DISPATCHSmc"></button>	
+		 <button class="joy-button joy-smc" icon="pencil" onClick="modifyInstallStateApply"
+			 label="lg:apply" dataBind="visible:APPLYSmc"></button>	
+	</div>
+	<div class="searchContent_r">
+			<div class="fit1024" style="float: left; padding-right: 5px;">
+				<span class="joy-lang" label="lg:deviceCd"></span>: <input
+					id="searchDeviceCd" style="width: 120px;" class="joy-textbox"
+					databind="value:deviceCd" /> 
+			</div>
+	    	<button class="joy-button" icon="search" onClick="searchGrid"
+				label="lgc:search"></button>
+			<button class="joy-button" icon="search" onClick="openSearch"
+								label="lgc:advSearch"></button>		
+	 </div>
+</div>
+<!-- 搜索栏end -->
+	<table id="grid" class="joy-grid"   rowHeightFit="38">
+		<thead>
+			<tr> 
+			     <th field="installId" templateType="checkbox" colWidth="40px" ></th>  
+				<th field="installNo" dataType="string"  label="lg:installNo" colWidth="20%"></th> 				
+				<th field="receiver" dataType="string"  label="lg:receiver" colWidth="20%"></th> 
+				<th field="mobile"  dataType="string" label="lg:mobile" colWidth="20%"></th>
+				<th field="deviceCd" dataType="string" label="lg:deviceCd" colWidth="20%"></th>
+				<th field="buySpec"   dataType="double" label="lg:buySpec" colWidth="20%"></th>
+				<th field="installState" enumData="INSTALL_STATEEnum" align="center"   dataType="double" label="lg:installState" colWidth="20%"></th>      
+				<th field="installMobile" dataType="string" label="lg:installMobile" colWidth="20%"></th>
+				<th colWidth="280px" templateType="template" align="center" > 
+					 #if(initResult.ADDSmc){<!--编辑有权限 -->
+					 	 if(installState=='0'){#<!--未申请 -->
+				          <button class="k-button k-gridBtn k-button-icontext"  onClick="openEditWindow('#:installId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>	
+				           #}else{# <!--有权限但已提交处理 -->
+				              <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>						
+				         # }	    						    
+					}else{ #<!-- 编辑没有权限 -->
+						<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+					# }#
+				
+					#if(initResult.READSmc){#<!--详细有权限 -->
+					    <button class="k-button k-gridBtn k-button-icontext" smcBind="READSmc" onClick="openDetailWindow('#:installId#')"><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>	
+			    	#}else{#	<!--详细没有权限-->
+				    	<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>	
+			    	#}#	
+				</th>
+			</tr>
+		</thead>
+	</table> 
+	
+	<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window" center="true">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:columnId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td>
+							<input id="deviceCd" class="joy-textbox" required="true"
+								label="lg:deviceCd" maxByte="20" databind="value:deviceCd" >
+						</td>
+						<td >
+							<input id="buySpec" class="joy-textbox" disabled="disabled"
+								label="lg:buySpec" maxByte="20" databind="value:buySpec" >
+						</td>
+					</tr>
+					<tr>
+						<td align="left">
+							<input id="name" required="true" class="joy-textbox"
+								label="lg:receiver"  maxByte="64"  databind="value:receiver" >
+						</td>
+						<td align="left">
+							<input id="mobile" class="joy-textbox" required="true"
+								label="lg:mobile" dataType ="mobileTel" databind="value:mobile" >
+						</td>
+					</tr>
+					<tr>
+						<td align="left">
+							<input id="addr" class="joy-textbox" required="true"
+								label="lg:addr" maxByte="128" databind="value:addr">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<textarea id="otherDescription" class="joy-textbox" 
+								label="lg:otherDescription"  maxByte="256" databind="value:otherDescription" style="width: 98%;resize: none;"></textarea>	
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveAndApply" label="lg:saveAndApply"></button>
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="save" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail">
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:deviceCd"></td>
+					<td width="230" class="joy-label" databind="value:deviceCd"></td>
+					<td width="100" class="joy-lang head" label="lg:buySpec"></td>
+					<td width="230" class="joy-label" databind="value:buySpec"></td>
+				</tr>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:receiver"></td>
+					<td width="230" class="joy-label " databind="value:receiver"></td>
+					<td width="100" class="joy-lang head" label="lg:mobile"></td>
+					<td width="230" class="joy-label" databind="value:mobile"></td>
+				</tr>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:installMobile"></td>
+					<td width="230" class="joy-label" databind="value:installMobile"></td>
+					<td width="100" class="joy-lang head" label="lg:installState"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:installState,source:INSTALL_STATEEnum"></td>		
+				</tr>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:addr"></td>
+					<td colspan="3"  width="230" class="joy-label" databind="value:addr"></td>
+				</tr>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:otherDescription"></td>
+					<td colspan="3"  class="joy-label joy-enum" databind="value:otherDescription"></td>
+				</tr>
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+	<!-- 高级查询窗口开始 -->
+	<div id="searchWindow" class="joy-window" title="lgc:search">
+		<form id="searchForm" class="joy-form" >
+			<table>
+			    <tr>
+			        <td>                
+						<input id="txt_receiver" class="joy-textbox" style="width: 160px;"
+					      maxByte="20" label="lg:receiver">		  
+					</td>
+				    <td>
+				        <input id="txt_mobile" class="joy-textbox" style="width: 160px;"
+					      maxByte="20" label="lg:mobile">		
+				    </td>
+				</tr>			
+			</table>	
+			<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lgc:search"></button>
+						<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>		 
+		</form>
+	</div>
+	<!-- 高级查询窗口结束 -->
+	
+		<!--派单状态窗口-->
+    <div id="dispatchWindow" title="lg:dispatchWindow" class="joy-window" center="true" > 
+   		 	<form id="dispatchForm" class="joy-form">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					 <tr >
+						 <td align=left>	 
+						 <input id="installMobile" class="joy-textbox" 
+					      	maxByte="50" label="lg:installMobile">		
+						 </td> 
+					 </tr>
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="modifyInstallState" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<script>
+		var searchUrl="../../wl/es/wlEsCustInstallAction.do?action=search";
+		var lgc, lg, editWindow, dataForm,searchWindow,grid,initResult,detailWindow,dispatchForm,dispatchWindow;
+		$().ready(function() {
+			lgc = joy.getCommonLang();
+			lg = joy.getLang();
+			editWindow=$("#editWindow ").getJoyWindow();
+			dataForm = $("#dataForm").getJoyForm();
+			detailWindow=$("#detailWindow ").getJoyWindow();
+			searchWindow=$("#searchWindow").getJoyWindow();
+			dispatchForm=$("#dispatchForm").getJoyForm();
+			dispatchWindow=$("#dispatchWindow").getJoyWindow();
+			grid= $("#grid").getJoyGrid();
+			$("#deviceCd").attr("placeholder",lg.pleaseEnter);
+			//数据初始化
+			joy.getJSON("../../wl/es/wlEsCustInstallAction.do?action=init", {
+				enumTypes : ['INSTALL_STATE']
+			}, function(resultObject) {
+				initResult = resultObject;
+				//将后台action得到的枚举ENUM,和前台的databind的枚举,如果值相同进行绑定
+				var viewModel = joy.observable(initResult);
+				joy.bind($(".joy-smc,.joy-enum"), viewModel); //class为smc enum时进行绑定	
+				searchGrid();//查询
+			});
+		});
+		//查询
+	    function searchGrid(){
+				var obj={};
+				obj.keyId = "deviceCd";
+				obj.keyValue = $("#searchDeviceCd").getJoyTextBox().value();
+				var paraMap=joy.getParaMap(obj);
+				grid.fetch(initResult,searchUrl,paraMap);
+		}
+		
+		//打开新增窗体
+		function openAddWindow() {
+			dataForm.load();//编辑框form加载
+			editWindow.title(lgc.add);
+			editWindow.open();//编辑窗口打开
+			editWindow.center();//编辑窗口居中
+		}
+		
+		//保存（按钮触发的保存）
+		function save(buttonObject){
+			saveData(buttonObject,"0");
+		}
+		//保存并提交(变成待处理)
+		function saveAndApply(buttonObject){
+			saveData(buttonObject,"1");
+		}
+		
+		/*
+		 * 保存数据
+		 */
+		function saveData(buttonObject,installState) {
+			//设置按钮不可用，防止重复提交
+			buttonObject.enable(false);
+
+			//如果form表单里的值校验不通过
+			if (!dataForm.validate()) {
+				joy.showMessage(lgc.validateFaile, "warning");
+				buttonObject.enable(true);
+				return;
+			}
+			submitData=dataForm.getDataModel().toJSON();
+			submitData.installState=installState;
+			dataForm.load(submitData);
+			//点击保存调用保存action
+			dataForm.submit("../../wl/es/wlEsCustInstallAction.do?action=saveData",buttonObject, function(resultObject) {
+				 if(resultObject==""){//保存成功
+					   editWindow.close();
+					   grid.dataSource.fetch();
+					   joy.showMessage(lgc.opSuccess, "success");
+			        }else{//失败
+			        	 buttonObject.enable(true);	
+			        	 deviceCd=$("#deviceCd").getJoyTextBox().value();
+			        	 joy.showMessage(deviceCd+resultObject, "warning");
+		          }
+			});
+		}
+		
+		/**
+		 * 打开编辑窗体
+		 */
+
+		function openEditWindow(installId) {
+			joy.getJSON("../../wl/es/wlEsCustInstallAction.do?action=getData", {
+				installId : installId
+			}, function(resultObject) {
+				//resultObject返回值是getData方法的返回结果
+				dataForm.load(resultObject);
+				editWindow.title(lgc.edit);
+				editWindow.open();
+				editWindow.center();
+			});
+		}
+		
+		//打开高级搜索
+		function openSearch()
+		{
+			$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+			$("#searchWindow").parent('.k-widget').css('left',"");
+			//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+			searchWindow.open();
+		}	
+		
+		//高级查询
+		function moreSelect(){
+			receiver=$("#txt_receiver").getJoyTextBox().value();
+			mobile=$("#txt_mobile").getJoyTextBox().value();
+			var obj={};
+			obj.receiver=receiver;
+			obj.mobile=mobile;
+			obj.keyId = "deviceCd";
+			obj.keyValue = $("#searchDeviceCd").getJoyTextBox().value();
+			var paraMap=joy.getParaMap(obj);
+			grid.fetch(initResult,searchUrl,paraMap);
+		}
+		
+		/**
+		 * 打开详细窗体
+		 */
+		function openDetailWindow(installId) {
+
+			joy.getJSON("../../wl/es/wlEsCustInstallAction.do?action=getData", {
+				installId : installId
+			}, function(resultObject) {
+				var viewModel = joy.observable(resultObject);
+				joy.bind($("#detailTable"), viewModel);
+				detailWindow.open();
+				detailWindow.center();
+			});
+		}
+		
+		$("#deviceCd").keydown(function(e){//序列号输入框回车
+	     	   if(e.keyCode == 13)
+	     	   {
+	     		  deviceCd=$("#deviceCd").getJoyTextBox().value();
+	     		  joy.getJSON("../../wl/es/wlEsCustInstallAction.do?action=getStoreOut", {
+	     			 deviceCd:deviceCd
+	  			   }, function(resultObject) {
+	  				 receiver=""; spec="";mobile="";addr=""; 				
+	  				   if(resultObject!==""){
+	  					 receiver=resultObject.receiver;
+	  					 spec=resultObject.spec;
+	  					 mobile=resultObject.mobile;
+	  					 addr=resultObject.addr;
+	  				   }else{
+	  					 joy.showMessage(lg.noExistDeviceCd, "warning");
+	  				   }
+	  				     var submitda =dataForm.getDataModel().toJSON();
+	  				         submitda.deviceCd=deviceCd;
+		  				     submitda.receiver=resultObject.receiver;
+			  				 submitda.buySpec=resultObject.spec;
+			  				 submitda.mobile=resultObject.mobile;
+			  				 submitda.addr=resultObject.addr;
+			  				 dataForm.load(submitda);
+	  			   });
+	     	   }
+	     	});
+		var curInstallState="";
+		var curTitle="";
+		//申请
+		function modifyInstallStateApply(){
+			curInstallState="1";
+			curTitle=lg.isApply;
+			modifyInstallState();
+		}
+		//
+		function modifyInstallStateDispatch(){
+			curInstallState="2";
+			curTitle=lg.isDispatch;
+			openDispatchWindow();
+		}
+		
+		function modifyInstallStateSuccess(){
+			curInstallState="3";
+			curTitle=lg.isInstallState;
+			modifyInstallState();
+		}
+		
+		//打开派单窗口
+		function openDispatchWindow() {	
+			dispatchForm.load();
+			dispatchWindow.open();
+			dispatchWindow.center();
+		}
+		
+		//状态改变
+		function modifyInstallState()
+		{						
+			var installIds = grid.getChecked(); 
+			if (installIds.length == 0) {
+				joy.showMessage(lgc.chooseRecord, "warning");
+			} else{
+				if(curInstallState=="2"){
+					installMobile=$("#installMobile").getJoyTextBox().value();	
+				}else{
+					installMobile="";
+				}
+				joy.showMessageDialog(curTitle,"ok,cancel",function(e){
+					if(e.btnName=="ok"){ 
+						 joy.postJSON("../../wl/es/wlEsCustInstallAction.do?action=updateInstallState",{installIds:installIds,installState:curInstallState,installMobile:installMobile}, function(resultObject){  
+								grid.dataSource.fetch();
+								joy.showMessage(lgc.opSuccess, "success");
+								dispatchWindow.close();
+						  });	
+					}
+				});
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+body
+{
+	margin:0px auto ;
+	min-width:824px;
+	padding:0 px;
+}
+.main {
+	height: 100%;
+	width: 100%;
+}
+	
+.searchContent
+{
+	height:35px;
+	width:100%;
+}
+.searchContent_l
+{
+	float:left;
+	height:100%;
+}
+.searchContent_r
+{
+	float:right;
+	height:100%;
+}
+.listContent
+{
+	width:100%;
+
+}
+.layOne_row
+{
+	   overflow:hidden;
+
+}
+.layOne_row_button
+{
+	height:30px;
+	padding-top:15px;
+	float:right;
+}

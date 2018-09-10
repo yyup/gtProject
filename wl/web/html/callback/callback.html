@@ -1,0 +1,52 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>QQConnect JSDK - redirectURI</title>
+<script src="../../js/newsite/cnzz.js"></script>
+<script src="../../js/newsite/jquery.min.js"></script>
+<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css" />
+<script src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-callback="true" charset="utf-8" type="text/javascript"></script>
+
+<style type="text/css">
+html,body {
+	font-size: 14px;
+	line-height: 180%;
+}
+</style>
+
+</head>
+<body >
+
+</body>
+</html>
+
+<script type="text/javascript">
+              function getInfo() {
+            	 if (QC.Login.check()) {//判断是否登录
+	                 QC.api("get_user_info")
+	                 .success(function(s){//成功回调
+	                 QC.Login.getMe(function(openId, accessToken){
+		                    joy.postJSON('../../wl/cm/wlCmMemberAction.dox?action=qqLogin',{name:s.data.nickname,openId:openId,otype:1,token:accessToken},function(resultObject){		                    	 
+		                             //location.href = "/?page=0";
+		                             //alert(JSON.stringify(resultObject.account));
+		                             if(resultObject.account==""||resultObject.account=='undefined'){
+		                            	 window.location = "bindPhone.html?qqAccount=" + openId;
+		                             }else{
+		                            	 joy.showMessage("恭喜你,登录成功!", "success");
+		                            	 location.href = "../newsite/index.html"
+		                             }
+		       	                     QC.Login.signOut()
+	    	                     })
+	    	                 })
+	                 })
+	                 .error(function(f){//失败回调
+	                	 joy.showMessage("登录失败!", "warning");
+	                     location.href = "../newsite/login.html";
+	                 })
+	                 .complete(function(c){//完成请求回调
+	                 	//alert("获取用户信息完成！");
+	                 });
+            	 }
+            }  
+</script>

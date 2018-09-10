@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview"></script> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/sys.wlCmSecurity.css" /> 
+</head>
+<body> 
+	<table class="main">  
+		<tr>
+		<td class="leftTree" >
+			<div id="rightTitle"></div>
+			<div class="leftTreeBox" > 
+	  		<!-- 权限树 -->  
+	  		<script id="securityTreeItem" type="text/joy-ui-template">
+			 	<div style="cursor:pointer;" onclick="itemClick('#=item.main.id#')">
+			  		#=item.main.name#
+			 	</div>
+			</script> 
+			<div id="securityTree"  class="joy-treeview joy-enum" templateId="securityTreeItem" databind="source:securityTree"></div>
+ 			<!-- end -->
+ 			 </div>
+ 		</td>
+ 		<td class="rightGrid"> 
+ 			<!-- 工具栏 -->
+ 			<div id="pannel">
+ 			    
+				<div class="k-page-toolbar" id="toolbar"> 
+					<button id="addBtn" class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+						 label="lg:add" dataBind="visible:SECURITYSmc"></button>
+					<button id="delBtn" class="joy-button joy-smc" icon="close" onClick="deleteData"
+						 label="lgc:delete" dataBind="visible:DELETESmc"></button> 
+				</div>  
+			</div>
+ 			<!-- 权限设置 --> 
+ 			<table id="grid" class="joy-grid" rowHeightFit="38">
+				<thead>
+					<tr> 
+						<th field="id" templateType="checkbox" colWidth="40px"></th>
+						<th field="securityArray" dataType="string" enumData="securityList" dataTextField="name" dataValueField="id" label="lg:security" colWidth="100"></th> 
+						<th field="type"  enumData="securityOwnerEnum"  dataType="string" label="lg:type" colWidth="100"></th>
+						<th field="ownerId" enumData="ownerList"  dataType="string" label="lg:owner" colWidth="100"></th> 
+					</tr>
+				</thead>
+			</table> 
+			<!-- end -->
+ 		</td> 
+  		</tr>
+  	</table>  
+  	
+  	<!-- 编辑框 -->
+	<div id="addWindow" class="joy-window" width="580px" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form" layout="freedom" >
+			<input type="hidden" databind="value:id"> 
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td width="100px" class="joy-lang head" label="lg:securityName" align="right"></td>
+						<td colspan="3"  class="joy-label" databind="value:security.name" align="left"></td> 
+					</tr>   
+					<tr>  
+					    <td class="joy-lang head" label="lg:securityList"  align="right"></td>
+						<td  align="left"  colspan="3"  ><input class="joy-multiselect" placeholder="lg:choice" required="true"  dataTextField="name" dataValueField="id" databind="value:securityArray,source:securityList"/>  </td> 
+					</tr> 
+					<tr > 
+						 <td class="joy-lang head" label="lg:securityOwner"  align="right" ></td>
+						<td  align="left">
+							<input id="ownerType" class="joy-combobox"  onChange="comboxChange($(this))"    style="width:90px;" databind="value:type,source:securityOwnerEnum"/>
+						</td>
+						<td>
+							<table class="owner" id="owner1">
+								<tr> 
+									<td  align="left" colspan="3" > 
+										<input  class="joy-combobox" filter="contains"  dataTextField="name" dataValueField="id" class="joy-combobox" placeholder="lg:choiceUser"  style="width:330px;" label="lg:securityOwner"  databind="value:ownerId,source:userList" /> 
+									</td>  
+								</tr>
+							</table>
+							<table class="owner" id="owner4">
+								<tr> 
+									<td  align="left">
+										<input class="joy-combobox" placeholder="lg:choiceGroup" filter="contains"  dataTextField="name" dataValueField="id"  style="width:330px;" label="lg:securityOwner" databind="value:ownerId,source:groupList" /> 
+									</td>
+								</tr>
+							</table> 
+						</td> 
+					</tr> 
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+  	
+  	
+  	<!-- 部门选择框 -->
+    <div id="departmentSelectWindow" class="joy-window" width="320px" center="true"
+		  title="lg:departmentwindowTitle"> 
+   		 <script id="small_tree" type="text/joy-ui-template">
+			 <input type="hidden" value="#=item.main.id#" ><span class="itemName">#=item.main.name#</span>
+		 </script>
+		 <div id="smallTreeView"  style="width:300px;height:300px;" ></div> 
+		 
+		 	<table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+	</div>
+	
+  	
+</body>
+<script>
+	var addBtn,delBtn,dataForm,grid,rightGridDataSource,departmentSelectWindow,addWindow,secId, initResult,smallTreeView,gridInitResult, lgc, lg;
+	var searchUrl = "wlCmUserSecurityAction.do?action=findPage";
+	 
+	$().ready(function() { 
+		lgc = joy.getCommonLang();
+		lg = joy.getLang(); 
+		grid = $("#grid").getJoyGrid();
+		addWindow = $("#addWindow").getJoyWindow();
+		dataForm = $("#dataForm").getJoyForm(); 
+		addBtn = $("#addBtn").getJoyButton();
+		delBtn = $("#delBtn").getJoyButton();
+
+		 addBtn.enable(false);
+		 delBtn.enable(false);
+		departmentSelectWindow = $("#departmentSelectWindow").getJoyWindow();
+		//数据初始化
+		joy.getJSON("wlCmUserSecurityAction.do?action=init",{
+			enumTypes:['securityType']
+		}, function(resultObject) {
+			initResult = resultObject;
+		    var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel); 
+	        rightGridDataSource = new Array();
+	        grid.load(initResult,rightGridDataSource); 
+		});  
+		$("#rightTitle").html(lg.choiceModule);
+		initDepartmentTree();
+		
+	 	$(".leftTreeBox").css("height",$(".k-grid").height()+5+"px");
+	});
+	
+	//树菜单点击事件
+	function itemClick(securityId){
+		secId = securityId;
+		joy.getJSON("wlCmUserSecurityAction.do?action=getList&securityId="+securityId, function(resultObject) {
+			gridInitResult = resultObject; 
+			rightGridDataSource = gridInitResult.rightGridDataSource;  
+			grid.load(resultObject,rightGridDataSource);  
+			$("#rightTitle").html(lg.choiceModule+"("+gridInitResult.security.name+")");
+			addWindow.close(); 
+			$(".owner").hide();
+			if(gridInitResult.securityList.length>0){  
+				 addBtn.enable(true);
+				 delBtn.enable(true);
+				 var viewModel = joy.observable(gridInitResult);    
+				 joy.bind($("#addWindow"), viewModel);  
+			}else{
+				
+				 addBtn.enable(false);
+				 delBtn.enable(false);
+			}
+			
+		});  
+	}
+	
+	//打开新增窗体
+	function openAddWindow(){ 
+ 
+		addWindow.open(); 
+		addWindow.center();
+		
+		dataForm.load(gridInitResult);
+		
+	}
+	
+	//保存表单
+	function saveData(buttonObject){
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		
+		var json = dataForm.getDataModel().toJSON();
+		var postJson = {};
+		postJson.securityId = json.security.id;
+		postJson.securityArray = json.securityArray;
+		
+		postJson.type = json.type?json.type:1;
+		postJson.departmentId = json.departmentId;
+		postJson.ownerId = json.ownerId;  
+		joy.getJSON("wlCmUserSecurityAction.do?action=addData",postJson, function(resultObject) {  
+			buttonObject.enable(true); 
+			itemClick(postJson.securityId);
+			addWindow.close(); 
+			joy.showMessage(lgc.opSuccess, "success");
+		});
+		
+		 
+		
+		
+	}
+	
+	//删除关系
+	function deleteData(){
+		
+		var ids = grid.getChecked();
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("wlCmUserSecurityAction.do?action=deleteData", {
+						ids : ids,
+						state:0
+					}, function(resultObject) {
+						itemClick(secId);
+						joy.showMessage(lgc.opSuccess, "success");
+					});
+				}
+			});
+		}
+		
+		
+	}
+	
+	
+	//treeview数据初始化
+	function initDepartmentTree(){
+		joy.getJSON("wlCmDepartmentAction.do?action=getTree&state=1", function(resultObject) { 
+				 smallTreeView =  $("#smallTreeView").joyTreeView({
+		             dataSource:resultObject.items,
+		             templateID:"small_tree",
+		             change:function(e){
+		            	var id = this.select().find("input").eq(0).val();
+		            	var name =  this.select().find(".itemName").eq(0).html();
+		            	var json = dataForm.getDataModel().toJSON();
+		            	json.departmentId = id;
+		            	json.departmentName = name;
+		            	dataForm.load(json);
+		            	departmentSelectWindow.close();
+		             }
+		         });    
+		});
+	}
+	
+	//设置用户组
+	function opendepartmentWindow(){ 
+		departmentSelectWindow.open(); 
+		departmentSelectWindow.center();
+	}
+	
+	function comboxChange(thi){
+		$(".owner").hide();
+		var json = dataForm.getDataModel().toJSON();
+    	json.ownerId = ""; 
+    	dataForm.load(json);
+		$("#owner"+thi.val()).show();
+		
+	}
+ 
+</script>
+</html>

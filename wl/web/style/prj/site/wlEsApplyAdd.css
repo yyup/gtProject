@@ -1,0 +1,108 @@
+   #applyAddBody{width:100%;}
+
+/*账号信息*/
+#accountInfoContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#applyContent{
+    width:1000px;
+	margin-bottom:10px;
+	min-height:578px;
+}
+
+/*账号信息左边栏结束*/
+ /*修改密码*/
+#apply{
+     display:table;
+     margin:0 auto;
+	 margin-top:40px;
+	 width:513px;
+}
+
+ #applyForm p{
+	display:table;
+	margin-top:10px;
+   
+ }
+ #applyForm label{
+     display: block;
+    float: left;
+    height: 26px;
+    text-align: right;
+    width: 130px;
+ } 
+ #personAccount{
+  
+    margin-left:5px;
+ }
+ #applyForm input{
+  padding:3px;
+  width:280px;
+ }
+  #applyForm option{
+   height: 22px;
+    line-height: 22px;
+  padding:5px;
+  }
+#machineType,#payMode,#equipmentCoding{
+    width:288px;
+    height:30px;
+	padding:3px;
+}
+#addr{
+	resize:none;
+	width: 274px;
+	min-height:75px;
+	padding:3px;
+	background-color:#fff;
+     font-size:100%;
+     line-height: 15px;
+      
+}
+
+#applyForm a{
+
+   text-decoration:none;
+}
+
+#read{
+     font-size:17px;
+     font-weight:bold;
+}
+#provice,#area,#city{
+   font-size:17px;
+    color:#666;
+	width:93px;
+}
+#detailAddress{
+   height:62px;
+   width:290px;
+   resize:none;
+}
+#sure,#back{
+   float:left;
+  width:54px;
+  height:24px;
+   margin-top:10px;
+}
+#sure{
+  margin-left:125px;
+ 
+}
+#back{
+   margin-left:10px;
+   background: url("../images/siteBack.png");
+}
+#provice,#area,#city{
+   font-size:17px;
+    color:#666;
+	width:93px;
+}
+.k-item{
+ font-size:13px;
+}
+#isDefalutAccount{
+   float: left;
+    margin-top: 4px;
+    width: 20px;
+}

@@ -1,0 +1,25 @@
+.picLeft {
+    float: left;
+    height: auto;    
+    overflow: hidden;
+    width: 300px;
+}
+.picRight
+{
+	width:310px;
+	float:right;
+	min-height:200px;
+	overflow: hidden;
+	height:auto;
+	padding-left:5px;
+	
+}
+
+.picAlert
+{
+	height:50px;
+	text-align:center;
+	line-height:25px;
+	color:gray;
+	font-size:16px;	
+}

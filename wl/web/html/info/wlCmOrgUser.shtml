@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+
+</head>
+<body style="height:100%">
+<div id="gridDiv">
+  	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+	    <button class="joy-button joy-smc" icon="plus" onClick="openAddWindow" label="lgc:add" dataBind="visible:ADMINSmc" ></button>
+		<div id="searchForm" class="joy-form" style="float: right" layout="freedom">
+			<span class="joy-lang" label="lg:memberStateEk"></span>:
+			<input class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect" style="width:120px" dataBind="value:memberStateEk,source:MEMBER_STATE_EKEnum">		
+			<span class="joy-lang" label="lg:name"></span>:
+			<input class="joy-textbox" id="name" style="width: 120px;" databind="value:name"  /> 
+			<button class="joy-button" icon="search" onClick="searchData" label="lgc:search" ></button>			
+		</div>	
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid" pageSize = "10"  rowHeightFit="38">
+		<thead>
+			<tr>
+			<!-- 
+				<th field="userId" templateType="checkbox" colWidth="40px"></th> -->
+				<th field="account" dataType="string" label="lg:account" colWidth="25%"></th>
+				<th field="name" dataType="string" label="lg:name" colWidth="35%"></th>
+				<th field="memberStateEk" dataType="string" enumData="MEMBER_STATE_EKEnum" label="lg:memberStateEk"  align="center" colWidth="15%"></th>
+				<th field="orgId" dataType="string" enumData="orgEnum" label="lg:orgId"  dataTextField="orgName" dataValueField="orgId" align="center" colWidth="25%"></th>				
+				<th colWidth="370px" templateType="template"  align="center" > 			   
+					#if(initResult.ISENABLESmc){<!--启用禁用有权限 -->
+				         if(memberStateEk=='LOCK'){#
+					       <button class="k-button k-gridBtn k-button-icontext" onClick="modifyMemberStateEk('#:userId#','#:memberStateEk#')"><span class="k-icon k-i-pencil"></span>#:lg.memberStateEkModifyLOCK#</button>
+				         #}else{# 
+					       <button class="k-button k-gridBtn k-button-icontext" onClick="modifyMemberStateEk('#:userId#','#:memberStateEk#')" ><span class="k-icon k-i-pencil"></span>#:lg.memberStateEkModifyUSE#</button>
+				         # }	    
+					}else{<!-- 启用禁用没有权限 -->
+					      if(memberStateEk==='LOCK'){#
+					       <button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lg.memberStateEkModifyLOCK#</button>
+					      #}else{#
+					       <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.memberStateEkModifyUSE#</button>
+					     # }					
+					}#
+					
+						#if(initResult.ADDSmc){#<!--编辑有权限 -->
+				    <button class="k-button k-gridBtn k-button-icontext"  onClick="openEditWindow('#:userId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}else{#	<!--编辑没有权限 -->
+				       <button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+			    	#}#
+					
+					  #if(initResult.READSmc){#<!--详细有权限 -->
+					   <button class="k-button k-gridBtn k-button-icontext"  onClick="openDetailWindow('#:userId#')"><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>
+			    	#}else{#	<!--详细没有权限-->
+					   <button class="k-button k-gridBtn k-button-icontext k-state-disabled"><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>
+			    	#}#		
+			    	
+			    	#if(initResult.RESETPASSWORDSmc){#<!--重置密码有权限 -->
+				     	<button class="k-button k-gridBtn k-button-icontext" smcBind="ADMINSmc" onClick="modifyPassword('#:userId#')"><span class="k-icon k-i-insert-m"></span>#:lg.modifyPwd#</button>
+			    	#}else{#	<!--重置密码没有权限-->
+					   <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-insert-m"></span>#:lg.modifyPwd#</button>
+ 			    	#}#		
+					
+				</th>
+				
+			</tr>
+		</thead>
+	</table>	
+</div>	
+	
+	<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:userId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left"><input class="joy-textbox" id="account" required="true"  label="lg:account"
+							databind="value:account" maxByte="30">
+						</td>
+						<td align="left"><input class="joy-textbox"  required="true"
+							label="lg:name" databind="value:name" maxByte="20"></td>
+					</tr>
+					<tr>
+						<td align="left"><input class="joy-textbox" id="password" required="true"  type="password"
+							label="lg:password" minByte="6" maxByte="32" databind="value:password"></td>
+					   <td>
+					     	<input
+							id="orgId" label="lg:orgId" class="joy-combobox joy-enum" required="true" 
+							placeholder="lgc:pleaseToSelect"  dataTextField="orgName" dataValueField="orgId" 
+							databind="value:orgId,source:orgEnum" >		
+					    </td>
+					</tr>
+					  <tr >
+						<td ><input class="joy-textbox" id="contact"   label="lg:contact" 
+							databind="value:contact" maxByte="30" ></td>
+						<td align="left">
+						   <input class="joy-textbox" id="mobile"   label="lg:mobile" 
+							databind="value:mobile" maxByte="11" dataType ="mobileTel" >
+						</td>
+					</tr> 	
+					 <tr>
+					    <td align="left"><input class="joy-textbox" id="email"   label="lg:email" 
+							databind="value:email" maxByte="30" dataType ="email"></td>
+			            <td >
+			             </td>
+						
+					</tr> 			
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 详细 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" align="center" width="100%" 
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:account"></td>
+					<td width="230" class="joy-label" databind="value:account"></td>
+					<td width="100" class="joy-lang head" label="lg:name"></td>
+					<td width="230" class="joy-label"   databind="value:name"></td>										
+				</tr> 																	
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:memberStateEk"></td>
+					<td  class="joy-label joy-enum" databind="value:memberStateEk,source:MEMBER_STATE_EKEnum"></td>
+				    <td width="100" class="joy-lang head" label="lg:orgId"></td>
+					<td  class="joy-label joy-enum" dataTextField="orgName" dataValueField="orgId" databind="value:orgId,source:allAgentOrgEnum"></td>
+				</tr>  
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:contact"></td>
+					<td  class="joy-label" databind="value:contact"></td>
+				    <td width="100" class="joy-lang head" label="lg:mobile"></td>
+					<td  class="joy-label" databind="value:mobile"></td>
+				</tr>  
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:email"></td>
+					<td  class="joy-label" databind="value:email"></td>
+				    <td width="100" class="joy-lang head" ></td>
+					<td  class="joy-label joy-enum" ></td>
+				</tr>  	
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+			
+<script>
+var initResult,searchForm,grid,ids,memberId,dataForm,editWindow,detailWindow,accountText,passwordText,searchWindow,advSearchForm;
+var searchUrl="../../wl/cm/wlCmOrgUserAction.do?action=findDataList";
+
+$().ready(function(){
+	lgc = joy.getCommonLang();
+	lg = joy.getLang();
+	grid = $("#grid").getJoyGrid();
+	dataForm = $("#dataForm").getJoyForm();
+	accountText = $("#account").getJoyTextBox();
+	passwordText = $("#password").getJoyTextBox();
+	editWindow = $("#editWindow").getJoyWindow();
+	detailWindow = $("#detailWindow").getJoyWindow(); 	
+
+	searchForm = $("#searchForm").getJoyForm(); 
+
+	joy.getJSON("../../wl/cm/wlCmOrgUserAction.do?action=init",
+			{enumTypes:['MEMBER_STATE_EK']},	
+			function(resultObject) {
+				initResult = resultObject; 
+	        	var viewModel = joy.observable(initResult);    
+	        	joy.bind($(".joy-smc,.joy-enum"), viewModel); 
+	        	searchForm.load();//解决form值没法传到后台问题
+	        	grid.fetch(initResult, searchUrl);  
+		});
+	
+});
+
+/**
+ * 打开新增窗体
+ */
+function openAddWindow() {
+	dataForm.load();
+	editWindow.title(lgc.add);
+	editWindow.open();
+	editWindow.center();	 
+	accountText.enable(true);
+	passwordText.enable(true);
+}
+
+/**
+ * 打开编辑窗体
+ */
+function openEditWindow(userId){
+		joy.getJSON("../../wl/cm/wlCmOrgUserAction.do?action=getData",{userId:userId},  function(resultObject){			
+		dataForm.load(resultObject);	 
+		editWindow.title(lgc.edit);
+		editWindow.open();	
+		editWindow.center();
+		accountText.enable(false);
+		passwordText.enable(false);
+	});
+}
+
+/**
+ * 打开详细窗体
+ */
+function openDetailWindow(userId){
+	 
+	joy.getJSON("../../wl/cm/wlCmOrgUserAction.do?action=getData",{userId:userId},  function(resultObject){			
+		var viewModel = joy.observable(resultObject); 
+		joy.bind($("#detailTable"), viewModel);			
+		detailWindow.open();
+		detailWindow.center();
+	});	
+}
+
+
+/**
+ * 保存数据
+ */
+function saveData(buttonObject) {
+	//设置按钮不可用，防止重复提交
+	buttonObject.enable(false);
+	if (!dataForm.validate()) {
+		joy.showMessage(lgc.validateFaile, "warning");
+		buttonObject.enable(true);
+		return;
+	}	
+	dataForm.submit("../../wl/cm/wlCmOrgUserAction.do?action=saveData", buttonObject,
+			function(resultObject) {
+				editWindow.close();
+				grid.dataSource.fetch();
+				joy.showMessage(lgc.opSuccess, "success");
+			});
+}
+
+/**
+ * 搜索数据
+ */
+function searchData() {
+	//alert(joy.stringify(searchForm.getDataModel().toJSON()));
+	 obj=searchForm.getDataModel().toJSON();
+	 var paraMap=joy.getParaMap(obj);
+	 grid.fetch(initResult, searchUrl,paraMap);
+	//grid的值为 执行searchUrl方法后的值,searchForm.getDataModel().toJSON()为action方法的参数
+} 
+
+/**
+ * 重置密码
+ */
+function modifyPassword(userId){
+	joy.showMessageDialog(lg.modifyPwdTitle,"ok,cancel",function(e){
+		if(e.btnName=="ok"){
+			joy.getJSON("../../wl/cm/wlCmOrgUserAction.do?action=updateOrgUserPwd",{userId:userId}, function(resultObject){	
+				joy.showMessage(lgc.opSuccess, "success");
+			});
+		}
+	});
+			
+}
+
+/**
+* 启用/锁定
+**/
+function modifyMemberStateEk(id,memberStatusEk){
+	var memberStatusEkModifyTitle;
+	if(memberStatusEk=="LOCK"){
+		memberStatusEkModifyTitle=lg.memberStatusEkLOCKTitle;
+	}else{
+		memberStatusEkModifyTitle=lg.memberStatusEkModifyUSETitle;
+	}
+	joy.showMessageDialog(memberStatusEkModifyTitle,"ok,cancel",function(e){
+		if(e.btnName=="ok"){
+			joy.getJSON("../../wl/cm/wlCmOrgUserAction.do?action=updateOrgUserState",{userId:id}, function(resultObject){	
+				joy.showMessage(lgc.opSuccess, "success");
+				grid.dataSource.fetch();
+				
+			});
+		}
+	});			
+}
+
+</script>
+</body>
+</html>

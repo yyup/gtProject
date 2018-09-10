@@ -1,0 +1,37 @@
+.topBottom{
+    display: none;
+}
+@media screen and (max-width: 992px) {
+    .topBottom{
+        display: block;
+    }
+    .rightLeft{
+        display: none;
+    }
+}
+.accountInfo{
+    font-size: 40px;
+    font-weight: bold;
+}
+.tableTile{
+    font-size: 26px;
+    font-weight: bold;
+}
+.titleMargin{
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+.titleContent{
+    font-size: 22px;
+    color: #898989;
+    padding-left: 30px;
+}
+.titileImg{
+    width: 25px;
+}
+.addrButton{
+    width: 148px;
+    height: 43px;
+    background: #111111;
+    color: white;
+}

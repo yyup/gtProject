@@ -1,0 +1,1201 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/biz.wlEsOrder.css" />
+</head>
+<body>
+	    <div id="forecast">
+                <div class="joy-tabstrip" style="border: none;">
+                    <ul>
+                        <li class="k-state-active">
+                            <label class="joy-lang" label="lg:pageTitle1"></label>
+                        </li>
+                        <li>
+                            <label class="joy-lang" label="lg:pageTitle2"></label>
+                        </li>
+                        <li>
+                            <label class="joy-lang" label="lg:pageTitle3"></label>
+                        </li>                        
+                        <li>
+                            <label class="joy-lang" label="lg:pageTitle5"></label>
+                        </li>
+                    </ul>  
+                        <!-------  待付款 --------------> 
+                    	<div>               
+		                    <div class="tabOne" style="height:600px;">
+		           				<!-- 工具栏 -->
+								<div class="k-page-toolbar">
+									<div id="orderOneForm" class="joy-form" style="float:right" layout="freedom">												
+										<input id="namesId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px"  dataTextField="name" dataValueField="values"   databind="value:values,source:searchEnum" >
+										<input id="contentId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+										<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchOneData" label="lgc:search"></button>
+									</div>
+								</div>
+								<!--信息列表 --> 
+				 				<table id="gridOne" class="joy-grid"  pageSize = "13" height="560px"  >
+									<thead>
+										<tr>											
+											<th field="orderNo" dataType="string"  dataType="string" label="lg:orderNo" colWidth="130px"></th>
+											<th field="orderTime" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss"  label="lg:orderTime" colWidth="25%"></th>
+											<th field="goodNum" dataType="string" align="right" label="lg:goodNums"  colWidth="10%"></th>
+											<th field="amt" dataType="string" align="right" label="lg:amt"  colWidth="15%"></th>	
+											<th field="payAmt" dataType="string" align="right" label="lg:payAmt"  colWidth="15%"></th>											
+											<th field="memberName" dataType="string"  label="lg:memberName"  colWidth="15%"></th>	
+											<th field="mobile" dataType="string"  label="lg:mobile"  colWidth="20%"></th>									
+											<th colWidth="280px" templateType="button" align="center">					
+										 		<button  icon="close" smcBind="CLOSESmc" onClick="openCloseWindow('#:orderId#')" label="lg:closeOrder"></button>
+										 		<button icon="pencil" smcBind="UPDATEPRICESmc" onClick="openUpdateWindow('#:orderId#')"	 label="lg:updatePrice"></button>			 	
+										 	    <button  icon="insert-m" smcBind="READSmc" onClick="openDetailOneWindow('#:orderId#')" label="lgc:detail"></button>	       					
+											</th>								
+										</tr>
+									</thead>
+								</table>
+								<!-- 修改价格编辑框 -->
+								<div id="orderDataOneWindow" class="joy-window" center="true" title="lg:updatePrice">
+									<form id="orderDataOneForm" class="joy-form">
+										<input type="hidden" databind="value:orderId"/>
+										<table align="center" border="0" cellspacing="0" cellpadding="0" width="100%">
+											<tr>
+											    <td>
+													<input id="orderNoId" disabled="disabled" class="joy-textbox" label="lg:orderNo" databind="value:orderNo"  >
+												</td>
+											</tr>
+											<tr>	
+												<td>
+													<input id="payAmtbeforeId" disabled="disabled" class="joy-textbox" label="lg:payAmtBefore" databind="value:payAmt"  >
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<input id="payAmtId" class="joy-numerictextbox" required="true" label="lg:payAmt" databind="value:payAmtAfter" value="0" min="0"  max="9999999999" >											
+											    </td>
+										    </tr>											
+										</table>
+										<table width="100%" border="0" align="center" cellpadding="0"cellspacing="0">
+											<tr>
+												<td height="50" align="right" valign="bottom">
+													<button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveOneData" label="lgc:save"></button>
+													<button class="joy-button  joy-window-close" icon="cancel"label="lgc:cancel"></button></td>
+											</tr>
+										</table>
+									</form>									
+								</div>
+								<!-- 详细框 -->
+								<div id="detailOneWindow" class="joy-window detail"  center="true" align="left" title="lgc:detail"> 
+									<table id="detailOneTable" width="100%" align="center"
+										class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+										<tbody>
+											<tr height="25">
+												<td width="100" class="joy-lang head" label="lg:orderNo"></td>
+												<td width="230" class="joy-label"   databind="value:orderNo" ></td>
+												<td width="100" class="joy-lang head" label="lg:orderStateEk"></td>
+												<td width="230" class="joy-label joy-enum" databind="value:orderStateEk,source:ORDER_STATE_EKEnum"></td>					
+											</tr> 
+											<tr height="25">
+												<td width="100" class="joy-lang head" label="lg:corpUser"></td>
+												<td width="230" class="joy-label" databind="value:corpUser"></td>
+												<td width="100" class="joy-lang head" label="lg:deliveryTime"></td>
+												<td width="230" class="joy-label" databind="value:deliveryTime" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss"></td>
+											</tr> 				
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:amt"></td>
+												<td width="230" class="joy-label" databind="value:amt"></td>
+												<td width="100" class="joy-lang head" label="lg:orderTime"></td>
+												<td width="230" class="joy-label" databind="value:orderTime" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss"></td>
+											</tr>
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:memberAccount"></td>
+												<td width="230" class="joy-label" databind="value:memberAccount"></td>
+												<td width="100" class="joy-lang head" label="lg:memberEmail"></td>
+												<td width="230" class="joy-label" databind="value:memberEmail" ></td>
+											</tr>
+											<tr height="25">
+												<td width="100" class="joy-lang head" label="lg:goodNums"></td>
+												<td width="230" class="joy-label" databind="value:goodNum"></td>					
+												<td width="100" class="joy-lang head" label="lg:receiver"></td>
+												<td width="230" class="joy-label" databind="value:receiver"></td>
+													
+											</tr> 
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:province"></td>
+												<td width="230" class="joy-label" databind="value:province"></td>
+												<td width="100" class="joy-lang head" label="lg:city"></td>
+												<td width="230" class="joy-label" databind="value:city"></td>	
+											</tr>
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:area"></td><!--  
+												<td colspan="3" width="230" class="joy-label" databind="value:addr"></td>-->
+												<td  width="230" class="joy-label" databind="value:area">
+												<td width="100" class="joy-lang head" label="lg:addr"></td><!--  
+												<td colspan="3" width="230" class="joy-label" databind="value:addr"></td>-->
+												<td  width="230" class="joy-label" databind="value:addr">											
+											</tr>
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:mobile"></td> 
+												<td  width="230" class="joy-label" databind="value:mobile">	</td>
+												<td width="100" class="joy-lang head" label="lg:buyChannelEk"></td> 
+												<td  width="230" class="joy-label joy-enum" databind="source:BUY_CHANNEL_EKEnum,value:buyChannelEk"></td> 											
+											</tr>
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:taoBaoNo"></td> 
+												<td  width="230" class="joy-label" databind="value:taoBaoNo">	</td>
+												<td width="100" class="joy-lang head" label="lg:serviceTaoBaoNo"></td> 
+												<td  width="230" class="joy-label" databind="value:serviceTaoBaoNo"></td> 											
+											</tr>
+											<tr height="150">					
+												<td width="100" class="joy-lang head" label="lg:orderGood"></td>
+												<td colspan="3" style="padding:5px 5px;"width="640px">
+														<table align="center" id="fieldsGrid" class="joy-grid" sortable="false" reorderable="false"  resizable="false"
+															showPageControl="false"  height="150px"  >
+															<thead>
+																<tr>							
+																	<th id="one" field="productName" dataType="string" label="lg:goodName" ></th>
+																	<th  field="price" dataType="double" align="right" label="lg:price" ></th>
+																	<th id="two" field="num" dataType="int" align="right" label="lg:goodNum"></th>
+																	<th id="three" field="unitName" dataType="string" label="lg:goodUnitName"></th>														
+																</tr>
+							
+															</thead>
+														</table>
+												</td>												
+											</tr> 
+											<tr height="50">					
+												<td width="100" class="joy-lang head" label="lg:buyMsg"></td>
+												<td colspan="3" width="560" class="joy-label" databind="value:buyMsg"></td>
+											</tr> 
+											<tr height="50">					
+												<td width="100" class="joy-lang head" label="lg:memo"></td>
+												<td colspan="3" width="560" class="joy-label" databind="value:memo"></td>
+											</tr>			
+										</tbody>
+									</table>
+									<table width="100%" border="0" align="center" cellpadding="0"
+										cellspacing="0">
+										<tr>
+											<td height="50" align="right" valign="bottom">
+												<button class="joy-button joy-window-close" icon="cancel"label="lgc:close"></button>										
+											</td>
+										</tr>
+									</table>
+								</div>			
+		                    </div>
+		                 </div>
+		                 <!-- -----待发货----- -->
+		                 <div>
+		                 	<div class="tabTwo" style="height:600px;">
+	                      		<!-- 工具栏 -->
+								<div class="k-page-toolbar">
+									<div style="float: left;">
+									<!-- <button class="joy-button joy-smc" icon="seek-s" onClick="orderTempDown"
+									     label="lg:orderTemp" dataBind="visible:ADMINSmc"></button>
+									   <button class="joy-button joy-smc" icon="seek-s" onClick="orderGoodTempDown"
+									     label="lg:orderGoodTemp" dataBind="visible:ADMINSmc"></button>		-->	
+										<button class="joy-button joy-smc" icon="seek-n" onClick="openOrderUploadWindow"
+									     label="lg:orderUpload" dataBind="visible:ORDERIMPORTSmc"></button>
+									   <button class="joy-button joy-smc" icon="seek-n" onClick="openOrderDetailUploadWindow"
+									     label="lg:orderDetailUpload" dataBind="visible:ORDERIMPORTSmc"></button>			
+									</div>
+									<div id="orderTwoForm" class="joy-form" style="float:right" layout="freedom">												
+										<input id="namesTwoId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px"  dataTextField="name" dataValueField="values"   databind="value:values,source:searchEnum" >
+										<input id="contentTwoId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+										<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchTwoData" label="lgc:search"></button>
+									<!-- 	<button class="joy-button" icon="seek-s" smcBind="ADMINSmc" onClick="getTaobaoOrder" label="lg:getTaobaoOrder"></button>	-->								
+									</div>
+								</div>
+								<!--信息列表 --> 
+				 				<table id="gridTwo" class="joy-grid"  pageSize = "13"  height="520px" >
+									<thead>
+										<tr>											
+											<th field="orderNo" dataType="string"  dataType="string" label="lg:orderNo" colWidth="110px"></th>
+											<th field="orderTime" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss"  label="lg:orderTime" colWidth="25%"></th>
+											<th field="goodNum" dataType="int" align="right" label="lg:goodNums"  colWidth="10%"></th>											
+											<!-- <th field="amt" dataType="string" align="right" label="lg:amt"  colWidth="15%"></th> -->
+											<th field="payAmt" dataType="string" align="right" label="lg:payAmt"  colWidth="15%"></th>											
+											<th field="payModeEk" dataType="string"  label="lg:payModeEk"  align="center" enumData="PAY_MODE_EKEnum" colWidth="10%"></th>											
+											<th field="province" dataType="string"  label="lg:province"  colWidth="12%"></th>
+											<th field="city" dataType="string"  label="lg:city"  colWidth="12%"></th>
+											<th colWidth="370px" templateType="button" align="center">					
+										 		<button  icon="seek-n" smcBind="DELIVERYSmc" onClick="openDliverWindow('#:orderId#')" label="lg:sendOut"></button>	
+										 		<button  icon="close" smcBind="CLOSESmc" onClick="openCloseWindow('#:orderId#')" label="lg:closeOrder"></button>		 	
+										 	    <button  icon="pencil" smcBind="ORDEREDITSmc" onClick="editOrderGood('#:orderId#')" label="lgc:edit"></button>
+										 	    <button  icon="insert-m" smcBind="READSmc" onClick="openDetailOneWindow('#:orderId#')" label="lgc:detail"></button>	       					
+											</th>								
+										</tr>
+									</thead>
+								</table>
+								<!-- 发货编辑框 -->
+								<div id="orderDataTwoWindow" class="joy-window double" center="true" title="lg:sendOut">
+									<form id="orderDataTwoForm" class="joy-form">
+										<input type="hidden" databind="value:orderId"/>
+										<table cellspacing=1 cellpadding=3 width="100%" align="center" border=0>
+											<tr>
+											    <td>
+													<input disabled="disabled" class="joy-textbox" label="lg:orderNo" databind="value:orderNo"  >
+												</td>
+												<td>
+													<input class="joy-combobox joy-enum" label="lg:logisticEk" required="true" databind="value:logisticEk,source:LOGISTIC_EKEnum" >											
+											    </td>
+										    </tr>
+										    <tr>											    
+												<td colspan="2">
+													<input class="joy-textbox" label="lg:deliveryNo" databind="value:deliveryNo" required="true" maxBype="30" >											
+											    </td>
+										    </tr>
+											<tr>
+											    <td colspan="2" >
+													<div style="margin-top:10px;margin-bottom:5px;">
+													    <span class="joy-lang" label="lg:orderGood" ></span>
+													</div>													
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2" >													
+													<table align="center" id="fieldsTwoGrid" class="joy-grid" sortable="false" reorderable="false" resizable="true"
+														showPageControl="false"  height="150px">
+														<thead>
+															<tr>							
+																<th  field="productName" dataType="string"label="lg:goodName" colWidth="40%"></th>
+																<th  field="num" dataType="string"align="right" label="lg:goodNum" colWidth="30%"></th>
+																<th  field="unitName" dataType="string"label="lg:goodUnitName" colWidth="30%"></th>														
+															</tr>
+						
+														</thead>
+													</table>
+												</td>
+											</tr>
+										</table>
+										<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+											<tr>
+												<td height="50" align="right" valign="bottom">
+													<button class="joy-button" btnType="importantbtn" icon="tick"onClick="saveTwoData" label="lgc:save"></button>
+													<button class="joy-button  joy-window-close" icon="cancel"label="lgc:cancel"></button></td>
+											</tr>
+										</table>
+									</form>
+									
+								</div>
+		                    </div> 
+		                 </div> 
+		                 <!--------已发货----- -->               		                                 		                 
+		                 <div>
+		                  	<div class="tabThree" style="height:600px;">
+		                        <!-- 工具栏 -->
+								<div class="k-page-toolbar">
+									<div id="orderThreeForm" class="joy-form" style="float:right" layout="freedom">												
+										<input id="namesThreeId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px"  dataTextField="name" dataValueField="values"   databind="value:values,source:searchEnum" >
+										<input id="contentThreeId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+										<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchThreeData" label="lgc:search"></button>
+									</div>
+								</div>
+								<!--信息列表 --> 
+				 				<table id="gridThree" class="joy-grid"  pageSize = "13"  height="520px" >
+									<thead>
+										<tr>											
+											<th field="orderNo" dataType="string"  dataType="string" label="lg:orderNo" colWidth="110px"></th>
+											<th field="deliveryNo" dataType="string"  dataType="string" label="lg:deliveryNo" colWidth="18%"></th>
+											<th field="deliveryTime" dataType="date" dataFormat="yyyy-MM-dd HH:mm:ss"  label="lg:deliveryTime" colWidth="20%"></th>
+											<th field="goodNum" dataType="string" align="right" label="lg:goodNums"  colWidth="10%"></th>
+											<th field="payAmt" dataType="string" align="right" label="lg:payAmt"  colWidth="15%"></th>
+											<th field="payModeEk" dataType="string"  label="lg:payModeEk"  align="center" enumData="PAY_MODE_EKEnum" colWidth="10%"></th>
+											<th field="province" dataType="string"  label="lg:province"  colWidth="12%"></th>
+											<th field="city" dataType="string"  label="lg:city"  colWidth="12%"></th>
+											<th colWidth="190px" templateType="button" align="center">															 		
+										 	    <button  icon="pencil" smcBind="DELIVERYEDITSmc"  onClick="openDeliveryEditWindow('#:orderId#')" label="lg:deliveryEdit"></button>	    							 	    
+										 	    <button  icon="insert-m" smcBind="READSmc"  onClick="openDetailThreeWindow('#:orderId#')" label="lgc:detail"></button>	       					
+											</th>								
+										</tr>
+									</thead>
+								</table>
+								<!-- 详细框 -->
+								<div id="detailThreeWindow" class="joy-window detail"  center="true" align="left" title="lgc:detail" onClose="onCloseWin"> 
+									<table id="detailThreeTable" width="100%" align="center"
+										class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+										<tbody>
+											<tr height="25">
+												<td width="100" class="joy-lang head" label="lg:orderNo"></td>
+												<td width="230" class="joy-label"   databind="value:orderNo" ></td>
+												<td width="100" class="joy-lang head" label="lg:orderStateEk"></td>
+												<td width="230" class="joy-label joy-enum" databind="value:orderStateEk,source:ORDER_STATE_EKEnum"></td>					
+											</tr> 
+											<tr height="25">
+												<td width="100" class="joy-lang head" label="lg:payModeEk"></td>
+												<td width="230" class="joy-label joy-enum" databind="value:payModeEk,source:PAY_MODE_EKEnum"></td>
+												<td width="100" class="joy-lang head" label="lg:deliveryNo"></td>
+												<td width="230" class="joy-label" databind="value:deliveryNo" dataType="string"></td>
+											</tr> 
+											<tr height="25">
+												<td width="100" class="joy-lang head" label="lg:corpUser"></td>
+												<td width="230" class="joy-label" databind="value:corpUser"></td>
+												<td width="100" class="joy-lang head" label="lg:deliveryTime"></td>
+												<td width="230" class="joy-label" databind="value:deliveryTime" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss"></td>
+											</tr> 				
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:amt"></td>
+												<td width="230" class="joy-label" databind="value:amt"></td>
+												<td width="100" class="joy-lang head" label="lg:orderTime"></td>
+												<td width="230" class="joy-label" databind="value:orderTime" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss"></td>
+											</tr>
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:memberAccount"></td>
+												<td width="230" class="joy-label" databind="value:memberAccount"></td>
+												<td width="100" class="joy-lang head" label="lg:memberEmail"></td>
+												<td width="230" class="joy-label" databind="value:memberEmail" ></td>
+											</tr>
+											<tr height="25">	
+											    <td width="100" class="joy-lang head" label="lg:goodNums"></td>
+												<td width="230" class="joy-label" databind="value:goodNum"></td>				
+												<td width="100" class="joy-lang head" label="lg:receiver"></td>
+												<td width="230" class="joy-label" databind="value:receiver"></td>													
+											</tr> 											
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:province"></td>
+												<td width="230" class="joy-label" databind="value:province"></td>
+												<td width="100" class="joy-lang head" label="lg:city"></td>
+												<td width="230" class="joy-label" databind="value:city"></td>	
+											</tr> 
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:area"></td>
+												<td  width="230" class="joy-label" databind="value:area"></td>
+												<td width="100" class="joy-lang head" label="lg:addr"></td>
+												<td  width="230" class="joy-label" databind="value:addr"></td>
+											</tr>
+											<tr height="25">
+												<td width="100" class="joy-lang head" label="lg:mobile"></td>
+												<td  width="230" class="joy-label" databind="value:mobile"></td>
+												<td width="100" class="joy-lang head" label="lg:logisticEk"></td>
+												<td width="230" class="joy-label joy-enum" databind="value:logisticEk,source:LOGISTIC_EKEnum"></td>
+											</tr>
+											<tr height="25">
+												<td width="100" class="joy-lang head" label="lg:buyChannelEk"></td> 
+												<td  width="230" class="joy-label joy-enum" databind="source:BUY_CHANNEL_EKEnum,value:buyChannelEk"></td> 											
+										     	<td width="100" class="joy-lang head" label="lg:taoBaoNo"></td> 
+												<td  width="230" class="joy-label" databind="value:taoBaoNo"></td>
+											</tr>
+											<tr height="25">					
+												<td width="100" class="joy-lang head" label="lg:serviceTaoBaoNo"></td> 
+												<td  width="230" class="joy-label" databind="value:serviceTaoBaoNo"></td>
+												<td width="100" class="joy-lang head" ></td> 
+												<td  width="230" class="joy-label" ></td> 											
+											</tr>
+											<tr height="150">					
+												<td width="100" class="joy-lang head" label="lg:orderGood"></td>
+												<td colspan="3" style="padding:5px 5px;width:640px;">
+														<table align="center" id="fieldsThreeGrid" class="joy-grid" sortable="false" reorderable="false" resizable="false"
+															showPageControl="false"  height="150px"  >
+															<thead>
+																<tr>							
+																	<th id="one" field="productName" dataType="string"label="lg:goodName" ></th>
+																	<th id="two" field="num" dataType="string"align="right" label="lg:goodNum"></th>
+																	<th id="three" field="unitName" dataType="string"label="lg:goodUnitName" enumData="fieldTypeEnum"></th>														
+																</tr>
+							
+															</thead>
+														</table>
+												</td>												
+											</tr> 
+											<tr height="50">					
+												<td width="100" class="joy-lang head" label="lg:buyMsg"></td>
+												<td colspan="3" width="560" class="joy-label" databind="value:buyMsg"></td>								
+											</tr> 
+											<tr height="50">					
+												<td width="100" class="joy-lang head" label="lg:memo"></td>
+												<td colspan="3" width="560" class="joy-label" databind="value:memo"></td>								
+											</tr> 																										
+										</tbody>
+									</table>
+									<table width="100%" border="0" align="center" cellpadding="0"
+										cellspacing="0">
+										<tr>
+											<td height="50" align="right" valign="bottom">
+												<button class="joy-button joy-window-close" icon="cancel"label="lgc:close"></button>										
+											</td>
+										</tr>
+									</table>
+								</div>
+									<!-- 详细框结束 -->
+								 <!-- 【已发货】  发货编辑开始 -->
+								<div id="deliveryEditWindow" class="joy-window" center="true"
+									align="left" title="lg:deliveryEdit">
+									<form id="deliveryEditForm" class="joy-form">
+										<input type="hidden" databind="value:orderId">
+										<table cellspacing=1 cellpadding=3 width="100%" align="center"
+											border=0>
+											<tbody>
+												<tr>
+													<td align="left"><input disabled="disabled"
+														class="joy-textbox" label="lg:orderNo" databind="value:orderNo">
+													</td>
+												</tr>
+												<tr>
+													<td align="left"><input class="joy-combobox joy-enum"
+														label="lg:logisticEk" required="true"
+														databind="value:logisticEk,source:LOGISTIC_EKEnum">
+													</td>
+												</tr>
+												<tr>
+													<td align="left"><input class="joy-textbox"
+														label="lg:deliveryNo" databind="value:deliveryNo" required="true"
+														maxBype="30">
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<table width="100%" border="0" align="center" cellpadding="3"
+											cellspacing="0">
+											<tr>
+												<td height="50" align="right" valign="bottom">
+													<button class="joy-button" btnType="importantbtn" icon="tick"
+														onClick="saveDeliveryEditData" label="lgc:save"></button>
+													<button class="joy-button  joy-window-close" icon="cancel"
+														label="lgc:cancel"></button>
+												</td>
+											</tr>
+										</table>
+									</form>
+								</div>
+                             <!-- 【已发货】  发货编辑结束 -->
+		                    </div> 
+		                 </div>         
+		                                                    
+		                 <!-- ---------- 关闭的订单-------- -->   
+		                 <div>
+		                  	<div class="tabFive" style="height:600px;">
+		                    	<!-- 工具栏 -->
+								<div class="k-page-toolbar">
+									<div id="orderFiveForm" class="joy-form" style="float:right" layout="freedom">												
+										<input id="namesFiveId" class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"  style="width:120px"  dataTextField="name" dataValueField="values"   databind="value:values,source:searchEnum" >
+										<input id="contentFiveId" class="joy-textbox"  style="width:120px" dataBind="value:content" />
+										<button class="joy-button" icon="search" smcBind="READSmc" onClick="searchFiveData" label="lgc:search"></button>
+									</div>
+								</div>
+								<!--信息列表 --> 
+				 				<table id="gridFive" class="joy-grid"  pageSize = "13"  height="520px" >
+									<thead>
+										<tr>											
+											<th field="orderNo" dataType="string"  dataType="string" label="lg:orderNo" colWidth="130px"></th>
+											<th field="orderTime" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss"  label="lg:orderTime" colWidth="20%"></th>
+											<th field="closeTime" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss" label="lg:closeTime"  colWidth="20%"></th>
+											<th field="goodNum" dataType="string" align="right" label="lg:goodNums"  colWidth="10%"></th>
+											<th field="amt" dataType="string" align="right" label="lg:amt"  colWidth="15%"></th>																						
+											<th field="memberName" dataType="string"  label="lg:memberName"  colWidth="15%"></th>	
+											<th field="mobile" dataType="string"  label="lg:mobile"  colWidth="20%"></th>
+											<th colWidth="100px" templateType="button" align="center">															 		
+										 	    <button  icon="insert-m" smcBind="READSmc"  onClick="openDetailOneWindow('#:orderId#')" label="lgc:detail"></button>	       					
+											</th>								
+										</tr>
+									</thead>
+								</table>
+		                    </div>
+		                 </div> 		                                                       
+                </div>
+            </div>
+            
+             <!-- 待发货导入订单界面开始 -->
+             <!-- 订单信息上传文件窗口 开始-->
+<div id="orderUploadWindow" class="joy-window"  center="true" title="lg:orderUploadTitle" >
+	<form id="orderUploadForm" class="joy-form" >
+		<table cellspacing=1 cellpadding=3 width="100%" align="center"	border=0>
+			<tbody>
+			   <tr>				        
+					<td>						
+					<input
+							id="agency" label="lg:buyChannelEk" class="joy-combobox joy-enum"  required="true"
+							 placeholder="lgc:pleaseToSelect" 
+							databind="value:buyChannelEk,source:BUY_CHANNEL_EKEnum" >			    							    				
+					</td>																
+				</tr>							
+			    <tr>				        
+					<td>						
+						<input id="excelUpload" class="joy-upload" databind="value:path"  multiple="false" type="file"  label="lg:upload"   upload="orderExcelUploadFile"
+		    					async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.do?action=uploadFile&sourceCode=excelFile', removeUrl:'../../wl/cm/wlCmDocumentAction.do?action=deleteFile'}"
+		    					allowType='xls'  maxSize="1" required="true" />			    							    				
+					</td>																
+				</tr>
+				
+							    																												
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveOrderExcelData" label="lgc:save"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+             <!-- 订单信息上传文件窗口 结束-->
+             <!-- 订单商品上传文件窗口开始-->
+<div id="orderDetailUploadWindow" class="joy-window"  center="true" title="lg:orderDetailUploadTitle" >
+	<form id="orderDetailUploadForm" class="joy-form" >
+		<table cellspacing=1 cellpadding=3 width="100%" align="center"	border=0>
+			<tbody>			   				
+			    <tr>				        
+					<td>						
+						<input id="orderDetailExcelUpload" class="joy-upload" databind="value:path"  multiple="false" type="file"  label="lg:upload"   upload="orderDetailExcelUploadFile"
+		    					async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.do?action=uploadFile&sourceCode=excelFile', removeUrl:'../../wl/cm/wlCmDocumentAction.do?action=deleteFile'}"
+		    					allowType='xls'  maxSize="1" required="true" />			    							    				
+					</td>																
+				</tr>
+				
+							    																												
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="saveOrderDetailExcelData" label="lgc:save"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>
+	</form>
+</div>
+             <!-- 订单商品上传文件窗口结束-->
+              <!-- 待发货导入订单界面结束 -->   
+              <!-- 待发货订单编辑开始 -->
+       <div id="editOrderDiv" style="z-index:2;">
+		<div class="editOrderBody">
+			<div id="editBodyTitle" class="headTitle"><span class="joy-lang" label="lg:editBodyTitle"></span></div>
+			<!--基础信息 -->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="baseBor_tit ">
+						<span class="joy-lang" label="lg:basicInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left">
+					<table id="editOrderTable" width="93%" align="center"
+						class="k-info-table " border="0" cellspacing="0"
+						cellpadding="0">
+						<tbody>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:orderNo"></td>
+								<td width="230" class="joy-label" databind="value:orderNo"></td>
+								<td width="100" class="joy-lang head" label="lg:orderStateEk"></td>
+                               <td width="230" class="joy-label joy-enum" databind="value:orderStateEk,source:ORDER_STATE_EKEnum" ></td>							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:amt"></td>
+								<td width="230" class="joy-label" databind="value:amt" ></td>
+								<td width="100" class="joy-lang head" label="lg:orderTime"></td>
+								<td width="230" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd  HH:mm:ss"  databind="value:orderTime"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:memberAccount"></td>
+								<td width="230" class="joy-label" databind="value:memberAccount"></td>
+								<td width="100" class="joy-lang head" label="lg:memberEmail"></td>
+								<td width="230" class="joy-label" databind="value:memberEmail"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:goodNums"></td>
+								<td width="230" class="joy-label" databind="value:goodNum"></td>
+								<td width="100" class="joy-lang head" label="lg:receiver"></td>
+								<td width="230" class="joy-label" databind="value:receiver"></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:mobile"></td>
+								<td width="230" class="joy-label" databind="value:mobile"></td>
+								<td width="100" class="joy-lang head" label="lg:buyChannelEk"></td>
+								<td width="230" class="joy-label joy-enum" databind="source:BUY_CHANNEL_EKEnum,value:buyChannelEk" ></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:addr"></td>
+								<td colspan="3" width="230" class="joy-label" databind="value:addr"></td>					
+							</tr>																
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--基础信息结束-->
+			<!--附加信息开始-->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="baseBor_tit ">
+						<span class="joy-lang" label="lg:goodInfo"></span>
+					</div>
+				</div>
+					
+					
+				<div id="" class="detail" center="true" align="left"  style="width:93%;margin:0 auto;">
+					<div class="layThree_button detailClass">
+						  <button class="joy-button joy-smc" icon="plus" onClick="openSellListWindow"
+					       label="lgc:add" ></button>
+						</div>
+					<table  align="center"  id="goodListGrid" class="joy-grid"  reorderable="false"  resizable="false"
+										showPageControl="false"  height="240px"  >
+								<thead>
+									<tr>							
+											 <th  templateType="template"   dataType="string" label="lg:goodName"  colWidth="25%">
+											       <span class="pointer" onClick="openSellChangeWindow('#:index#','#:num#')">#:productName#</span>
+											</th>
+											<th field="price" dataType="string" label="lg:price" align="right" colWidth="25%"></th>
+											<th field="num" dataType="string" label="lg:goodNum" align="right" colWidth="25%"></th>
+											<th field="unitName"  label="lg:goodUnitName" colWidth="20%"></th>
+											<th colWidth="190px" templateType="button" align="center">
+												<button icon="pencil" onClick="openGoodNumWindow('#:index#','#:num#')" label="lgc:edit"></button>
+												<button icon="close"  onClick="delGood('#:index#')" label="lgc:delete"></button>											
+											</th>
+									</tr>							
+								</thead>
+						</table>
+					<table width="100%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+						<tr>
+						        <td valign="bottom"  class="joy-lang" label="lg:desctiption" style="color:red;"></td>
+								<td height="40" align="right" valign="bottom">
+									<button class="joy-button" btnType="importantbtn" icon="tick"
+										onClick="saveOrderGood" label="lgc:save"></button>
+									<button class="joy-button  " icon="cancel" onClick="closeEditOrder"
+										label="lgc:cancel"></button></td>
+							</tr>
+					</table>
+				</div>
+			</div>
+		<!--附加信息结束-->
+		</div>
+	</div>
+              <!-- 待发货订单编辑结束 -->
+              <!-- 商品列表开始 -->
+	<div id="sellListWindow" class="joy-window detail"  center="true"
+		align="left" title="lg:selectCategory" style="padding-top:margin-top:10px;;z-index:3;"> 
+	 				<table class="main">
+		 				<tr>
+			 				<td class="list_height">
+					 			<table id="sellGrid" class="joy-grid"   pageSize="10" height="400px" >
+									<thead>
+										<tr> 
+											<th field="sellId" templateType="checkbox" colWidth="40px"></th>
+											<th field="productName"   dataType="string"  label="lg:goodName" colWidth="25%" ></th> 
+											<th field="typeName"    dataType="string" label="lg:typeName" colWidth="20%"></th>
+						                     <th field="price"    dataType="string" label="lg:price" colWidth="20%"></th>
+                                            <th field="sellStateEk" dataType="string" enumData="SELL_STATE_EKEnum" label="lg:sellStateEk" colWidth="20%" align="center"></th>					
+											<th field="itemCd" dataType="string"  label="lg:itemCd" colWidth="15%" align="right"></th>					
+										</tr>
+									</thead>
+									</table>
+								</td> 
+						</tr>
+					</table>
+					<table width="100%" border="0" align="center" cellpadding="0"
+							cellspacing="0" >
+							<tr>
+								<td height="40" align="right" valign="bottom">
+										<button class="joy-button joy-smc" btnType="importantbtn" icon="tick"
+											onClick="addRow" label="lg:okCommand"></button>
+										<button class="joy-button  joy-window-close" icon="cancel"
+											label="lgc:cancel"></button></td>
+							</tr>
+					</table>
+	</div>
+              <!-- 商品列表结束 -->
+              <!-- 修改商品数量编辑窗口 开始-->
+	    <div id="goodNumWindow" class="joy-window" center="true"
+		  title="lg:editGoodNum"> 
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>					
+					<tr>
+						<td align="left" > 
+							<input class="joy-numerictextbox"	 id="editGoodNum" value="1" min="1" max="99999" databind="value:goodNum">
+						</td>  
+					</tr>   
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveGoodNum" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+	</div>
+		<!-- 修改商品数量编辑窗口结束 -->
+</body>
+<script type="text/javascript">
+	var orderOneForm,orderTwoForm,orderThreeForm,orderFourForm,orderFiveForm,gridOne,gridTwo,gridThree,gridFive,initObject,orderDataOneForm,orderDataTwoForm,
+		detailOneWindow,fieldsGrid,fieldsThreeGrid,fieldsTwoGrid,orderTwoWindow,orderTwoForm,detailThreeWindow,orderDataOneWindow,orderDataFourForm,
+		orderDataTwoWindow;
+	var searchUrl="../../wl/es/wlEsOrderAction.do?action=findDataList";
+	var findSellPage="../../wl/es/wlEsOrderAction.do?action=findSellDetailPage";
+	var obj= new Object();
+	var orderIds;
+	var orderDetailUploadWindow,orderDetailUploadForm,orderDetailExcelUpload;
+	var orderUploadWindow,orderUploadForm,orderExcelUpload;
+	var sellListWindow,sellGrid,goodListGrid,goodNumWindow,curOrderId;
+	var goodList=new Array(),filterSellIds=new Array(),sellOperation,sellIndex,sellNum,editGoodNum;
+	var deliveryEditForm, deliveryEditWindow;
+
+	$().ready(function(){
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		gridOne = $("#gridOne").getJoyGrid();
+		gridTwo = $("#gridTwo").getJoyGrid();		
+		gridThree = $("#gridThree").getJoyGrid();	
+		
+		gridFive = $("#gridFive").getJoyGrid();		
+		fieldsGrid = $("#fieldsGrid").getJoyGrid();		
+		fieldsTwoGrid = $("#fieldsTwoGrid").getJoyGrid();		
+		fieldsThreeGrid = $("#fieldsThreeGrid").getJoyGrid();		
+		orderOneForm = $("#orderOneForm").getJoyForm();
+		orderTwoForm = $("#orderTwoForm").getJoyForm();
+		orderThreeForm = $("#orderThreeForm").getJoyForm();
+		deliveryEditForm = $("#deliveryEditForm").getJoyForm();
+		deliveryEditWindow = $("#deliveryEditWindow").getJoyWindow();
+		orderFiveForm = $("#orderFiveForm").getJoyForm();
+		orderDataOneForm = $("#orderDataOneForm").getJoyForm();
+		orderDataTwoForm = $("#orderDataTwoForm").getJoyForm();
+		
+		detailOneWindow = $("#detailOneWindow").getJoyWindow();
+		detailThreeWindow = $("#detailThreeWindow").getJoyWindow();
+		orderDataOneWindow = $("#orderDataOneWindow").getJoyWindow();
+		orderDataTwoWindow = $("#orderDataTwoWindow").getJoyWindow();
+		orderDetailUploadWindow=$("#orderDetailUploadWindow").getJoyWindow();	
+		orderDetailUploadForm=$("#orderDetailUploadForm").getJoyForm();
+		orderDetailExcelUpload=$("#orderDetailExcelUpload").getJoyUpload();
+		orderUploadWindow=$("#orderUploadWindow").getJoyWindow();	
+		orderUploadForm=$("#orderUploadForm").getJoyForm();
+		orderExcelUpload=$("#excelUpload").getJoyUpload();
+		sellListWindow=$("#sellListWindow").getJoyWindow();	
+		sellGrid=$("#sellGrid").getJoyGrid();
+		goodListGrid=$("#goodListGrid").getJoyGrid();
+		goodNumWindow=$("#goodNumWindow").getJoyWindow();	
+		 editGoodNum=$("#editGoodNum").getJoyNumericTextBox();
+		//数据初始化
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=init",{enumTypes:['ORDER_STATE_EK','PAY_MODE_EK','LOGISTIC_EK','BUY_CHANNEL_EK','SELL_STATE_EK']},function(resultObject){
+			initObject=resultObject;			
+			var viewModel = joy.observable(initObject);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);
+	        orderOneForm.load();
+	        orderTwoForm.load();
+	        orderThreeForm.load();
+	        //orderFourForm.load();
+	        orderFiveForm.load();
+	        //为搜索条件下拉框绑定查询条件
+	         var modelData={};
+	         var searchEnum=new Array();
+	       	 var obj = new Object();
+	       	 obj.name=lg.orderNo;
+	       	 obj.values="m.orderNo";
+	       	 searchEnum.push(obj);
+	       	 obj=new Object();
+	       	 obj.name=lg.receiver;
+	       	 obj.values="m.receiver";
+	       	 searchEnum.push(obj);	       
+	       	 modelData.searchEnum=searchEnum;
+	       	 joy.bind($("#namesId"), modelData);
+	       	 joy.bind($("#namesTwoId"), modelData);
+	       	 joy.bind($("#namesThreeId"), modelData);
+	       	 joy.bind($("#namesFourId"), modelData);
+	       	 joy.bind($("#namesFiveId"), modelData);
+	        findData();
+		});
+	});
+	
+	//数据初始化
+	function findData(){
+	     obj= new Object();
+	        obj.orderStateEk=0;
+	        gridOne.fetch(initObject,searchUrl,obj);
+	        obj = new Object();
+	        obj.orderStateEk=1;
+	        gridTwo.fetch(initObject,searchUrl,obj);
+	        obj = new Object();
+	        obj.orderStateEk=2;
+	        gridThree.fetch(initObject,searchUrl,obj);
+	        obj = new Object();
+	        obj.orderStateEk=4;
+	        gridFive.fetch(initObject,searchUrl,obj);
+	}
+	
+	//关闭订单
+	function openCloseWindow(id){
+		var orderStateEk = "4";
+		joy.showMessageDialog(lg.closeOrderName,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+				joy.getJSON("../../wl/es/wlEsOrderAction.do?action=updateData",{id:id,orderStateEk:orderStateEk},function(resultObject){
+					findData();
+					joy.showMessage(lgc.opSuccess, "success");						
+				});
+			}
+		});		
+	}
+	
+/**************************待付款订单模块/*****************************/
+	//查询订单信息
+	function searchOneData(){
+		var obj={};
+		obj.orderStateEk=0;
+		obj.values = $("#namesId").getJoyComboBox().value();
+		obj.namesValue = $("#contentId").getJoyTextBox().value();
+		gridOne.fetch(initObject,searchUrl,obj);
+	}
+	
+	//打开修改价格窗口
+	function openUpdateWindow(orderId){
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=getData",{orderId:orderId},function(resultObject){
+			orderDataOneForm.load(resultObject);
+			orderDataOneWindow.open();			
+			orderDataOneWindow.center();			
+		});
+	}
+	
+	//保存修改价格数据
+	function saveOneData(buttonObject){
+		buttonObject.enable(false);		
+		if (!orderDataOneForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		orderDataOneForm.submit("../../wl/es/wlEsOrderAction.do?action=updatePriceData",buttonObject,function(resultObject) {
+					orderDataOneWindow.close();
+					findData();
+					buttonObject.enable(true);
+					joy.showMessage(lgc.opSuccess, "success");
+		});
+	}
+	
+	//详细信息
+	function openDetailOneWindow(orderId){
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=getData",{orderId:orderId},function(resultObject){
+			//处理当deliveryTime为null时，控件不会绑值问题
+			if(!resultObject.deliveryTime){
+				resultObject.deliveryTime="";
+			}
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#detailOneTable"), viewModel);
+			//商品信息			
+			fieldsGrid.load(initObject,resultObject.goodList);
+			detailOneWindow.open();
+			detailOneWindow.center();			
+		});
+	}
+	
+/****************************待发货订单模块/*******************************************/
+ 	//查询订单信息
+ 	function searchTwoData(){
+ 		var obj={};
+		obj.orderStateEk=1;
+		obj.values = $("#namesTwoId").getJoyComboBox().value();
+		obj.namesValue = $("#contentTwoId").getJoyTextBox().value();
+		gridTwo.fetch(initObject,searchUrl,obj);
+	}
+	
+	
+	//打开发货窗口
+	function openDliverWindow(orderId){
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=getData",{orderId:orderId},function(resultObject){
+			orderDataTwoForm.load(resultObject);			
+			orderDataTwoWindow.open();
+			fieldsTwoGrid.load(initObject,resultObject.goodList);
+			orderDataTwoWindow.center();			
+		});
+	}
+	
+	//保存发货成功数据
+	function saveTwoData(buttonObject){
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+		//校验必填项
+		if (!orderDataTwoForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		orderDataTwoForm.submit("../../wl/es/wlEsOrderAction.do?action=updateDeliveryData",buttonObject,function(resultObject) {
+					orderDataTwoWindow.close();
+					findData();
+					buttonObject.enable(true);
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+	}
+/***********************已发货订单模块/*******************************/
+	//查询订单信息
+ 	function searchThreeData(){
+ 		var obj={};
+		obj.orderStateEk=2;
+		obj.values = $("#namesThreeId").getJoyComboBox().value();
+		obj.namesValue = $("#contentThreeId").getJoyTextBox().value();
+		gridThree.fetch(initObject,searchUrl,obj);
+	}
+	
+ 	//详细信息
+	function openDetailThreeWindow(orderId){
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=getData",{orderId:orderId},function(resultObject){														
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#detailThreeTable"), viewModel);
+			//商品信息						
+			fieldsThreeGrid.load(initObject,resultObject.goodList);
+			detailThreeWindow.open();
+			detailThreeWindow.center();
+			
+		});			
+	}
+	
+	
+
+/******************************无效订单模块/**********************************************/
+	
+	//查询订单信息
+ 	function searchFiveData(){
+ 		var obj={};
+		obj.orderStateEk=4;
+		obj.values = $("#namesFiveId").getJoyComboBox().value();
+		obj.namesValue = $("#contentFiveId").getJoyTextBox().value();
+		gridFive.fetch(initObject,searchUrl,obj);
+	}
+	/**
+	*从天猫获取当天待发货的订单
+	*/
+	function getTaobaoOrder(){
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=saveTaobaoOrder",{},function(resultObject){																
+			gridTwo.dataSource.fetch();
+		});		
+	}
+	//订单主信息上传Excel窗口
+	function openOrderUploadWindow(){
+		orderExcelUpload._reflash();	
+		orderUploadForm.load({buyChannelEk:"0"});
+		orderUploadWindow.open();//打开上传excel窗口
+		orderUploadWindow.center();		}
+	
+	//上传文件时触发事件(订单信息)
+	function orderExcelUploadFile(){ 
+		var id=orderExcelUpload.value();
+		if(id != null &&$.trim(id) != ""){
+	    	//删除前一个excel
+	    	joy.getJSON("../../wl/cm/wlCmDocumentAction.do?action=deleteFile",{id:id},function(){	    		
+	    	});
+	    }
+	    //excelUpload._reflash();
+	}
+	//订单信息保存	
+	function saveOrderExcelData(buttonObject){		
+		buttonObject.enable(false);
+		if (!orderUploadForm.validate()){
+			joy.showMessage(lgc.validateFaile,"warning");
+			buttonObject.enable(true);
+			return;
+		}
+		var submitData=orderUploadForm.getDataModel().toJSON();
+		buyChannelEk=submitData.buyChannelEk;
+		if(buyChannelEk=='3'){
+			joy.showMessage(lg.webSiteNoUpload,"warning");
+			buttonObject.enable(true);
+			return;
+		}
+		orderUploadForm.submit("../../wl/es/wlEsOrderAction.do?action=saveOrderExcelData",buttonObject,function(resultObject){
+			gridTwo.dataSource.fetch();
+			joy.showMessage(lgc.opSuccess,"success");
+			orderUploadWindow.close();	
+		});	
+	}
+	//打开订单商品信息上传EXCEL窗口(待发货天猫订单)
+	function openOrderDetailUploadWindow(){
+		orderDetailExcelUpload._reflash();	
+		orderDetailUploadForm.load();
+		orderDetailUploadWindow.open();//打开订单商品信息上传excel窗口
+		orderDetailUploadWindow.center();		
+	}
+	//订单商品信息上传文件时触发事件
+	function orderDetailExcelUploadFile(){ 
+		var id=orderDetailExcelUpload.value();
+		if(id != null &&$.trim(id) != ""){
+	    	//删除前一个excel
+	    	joy.getJSON("../../wl/cm/wlCmDocumentAction.do?action=deleteFile",{id:id},function(){	    		
+	    	});
+	    }
+	    //excelUpload._reflash();
+	}
+	/**
+	*保存订单商品信息（待发货）
+	*/
+	function saveOrderDetailExcelData(buttonObject){
+		buttonObject.enable(false);
+		if (!orderDetailUploadForm.validate()){
+			joy.showMessage(lgc.validateFaile,"warning");
+			buttonObject.enable(true);
+			return;
+		}
+		orderDetailUploadForm.submit("../../wl/es/wlEsOrderAction.do?action=saveOrderDetailExcelData",buttonObject,function(resultObject){
+			orderDetailUploadWindow.close();	
+			gridTwo.dataSource.fetch();
+			joy.showMessage(lgc.opSuccess,"success");
+		});	
+		
+	}
+	//商品编辑（待发货订单）
+	function editOrderGood(orderId){
+		curOrderId=orderId;
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=getData",{orderId:orderId},function(resultObject){
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#editOrderTable"), viewModel);
+			goodList=resultObject.goodList;
+			for(var i=0;i<goodList.length;i++){
+				goodList[i].index=i;
+				filterSellIds[i]=goodList[i].sellId;
+			}
+			goodListGrid.load(initObject,goodList);
+			var height = $(window).height();
+			$("#editOrderDiv").css({
+				"min-height" : height + "px",
+				"height" : "auto"
+			});
+		 	 $("#editBodyTitle").text(lg.editBodyTitle);
+			$("#editOrderDiv").show();
+		});	
+		
+	}
+	//关闭编辑窗口(待发货订单界面)
+	function closeEditOrder(){
+		$("#editOrderDiv").hide();
+	}
+	//打开商品列表界面
+	function openSellListWindow(){	
+		//刷新商品列表
+		refreshSellList();
+		sellOperation="add";//新增操作
+		sellListWindow.title(lgc.add);
+		sellListWindow.open();
+		sellListWindow.center();
+	}
+	//打开商品替换窗口
+	function openSellChangeWindow(index,num){
+		sellIndex=index;//当前要被替换的商品索引
+		sellOperation="change";//商品替换
+		sellNum=num;//商品数量
+		//刷新上架商品列表
+		refreshSellList();
+		sellListWindow.title(lg.changeSell);
+		sellListWindow.open();
+		sellListWindow.center();
+	}
+	//添加商品或替换商品
+	function addRow(){
+		sellIds=sellGrid.getChecked();
+		if (sellIds.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+			return;
+		}
+		if(sellOperation=="change"&&sellIds.length>1){//商品只能一个替换一个
+			joy.showMessage(lg.sellOneChangeOne, "warning");
+			return;
+		}
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=findSellList",{sellIds:sellIds},function(resultObject){
+			if(sellOperation=="add"){//新增
+				for(i=0;i<resultObject.length;i++){
+					resultObject[i].index=goodList.length;
+					resultObject[i].num=1;
+					goodList[goodList.length]=resultObject[i];
+					filterSellIds[filterSellIds.length]=resultObject[i].sellId;
+				}	
+			}else if(sellOperation=="change"){//商品替换
+				resultObject[0].index=sellIndex;
+				resultObject[0].num=sellNum;
+				goodList[sellIndex]=resultObject[0];
+				filterSellIds[sellIndex]=resultObject[0].sellId;
+			}
+			goodListGrid.load(initObject,goodList);
+			//刷新上架商品列表
+			refreshSellList();
+		});
+	}
+	//刷新上架商品列表
+	function refreshSellList(){
+		 var obj=new Object();	
+		obj.filterSellIds=filterSellIds;
+		sellGrid.fetch(initObject,findSellPage, obj);	
+	}
+	var editGoodNumIndex="";//当前被编辑商品索引
+	//编辑商品数量
+	function  openGoodNumWindow(index,num){
+		editGoodNumIndex=index;
+		editGoodNum.value(num);
+		goodNumWindow.open();
+		goodNumWindow.center();
+	}
+	function delGood(index){
+		  joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {	  
+				if (e.btnName == "ok") {
+					for(var i=0;i<goodList.length-1;i++){ 
+						if(i>=index){
+							var obj = goodList[i+1];
+							var sellIdObj=filterSellIds[i+1];
+							obj.index = i;					
+							goodList[i]=obj;
+							filterSellIds[i]=sellIdObj;
+						}
+					}
+					goodList.pop(); 
+					filterSellIds.pop(); 
+					goodListGrid.load(initObject,goodList);
+		 }});
+
+	}
+	//保存商品数量
+	function saveGoodNum(){
+		goodList[editGoodNumIndex].num=editGoodNum.value();
+		goodListGrid.load(initObject,goodList);
+		goodNumWindow.close();
+	}
+	//保存商品列表
+	function saveOrderGood(){
+		if(goodList.length<1){
+			joy.showMessage(lg.goodIsEmpty, "warning");
+			return ;
+		}
+		goodListJson=joy.stringify(goodList);
+		//因用get中文乱码，所以用post
+		joy.postJSON("../../wl/es/wlEsOrderAction.do?action=saveGoodList",{orderId:curOrderId,goodListJson:goodListJson},function(resultObject){
+			 joy.showMessage(lgc.opSuccess,"success");
+			 gridTwo.dataSource.fetch();
+			 closeEditOrder();
+		});
+	}
+	//订单模板下载
+	function orderTempDown(){
+		window.location="../../plugin/order.xls";
+	}
+	//订单商品模板下载
+	function orderGoodTempDown(){
+		window.location="../../plugin/OrderDetailList.xls";
+	}
+	//已发货打开发货编辑窗口
+	function openDeliveryEditWindow(orderId) {
+		joy.getJSON("../../wl/es/wlEsOrderAction.do?action=getData", {
+			orderId : orderId
+		}, function(resultObject) {
+			deliveryEditForm.load(resultObject);
+			deliveryEditWindow.open();
+			deliveryEditWindow.center();
+		});
+	}
+	//保存发货成功数据
+	function saveDeliveryEditData(buttonObject){
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+		//校验必填项
+		if (!deliveryEditForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		deliveryEditForm.submit("../../wl/es/wlEsOrderAction.do?action=saveDeliveryData",buttonObject,function(resultObject) {
+			        deliveryEditWindow.close();
+					findData();
+					buttonObject.enable(true);
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+	}
+</script>
+</html>

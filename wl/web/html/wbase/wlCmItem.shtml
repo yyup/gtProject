@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout,editor"></script>
+<script src="../../js/prj/lightBox.js"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/wbase.wlCmItem.css" />
+</head>
+<body >
+<!-- 列表栏 -->
+	<table class="main">
+		<tr>
+			<td class="list_left">
+				<div id="rightTitle"></div>
+				<div class="leftTreeBox" > 
+		  			<!-- 广告栏目树 -->  
+					<div id="categoryTree" style="height:100%"></div>
+					<!-- 广告栏目树 end--> 
+ 				 </div>
+			</td>
+			<td class="list_height">
+			<!-- 工具栏 -->
+				<div class="k-page-toolbar" >
+					
+						<button id="addButton" class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+							 label="lgc:add" dataBind="visible:ADDSmc"></button>
+					    <button class="joy-button joy-smc" icon="close" onClick="deleteData"
+			                     label="lgc:delete"  dataBind="visible:DELETESmc"></button>
+				
+						<button id="addButton" class="joy-button joy-smc" icon="" style="width:59px;"  onClick="able"
+							 label="lg:isEnableFlagModifyLOCK" dataBind="visible:ISENABLESmc"></button>
+							 
+						<button id="addButton" class="joy-button joy-smc" icon="" style="width:59px;"  onClick="enable"
+							 label="lg:isEnableFlagModifyUSE" dataBind="visible:ISENABLESmc"></button>
+						 <div id="searchForm" class="joy-form" style="float: right" layout="freedom"> 
+							<button class="joy-button joy-smc" icon="search" onclick="openSearch" label="lgc:advSearch" ></button>
+						</div>   
+				</div>
+				<!-- 工具栏end -->
+				<!--广告管理列表 --> 
+ 				<table id="grid" class="joy-grid" rowHeightFit="38">
+				<thead>
+					<tr> 
+					
+						<th field="itemId" templateType="checkbox" colWidth="40px"></th>						
+						<th field="itemCd"   dataType="string"  label="lg:itemCd" colWidth="20%" align="left"></th> 
+						<th field="itemName"    dataType="string" label="lg:itemName" colWidth="20%"></th>
+	                     <th field="spec"    dataType="string" label="lg:spec" colWidth="20%"></th>
+						<th field="baseUnitId"  align="center" dataTextField="unitName"  dataValueField="unitId" databind="value:baseUnitId,source:unitEnum"    enumData="unitEnum" dataType="string" label="lg:baseUnitName" colWidth="20%"></th>
+				          <th field="isEnableFlag" dataType="string" enumData="STATEEnum" label="lg:isEnableFlag" colWidth="15%" align="center"></th>
+						 <th colWidth="370px" templateType="button" align="center"> 										 
+						<button icon="restore" onClick="openPicUploadWindow('#:itemId#')"
+									smcBind="UPLOADSmc" label="lg:picUpload"></button>
+						<button icon="pencil" onClick="openEditWindow('#:itemId#')"
+									smcBind="ADDSmc" label="lgc:edit"></button>
+						<button icon="insert-m" onClick="openDetailWindow('#:itemId#')"
+									smcBind="READSmc" label="lgc:detail"></button>
+						<button icon="pencil" onClick="openAttributeWindow('#:itemId#')"
+									smcBind="ADDSmc" label="lg:customAttribute"></button>
+							</th>
+					</tr>
+				</thead>
+				</table> 
+				<!--广告管理列表end --> 
+			</td>
+		</tr>
+	</table>
+	
+
+	
+	<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window double"  center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:itemId">
+			<table id="editTable" cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr >
+						<td align="left"><input class="joy-textbox" id="itemCd" required="true"  label="lg:itemCd" 
+							databind="value:itemCd"  dataType="numCode" maxByte="20" ></td>
+							<td ><input class="joy-textbox" id="itemName" required="true"  label="lg:itemName" 
+							databind="value:itemName" maxByte="64" ></td>
+					</tr>
+				     <tr >
+			            <td align="left">
+			          <input class="joy-textbox" id="spec"   label="lg:spec" 
+							databind="value:spec"   maxByte="64" >
+			             </td>
+						<td ><input id="categoryType"
+							class="joy-textbox" onclick="openParentSelectWindow()"
+							onfocus="openParentSelectWindow()" style="cursor: pointer;"
+							label="lg:categoryType" required="true" databind="value:categoryName" /> <input
+							type="hidden" databind="value:categoryId"></td>
+					</tr> 
+					<tr >
+						<td align="left">
+				         <input id="barCd" class="joy-textbox"  label="lg:barCd"   maxByte="20" databind="value:barCd"  /> 				
+						</td>
+						<td ><input class="joy-textbox" id="manuItemCd"   label="lg:manuItemCd" 
+							databind="value:manuItemCd" dataType="numCode" maxByte="20" ></td>
+					</tr>
+					<tr >
+						<td align="left"><input class="joy-textbox" id="manuItemName"  label="lg:manuItemName" 
+							 databind="value:manuItemName"   maxByte="64" ></td>
+							<td ><input class="joy-textbox" id="manuSpec"   label="lg:manuSpec" 
+							databind="value:manuSpec" maxByte="64" ></td>
+					</tr>
+					<tr >
+						<td align="left"><input class="joy-numerictextbox"	label="lg:upperLimit" id="upperLimit" min="0" max="99999" databind="value:upperLimit"></td>
+						<td ><input class="joy-numerictextbox"	label="lg:lowerLimit" id="lowerLimit" min="0" max="99999" databind="value:lowerLimit"></td>
+					</tr>
+					<tr >
+						<td align="left">   <input id="baseUnitName" class="joy-combobox joy-enum" required="true"  label="lg:baseUnitName" placeholder="lgc:pleaseToSelect" dataTextField="unitName" 
+					        dataValueField="unitId" databind="value:baseUnitId,source:unitEnum"  /> </td>
+						<td align="left"><input id="isScanFlag"
+								class="joy-combobox joy-enum" label="lg:isScanFlag"
+								placeholder="lgc:pleaseToSelect" 
+								databind="value:isScanFlag,source:YESORNOEnum" /></td>	
+					</tr>
+					<tr >
+						<td  id="isShowAgencyTr" align="left"><input id="isShowAgency"
+							class="joy-combobox joy-enum" label="lg:isShowAgency" required="true"
+							placeholder="lgc:pleaseToSelect" 
+							databind="value:isShowAgency,source:YESORNOEnum" /></td>
+						<td align="left"></td>	
+					</tr>
+					<tr  rowspan="5">
+						<td align="left" colspan="2">
+						<textarea class="joy-textbox" maxByte="1024"  label="lg:memo"  style="height:70px;width:620px;"
+							databind="value:memo" ></textarea>
+						</td>   					
+					</tr>						
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button joy-smc" btnType="importantbtn" icon="tick"
+							onClick="saveItemData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!--编辑框end -->
+	
+	
+	<!-- 父级选择框 -->
+	<div id="parentselectWindow" class="joy-window" width="320px"
+		center="true" title="lg:categoryType">
+
+		<div id="smallTreeView" style="width: 300px; height: 300px;"></div>
+
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lgc:cancel"></button></td>
+			</tr>
+		</table>
+	</div>
+	
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail"  center="true"
+		align="left" title="lgc:detail"> 
+		  <div id="contain" style="height:400px;">
+			 <div id="itemImgDiv" style="width:320px;height:240px;margin:0 auto;" >
+			        <img id="itemImg" class="img" src="" style="width:100%;height:100%;"/>
+			  </div>
+			<table id="detailTable" width="100%" align="center"
+				class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+				<tbody>
+					<tr height="25">
+						<td width="100" class="joy-lang head" label="lg:itemCd"></td>
+						<td width="230" class="joy-label" databind="value:itemCd"></td>
+						<td width="100" class="joy-lang head" label="lg:itemName"></td>
+						<td  width="230" class="joy-label " databind="value:itemName"  ></td>
+					</tr> 		
+					<tr height="25">
+						<td width="100" class="joy-lang head" label="lg:spec"></td>
+						<td width="230" class="joy-label" databind="value:spec"></td>
+						<td width="100" class="joy-lang head" label="lg:categoryType"></td>
+						<td  width="230" class="joy-label " databind="value:categoryName"  ></td>
+					</tr> 	
+					<tr height="25">
+						<td width="100" class="joy-lang head" label="lg:baseUnitName"></td>
+						<td width="230" class="joy-label joy-enum"  databind="value:baseUnitName"></td>
+						<td width="100" class="joy-lang head" label="lg:manuItemCd"></td>
+						<td  width="230" class="joy-label " databind="value:manuItemCd"  ></td>
+					</tr> 	
+					<tr height="25">
+						<td width="100" class="joy-lang head" label="lg:manuItemName"></td>
+						<td width="230" class="joy-label" databind="value:manuItemName"></td>
+						<td width="100" class="joy-lang head" label="lg:manuSpec"></td>
+						<td  width="230" class="joy-label " databind="value:manuSpec"  ></td>
+					</tr> 	
+					<tr height="25">
+						<td width="100" class="joy-lang head" label="lg:upperLimit"></td>
+						<td width="230" class="joy-label" databind="value:upperLimit"></td>
+						<td width="100" class="joy-lang head" label="lg:lowerLimit"></td>
+						<td  width="230" class="joy-label " databind="value:lowerLimit"  ></td>
+					</tr> 			
+					<tr height="25">
+						<td width="100" class="joy-lang head" label="lg:isEnableFlag"></td>
+						<td width="230" class="joy-label joy-enum" databind="value:isEnableFlag,source:STATEEnum"></td>
+						
+						<td width="100" class="joy-lang head"  label="lg:barCd"></td>
+						<td width="100" class="joy-label" databind="value:barCd"></td>
+					</tr> 
+					<tr height="80">
+						<td width="100" class="joy-lang head" label="lg:memo"></td>			 	
+						<td colspan="3" >
+						  <div class="joy-label"  databind="value:memo"  style="height:100px;width:630px;overflow:auto;word-break: break-all;"></div>
+						</td>
+					</tr> 							
+				</tbody>
+			</table>
+		</div>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+       <!-- 图片上传 -->
+	<div id="picWindow" class="joy-window double"  center="true" title="lg:picUpload" onClose="closePicWindow">
+		<form id="picDataForm" class="joy-form">			
+						<input type="hidden" databind="value:itemId">			
+						<div class="picLeft" style="width:310px;float:left;">
+							<input id="picUpload" class="joy-upload" databind="value:path"  multiple="false" type="file"  label="lg:itemImg"   success="onPicSuccess" upload="picUploadFile"
+			    					async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.dox?action=uploadFile&sourceCode=pictureFile', removeUrl:'../../wl/cm/wlCmDocumentAction.dox?action=deleteFile'}"
+			    					allowType='jpg,png,gif'  maxSize="1"    />
+			    		</div>					    										
+						<div class="picRight">						    
+							<td rowspan="3">
+							    <div class="picAlert">
+									<span class="joy-lang" label="lg:picNone1"></span><br>
+									<span class="joy-lang" label="lg:picNone2"></span>
+							    </div>
+							    <img id="picImageId" height="240px" width="320px">
+							</td>
+						</div>		
+						<div style="width:100%;float:left;"> 																			
+						<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+							<tr>
+								<td height="50" align="right" valign="bottom">
+									<button class="joy-button" btnType="importantbtn" icon="tick" onClick="picSaveData" label="lgc:save"></button>
+									<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+								</td>
+							</tr>
+						</table>
+			         </div>	
+		</form>
+	</div>
+		<!-- 自定义属性框 -->
+	<div id="attributeWindow" class="joy-window"  center="true"
+		title="lg:customAttribute">
+		<form id="attrForm" class="joy-form">
+			
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<!-- 自定义属性表 -->
+						<td align="left" rowspan="4">
+						<div style="width:635px;height:auto;">
+						<button class="joy-button" icon="plus" onClick="addAttrVal" label="lg:addAttr" style="margin-bottom:10px;"></button> 
+						<button class="joy-button" icon="plus" onClick="openAllocationWindow" label="lg:addAttrVal" style="margin-bottom:10px;"></button> 
+						<table id="attrGrid" class="joy-grid" height="200px"  reorderable="false" resizable="true" showPageControl="false"  >
+							<thead>
+								<tr>  
+									<th field="attrName" dataType="string" label="lg:attrName" colWidth="25%"></th> 
+									<th field="attrValue" dataType="string" label="lg:attrValue" colWidth="25%"></th> 
+									<th field="languageTypeEk"  align="center" enumData="LANGUAGE_TYPE_EKEnum" dataType="string" label="lg:languageTypeEk" colWidth="25%"></th>
+									<th field="sequ"  label="lg:sequ" colWidth="25%" align="right"></th> 	
+									<th colWidth="190px" templateType="button" > 
+										<button icon="pencil" onClick="editAttrVal('#:index#')"
+											 label="lgc:edit"></button>
+										<button icon="close"  onClick="deleteAttrVal('#:index#')"
+											 label="lgc:delete"></button>
+									</th>
+								</tr>
+							</thead>
+						</table>  
+						</div>
+						</td> 
+					</tr>   
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="60" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveAttrData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+		<!-- 新增属性值 -->
+    <div id="attrValWindow" class="joy-window" center="true"> 
+   		 	<form id="attrValForm" class="joy-form">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+				<tr>
+					<td align="left">
+							<input id="attrName" class="joy-textbox"  required="true"  label="lg:attrName" maxByte="64"  databind="value:attrName">
+						</td> 
+					</tr>
+					<tr>
+						<td align="left">
+							<input id="attrValue" class="joy-textbox"  required="true"  label="lg:attrValue" maxByte="256"  databind="value:attrValue">
+						</td> 
+					</tr>
+					<tr>
+						<td align="left">  
+						 <input id="languageTypeEk" class="joy-combobox joy-enum" required="true"  label="lg:languageTypeEk"
+						    placeholder="lgc:pleaseToSelect"  databind="value:languageTypeEk,source:LANGUAGE_TYPE_EKEnum"  /> 
+				        </td>
+					</tr>
+					<tr>
+						<td align="left">
+							<input class="joy-numerictextbox"	label="lg:sequ" id="sequ" min="0" max="9999" databind="value:sequ">
+						</td> 
+					</tr>
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveAttrVal" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	
+	<script id="small_tree" type="text/joy-ui-template">
+   #if(item.main.isLastFlag==='1'){#
+			 <input type="hidden" value="#=item.main.categoryId#" ><span class="itemName" onclick="smallTreeviewclick('#=item.main.categoryId#','#=item.main.name#')" >#=item.main.name#</span>
+	  #}else{#
+             <span class="itemName"  >#=item.main.name# </span>
+         #}#
+</script>
+	
+<script id="category_tree" type="text/joy-ui-template">
+			<span class="itemName" onclick="categoryTreeviewclick('#=item.main.categoryId#','#=item.main.isLastFlag#','#=item.main.name#')" >#=item.main.name#</span>   
+	 </script>
+	
+	
+		    <!-- 弹开的物料选择 -->
+	<div id="addAllocationWindow" class="joy-window detail"  center="true"
+		align="left"  style="padding-top:0;"> 
+		   <!-- 列表栏 -->
+		<table class="main">
+			<tr>
+				<td class="list_left">
+					<div  class="rightTitle"></div>
+					<div class="leftTreeBox" > 
+			  			<!-- 物料类别树 -->  
+						<div id="allocationTypeTree" style="min-height: 100%;"></div>
+						<!-- 物料类别书树 end--> 
+	 				 </div>
+				</td>
+				<td class="list_height" id="deviceGridTd">	
+			      <!--   	<div style="height:20px;width:100%;padding-top: 10px;">
+							<span class="joy-lang" label="lg:productName" style="font-weight:bold;"></span>: 
+					         <input id="productNameSearch" class="joy-textbox"  style="width: 160px;" databind="value:productName"   />
+					        <button class="joy-button" icon="search" onClick="searchAllocation" label="lgc:search" ></button>
+						</div>		
+						-->
+					<!--物料信息列表 --> 
+	 				<table id="addAllocationGrid" class="joy-grid"   pageSize="10" resizable="true">
+						<thead>
+							<tr> 
+								<th field="itemId" templateType="checkbox" colWidth="40px"></th>
+								<th field="itemCd"   dataType="string"  label="lg:itemCd" colWidth="33%" align="left"></th> 
+								<th field="itemName"    dataType="string" label="lg:itemName" colWidth="33%"></th>
+			                    <th field="spec"    dataType="string" label="lg:spec" colWidth="33%"></th>
+							</tr>
+						</thead>
+					</table> 
+					<!--物料信息列表end --> 
+				</td>
+			</tr>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="40" align="right" valign="bottom">
+						<button id="deviceParentAdd" class="joy-button joy-smc"  icon="tick" id="deviceChildAdd"
+							onClick="addAllocation" label="lg:add"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+			</tr>
+		</table>				
+	</div>
+	 <script id="allocation_Type_Tree" type="text/joy-ui-template">
+ 		<input type="hidden" value="#=item.main.categoryId#" ><span class="itemName" onclick="allocationTypeClick('#=item.main.categoryId#')" >#=item.main.name#</span>
+	 </script>
+	 
+	 <!-- 高级查询窗口开始 -->
+	<div id="searchWindow" class="joy-window" title="lgc:search">
+		<form  class="joy-form" >
+			<table>
+			    <tr>
+			        <td>
+						<input id="itemCdSearch" class="joy-textbox"  label="lg:itemCd"   style="width:160px;"  databind="value:itemCd" >
+				    </td>
+			        <td>
+						<input id="itemNameSearch" class="joy-textbox"  label="lg:itemName"   style="width:160px;"  databind="value:itemName" >
+				    </td>
+				</tr>	
+				<tr>
+			        <td>
+						<input id="specSearch" class="joy-textbox"  label="lg:spec"   style="width:160px;"  databind="value:spec" >
+				    </td>
+				</tr>				
+			</table>	
+			<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lgc:search"></button>
+						<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>		 
+		</form>
+	</div>
+	 
+	
+
+<script id="js_all"> 
+ var initResult,editWindow,addButton,columnId,endDate,beginDate,grid,detailWindow,upload,dataForm,parentselectWindow,curItemId,searchWindow;
+	var curCategoryId="",curName="",picWindow,picUpload,picDataForm,delAttrId,allocationTypeTree;
+	var attributeWindow,attrForm,attrDataSource,attrValWindow,attrValForm,attrGrid,addAllocationWindow,addAllocationGrid,filcurCategoryId;
+ var searchUrl = "../../wl/cm/wlCmItemAction.do?action=findDataList";
+ $().ready(function() {
+	 lg = joy.getLang();
+	 lgc = joy.getCommonLang();
+	 addButton = $("#addButton").getJoyButton();
+	 editWindow = $("#editWindow").getJoyWindow();
+	 dataForm = $("#dataForm").getJoyForm();
+	grid = $("#grid").getJoyGrid();
+	detailWindow=$("#detailWindow").getJoyWindow();	 
+	picWindow=$("#picWindow").getJoyWindow();	 
+	parentselectWindow = $("#parentselectWindow").getJoyWindow();
+	picUpload  = $("#picUpload").getJoyUpload();
+	picDataForm=$("#picDataForm").getJoyForm();
+	attributeWindow=$("#attributeWindow").getJoyWindow();
+	attrValWindow=$("#attrValWindow").getJoyWindow();
+	attrValForm=$("#attrValForm").getJoyForm();
+	attrGrid=$("#attrGrid").getJoyGrid();
+	attrForm=$("#attrForm").getJoyForm();
+	addAllocationWindow=$("#addAllocationWindow").getJoyWindow();
+	addAllocationGrid = $("#addAllocationGrid").getJoyGrid();
+	searchWindow=w=$("#searchWindow").getJoyWindow();
+	$("#itemCd").attr("placeholder",lg.itemCdUse); 
+	$("#addAllocationWindow .rightTitle").html(lg.category); 
+	filcurCategoryId="";
+	 joy.getJSON("../../wl/cm/wlCmItemAction.do?action=init",{enumTypes:['STATE','YESORNO','LANGUAGE_TYPE_EK']},function(resultObject){
+		 delAttrId=new Array();
+		 attrDataSource=new Array();
+		 initResult = resultObject; 
+	      var viewModel = joy.observable(initResult);    
+	       joy.bind($(".joy-smc,.joy-enum"), viewModel);	        	    	     
+	       $("#rightTitle").text(lg.category);
+	       $(".leftTreeBox").css("height",$(".k-grid").height()+5+"px"); 
+	       treeviewBind(); 
+	       smallTreeViewBild();
+	       alloctionTypeBind();//导入配置树
+		    $("#addAllocationWindow .leftTreeBox").css({"height":$("#addAllocationWindow .k-grid.k-widget.k-reorderable").height()+40+"px"});
+	 });	
+ });
+ //打开物料弹出框
+ function  openAllocationWindow(){
+	 allocationTypeClick();
+	 addAllocationWindow.title(lg.itemChoose);
+	 addAllocationWindow.center();
+	 addAllocationWindow.open();
+ }
+//添加物料
+ function addAllocation(){
+	    var ids = addAllocationGrid.getChecked();
+		if (ids.length == 1) {//当选择的物料为0时
+			joy.getJSON("../../wl/cm/wlCmItemAction.do?action=findItemAttrList", {itemId:ids},function(resultObject) {
+				var attrDataSourceTemp = attrDataSource.concat();
+				for(i=0;i<resultObject.length;i++){							
+					 obj=resultObject[i];
+					 //attrDataSource
+					 if(repeatAllocation(resultObject[i].attrName) == 0){
+						 var allocationIndex=attrDataSourceTemp.length;
+						 attrDataSourceTemp[allocationIndex]=new Object();
+						 attrDataSourceTemp[allocationIndex].attrName=obj.attrName;
+						 attrDataSourceTemp[allocationIndex].attrValue=obj.attrValue;
+						 attrDataSourceTemp[allocationIndex].itemId=curAttrItemId;//当前点击物料的属性配置
+						 attrDataSourceTemp[allocationIndex].index=allocationIndex;
+						 attrDataSourceTemp[allocationIndex].sequ=obj.sequ; 
+						 attrDataSourceTemp[allocationIndex].languageTypeEk=obj.languageTypeEk; 
+					 }else{
+						 var txt = resultObject[i].attrName+",";
+						 joy.showMessage(lg.repeatName+txt.substring(0, txt.length-1)+lg.hasRepeat, "warning");
+						 return;
+					 };
+					 //filterSellIds[filterSellIds.length]=obj.sellId
+				}
+				attrDataSource = attrDataSourceTemp;
+				attrGrid.load(initResult,attrDataSource);
+			    addAllocationWindow.close();
+				allocationTypeClick(curParentTypeId);
+			});
+			
+		} 
+		else if(ids.length == 0)
+		{
+			joy.showMessage(lgc.chooseRecord, "warning");
+			return ;
+		}
+		else{
+			joy.showMessage(lg.chooseOneRecord, "warning");
+			return ;
+		}
+ }
+ //验证属性值是否有出现重复的
+ function repeatAllocation(attrName,isEditAttr){
+	 for(var i = 0 ; i < attrDataSource.length; i++){
+		 if(i != isEditAttr){//辫子的时候过滤自身，这样才可以选择自身
+			 if(attrDataSource[i].attrName == attrName){
+				 return 1;//存在重复的
+			 }
+		 }
+		
+	 }
+	 return 0 ;//没有存在重复名称的配置
+ }
+//树点击事件
+	var curParentTypeId
+	var filterAllocationIds =  [];//用于过滤产品配置的
+	function allocationTypeClick(categoryId){ 
+		curParentTypeId=categoryId;
+		//deviceNameSearch.value("");//将用来搜索的下级配置名称清空
+		//curChildDeviceTypeId=deviceTypeId;
+	 	var obj=new Object();	
+	 	obj.categoryId=categoryId;
+		obj.filterItemId=curAttrItemId;
+		/* obj.filterSellIds=filterSellIds; */
+		addAllocationGrid.fetch(initResult, searchUrl,obj);		
+	}
+//产品类型treeview数据初始化
+	function alloctionTypeBind(){
+		joy.getJSON("../../wl/cm/wlCmItemAction.do?action=getTree",{
+			isEnableFlag : "1",
+			isLastFlag:"",
+			rootId:"0",	
+		},function(resultObject) { 
+			allocationTypeTree =  $("#allocationTypeTree").joyTreeView({
+					 dataSource:resultObject.items,
+		             templateID:"allocation_Type_Tree" 		
+	   			 }); 		
+		});
+	}
+
+//treeview数据初始化   传入状态
+	function treeviewBind(){
+		joy.getJSON("../../wl/cm/wlCmItemAction.do?action=getTree",{
+			isEnableFlag : "1",
+			isLastFlag:"",
+			rootId:"0"	
+		}, function(resultObject) { 
+			//alert(joy.ifstringy(resultObject));
+				categoryTreeView =  $("#categoryTree").joyTreeView({
+		             dataSource:resultObject.items,
+		             templateID:"category_tree" 
+		        }); 			  
+		});
+	}
+	//父级选择框绑定树
+	function smallTreeViewBild() {
+		joy.getJSON("../../wl/cm/wlCmItemAction.do?action=getTree",{
+			isEnableFlag : "1",
+			isLastFlag :"",
+			rootId:"0"
+		}, function(resultObject) {
+			var smallTreeView = $("#smallTreeView").joyTreeView({
+				dataSource : [ resultObject ],
+				templateID : "small_tree"
+			});
+		});
+	}
+	/**
+	 *打开父节点选择窗体
+	 */
+	function openParentSelectWindow() {
+		parentselectWindow.open();
+		parentselectWindow.center();
+	}
+	//菜单点击事件(新增按钮旁边的树点击事件)
+	function categoryTreeviewclick(categoryId,isLastFlag,name){
+		filcurCategoryId=categoryId;
+		var obj=new Object();	
+		 if(isLastFlag=='0'){
+			 categoryId="-1";//当不是末级节点的时候，清空grid数据
+			 curCategoryId="";
+			 curName="";
+		}else{
+		 curCategoryId=categoryId;
+		 curName=name;
+		}
+			obj.categoryId=categoryId;	
+			grid.fetch(initResult, searchUrl, obj);
+		
+	}
+	//菜单点击事件(新增或编辑界面的树点击事件)
+   function smallTreeviewclick(categoryId,name){   
+	   var json=dataForm.getDataModel().toJSON();
+	    json.categoryId=categoryId;
+	    json.categoryName=name;
+		dataForm.load(json);
+		parentselectWindow.close();
+   }
+	/**
+	 * 打开新增窗体
+	 */
+	function openAddWindow() {			
+		dataForm.load({upperLimit:"0",lowerLimit:"0",isShowAgency:"1"});               	 
+        editWindow.title(lgc.add);
+ 		editWindow.open();
+ 		editWindow.center();
+ 		curItemId="";
+		$("#itemCd").getJoyTextBox().enable(true);
+ 		if(curCategoryId!=""&&curName!=""){
+ 		  smallTreeviewclick(curCategoryId,curName);
+ 		}
+	}
+	/**
+	 *打开自定义属性框
+	 */
+	 var curAttrItemId="";
+	function openAttributeWindow(itemId){
+
+		joy.getJSON("../../wl/cm/wlCmItemAction.do?action=findItemAttrList", {
+			itemId : itemId
+		},function(resultObject) {
+			curAttrItemId=itemId;
+			delAttrId=new Array();
+			attrDataSource=new Array();			
+			attrDataSource=resultObject; 
+			for(var i = 0;i<attrDataSource.length;i++){
+				attrDataSource[i].index = i;
+				attrDataSource[i].sequ = i+1;
+			} 
+			attrGrid.load(initResult,attrDataSource); 
+			attributeWindow.open();
+			attributeWindow.center();
+		});
+	}
+	//新增行(属性值)
+	function addAttrVal(){
+		attrValForm.load({index:attrDataSource.length,sequ:attrDataSource.length+1});
+		attrValWindow.title(lgc.add);
+		attrValWindow.open();  
+		attrValWindow.center(); 
+	}
+	var isEditAttr =-1;//默认是新增状态
+	//打开(属性值)编辑框
+	function editAttrVal(index){
+		isEditAttr = index;
+		attrValForm.load(attrDataSource[index]);
+		attrValWindow.title(lgc.edit);
+		attrValWindow.open();  
+		attrValWindow.center(); 		
+	}
+	//保存(属性值)
+	function saveAttrVal(){ 
+		//设置按钮不可用，防止重复提交 
+		if (!attrValForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning"); 
+			return;
+		}  
+		var obj = attrValForm.getDataModel().toJSON();
+		if(repeatAllocation(obj.attrName,isEditAttr) == 0 ){
+			obj.itemId=curAttrItemId;
+			attrDataSource[obj.index]=obj;		
+			attrGrid.load(initResult,attrDataSource);
+			attrValWindow.close();
+		}else{
+			 var txt = obj.attrName+",";
+			 joy.showMessage(lg.repeatName+txt.substring(0, txt.length-1)+lg.hasRepeat, "warning");
+			 return;
+		}
+		
+	}
+	
+	//删除(属性值)
+	function deleteAttrVal(index){ 
+		if(typeof(attrDataSource[index].itemAttrId)!="undefined"){
+			delAttrId[delAttrId.length]=attrDataSource[index].itemAttrId;		    		
+		}
+		for(var i=0;i<attrDataSource.length-1;i++){ 
+			if(i>=index){
+				var obj = attrDataSource[i+1];
+				obj.index = i;
+				attrDataSource[i]=obj;
+			}
+		}
+		attrDataSource.pop(); 
+		attrGrid.load(initResult,attrDataSource); 
+	}
+	/**
+	 * 保存属性数据
+	 */
+	function saveAttrData(buttonObject) {
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+		if (!attrForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		var submitda = attrForm.getDataModel().toJSON();
+		submitda.itemAttrJson=joy.stringify(attrDataSource);
+		submitda.delAttrId=delAttrId;
+		attrForm.load(submitda);
+		attrForm.submit("../../wl/cm/wlCmItemAction.do?action=saveAttr", buttonObject,
+				function(resultObject) { 					
+					attributeWindow.close();
+					grid.dataSource.fetch();
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+	}
+	
+	
+	
+	function saveItemData(buttonObject){
+		buttonObject.enable(false);
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		 	var itemCd= $("#itemCd").getJoyTextBox().value();		
+		joy.getJSON("../../wl/cm/wlCmItemAction.do?action=findWlCmItemList",{
+			key : "itemCd",
+			value:itemCd,
+			itemId:curItemId	
+		}, function(resultObject) { 
+			 if(resultObject!==""){//物料编码已存在
+					joy.showMessage(lg.existItemCd, "warning");
+					buttonObject.enable(true);
+					return;
+			 }else{//物料编码不存在
+				 	var manuItemCd= $("#manuItemCd").getJoyTextBox().value();		
+                     if(manuItemCd!=""){//厂商编码不为空，则校验是否已存在
+						 joy.getJSON("../../wl/cm/wlCmItemAction.do?action=findWlCmItemList",{
+								key : "manuItemCd",
+								value:manuItemCd,
+								itemId:curItemId	
+							}, function(resultObject) { 
+								 if(resultObject!==""){//厂商编码已存在
+										joy.showMessage(lg.existmanuItemCd, "warning");
+										buttonObject.enable(true);
+										return;
+								 }else{//厂商编码不存在							 
+									 //saveData(buttonObject);
+									 validateBarCd(buttonObject);
+								 }						 						
+							});
+                     }else{//厂商编码为空，校验条形码 
+                    	// saveData(buttonObject);
+						 validateBarCd(buttonObject);
+                     }
+			 }
+			 
+			
+		});
+	}
+	//校验条形码是否存在
+	function validateBarCd(buttonObject){
+		var barCd= $("#barCd").getJoyTextBox().value();		
+        if(barCd!=""){//条形码不为空，则校验是否已存在
+			 joy.getJSON("../../wl/cm/wlCmItemAction.do?action=findWlCmItemList",{
+					key : "barCd",
+					value:barCd,
+					itemId:curItemId	
+				}, function(resultObject) { 
+					 if(resultObject!==""){//条形码已存在
+							joy.showMessage(lg.existBarCd, "warning");
+							buttonObject.enable(true);
+							return;
+					 }else{//条形码不存在							 
+						 saveData(buttonObject);
+					 }						 						
+				});
+        }else{//条形码为空，直接保存                 	 
+       	   saveData(buttonObject);
+        }
+	}
+	
+	//保存
+	function saveData(buttonObject){		
+		var upperLimit=$("#upperLimit").getJoyNumericTextBox().value();
+		var lowerLimit=$("#lowerLimit").getJoyNumericTextBox().value();
+		if(upperLimit>0){
+			if(upperLimit<lowerLimit){
+				joy.showMessage(lg.upperLessThanLowerLimit, "warning");	
+				buttonObject.enable(true);
+				return;
+			}
+		}
+		var submitda = dataForm.getDataModel().toJSON();
+		dataForm.load(submitda);
+	    	dataForm.submit("../../wl/cm/wlCmItemAction.do?action=saveData", buttonObject,
+				function(resultObject) {
+					editWindow.close();
+					grid.dataSource.fetch();
+				 joy.showMessage(lgc.opSuccess, "success");
+		});	 
+}
+	 //启用
+	  function able(){
+		  modifyStateEk("1");
+	  }
+	 //禁用
+	  function enable(){
+		  modifyStateEk("0");
+	  }
+	/**
+	* 启用/锁定
+	**/
+	function modifyStateEk(isEnableFlag){
+		var ids = grid.getChecked();
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+				var isEnableFlagModifyTitle;
+				if(isEnableFlag=="1"){
+					isEnableFlagModifyTitle=lg.isEnableFlagLOCKTitle;
+				}else{
+					isEnableFlagModifyTitle=lg.isEnableFlagkModifyUSETitle;
+				}
+				joy.showMessageDialog(isEnableFlagModifyTitle,"ok,cancel",function(e){
+					if(e.btnName=="ok"){
+						joy.getJSON("../../wl/cm/wlCmItemAction.do?action=updateItemState",{itemIds:ids,isEnableFlag:isEnableFlag}, function(resultObject){	
+							if(resultObject==""){
+								joy.showMessage(lgc.opSuccess, "success");
+								grid.dataSource.fetch();
+							}else{
+							   joy.showMessage(resultObject, "warning");
+							}
+						});
+					}
+				});
+		}
+	}
+	/**
+	 * 打开编辑窗体
+	 */
+	function openEditWindow(itemId) {
+		joy.getJSON("../../wl/cm/wlCmItemAction.do?action=getData",{itemId:itemId}, function(resultObject) {
+			if(resultObject.upperLimit===0){
+				resultObject.upperLimit="0";
+			}
+			if(resultObject.lowerLimit===0){
+				resultObject.lowerLimit="0";
+			}
+			$("#itemCd").getJoyTextBox().enable(resultObject.itemCdEdit);
+			dataForm.load(resultObject);
+			editWindow.title(lgc.edit);
+			editWindow.open();
+			editWindow.center();
+			curItemId=itemId;
+		});
+	}
+	/**
+	 * 打开详细窗体 
+	 */
+	function openDetailWindow(itemId){		
+		joy.getJSON("../../wl/cm/wlCmItemAction.do?action=getData",{itemId:itemId}, function(resultObject){
+			if(resultObject.upperLimit===0){				
+				resultObject.upperLimit="0";
+			}
+			if(resultObject.lowerLimit===0){
+				resultObject.lowerLimit="0";
+			}
+			var viewModel = joy.observable(resultObject); 
+			joy.bind($("#detailTable"), viewModel);	
+			if(resultObject.path==""){
+				$("#contain").attr("style","");
+				$("#itemImgDiv").hide();
+			}else{
+				$("#contain").attr("style","height:490px;");
+				$("#itemImgDiv").show();
+				$("#itemImg").attr("src","../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id="+resultObject.path);
+		         var lightBox=new myLightBox('bd',true,'src');
+
+			}
+			detailWindow.open();	
+			detailWindow.center();
+		});	
+	}
+	/**
+	 * 删除数据
+	 */
+	function deleteData() {
+		var ids = grid.getChecked();
+
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/cm/wlCmItemAction.do?action=deleteData",{ids : ids,}, 
+							function(resultObject) {							
+								grid.dataSource.fetch();
+								joy.showMessage(lgc.opSuccess, "success");
+							});
+				}
+			});
+		}
+	}
+	/**
+	 * 打开图片上传窗体
+	 */
+	function openPicUploadWindow(itemId) {	
+		joy.getJSON("../../wl/cm/wlCmItemAction.do?action=getData",{itemId:itemId}, function(resultObject){
+				var pathId=resultObject.path;
+				if(pathId!=""){				
+					$("#picImageId").attr('src','../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+pathId);
+					$(".picAlert").hide();
+				}else{
+					$("#picImageId").removeAttr('src');
+					$(".picAlert").show();;
+				}
+				picDataForm.load(resultObject);
+		    picWindow.title(lg.picUpload);
+		    picWindow.open();
+		    picWindow.center();	
+		});  
+	}
+	//上传图片时触发事件
+	function picUploadFile(){ 
+		var id=$("#picUpload").getJoyUpload().value();
+		/*
+		if(id != null &&$.trim(id) != ""){
+	    	//删除前一张图片
+	    	joy.getJSON("../../wl/cm/wlCmDocumentAction.do?action=deleteFile",{id:id},function(){	    		
+	    	});
+	    }*/
+	    picUpload._reflash();
+	}
+
+	//上传图片成功触发事件
+	function onPicSuccess(){		
+		var id=picDataForm.getDataModel().toJSON().path;
+		if(id != null &&$.trim(id) != ""){
+			$(".picAlert").hide();
+			$("#picImageId").attr('src','../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+id);
+		}else{
+			$("#picImageId").removeAttr('src');
+		}			
+	}
+	//图片上传关闭触发事件
+	function closePicWindow(){
+		picUpload._reflash();
+		$("#picImageId").removeAttr('src');
+		picDataForm.load();
+	}
+	//图片上传保存
+	function picSaveData(buttonObject){
+		
+		buttonObject.enable(false);
+		if (!picDataForm.validate()){
+			joy.showMessage(lgc.validateFaile,"warning");
+			buttonObject.enable(true);
+			return;
+		}	
+		picDataForm.submit("../../wl/cm/wlCmItemAction.do?action=saveData",buttonObject,function(resultObject){
+			picWindow.close();	
+			grid.dataSource.fetch();
+			joy.showMessage(lgc.opSuccess,"success");
+		});	
+	}
+	
+	//打开高级搜索
+	  function openSearch()
+	  {
+	  	$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+	  	$("#searchWindow").parent('.k-widget').css('left',"");
+	  	//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+	  	searchWindow.open();
+	  }
+	//高级搜索执行搜索
+
+	  function moreSelect(){
+		  //搜索条件obj构成为
+		  var obj=new Object();
+		  var itemCd=$("#itemCdSearch").getJoyTextBox().value();
+		  var itemName=$("#itemNameSearch").getJoyTextBox().value();
+		  var spec = $("#specSearch").getJoyTextBox().value();		
+		  obj.itemCd=itemCd;
+		  obj.itemName=itemName;
+		  obj.spec=spec;
+		  obj.categoryId=filcurCategoryId;
+		  grid.fetch(initResult,searchUrl, obj);  
+	  }
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+   #videoMoreBody{width:100%;}
+
+/*账号信息*/
+#videoMoreContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#videoMoreMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#videoMoreMenu{
+float:left;width:230px;min-height:670px;
+}
+#videoMoreContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.videoMoreTitle{width:145px;height:20px;margin:0 auto;margin-top:20px;background:#000;
+height:20px;text-align:center;padding:8px 14px;letter-spacing:6px;font-weight:bold;border:1px solid #DFDFDF;border-radius: 9px;
+color:#fff;font-size:19px;line-height:20px;
+}
+.MenuContent{width:180px;margin:0 auto;}
+
+ #videoMoreList{
+    margin-left: 50px;
+    margin-top: 65px;
+    display:table;
+    width:713px;
+ }
+  #videoMore{
+  list-style:none;
+ }
+
+ #videoMore li{
+    float:left;
+	line-height:148%;
+	margin:0 30px 10px 0;
+	overflow:hidden;
+	text-align:center;
+	width:200px;
+   
+ }
+ .view{
+    display:block;
+	height:120px;
+	overflow:hidden;
+	position:relative;
+	width:100%;
+ }
+ .view img{width:100%;height:100%;}
+ .s-play{
+	background: url("../images/play_860ea90.png") no-repeat scroll 0 0;
+	height:42px;
+	left:50%;
+	margin:-21px 0 0 -21px;
+	position:absolute;
+	top:50%;
+	visibility:hidden;
+	width:42px;
+
+ }
+ #videoMore li a{
+   cursor:pointer;
+   display:block;
+  
+ }
+
+ #videoMore li a:hover .view .s-play{
+   visibility:visible;
+}
+.info-bg{
+	background:rgba(0, 0, 0, 0) url("../images/bg_shadow_ca77f5b.png") repeat-x scroll left bottom;
+	bottom:0;
+	display:block;
+	height:50px;
+	left:0;
+	line-height:18px;
+	position:absolute;
+	width:100%;
+}
+ #videoMore li a .videoTitle{
+     color: #4f4f4f;
+    display: block;
+    font: 12px/18px "Microsoft Yahei";
+    height: 36px;
+    overflow: hidden;
+    padding-top: 10px;
+    text-align: left;
+    word-break: break-all;
+    word-wrap: break-word;
+
+}

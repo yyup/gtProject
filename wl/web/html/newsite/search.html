@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="waterrower Team">
+    <meta name="Author" content="waterrowerTeam">
+    <meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/getSystemPlatform.js"></script>
+    <script src="../../js/joy.loader.js" modules=""></script>
+        <script src="../../js/site/jquery.pagination.js"></script>
+    <script src="../../js/newsite/cnzz.js"></script>
+    <script src="../../js/newsite/wlcommon.js"></script>
+
+	<link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/search.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/pagination.css"/>
+</head>
+<body>
+ <!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+  <!-- 内容 -->
+  <div id="wlBody">
+      <div class="container">
+          <div class="titleMargin">
+              <div class="text-center title" >欢迎使用WaterRower客户服务中心</div>
+              <div class="text-center help" >请问您需要什么帮助？</div>
+          </div>
+          <div class="row">
+              <div class="col-sm-12" >
+                  <div class="searchDiv">
+					  <div>
+                          <img src="../../style/prj/images/search.png" class="img-responsive searchImg" >
+                      </div>
+                      <input id="searchBox"  class="searchBox" placeholder="填写搜索名称" type="text"  >
+                      <div>
+                          <img src="../../style/prj/images/jump.png" class="img-responsive searchRightImg" onclick="reflashPage()">
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div id="resultCount" class="likeResult">为您找到0条“快递”相关结果</div>
+          <div id="keywords" style="margin-bottom: 50px;">
+
+          </div>
+          <div id="questionAnswer">
+          </div>
+          <!--分页-->
+     		<div class="row">
+                <div id="pagination" class="pagination"><!-- 这里显示分页 --></div>
+            </div>
+      </div>
+  </div>
+  <!-- 内容结束 -->
+<!--尾部开始-->
+    <div id="footerPart">
+        
+    </div>
+  <!--尾部结束-->
+  <script>
+  var initPageIndex = 0;     //页面索引初始值   
+  var pageSize = 10;     //每页显示条数初始化，修改显示条数，修改这里即可 
+  var total = 0;//记录总条数  默认一开始为第一页的数量
+      //进行初始化操作
+      $(function(){
+    	  initTop();
+    	  initClick();
+    	  initBottom();
+          //添加事件         
+         // initView();
+          findKeywordsList();
+          getvalue();
+    	  $(window).resize(function(){
+			changeStyle();//改变分页的样式
+		  });
+      });
+  
+	    //视图初始化
+	    function initView(){
+	    	//$("#searchBox").val("");
+	    	//加载表格数据
+	     	initData(getSearchContent(),initPageIndex);
+	    }
+	   	//刷新页面操作
+	 	function reflashPage(obj){
+	   		if(obj){
+	   			initPageIndex = $("[name='pageSelect']").val();
+	   			initData(getSearchContent(),parseInt(initPageIndex));
+	   		}else{//搜索操作
+	   	    	initData(getSearchContent(),"0");
+	   		}
+	   	}
+	  		//进行分页刷新操作
+	   	function serialRegList(page){
+	   		initData(getSearchContent(),page);//进行分页刷新
+	   	}
+    	
+    	//获取查询框内容
+        function getSearchContent(){
+       		return $("#searchBox").val();
+        }
+    	
+        //加载表格数据
+        function initData(question,pageIndex){
+        	if(!pageIndex){
+        		pageIndex = initPageIndex;
+        	}
+        	var questionLike = "";
+        	if(question){
+        		questionLike = question;
+        	}
+        	findDataList(pageIndex,questionLike);//加载大屏幕的数据
+        }
+      
+      //分页展现
+  	function pagination(totalCount,pageIndex,data){
+  		$("#pagination").html("");
+		var pageCount = 1;
+		 if(totalCount > 0){
+			pageCount = Math.ceil(totalCount/pageSize);
+		 }
+		var initPagination = function() {
+			// 创建分页
+			$("#pagination").pagination(pageCount, {
+				num_edge_entries: 1, //边缘页数
+				num_display_entries: 4, //主体页数
+				callback: pageselectCallback,
+				items_per_page:1, //每页显示1项
+				prev_text:"&laquo;",
+				next_text:"&raquo;",
+				current_page:pageIndex-1
+			});
+		 }();
+		 
+		function pageselectCallback(page_index, jq){
+			serialRegList(page_index);
+			return false;
+		}
+		
+		$("#pagination").next().remove();
+		var paginationText = '<div class="text-center-pagination"><span style="margin-right: 5px;">共'+pageCount+'页,</span>'+
+        '<span style="margin-right: 5px;">到第<select name="pageSelect" >';
+        for(var i = 0;i < pageCount; i++){
+        	if (i==parseInt(pageIndex-1)) {
+        		paginationText +='<option value="'+(i)+'" selected>'+(i+1)+'</option>';	
+        	} else {
+        		paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+        	}
+        	 //paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+        }
+        paginationText +=' </select>页</span>'+
+        '<input type="button" class="sureAndBack" value="确认" onclick="reflashPage($(this))"/></div>';
+		$("#pagination").after(paginationText);
+  	  /* var pageCount = 1;
+  	  if(totalCount > 0){
+  		 pageCount = Math.ceil(totalCount/pageSize);
+  	  }
+  		var options={
+  				bootstrapMajorVersion: 3,//bootstrap的版本要求
+                  currentPage:pageIndex,    //当前页数
+                  numberOfPages:pageSize,    //最多显示Page页
+                  totalPages:pageCount,    //所有数据可以显示的页数
+                  size:"normal",
+                  itemTexts: function (type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+                  	        switch (type) {
+                  	         case "first": return "首页";
+                  	         case "prev": return "<";
+                  	         case "next": return ">";
+                  	         case "last": return "末页";
+                  	         case "page": return page;
+                  	         }
+                  	     },
+                  onPageClicked:function(e,originalEvent,type,page){
+                  	$("select[name='pageSelect']").val(page);
+                  	initPageIndex = page-1;
+                  	serialRegList(page-1);
+                  }
+              }
+              $("#pagination").bootstrapPaginator(options);
+  			$("#pagination").next().remove();
+  			 var smallPaginationText = ""
+  			 var paginationText = '<div class="text-center" style="float:right;margin-top:4px;"><span style="margin-right: 4px;">共'+pageCount+'页,</span>'+
+              '<span style="margin-right: 4px;">到第<select name="pageSelect"  >'; 
+              for(var i = 0;i < pageCount; i++){
+              	 paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+              }
+             paginationText +=' </select>页</span>'+
+              '<input type="button"  value="确认" onclick="reflashPage($(this))"/></div>';
+  			$("#pagination").after(paginationText);
+  			$("select[name='pageSelect']").val(pageIndex-1);
+  			changeStyle(); */
+  	 }
+   
+      //查询列表
+      function findDataList(pageIndex,questionLike){   	  
+          joy.postJSON("../../wl/cm/wlCmInfoAction.dox?action=findDataList", {currPage:parseInt(pageIndex)+1, pageSize:pageSize,columnId:"0109",issueStateEk:"2",titleAndContent:questionLike},function(resultObject){
+        	  $("#questionAnswer").empty();
+        	  var data = resultObject.items;
+              total = resultObject.totalCount;
+	          if(total == 0){//没有结果
+	        	  pageIndex = 0;
+	          }
+        	  $("#resultCount").text("为您找到"+resultObject.totalCount+"条“"+questionLike+"”相关结果");
+        	  pagination(resultObject.totalCount,pageIndex+1,data);//分页
+              for(var i=0;i<data.length;i++){
+            	  var title=data[i].title;
+            	  var content=data[i].content;
+            	  if(title.indexOf(questionLike)>=0&&questionLike!=""){
+            		  var newTitle="";        		  
+            		  var titleArray=title.split(questionLike);
+            		  for(var j=0;j<titleArray.length;j++){
+            			  if(j!=titleArray.length-1){
+            			 	 newTitle+=titleArray[j]+'<span style="color:red">'+questionLike+'</span>';
+            			  }else{
+            				  newTitle+=titleArray[j];
+            			  }
+            		  }
+            		  title=newTitle;
+            	  }
+            	  if(content.indexOf(questionLike)>=0&&questionLike!=""){
+            		  var newContent="";        		  
+            		  var contentArray=content.split(questionLike);
+            		  for(var j=0;j<contentArray.length;j++){
+            			  if(j!=contentArray.length-1){
+            				  newContent+=contentArray[j]+'<span style="color:red">'+questionLike+'</span>';
+            			  }else{
+            				  newContent+=contentArray[j];
+            			  }
+            		  }
+            		  content=newContent;
+            	  }
+				 var txt='';
+				 txt+='<div><div class="question">Q：'+title+'</div> <div><span class="question">A：</span>';
+				 txt+='<span class="answer">'+content+'</span></div><hr class="answerLine"></div>';
+				 $("#questionAnswer").append(txt);
+					 
+              }
+          });
+      }
+     function searchKeywords(obj){
+    	var keywords=obj.text();
+    	$("#searchBox").val(keywords);
+ 		initPageIndex = $("[name='pageSelect']").val();
+ 		initData(keywords,parseInt(initPageIndex));
+      }
+    //查询列表
+      function findKeywordsList(){
+          joy.postJSON("../../wl/cm/wlCmInfoAction.dox?action=findKeywordsList", {},function(resultObject){
+        	  $("#keywords").empty();
+              for(var i=0;i<resultObject.length;i++){
+				 var txt='';
+				 txt+='<div class="aboutSearch" onclick="searchKeywords($(this))">'+resultObject[i].keywords+'</div>';
+				 $("#keywords").append(txt);
+					 
+              }
+          });
+      }
+    //获取值
+      function getvalue(){
+    	///test2.html?parm1=myimg1&parm2=myimg2 
+    	//获得第一个属性 
+    	//decodeURI 解码
+    	var url=decodeURI(location.href);
+    	var tmp1=url.split("?")[1]; 
+    	var tmp2=tmp1.split("&")[0]; 
+    	var tmp3=tmp2.split("=")[1]; 
+    	var searchQ=tmp3;
+    	if(searchQ!=""){
+	    	$("#searchBox").val(searchQ);
+	    	initData(searchQ,parseInt(initPageIndex));
+    	}else{
+    		$("#searchBox").val("");
+    		initData(getSearchContent(),initPageIndex);
+    	}
+   	}
+
+  </script>
+</body>
+</html>
+<!--尾部结束-->
+</body>
+</html>

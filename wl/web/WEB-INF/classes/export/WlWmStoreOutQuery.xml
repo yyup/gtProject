@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export>
+	<WlWmStoreInQuery code = "sequ" name = "序号"/>
+	<WlWmStoreInQuery code = "storageName" name = "仓库"/>
+	<WlWmStoreInQuery code = "wmOutTypeEkName" name = "业务类型"/>
+	<WlWmStoreInQuery code = "outDate" name = "出库日期"/>	
+	<WlWmStoreInQuery code = "billNo" name = "出库单号"/>
+	<WlWmStoreInQuery code = "orgName" name = "往来单位"/>
+	<WlWmStoreInQuery code = "consignee" name = "收货人"/>
+	<WlWmStoreInQuery code = "itemCd" name = "物料编码"/>				
+	<WlWmStoreInQuery code = "itemName" name = "物料名称"/>
+	<WlWmStoreInQuery code = "spec" name = "规格型号"/>
+	<WlWmStoreInQuery code = "manuSpec" name = "厂商型号"/>
+	<WlWmStoreInQuery code = "manuItemName" name = "厂商品名"/>
+	<WlWmStoreInQuery code = "baseUnitName" name = "计量单位"/>
+	<WlWmStoreInQuery code = "baseUnitQty" name = "数量"/>		
+</export>

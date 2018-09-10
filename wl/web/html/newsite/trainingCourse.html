@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="Generator" content="waterrower Team">
+<meta name="Author" content="waterrowerTeam">
+<meta name="Keywords"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<meta name="Description"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<script src="../../js/newsite/jquery.min.js"></script>
+<script src="../../js/newsite/bootstrap.js"></script>
+<script src="../../js/newsite/getSystemPlatform.js"></script>
+<script src="../../js/newsite/wlcommon.js"></script>
+<script src="../../js/newsite/cnzz.js"></script>
+<link rel="stylesheet" href="../../style/prj/newsite/header.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/footer.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/trainingCourse.css" />
+<script src="../../js/joy.loader.js" modules=""></script>
+<script src="../../js/newsite/bootstrap-paginator.js"></script>
+</head>
+
+<body>
+	<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+	<!-- 内容 -->
+	<div id="wlBody" class="contentMargin">
+		 <section>
+						<div class=" text-center hidden-xs hidden-sm hidden-md  content_background">
+							<div class="col-md-4 image-block">
+								<h2>欢迎使用WaterRower训练课程支持</h2>
+								<p>请问您需要什么帮助？</p>
+							</div>
+							<img class="img-responsive " src="../../style/prj/images/small_trainingCourse.png" alt="Responsive image">
+						</div>
+				</section>
+							<!--经销商服务图片结束-->
+			<div class="container">
+				<section id="tabContentContainerPre">
+					<!-- 小屏内容1 -->
+					<div class="row hidden-lg">
+						<div class="col-xs-12">
+							<a href="">
+								<img style="width:100%" src="../../style/prj/images/small_trainingCourse.png" alt="">
+							</a>
+							<h2>欢迎使用WaterRower训练课程支持</h2>
+						</div>
+						<div class="col-xs-12">
+							<p class="mobile-text">请问您需要什么帮助？</p>
+						</div>
+					</div>
+				</section>
+			</div>
+		<div class="container-fluid" style="padding-left: 0px; padding-right: 0px; margin-top: 30px;">
+			<div>
+				<div class="col-md-3 col-sm-3 col-xs-2" style="position: relative; " ><!-- col-md-4  col-xs-2 col-sm-3 text-center -->
+			        <div id="leftContainer" class="leftContainerClass">
+			            <span id="left" class="btn btn-default" > < </span>
+			        </div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-xs-8"  style="margin-top: 4px;"><!--  col-xs-6 col-sm-5 -->
+			            <div class="winBox text-center"  >
+			                <ul id="topTab" class="scroll" >
+			                </ul>
+			            </div>
+			    </div>
+			    <div class="col-md-3 col-sm-3 col-xs-2" style=""><!--col-md-3 col-sm-4 col-xs-2 col-xs-push-1 col-sm-push-0 col-md-push-0  padding-left: 4%;-->
+			        <span id="right" class="btn btn-default"> > </span>
+			    </div>
+		    </div>
+		</div>
+		
+		<div class="container-fluid" style="margin-top: 60px;">
+	    <div>
+	        <div class="col-md-3"></div>
+	        <div class="col-md-7">
+	            <div id="tab1Content">
+					<div class="row" style="margin-bottom: 50px;">
+						<!--标题  -->
+						<div id="divLeft" class="col-md-4 col-sm-4  text-left"></div>
+						<!--视屏  -->
+						<div id="divRight" class="col-md-6 col-xs-12 col-sm-6"></div>
+					</div>
+	            </div>
+	        </div>
+	        <div class="col-md-2"></div>
+	    </div>
+	</div>
+		<!-- 内容结束 -->
+		<!--尾部开始-->
+		<div id="footerPart">
+			
+		</div>
+		<!--尾部结束-->
+		<script>
+			var videoList=[];
+			$().ready(function() {
+				initTop();
+				initClick();
+				initBottom();
+				initTabList("0116");//品牌视频
+				addEvent();//添加事件操作
+				var width = $(this).width();
+				if(width<600){
+					scrollWidth=100;
+			    	$(".scroll").css({"width":(size+1)*100+"px"});
+				}
+			});
+			var scrollWidth=175;
+			 var num = 0;
+			 $(window).resize(function() {
+				    var width = $(this).width();
+				    if(width<600){
+				    	scrollWidth=100;
+				    	$(".scroll").css({"width":(size+1)*100+"px"});
+				    }else{
+				    	scrollWidth=175;
+				    	$(".scroll").css({"width":(size+1)*175+"px"});
+				    }
+				    
+				});
+			 //向右滑动
+			    function goRight(size) {
+				 
+			        //750是根据你给的尺寸，可变的
+			        if (num == 0) {
+			            num = 0;
+			        }
+			        if(num >= -($(".scroll li").length -5)*scrollWidth){
+			            num -= size;
+			        }
+			        $(".scroll").css({
+			            left: num
+			        });
+			        if($(window).width() < 1432 && $(window).width() > 1082){//小屏幕的时候
+			            if(num >= -($(".scroll li").length -4)*scrollWidth){
+			                num -= size;
+			            }
+			            $(".scroll").css({
+			                left: num
+			            });
+			        }
+			        if($(window).width() <= 1082 && $(window).width() > 600){//小屏幕的时候
+			            if(num >= -($(".scroll li").length -3)*scrollWidth){
+			                num -= size;
+			            }
+			            $(".scroll").css({
+			                left: num
+			            });
+			        }
+			        if($(window).width() <= 600 && $(window).width() > 465){//小屏幕的时候
+			            if(num >= -($(".scroll li").length -4)*scrollWidth){
+			                num -= size;
+			            }
+			            $(".scroll").css({
+			                left: num
+			            });
+			        }
+			        if($(window).width() <= 465){//小屏幕的时候
+			            if(num >= -($(".scroll li").length -3)*scrollWidth){
+			                num -= size;
+			            }
+			            $(".scroll").css({
+			                left: num
+			            });
+			        }
+			    }
+			    //向左滑动
+			    function goLeft(size) {
+			        //750是根据你给的尺寸，可变的
+			        if (num == 0) {
+			            num = 0;
+			        }
+			        if(num < 0 ){
+			            num -= size;
+			        }
+			        $(".scroll").css({
+			            left: num
+			        })
+			    }
+			//添加事件操作
+			function addEvent(){
+				 $(".scroll").width($(".scroll li").size()*scrollWidth);
+			        //设置滚动速度
+			        var timer;
+			        $("#left").bind("click",function(){
+			            goLeft(-scrollWidth);
+			        });
+			        $("#right").bind("click",function(){
+			            goRight(scrollWidth);
+			        });
+			        $("#left").mousedown(function(){
+			            timer = setInterval(function(){
+			                goLeft(-scrollWidth);
+			            }, 200);
+			        });
+			        $("#left").mouseup(function(){
+			            clearInterval(timer);
+			        });
+			        $("#right").mousedown(function(){
+			            timer = setInterval(function(){
+			                goRight(scrollWidth);
+			            }, 200);
+			        });
+			        $("#right").mouseup(function(){
+			            clearInterval(timer);
+			        });
+			}
+			//子第一项的Id  
+			var currentColumnId;
+			var size ;//tab数量
+			//初始化左边列表 
+			function initLeftList(columnId) {
+				$("#divLeft").empty();
+				joy	.getJSON("../../wl/cm/wlCmInfoAction.dox?action=findInfoList",{columnId : columnId},function(result) {
+						var txt = "";
+						for ( var i = 0; i < result.length; i++) {
+							var ob = result[i];
+							videoList[i]=ob.content;
+							if (i == 0) {
+								currentColumnId = ob.columnId;
+								txt += '<div style="cursor:pointer;margin-bottom:5px;" onclick="showContent($(this),\''+ob.infoId+'\',\''+i+'\')">&gt;'+ob.title + '</div>';
+							} else {
+								txt += '<div style="color: #ccc;cursor:pointer;margin-bottom:5px;" onclick="showContent($(this),\''+ob.infoId+'\',\''+i+'\')">&gt;'+ob.title + '</div>';
+							}
+						}
+							$("#divLeft").append(txt);
+						if(result.length>0){
+							initRightContent(0);
+						}					
+						//initRightContent(currentColumnId, 0);
+					});
+				}
+			
+			//初始化上部分列表 
+			function initTabList(columnId) {
+				$("#topTab").empty();
+				joy.getJSON("../../wl/cm/wlCmColumnAction.dox?action=getChildData",{columnId : columnId},function(resultObject){
+					var txt = "";
+					size = resultObject.length;
+					for (var i = 0;i<size;i++) {
+						//txt+='<div class="col-md-3 col-sm-3 col-xs-3 text-center" style="padding-right: 0px;">';
+						if(i==0){
+							txt+='<li id="'+"tab"+(i+1)+'" class="courseTab activeTab" style="border-bottom:2px solid black;"   columnId="'+resultObject[i].columnId+'" onclick="tabClick($(this))">'+ resultObject[i].columnName +'</li>';
+						}else{
+							txt+='<li id="'+"tab"+(i+1)+'" class="courseTab"   columnId="'+resultObject[i].columnId+'" onclick="tabClick($(this))" >'+ resultObject[i].columnName +'</li>';
+						}
+					}
+					$(".scroll").css({"width":(size+1)*175+"px"});
+					$("#topTab").append(txt);
+					if(resultObject.length>0){
+						initLeftList(resultObject[0].columnId);
+					}
+				});
+				
+			}
+			
+			//获取右边视频列表
+			function initRightContent(i) {
+				var start=videoList[i].indexOf("http"); 
+				var end=videoList[i].indexOf("mp4"); 
+				var videoSrc=videoList[i].substr(start,end+2);
+				
+					$("#divRight").empty();
+					txt = ' <div >';
+					txt += ' <video style="width:100%;height:auto;background:gray;" id="media7" src="'+videoSrc+'" controls="" ></video>';
+					//txt += videoList[i];
+					txt += '</div>';
+					$("#divRight").append(txt);
+					
+					var myVid=document.getElementById("media7");
+					var num = 0 ;
+					myVid.addEventListener("ended", function()
+					  {
+					   num = num + 1;
+					   if(num<10){
+					 	  myVid.play();
+					   }else{
+						  num=0;
+					   }
+					  });
+			}
+
+
+			//点击显示具体内容事件 
+			function showContent(obj, columnId,i) {
+				$("#divLeft div").attr("style", "color:#ccc;cursor:pointer;margin-bottom:5px;");
+				obj.attr("style", "cursor:pointer;margin-bottom:5px;");
+				currentColumnId = columnId;//更新当前栏目id
+				initRightContent(i);
+			}
+			
+
+			//进行初始化出操作
+			function tabClick(obj){
+				$("#divRight").empty();
+				$(".courseTab").each(function(){
+					$(this).css({"borderBottom":"1px solid #ccc"});
+				});		
+				obj.css({"borderBottom":"2px solid black"}); 
+				initLeftList(obj.attr("columnId"));
+			}
+			
+			
+		</script>
+		
+		
+</body>
+
+</html>

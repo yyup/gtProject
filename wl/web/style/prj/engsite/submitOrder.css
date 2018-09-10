@@ -1,0 +1,65 @@
+.chooseAddr{
+    color: black;
+    font-size: 15px;
+}
+.addr{
+    color: #898989;
+    font-size: 14px;
+}
+.addrMargin{
+    margin-bottom: 10px;
+}
+.fontWeight{
+	font-weight: bold;
+}
+.tableTitle{
+    background: #F0F0F0;
+    text-align: center;
+    color: #808080;
+    border-top: solid 1px white  !important;
+    border-bottom:solid 1px white;
+}
+.tableContent{
+    text-align: center;
+    border:solid 1px #D9D9D9;color: #808080;
+    vertical-align: middle !important;
+}
+.goodImg{
+    display:inline-block;
+    text-align:center;
+}
+.message{
+    position: absolute;
+    width:100px;
+}
+.submit{
+    width: 145px;
+    height: 50px;
+    background: #111111;
+    color: white;
+    margin-top: 20px;
+}
+.sm_personInfo{
+    font-size: 18px;
+}
+.sm_submit{
+    width: 100px;
+    height: 40px;
+    background: #111111;
+    color: white;
+    font-size: 14px;
+}
+.sm_img{
+    float:right;
+    width: 65px;
+    height: 65px;
+}
+.sm_hengxian{
+    width: 100%;
+    height: 1px;
+    background: #D9D9D9;
+}
+.sm_totalPrice{
+    font-size: 22px;
+    margin: 10px 0px;
+}

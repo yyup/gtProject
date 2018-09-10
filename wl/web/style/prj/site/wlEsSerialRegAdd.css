@@ -1,0 +1,139 @@
+  #serialNumberAddBody{width:100%;}
+
+/*账号信息*/
+#accountInfoContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#serialNumberContent{
+    width:1000px;
+	margin-bottom:10px;
+	min-height:578px;
+}
+
+/*账号信息左边栏结束*/
+ /*修改密码*/
+#serialNumber{
+     margin:0 auto;
+	 margin-top:40px;
+	 width:648px;
+	 display:table;
+}
+
+ #serialNumberForm p{
+	display:table;
+	margin-top:10px;
+   
+ }
+ #serialNumberForm label{
+   height:26px;display:block;float:left;width:90px;
+ } 
+ #personAccount{
+    float:right;
+ }
+ #serialNumberForm input{
+  padding:3px;
+  width:280px;
+ }
+  #serialNumberForm option{
+   height: 22px;
+    line-height: 22px;
+	padding:3px;
+  }
+#buyChannel,#buyModel{
+    width:288px;
+    height:30px;
+	padding:5px;
+}
+#sure,#back{
+   float:left;
+  width:54px;
+  height:24px;
+   margin-top:10px;
+}
+#sure{
+  margin-left:90px;
+
+}
+#back{
+   margin-left:10px;
+   background: url("../images/siteBack.png");
+}
+
+#serialNumberForm a{
+   text-decoration:none;
+}
+
+#read{
+   font-size:17px;
+   font-weight:bold;
+   resize:none;
+}
+
+#provice,#area,#city{
+   font-size:17px;
+    color:#666;
+	width:93px;
+}
+#detailAddress{
+   height:62px;
+   width:290px;
+   resize:none;
+}
+#systemInfoTitle{
+   background: #000 none repeat scroll 0 0;
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+    width: 380px;
+}
+#shut{
+     background:  url("../images/sprite.png") no-repeat scroll -32px -16px;
+    border-color: transparent;
+    float: right;
+    height: 17px;
+    margin-right: 10px;
+    margin-top: 8px;
+    width: 13px;
+}
+#systemInfoSure{
+   background: url("../images/sure.png") no-repeat scroll;
+     width:54px;
+    height:24px;
+	float:right;
+	margin-right:40px;
+	margin-bottom:10px;
+}
+
+ #serialNumberForm label{
+   height:26px;display:block;float:left;width:117px;text-align:right;
+ } 
+ 
+ .k-upload{
+ float:right;
+}
+.upload_title{
+  margin-top:20px;
+}
+
+#picUpload_info {
+    float: right;
+    margin-top: 15px;
+}
+#serialRegImg img {
+width:150px;
+height:115px;
+}
+#uploadContent .k-widget{
+  float:left;
+  width:280px;
+}
+#description{
+    font-size: 100%;
+   min-height: 75px;
+    resize: none;
+    width: 274px;
+    padding:3px;
+    background-color:#fff;
+    	line-height: 15px;   
+}

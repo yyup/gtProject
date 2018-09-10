@@ -1,0 +1,158 @@
+body
+{
+	min-width:840px;
+	}
+	
+.main {
+	height: 100%;
+	width: 100%;
+}
+
+
+.leftTreeBox {
+	 
+	background-position: 50% 50%;  
+	box-sizing: content-box;
+	background-clip: border-box; 
+	width:180px;
+	overflow: auto;	
+}
+#rightTitle {
+    background-color: #e3e3e3;
+    background-image: none, linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 1%, rgba(255, 255, 255, 0.2) 100%);
+    border-left: 1px solid #c5c5c5;
+    border-right: 1px solid #c5c5c5;
+    border-top: 1px solid #c5c5c5;
+    color: #036eb2;
+    font-size: 14px; 
+    height: 30px;
+    line-height: 30px;
+    margin-top: 4px;
+    padding-left: 20px;
+}
+.leftTreeBox {
+	 
+	background-position: 50% 50%;  
+	box-sizing: content-box;
+	background-clip: border-box; 
+	width:180px;
+	overflow: auto;
+	border:1px solid rgb(197, 197, 197);
+	
+}
+.picRight {
+    border-left: 1px dashed #c5c5c5;
+    float: right;
+    height: auto;
+    min-height: 200px;
+    overflow: hidden;
+    padding-left: 5px;
+    width: 310px;
+}
+.picAlert {
+    color: gray;
+    font-size: 16px;
+    height: 50px;
+    line-height: 25px;
+    text-align: center;
+    margin-top: 70px;
+}
+		
+/**寮瑰嚭灞傛牱寮�**/
+.mask{
+	height: 100%;
+	width: 100%;
+	filter:alpha(opacity:0);
+	opacity: 0;
+	background: #000;
+	position: absolute;
+	z-index: 20001;
+	left: 0;
+	top:0;
+	display: -none;
+}
+.popup{
+	background:#fff urlimages/loading.gif) no-repeat center;
+	border: 10px solid #fff;
+	position: absolute;
+	z-index: 20002;
+	overflow:-hidden;
+	width: 320px;
+	height: 240px;
+}
+.popup img{
+	height: auto;
+	width: auto;
+}
+.btn{
+	position: absolute;
+	right: 0;
+	top:0;
+	height: 100%;
+	width: 50%;
+	cursor: pointer;
+}
+.prev{
+	left: 0;
+	background: url(images/lightbox-btn-prev.gif) no-repeat  0 50px;
+}
+.next{
+	background: url(images/lightbox-btn-next.gif) no-repeat  right 50px;
+}
+.popupBottom{
+	position: relative;
+	z-index: 20003;
+	margin-top:8px
+}
+.popupTitle{
+	line-height: 18px;
+	color: #543424;
+	font-family: Arial;
+	font-size: 12px;
+	padding-right: 100px;
+}
+.popupClose{
+	margin-right:15px;
+	height: 22px;
+	width: 66px;
+	background: url(images/lightbox-btn-close.gif) no-repeat;
+	cursor: pointer;
+	z-index: 4;
+	position: absolute;
+	top: 0px;
+	right: 0;
+}
+#addAllocationWindow .main {
+	height: 100%;
+	width: 100%;
+	margin-left: -6px;
+}
+#addAllocationWindow .list_left {
+    padding-top: 13px;
+}
+
+#addAllocationWindow .rightTitle {
+    background-color: #e3e3e3;
+    background-image: none, linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 1%, rgba(255, 255, 255, 0.2) 100%);
+    border-left: 1px solid #c5c5c5;
+    border-right: 1px solid #c5c5c5;
+    border-top: 1px solid #c5c5c5;
+    color: #036eb2;
+    font-size: 14px; 
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
+}
+#addAllocationWindow .leftTreeBox {
+	 
+	background-position: 50% 50%;  
+	box-sizing: content-box;
+	background-clip: border-box; 
+	width:180px;
+	overflow: auto;
+	border:1px solid rgb(197, 197, 197);
+	height: 414px;
+}
+#addAllocationWindow .list_height .k-grid{
+margin-top: 13px; display: table; height: 368px;
+}

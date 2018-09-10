@@ -1,0 +1,51 @@
+#registerBody{width:100%;}
+#registerContainer{
+ margin:20px auto;
+ display:table;
+ width:1000px;
+ background:#B8B8B8;
+ height:578px;
+}
+#registerContent{
+   margin:70px auto;
+   width:515px;
+   
+}
+#registerForm p{
+	display:table;
+	margin-top:10px;
+   
+ }
+ #registerForm label{
+   height:26px;display:block;float:left;width:80px;
+ } 
+ #registerForm input{
+   height: 25px;
+    line-height: 22px;
+  width:285px;
+ }
+
+#register{
+    float: left;
+    height: 22px;
+    margin-left: 80px;
+    margin-top: 10px;
+    width: 49px;  
+}
+#login{
+     border-bottom: 1px solid;
+    
+    float: left;
+    font-size: 13px;
+    line-height: 22px;
+    margin-left: 10px;
+    margin-top: 8px;
+    width: 26px;
+}
+#login a{
+	text-decoration: none;
+	color: #333333;
+}
+#read{
+ font-size:13px;
+}

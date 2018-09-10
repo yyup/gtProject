@@ -1,0 +1,182 @@
+@CHARSET "UTF-8";
+
+
+ul, ol {
+    list-style: none outside none;
+    padding-left: 15px;
+}
+
+#selectPhoto .goEdit {
+    margin-top: 8px;
+    text-align: right;
+}
+#selectPhoto li {
+    height: 33px;
+    margin-top: 2px;
+}
+#selectPhoto li a {
+    border: 1px solid #FFFFFF;
+    display: inline;
+    float: left;
+    height: 32px;
+    margin: 0 11px 0 1px;
+    text-align: center;
+    width: 36px;
+}
+#selectPhoto li a.on, #selectPhoto li a:hover {
+    background-color: #EFF3FC;
+    border: 1px solid #83A5E2;
+}
+
+#map{
+	position: relative;
+}
+
+.bmap-selected
+{
+    background-image: url(default/image/rightSelect.png);
+    width: 51px;
+    height: 28px;
+    position: absolute;
+    z-index: 40;
+    top: 40px;
+    right: 10px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.bmap
+{
+    background-image: url(default/image/rightNormal.png);
+    width: 51px;
+    height: 28px;
+    position: absolute;
+    z-index: 40;
+    top: 40px;
+    right: 10px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    color: #6C6C6C;
+}
+.bimage-selected
+{
+    background-image: url(default/image/leftSelect.png);
+    width: 51px;
+    height: 28px;
+    position: absolute;
+    z-index: 40;
+    top: 40px;
+    right: 61px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.bimage
+{
+    background-image: url(default/image/leftNormal.png);
+    width: 51px;
+    height: 28px;
+    position: absolute;
+    z-index: 40;
+    top: 40px;
+    right: 61px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    color: #6C6C6C;
+}
+
+#maptoggle{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+#global
+{
+    /*background-image: url(images/globe2.png);*/
+    background-image: url(default/image/mapctrls.png);
+    font-family: arial;
+    font-size: 12px;
+    height: 40px;
+    overflow: hidden;
+    position: absolute;
+    text-align: center;
+    width: 40px;
+    z-index: 40;
+    top: 50px;
+    left: 8px;
+}
+
+#global .BMap_button
+{
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+}
+
+.BMap_panN, .BMap_panW, .BMap_panE, .BMap_panS
+{
+    overflow: hidden;
+}
+
+.BMap_panS
+{
+    position: absolute;
+    left: 13px;
+    top: 25px;
+}
+
+.BMap_panE
+{
+    position: absolute;
+    left: 26px;
+    top: 12px;
+}
+
+.BMap_panN
+{
+    position: absolute;
+    left: 13px;
+    top: 0;
+}
+
+.BMap_panW
+{
+    position: absolute;
+    left: 0px;
+    top: 12px;
+}
+
+#logo {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	z-index: 40; 
+}
+
+#image {
+	border: none;
+}
+
+.tail {
+	position: absolute;
+	left: 100px;
+	bottom: -31px;
+	width: 51px;
+	height: 31px;
+	background: url(default/image/iw_tail.png) no-repeat;
+}
+
+.sp_s {
+    overflow: hidden;
+}

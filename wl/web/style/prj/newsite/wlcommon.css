@@ -1,0 +1,50 @@
+#wlBody {
+	margin-top: 68px;
+}
+
+@media(max-width:768px){
+#wlBody {
+	margin-top: 50px;
+}
+}
+
+/* body{font-family:"Microsoft Yahei"!important;} */
+/* body{font-family: "Noto Serif CJK SC", "Noto Serif CJK", "Source Han Serif SC", "Source Han Serif", source-han-serif-sc, serif !important;} */
+/*body{font-family:"Noto Sans CJK SC Light", "Source Han Sans CN Light" !important;}*/
+body {
+	font-family:"Microsoft Yahei"!important;, "Source Han Sans CN Light" !important;
+	padding: 0.1px !important;
+	position:relative;
+	min-height:100%;
+}
+html{height:100%;}
+
+#cnzz_stat_icon_1259283381 {
+	display: none;
+}
+
+@media(max-width:500px){
+	div.k-window {
+	    border-style: solid;
+	    border-width: 1px;
+	    display: inline-block;
+	    padding-top: 2em;
+	    position: absolute;
+	    width: 250px;
+	    z-index: 10001;
+	}
+	.k-edit-form-container .k-edit-buttons{
+	    border-style: solid;
+	    border-width: 1px 0 0;
+	    bottom: -1em;
+	    clear: both;
+	    padding: 0.6em;
+	    position: relative;
+	    text-align: right;
+	    width: 230px;
+	}
+	
+}
+	
+	
+

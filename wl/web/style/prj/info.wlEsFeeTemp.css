@@ -1,0 +1,132 @@
+#editDiv{
+    background-color: white;
+    display: none;
+    height: 100%;
+    left: 0;
+    min-width: 824px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.editBody {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.headTitle {
+	background-color: #e3e3e3;
+	background-image: none,
+		linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 1%,
+		rgba(255, 255, 255, 0.2) 100% );
+	border-left: 1px solid #c5c5c5;
+	border-right: 1px solid #c5c5c5;
+	border-top: 1px solid #c5c5c5;
+	border-bottom: 1px solid #c5c5c5;
+	color: #036eb2;
+	font-size: 14px;
+	height: 30px;
+	line-height: 30px;
+	margin-top: 4px;
+	padding-left: 20px;
+}
+.layThree_row {
+	height: 55px;
+	width: 100%;
+	padding: 0px;
+}
+
+.layThree_row_f {
+	float: left;
+	width: 32.3%;
+	padding-left: 1%;
+}
+.province-list{
+	width:450px;
+	display:inline-block;
+}
+.ecity {
+    float: left;
+    height: 30px;
+    margin-right: 1px;
+    padding-right: 8px;
+    position: relative;
+    width: 80px;
+}
+.gareas {
+    border: 1px solid #fff;
+    display: inline-block;
+    height: 17px;
+    margin-right: 3px;
+    padding: 4px 4px 1px;
+    position: relative;
+    white-space: nowrap;
+}
+.check_num {
+    color: #f60;
+    font-size: 12px;
+    letter-spacing: -1px;
+}
+
+.showCityPop .gareas {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fffec6;
+    border-color: #f7e4a5 #f7e4a5 #fffec6;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    z-index: 56000;
+}
+
+
+.citys {
+    background-color: #fffec6;
+    border: 1px solid #f7e4a5;
+    display: none;
+    float: right;
+    left: 0;
+    position: absolute;
+    top: 23px;
+    width: 214px;
+    z-index: 20000;
+}
+
+
+.areas {
+    display: inline-block;
+    margin-right: 3px;
+    padding: 4px 0 1px 4px;
+}
+
+.showCityPop .citys {
+    display: block;
+    z-index: 55900;
+}
+
+ .showCityPop .gareas {
+    background-color: #fffec6;
+    border-color: #f7e4a5 #f7e4a5 #fffec6;
+}
+
+.trigger {
+    cursor: pointer;
+    height: 8px;
+    padding: 2px;
+    width: 8px;
+}
+#leftSell,#middleControl,#rightSell{
+	float:left;
+}
+#leftSell,#rightSell{width:43%;}
+#middleControl{width:14%;}
+.selectSell{color:#00D8FE;}
+.hasSell{color:blue;}
+.hasSell,.selectSell{
+	 display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 6px;
+}

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+</head>
+<body> 
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+		<button class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+			 label="lgc:add" dataBind="visible:ADMINSmc"></button> 
+		 <button class="joy-button joy-smc" icon="close" onClick="deleteData"
+			  label="lgc:delete" dataBind="visible:ADMINSmc"></button> 
+	</div>  
+	<!-- TreeGrid列表 -->  
+		 <table id="treeGrid"  class="joy-treegrid"  pkField="id"  treeField="name"  rowHeightFit="true">
+		  <thead>
+			 <tr>
+			    <th field="id" templateType="checkbox" ></th>
+			    <th field="name" colWidth="100" label="lg:name" ></th>
+			 	<th field="value" colWidth="100"  label="lg:value" > </th>
+			 	<th field="target"  colWidth="30" align="center"   label="lg:target" > </th> 
+			 	<th field="none"  templateType="button" colWidth="40"  label="lgc:control"  >
+			 		<button icon="pencil" onClick="openEditWindow('#:id#')"
+						smcBind="ADMINSmc" label="lgc:edit"></button>
+					<button icon="insert-m" onClick="openDetailWindow('#:id#')"
+						  smcBind="READSmc" label="lgc:detail"></button> 
+				</th> 
+			 </tr>
+			 </thead>
+		 </table>  
+	 
+	<!-- 编辑框 -->
+	<div id="editWindow" class="joy-window double" center="true"
+		title="lg:windowTitle">
+		<form id="dataForm" class="joy-form">
+			<input type="hidden" databind="value:id">
+			<table style="padding:0;margin:0;" cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody  style="padding:0;margin:0;" >
+					<tr>
+						<td align="left"><input class="joy-textbox"  required="true"  label="lg:name"   
+							databind="value:name">
+						</td> 
+						<td align="left" > 
+							<input id="parentName" class="joy-textbox" required="true" onclick="openParentSelectWindow()" onfocus="openParentSelectWindow()" style=" cursor:pointer;" label="lg:parent" databind="value:parentName" />
+							<input type="hidden" databind="value:parentId"> 
+						</td>  
+					</tr> 
+					<tr>
+						<td align="left"><input class="joy-textbox"  
+							label="lg:value" databind="value:value" ></td>
+						<td align="left"><input class="joy-textbox"  required="true"   
+							label="lg:target" databind="value:target" ></td> 
+					</tr> 
+					<tr>
+						<td align="left"><input class="joy-numerictextbox" dataType="+int"  min="0" max="9999"
+							label="lg:sequ" databind="value:sequ" ></td>
+						<td align="left"><input class="joy-textbox"  
+							label="lg:memo" databind="value:memo" ></td> 
+						
+					</tr>
+					<tr>
+						<td align="left"> 
+						<input id="securityName" class="joy-textbox" onfocus="openSecuritySelectWindow()" onclick="openSecuritySelectWindow()" style=" cursor:pointer;" label="lg:security" databind="value:securityName" />
+							<input type="hidden" databind="value:securityId"/> 
+						</td> 
+						<td align="left"><input class="joy-textbox"   
+							label="lg:explains" databind="value:explains" ></td> 
+					</tr> 
+				</tbody>
+			</table>
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	
+	 
+	 
+	<!-- 父级选择框 -->
+    <div id="parentselectWindow" class="joy-window" width="320px" center="true"
+		  title="lg:windowTitle"> 
+   		
+		 <div id="smallTreeView"   style="width:300px;height:300px;"  ></div> 
+		 
+		 <table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+	</div>
+	<script id="small_tree" type="text/joy-ui-template">
+			 <input type="hidden" value="#=item.main.id#" ><span class="itemName" onclick="treeviewclick('#=item.main.id#','#=item.main.name#')" >#=item.main.name#</span>
+	</script>
+	<script id="small_tree2" type="text/joy-ui-template">
+			 <input type="hidden" value="#=item.main.id#" ><span class="itemName" >#=item.main.name#</span>
+	</script>
+	<!-- 权限选择框 -->
+    <div id="securityselectWindow" class="joy-window" width="320px" center="true"
+		  title="lg:windowTitle">  
+		 <div id="securityTreeView"   style="width:300px;height:300px;"  ></div> 
+		 
+		 <table width="100%" border="0" align="center" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td height="40" align="right" valign="bottom">
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+	</div>
+	
+
+
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:name"></td>
+					<td width="230" class="joy-label" databind="value:name"></td>
+					<td width="100" class="joy-lang head" label="lg:parent"></td>
+					<td width="230" class="joy-label" databind="value:parentName"></td>
+				</tr>  
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:target"></td>
+					<td width="230" class="joy-label" databind="value:target"></td> 
+					<td width="100" class="joy-lang head" label="lg:sequ"></td>
+					<td width="230" class="joy-label" databind="value:sequ"></td>
+				</tr>   
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:value"></td>
+					<td width="230" class="joy-label" databind="value:value"></td>
+					<td width="100" class="joy-lang head" label="lg:memo"></td>
+					<td width="230" class="joy-label" databind="value:memo"></td>
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:security"></td>
+					<td width="230" class="joy-label" databind="value:securityName"></td>
+					<td width="100" class="joy-lang head" label="lg:explains"></td>
+					<td width="230" class="joy-label" databind="value:explains"></td>
+				</tr>  
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="40" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script>
+	var dataForm, searchForm, editWindow,treegrid,smallTreeView,securityTreeView, detailWindow,parentselectWindow,securityselectWindow,initResult, lgc, lg; 
+
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang(); 
+		dataForm = $("#dataForm").getJoyForm(); 
+		editWindow = $("#editWindow").getJoyWindow();
+		detailWindow = $("#detailWindow").getJoyWindow(); 
+		parentselectWindow = $("#parentselectWindow").getJoyWindow();
+		securityselectWindow = $("#securityselectWindow").getJoyWindow();
+		 
+		treegrid = $("#treeGrid").getJoyTreegrid();
+		//数据初始化
+		joy.getJSON("wlCmMenuAction.do?action=init",{
+			enumTypes:['EFFECT']
+		}, function(resultObject) {
+			 initResult = resultObject; 
+	  		 var viewModel = joy.observable(initResult);    
+	         joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+	         treeviewBind(1); 
+	         securityTreeInit();
+	         
+		}); 
+		
+		
+	})
+	
+	 
+	
+	//treeview数据初始化   传入状态
+	function treeviewBind(state){
+		joy.getJSON("wlCmMenuAction.do?action=getTree&state="+state, function(resultObject) { 
+		
+			treegrid.load(initResult,resultObject.items);
+			
+				 smallTreeView =  $("#smallTreeView").joyTreeView({
+		             dataSource:[resultObject],
+		             templateID:"small_tree" 
+		         }); 
+				  
+		});
+	}
+	//菜单点击事件
+	function treeviewclick(id,name){ 
+		var json = dataForm.getDataModel().toJSON();
+    	json.parentId = id;
+    	json.parentName = name;
+    	dataForm.load(json);
+    	parentselectWindow.close();
+	}
+	
+	//权限树初始化
+	function securityTreeInit(){
+		joy.getJSON("wlCmSecurityAction.do?action=getTree&state=1", function(resultObject) {   
+			securityTreeView=  $("#securityTreeView").joyTreeView({
+	            dataSource:[resultObject],
+	            templateID:"small_tree2",
+	            change:function(e){
+	           	var id = this.select().find("input").eq(0).val();
+	           	var name =  this.select().find(".itemName").eq(0).html();
+	           	var json = dataForm.getDataModel().toJSON();
+	           	json.securityId = id;
+	           	json.securityName = name;
+	           	dataForm.load(json);
+	           	securityselectWindow.close();
+	            }
+	        });  
+		});
+		
+		
+	}
+	
+	
+	
+	//treeview数据初始化   传入状态
+	function treeviewReflash(state){ 
+		joy.getJSON("wlCmMenuAction.do?action=getTree&state="+state, function(resultObject) {  
+			treegrid.load(initResult,resultObject.items);
+			$("#smallTreeView").getJoyTreeView().setDataSource([resultObject]);  
+		});
+	}
+	//smallTree刷新数据
+	function smallTreeReflash(id){
+		if(!id){
+			joy.getJSON("wlCmMenuAction.do?action=getTree&state=1", function(resultObject) {   
+				$("#smallTreeView").getJoyTreeView().setDataSource([resultObject]);  
+			});
+		}else{
+			joy.getJSON("wlCmMenuAction.do?action=getParentTree&state=1&id="+id, function(resultObject) {   
+				$("#smallTreeView").getJoyTreeView().setDataSource([resultObject]);
+			});
+		}
+	}
+
+	/**
+	 *打开父节点选择窗体
+	 */
+	function openParentSelectWindow(){
+		parentselectWindow.open(); 
+		parentselectWindow.center();
+	}
+	
+	/**
+	 * 打开权限选择窗体
+	 */
+	function openSecuritySelectWindow(){
+		securityselectWindow.open();
+		securityselectWindow.center();
+	}
+	
+	
+	/**
+	 * 打开新增窗体
+	 */
+	function openAddWindow() { 
+		smallTreeReflash();
+		dataForm.load(); 
+
+		editWindow.title(lgc.add);
+		editWindow.open();
+		editWindow.center();
+	}
+
+	/**
+	 * 打开编辑窗体
+	 */
+	function openEditWindow(id) {
+		joy.getJSON("wlCmMenuAction.do?action=getData", {
+			id : id
+		}, function(resultObject) {
+			dataForm.load(resultObject);
+			smallTreeReflash(id); 
+			editWindow.title(lgc.edit);
+			editWindow.open();
+			editWindow.center();
+		});
+	}
+
+	/**
+	 * 保存数据
+	 */
+	function saveData(buttonObject) {
+		//设置按钮不可用，防止重复提交
+		buttonObject.enable(false);
+		if (!dataForm.validate()) {
+			joy.showMessage(lgc.validateFaile, "warning");
+			buttonObject.enable(true);
+			return;
+		}
+		dataForm.submit("wlCmMenuAction.do?action=saveData", buttonObject,
+				function(resultObject) { 
+					treeviewReflash(1);
+					editWindow.close();
+					joy.showMessage(lgc.opSuccess, "success");
+				});
+	}
+
+	/**
+	 * 打开详细窗体
+	 */
+	function openDetailWindow(id) {
+
+		joy.getJSON("wlCmMenuAction.do?action=getData", {
+			id : id
+		}, function(resultObject) {
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#detailTable"), viewModel);
+			detailWindow.open();
+			detailWindow.center();
+		});
+	}
+
+	/**
+	 * 删除数据
+	 */
+	function deleteData() {  
+		var ids = treegrid.getChecked(); 
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("wlCmMenuAction.do?action=updateState", {
+						ids:ids,
+						state:0
+					}, function(resultObject) { 
+						treeviewReflash(1);
+						joy.showMessage(lgc.opSuccess, "success");
+					});
+				}
+			});
+		}
+	}
+
+ 
+</script>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="Generator" content="waterrower Team">
+		<meta name="Author" content="waterrowerTeam">
+		<meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+		<meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+		<script src="../../js/newsite/jquery.min.js"></script>
+		<script src="../../js/joy.loader.js" modules="dataview"></script>
+		<script src="../../js/newsite/bootstrap.js"></script>
+		<script src="../../js/newsite/getSystemPlatform.js"></script>
+		<script src="../../js/newsite/wlcommon.js"></script>
+		<link rel="stylesheet" href="../../style/prj/newsite/header.css" />
+		<link rel="stylesheet" href="../../style/prj/newsite/footer.css" />
+		<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css" />
+		<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css" />
+		<link rel="stylesheet" href="../../style/prj/newsite/customerServices.css" />
+
+	</head>
+
+	<body>
+		<!--头部开始-->
+	 	<div id="top">
+	 		<div id="commonpath" style="display: none;" commonpath=""></div>
+	 	</div>
+		<!--头部结束-->
+		<!-- 内容 -->
+		<div id="wlBody">
+			<!--经销商服务图片开始-->
+			<section>
+				<a href="">
+					<div class=" text-center hidden-xs hidden-sm hidden-md  content_background">
+						<div class="col-md-4 image-block">
+							<h2>欢迎使用WaterRower客户服务中心</h2>
+							<p>请问您需要什么帮助？</p>
+						</div>
+						<img class="img-responsive " src="../../style/prj/images/small_customer_survices.png" alt="Responsive image">
+					</div>
+				</a>
+			</section>
+
+			<!--经销商服务图片结束-->
+			<div class="container">
+				<section id="tabContentContainerPre">
+					<!-- 小屏内容1 -->
+					<div class="row hidden-lg">
+						<div class="col-xs-12">
+							<a href="">
+								<img style="width:100%" src="../../style/prj/images/small_customer_survices.png" alt="">
+							</a>
+							<h2>欢迎使用WaterRower客户服务中心</h2>
+						</div>
+						<div class="col-xs-12">
+							<p class="mobile-text">请问您需要什么帮助？</p>
+						</div>
+					</div>
+				</section>
+				<!--Tab开始-->
+				<!-- div id="divTab" class="clearfix text-center">
+					<div class="tabSelect" id="divTab1"></div>
+					<div class="divTabTitle" id="divTab2"></div>
+					<div class="divTabTitle" id="divTab3"></div>
+				</div> -->
+				<!--Tab结束-->
+				<!--用户手册开始-->
+				<!-- <div id="divContent1" class="row">
+
+				</div> -->
+				<!--用户手册结束-->
+				<!--售后保养开始-->
+				<!-- <div id="divContent2" class="row" style="display: none;">
+
+				</div> -->
+
+				<!--售后保养结束-->
+				<!--下载中心开始-->
+				<!-- <div id="divConten3" class="row" style="display: none;"></div>
+				下载中心结束
+			</div> -->
+
+		</div>
+		</div>
+		<!-- 内容结束 -->
+		<!--尾部开始-->
+		<div id="footerPart">
+			
+		</div>
+		<!--尾部结束-->
+		<script >
+ 	   var online = new Array(); 
+	    </script> 
+	    <script type= "text/javascript" src="http://webpresence.qq.com/getonline?Type=1&2799408839:1910446750:3430180399:" ></script> 
+		<script>
+			var lg,lgc;
+			//进行初始化出操作
+			$(function() {
+				initTop();
+				initClick();
+				initBottom();
+				lgc=joy.getCommonLang();
+				lg=joy.getLang();
+				//展现标签页1的内容、
+				initTabContent();
+			});
+			//http://waterrower.com.cn/wl/wl/cm/wlCmColumnAction.dox?action=getTree&isEnableFlag=1&isLastFlag=&rootId=0104&_=1523926894577
+			//加载标签页的内容
+			function  initTabContent(){
+				joy.getJSON("../../wl/cm/wlCmColumnAction.dox?action=getCenterServiceContent", {
+					isEnableFlag:"1",
+					isLastFlag:"",
+					rootId:"0104"
+				}, function(result) {
+					var tabTxt = '<div id="divTab" class="clearfix text-center">';
+					var tabContainer = '';
+					for(var i =  0 ; i < result.titleList.length; i++){
+						var txt = "";
+						if( result.titleList[i].colTypeEk ==="ARTICLE"){//如果是文章，直接弹开界面
+							txt = '<p columnId='+ result.titleList[i].columnId +'>'+result.titleList[i].columnName + '</p>';
+						}else if( result.titleList[i].colTypeEk !=="SINGLE"){//剩余的如果不是单篇，以列表形式弹开
+							txt ='<p columnId=' + result.titleList[i].columnId + '  parentColumnId='+result.titleList[i].columnId+'>' + result.titleList[i].columnName + '</p>';
+						}
+						if(i+1 == 1){
+							tabContainer += '<div id="'+"divContent"+(i+1)+'" class="row">';
+							tabTxt +=
+								'<div class="tabSelect" onclick="showAndHide($(this))" id="'+"divTab"+(i+1)+'">';
+								
+						}else{
+							tabContainer += '<div  id="'+"divContent"+(i+1)+'" class="row" style="display: none;">';
+							tabTxt +='<div class="divTabTitle" onclick="showAndHide($(this))" id="'+"divTab"+(i+1)+'">';
+						}
+						tabTxt += txt+'</div>';
+						tabContainer += '</div>';
+					}
+					tabTxt+='</div>';
+			
+					$("#tabContentContainerPre").after(tabTxt);
+					$("#divTab").after(tabContainer);
+					
+					
+					for(var i =  0 ; i < result.titleList.length; i++){
+						var obj = result.titleList[i].childColumnList;
+						var z = (i+1);
+						if(z==1){//售后保养的内容
+							// 获取树结构  因为下载中心是跳转页面的
+							 getColumnTree(result.titleList[i].columnId,z);//获取树结构信息
+						}
+						for(var j = 0 ; j < obj.length; j++){//加载其中的内容
+							if(result.titleList[i].colTypeEk ==="LIST"){
+								var contentTxt = "";
+								if(z==2){
+									contentTxt += '<div class="col-sm-6 col-md-4">' +
+						             '<div class="thumbnail maintain" style="border: 0px;" onclick="toArctical(\''+obj[j]["infoId"]+'\')">'+
+						                 '<div class="divImg text-center"><img class="img-responsive" style="width:320px;height:169px;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id=' + obj[j]["path"] + ' "/></div>'+
+						                     '<div >'+
+						                         '<h4  >'+obj[j]["title"]+'</h4>' +
+						                    '</div>'+
+						                  '</div>'+
+						             '</div>'+
+								 '</div>';
+								}
+								$("#divContent"+z).append(contentTxt);
+							}
+						}
+						//$("#divContent"+z+" divImg img").css({"height":$("#divContent"+z+" divImg img:first").width()*0.54+"px"});
+					}
+				});
+			}
+			//获取树结构信息
+			function getColumnTree(columnId,z){
+				joy.getJSON("../../wl/cm/wlCmColumnAction.dox?action=getTree",{
+					isEnableFlag:"1",
+					isLastFlag:"",
+					rootId:columnId
+				},function(resultObject){
+					var parentColumn = resultObject["items"];
+					for(var  i= 0 ; i < parentColumn.length ; i++){
+						var obj = parentColumn[i]["main"];
+						var childrenItem = parentColumn[i]["items"];
+						var contentTxt = 
+							'<div class="col-sm-6 col-md-3">' +
+					             '<div class="thumbnail " style="border: 0px;">'+
+					                 '<div class="divImg text-center">'+
+					      /*        '<img class="img-responsive" style="width:100%;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id=' + obj["path"] + '"/></div>'+ */
+					                     '<div class="caption">'+
+					                         '<h4 style="font-size: 16px;margin-bottom:10px;font-weight:bold">'+obj["columnName"]+'</h4>' ;
+					                         if(childrenItem){//存在子节点才进行遍历
+					                        	 for(var j = 0; j < childrenItem.length; j++){//遍历子节点
+						                         		if(childrenItem[j]["main"]["colTypeEk"] == "DOWNLOAD"){
+						                         	     	contentTxt += '<span  style="font-size: 15px;display:block;padding-top:11px;" onclick="toDescription(\''+childrenItem[j].main.path+'\')">'+childrenItem[j]["main"]["columnName"]+'</span>';
+						                         		}else{//不是下载类型
+						                         			contentTxt += '<div style="font-size: 15px;display:block;padding-top:11px;">'+childrenItem[j]["main"]["columnName"]+'</div>' ;
+						                         		}
+						                         	} 
+					                         }
+		                       	contentTxt+='</div>'+
+					                  '</div>'+
+					             '</div>'+
+							 '</div>';
+                   		$("#divContent"+z).append(contentTxt);
+					}
+					
+					return contentTxt;
+				});
+			}
+			function toDescription(id){
+				joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=downloadVideoFile",{id:id},function(result){
+			     	result="../../"+result;
+			     	window.location = result;
+			    });	
+				
+			}
+
+			//添加事件
+			function showAndHide(obj){
+					$(".tabSelect").removeClass("tabSelect").addClass("divTabTitle");
+					obj.removeClass("divTabTitle").addClass("tabSelect");
+					id = obj.attr("id");
+					if(id == "divTab1") {
+						$("#divContent1").show();
+						$("#divContent2").hide();
+						$("#divContent3").hide();
+					}
+					if(id == "divTab2") {
+						$("#divContent2").show();
+						$("#divContent1").hide();
+						$("#divContent3").hide();
+					}
+					if(id == "divTab3") {
+						var columnId = obj.find('p').attr("columnid");
+						window.location = "downloadCenter.html?columnId="+columnId;
+						$("#divContent2").hide();
+						$("#divContent1").hide();
+						//$("#divContent3").show();
+					}
+		};
+		//调到Arctical 页面
+		function toArctical(infoId){
+			window.location='article.html?infoId='+infoId;
+		}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+.titleMargin{
+    margin-top: 100px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.contentTextColor{
+    color: #898989;
+}
+ .noContent{
+   height: 145px;
+    margin: 180px auto 0;
+    width: 304px;
+    background:url('../images/noContent.png')
+ }

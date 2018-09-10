@@ -1,0 +1,41 @@
+.title{
+    font-size: 24px;
+}
+.tableTitle{
+    background: #F0F0F0;
+    text-align: center;
+    color: #808080;
+    border-top: solid 1px white  !important;
+    border-bottom:solid 1px white;
+}
+.tableLeft{
+    border-right: solid 1px white;
+    border-left: solid 1px #F0F0F0;
+}
+.tableContent{
+    text-align: center;
+    border:solid 1px #D9D9D9;color: #808080;
+    vertical-align: middle !important;
+}
+.goodImg{
+    display:inline-block;
+    text-align:center;
+}
+.choosePayWay{
+    text-align: center;
+    font-size: 20px;
+    margin-top: 80px;
+}
+.payWaiLine{
+    background: #D9D9D9;
+    height: 1px;
+    width: 50%;
+}
+.bottomButton{
+    width: 160px;
+    height: 40px;
+    font-size: 18px;
+    background: #111111;
+    color: white;
+    margin-top: 20px;
+}

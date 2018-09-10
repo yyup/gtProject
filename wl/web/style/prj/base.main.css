@@ -1,0 +1,368 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td
+	{
+	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+	border: 0 none; 
+	margin: 0;
+	outline: 0 none;
+	padding: 0;
+	vertical-align: baseline;
+}
+
+ol,ul {
+	list-style: none outside none;
+}
+
+blockquote,q {
+	quotes: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+	content: none;
+}
+
+:focus {
+	outline: 0 none;
+}
+
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+html,body {
+	overflow: hidden;
+}
+
+.top {
+	height: 35px;
+	width: 100%;
+	background-color: #036EB2;
+	min-width: 700px;
+	_width: 700px;
+}
+
+.top_left {
+	height: 35px;
+	width: 500px;
+	float: left;
+}
+
+.top_left .span1 {
+	line-height: 35px;
+	color: #FFFFFF;
+	font-size: 18px;
+	font-weight: 600;
+	float: left;
+	font-family: "微软雅黑";
+	letter-spacing: 2px;
+}
+
+.top_left .span2 {
+	line-height: 37px;
+	color: #FFFFFF;
+	font-size: 17px;
+	font-family: "微软雅黑";
+	float: left;
+	letter-spacing: 2px;
+}
+
+.top_left .top_logo {
+	background-image: url("images/top_logo.png");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	float: left;
+	height: 35px;
+	width: 300px;
+}
+
+.top_left .top_settings { 
+	float: left;
+	background-image: url("images/top_settings.png"); 
+	background-repeat: no-repeat;  
+    background-position: 67% 50%; 
+    border-radius: 6px;
+    cursor: pointer; 
+    height: 27px;
+    margin-left: 4px;
+    margin-top: 4px;
+    padding: 0;
+    width: 32px;
+} 
+
+.top_right {
+	width: 300px;
+	height: 35px;
+	float: right;
+	margin-right: 6px;
+}
+
+.setting {
+	width: 36px;
+	height: 25px;
+	background-image: url("images/settings.png");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	margin-top: 5px;
+	margin-left: 5px;
+	float: right;
+	border-radius: 6px;
+}
+
+.top_right_line {
+	width: 4px;
+	height: 35px;
+	background-image: url("images/top_right_line.png");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	float: right;
+}
+
+.top_right span {
+	color: #FFFFFF;
+	font-size: 12px;
+	line-height: 35px;
+	float: right;
+	padding-left: 13px;
+	padding-right: 13px;
+	cursor: pointer;
+}
+
+.top_right_volume {
+	background-image: url("images/speaker_on.png");
+    background-position: 50% 50%;
+    background-size: 20px auto;
+    background-repeat: no-repeat;
+    border-radius: 6px;
+    cursor: pointer;
+    float: right;
+    height: 25px;
+    margin-left: 5px;
+    margin-top: 5px;
+    width: 36px;
+}
+
+.top_right_down {
+	background-image: url("images/top_left_down.png");
+	background-position: 50% 54%;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	float: right;
+	height: 25px;
+    margin-top: 5px; 
+    width: 25px;
+	border-radius: 6px;
+}
+
+.top_right_user {
+	float: right;
+	line-height: 35px;
+	font-size: 12px;
+	color: #96D0E9; 
+}
+
+.top_right_company {
+	float: right;
+	line-height: 35px;
+	font-size: 12px;
+	color: #FFFFFF;
+	margin-right: 4px;
+}
+
+/*以上 top部分 */
+.left_menu {
+	position: absolute;
+	width: 183px;
+	top: 35px;
+	background-color: #DEE3EB;
+	overflow: hidden;
+}
+
+.menu_map {
+	height: 29px;
+	position: absolute;
+	top: 35px;
+	left: 183px;
+	border-bottom: 1px solid #EBECEE;
+	background-color: #FBFAF9;
+}
+
+.menu_map_left {
+	background-image: url("images/menu_map.png");
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 39px;
+}
+
+.menu_map_body {
+	height: 29px;
+	line-height: 29px;
+	font-size: 12px;
+	color: #999B9F;
+	float: left;
+	margin-left: 5px;
+}
+
+.menu_map_index {
+	background-image: url("images/menu_map_index.png");
+	background-position: 0 50%;
+	background-repeat: no-repeat;
+	float: left;
+	height: 29px;
+	width: 20px;
+	margin-left: 10px;
+}
+
+.left_tool_bar {
+	height: 1px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	background-color: #CFD4DD;
+}
+
+.frameurl {
+	display: none;
+}
+/* 头部浮动样式 */  
+.nodetext {
+    font-size: 14px;
+}
+#adminPop{
+	left: 431px; 
+} 
+#ownerPop{
+	right: 100px; 
+}
+#commandPop{
+	right: 6px; 
+}
+
+.toppop{
+	position:absolute;
+	z-index:999;
+	width:109px; 
+	display:none;
+	padding-top:35px;
+}
+.toppop li{
+	color:#FFFFFF;
+	font-family: 微软雅黑;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+	cursor:pointer;
+	margin-left: 7px;
+	width:95px;
+}
+.toppop_head_left{
+	width:109px; 
+	background-image:url('images/pop_top_left.png');
+	background-repeat:no-repeat; 
+	background-position: 0 35px;
+}
+.toppop_head_right{
+	width:109px; 
+	background-image:url('images/pop_top_right.png');
+	background-repeat:no-repeat; 
+	background-position: 0 35px;
+}
+.toppop_body{ 
+	margin-top:11px;
+	background-color:#036EB2;
+
+}
+.toppop_body li{
+	font-size:16px;
+}
+.toppop_bottom{
+	width:109px;
+	height:6px;
+	background-image:url('images/pop_bottom.png');
+	background-repeat:no-repeat; 
+}
+
+/* 菜单图标样式 */  
+.sys_parent{
+	line-height:35px;
+	height:35px;
+	background-color:#dee3eb;
+	color:#2E2E2E;
+}
+.sys_child{
+	font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: -31px; 
+    background-color:#F6F6F5;
+    padding-left:25px;
+    cursor:pointer;
+}  
+.sys_menu{
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 35px;
+	float: left;
+	padding-right: 10px;
+}
+.k-treeview .k-in{
+	padding:0;
+	margin:0;
+	width:100%;
+	border-style: solid;
+    border-width: 0px;
+}
+.sys_menu_child{
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	float: left;
+}
+.sys_index {
+	background-image: url('images/home.png'); 
+}
+
+.sys_common {
+	background-image: url('images/common.png'); 
+}
+
+.sys_data {
+	background-image: url('images/data.png'); 
+}
+.main_toggleTree
+{
+	width:20px;
+	height:20px;
+	position:absolute;
+	left:183px;
+	top:250px;
+	cursor:pointer;
+	z-index: 999;
+	
+}
+.main_toggleTreeImg
+{
+	background:url('images/toggle_right.png') no-repeat center top;
+	width:15px;
+	height:15px;
+	margin-top:2px;
+	margin-left:2px;
+}
+.corpApplyNum{
+	float:right;
+	color:White;
+	margin-top:-5px;
+	font-size:11px;	
+}

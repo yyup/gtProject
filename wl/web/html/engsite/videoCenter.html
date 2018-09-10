@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="Generator" content="waterrower Team">
+<meta name="Author" content="waterrowerTeam">
+<meta name="Keywords"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<meta name="Description"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<script src="../../js/newsite/jquery.min.js"></script>
+<script src="../../js/newsite/bootstrap.js"></script>
+<script src="../../js/newsite/getSystemPlatform.js"></script>
+<script src="../../js/engsite/wlcommon.js"></script>
+<script src="../../js/newsite/cnzz.js"></script>
+<link rel="stylesheet" href="../../style/prj/engsite/header.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/footer.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/bootstrap.min.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/wlcommon.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/vedioCenter.css" />
+<link rel="stylesheet" href="../../style/prj/engsite/pagination.css"/>
+<script src="../../js/joy.loader.js" modules=""></script>
+<script src="../../js/engsite/jquery.pagination.js"></script>
+</head>
+
+<body>
+<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+	<!-- 内容 -->
+	<div id="wlBody" class="contentMargin">
+		<div class="container-fluid"
+			style="padding-left: 0px; padding-right: 0px; margin-top: 100px;">
+			<div class="divImg row"
+				style="margin-right: 0px; margin-left: 0px; position: relative;">
+				<div class="col-lg-2 col-md-2  text-center"></div>
+				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 text-center">
+					<div class="divTab">
+						<div id="agencyTabContain" class="clearfix text-center">
+							<div class="row">
+								<div class="col-md-6 col-sm-6 col-xs-6 text-center"
+									style="padding-right: 0px;">
+									<div id="detailTab" style="cursor: pointer;"
+										class="bold activeTab">BRAND</div>
+								</div>
+								<div class="col-md-6 col-sm-6 col-xs-6  text-center"
+									style="padding-left: 0px;">
+									<div id="specTab" style="cursor: pointer;" class="bold">TRAINING</div>
+								</div>
+							</div>
+						</div>
+						<div id="detailTabContent">
+							<!--标题-->
+							<div id="divLeft" class="col-md-4 text-left"></div>
+							<!--标题-->
+							<!--视频-->
+							<div id="divRight" class="col-md-8"></div>
+							<!--视频-->
+						</div>
+
+					</div>
+					<!--分页-->
+					<div class="row" style="margin-bottom: 50px;">
+						<div id="pagination" class="pagination"><!-- 这里显示分页 --></div>
+					</div>
+				</div>
+				<div class="col-lg-2 col-md-2   text-center"></div>
+			</div>
+		</div>
+		<!-- 内容结束 -->
+		<!--尾部开始-->
+		<div id="footerPart"></div>
+		<!--尾部结束-->
+		<script>
+			$().ready(function() {
+				initTop();
+				initClick();
+				initBottom();
+				initLeftList("0113");//品牌视频
+				$(window).resize(function() {
+					changeStyle();//改变分页的样式
+				});
+			});
+			var initPageIndex = 0; //页面索引初始值   
+			//子第一项的Id  
+			var currentColumnId;
+			var pageSize = 4; //每页显示条数初始化，修改显示条数，修改这里即可 
+			//初始化左边列表 
+			function initLeftList(columnId) {
+				$("#divLeft").empty();
+				joy
+						.getJSON(
+								"../../wl/cm/wlCmColumnEnAction.dox?action=getChildData",
+								{
+									columnId : columnId
+								},
+								function(result) {
+									var txt = "";
+									for ( var i = 0; i < result.length; i++) {
+										var ob = result[i];
+
+										if (i == 0) {
+											currentColumnId = ob.columnId;
+											txt += '<div style="cursor:pointer;margin-bottom: 10px;" onclick="showContent($(this),\''
+													+ ob.columnId
+													+ '\')">&gt;'
+													+ ob.columnName + '</div>';
+										} else {
+											txt += '<div  style="color: #ccc;cursor:pointer;margin-bottom: 10px;" onclick="showContent($(this),\''
+													+ ob.columnId
+													+ '\')">&gt;'
+													+ ob.columnName + '</div>';
+										}
+									}
+
+									$("#divLeft").append(txt);
+									initRightContent(currentColumnId, 0);
+								});
+			}
+
+			//点击显示具体内容事件 
+			function showContent(obj, columnId) {
+				$("#divLeft div").attr("style", "color:#ccc;cursor:pointer;margin-bottom: 10px;");
+				obj.attr("style", "cursor:pointer;margin-bottom: 10px;");
+				currentColumnId = columnId;//更新当前栏目id
+				initRightContent(columnId, 0);
+			}
+
+			//获取右边视频列表
+			function initRightContent(columnId, pageIndex) {
+				joy
+						.getJSON(
+								"../../wl/cm/wlCmInfoEnAction.dox?action=findDataList",
+								{
+									pageSize : pageSize,
+									currPage : parseInt(pageIndex) + 1,
+									columnId : columnId,
+									issueStateEk : "2"
+								},
+								function(resultObject) {
+									$("#divRight").empty();
+									if (resultObject != null
+											&& resultObject.items.length > 0) {
+										/* if(resultObject.items.length!==0){
+											$("#Pagination").html("");
+										 pagination(resultObject.totalCount,pageIndex);
+										} */
+										pagination(resultObject.totalCount,
+												pageIndex + 1); //页数
+										/* $("[name='pageSelect']").val(
+												initPageIndex); */
+										$("#pagination").show();
+										for ( var i = 0; i < resultObject.items.length; i++) {
+											ob = resultObject.items[i];
+											if(i%2==0){
+												txt = '<div class="row">';
+											}
+											txt += '<div class="col-md-6 col-sm-6 col-xs-12"><div class="thumbnail">';
+											txt += '<a href="videoPlay.html?infoId='
+													+ ob.infoId + '"><div>';
+											if (ob.path !== "") {
+												txt += '<img src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='
+														+ ob.path
+														+ '" class="img-responsive"/>';
+											} else {
+												txt += '<img src="../../style/prj/images/bgVideo.jpg" class="img-responsive"/>';
+											}
+
+											txt += '<span class="s-play"></span></div><div class="caption text-left">';
+											txt += '<div>'
+													+ ob.title
+													+ '</div><div>'
+													+ ob.issueTime
+															.substr(0, 10)
+													+ '</div></div></a></div></div>';
+
+											if (i % 2 == 1 || i == resultObject.items.length - 1) {
+												txt +='</div>';
+												$("#divRight").append(txt);
+											}
+										}
+										//init();
+									} else {
+										//txt = '<div style="padding:100px 0px;">暂无视频</div>';
+										txt = '<div class="noContent"></div>';
+										$("#divRight").append(txt);
+										$("#pagination").hide();
+										$("#pagination").next().hide();
+									}
+
+								});
+			}
+
+			//分页展现
+			function pagination(totalCount, pageIndex) {
+				$("#pagination").html("");
+				var pageCount = 1;
+				 if(totalCount > 0){
+					pageCount = Math.ceil(totalCount/pageSize);
+				 }
+				var initPagination = function() {
+					// 创建分页
+					$("#pagination").pagination(pageCount, {
+						num_edge_entries: 1, //边缘页数
+						num_display_entries: 4, //主体页数
+						callback: pageselectCallback,
+						items_per_page:1, //每页显示1项
+						prev_text:"&laquo;",
+						next_text:"&raquo;",
+						current_page:pageIndex-1
+					});
+				 }();
+				 
+				function pageselectCallback(page_index, jq){
+					initRightContent(currentColumnId, page_index);
+					return false;
+				}
+				
+				$("#pagination").next().remove();
+				var paginationText = '<div class="text-center-pagination"><span style="margin-right: 5px;">Total'+pageCount+'page,</span>'+
+		        '<span style="margin-right: 5px;">go to<select name="pageSelect" >';
+		        for(var i = 0;i < pageCount; i++){
+		        	if (i==parseInt(pageIndex-1)) {
+		        		paginationText +='<option value="'+(i)+'" selected>'+(i+1)+'</option>';	
+		        	} else {
+		        		paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+		        	}
+		        	 //paginationText +='<option value="'+(i)+'">'+(i+1)+'</option>';
+		        }
+		        paginationText +=' </select>page</span>'+
+		        '<input type="button" class="sureAndBack" value="Confirm" onclick="reflashPage($(this))"/></div>';
+				$("#pagination").after(paginationText);
+				/* var options = {
+					bootstrapMajorVersion : 3,//bootstrap的版本要求
+					currentPage : pageIndex, //当前页数
+					numberOfPages : 3, //最多显示Page页
+					totalPages : Math.ceil(totalCount / pageSize), //所有数据可以显示的页数
+					size : "normal",
+					itemTexts : function(type, page, current) {//如下的代码是将页眉显示的中文显示我们自定义的中文。
+						switch (type) {
+						case "first":
+							return "首页";
+						case "prev":
+							return "<";
+	                	case "next": return ">";
+						case "last":
+							return "末页";
+						case "page":
+							return page;
+						}
+					},
+					onPageClicked : function(e, originalEvent, type, page) {
+						$("select[name='pageSelect']").val(page);
+						initPageIndex = page - 1;
+						initRightContent(currentColumnId, page - 1);
+					}
+				}
+				$("#pagination").bootstrapPaginator(options);
+				$("#pagination").next().remove();
+				pageCount = Math.ceil(totalCount / pageSize);
+				var paginationText = '<div class="text-center" style="float:right;margin-top:4px;"><span style="margin-right: 4px;">共'
+						+ pageCount
+						+ '页,</span>'
+						+ '<span style="margin-right: 4px;">到第<select name="pageSelect" >';
+				for ( var i = 0; i < pageCount; i++) {
+					paginationText += '<option value="' + (i) + '">' + (i + 1)
+							+ '</option>';
+				}
+				paginationText += ' </select>页</span>'
+						+ '<input type="button" class="sureAndBack" style="padding: 1px 0px;" value="确认" onclick="reflashPage($(this))"/></div>';
+				$("#pagination").after(paginationText);
+				 changeStyle();//改变分页的样式 */
+			}
+
+			//刷新页面操作
+			function reflashPage() {
+				initPageIndex = $("[name='pageSelect']").val();
+				initRightContent(currentColumnId, parseInt(initPageIndex));
+			}
+
+			//进行初始化出操作
+			$("#agencyTabContain div").click(function() {
+				id = $(this).attr("id");
+				if (id == "detailTab") { //当前点击的是品牌视频
+					$("#detailTab").addClass("activeTab");
+					$("#specTab").removeClass("activeTab");
+					initLeftList("0113");//品牌视频
+				} else if (id == "specTab") { //当前点击的是训练视频
+					$("#specTab").addClass("activeTab");
+					$("#detailTab").removeClass("activeTab");
+					initLeftList("0114");//训练视频
+				}
+
+			});
+		</script>
+</body>
+
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<meta name="Generator" content="waterrower Team">
+<meta name="Author" content="waterrowerTeam">
+<meta name="Keywords"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<meta name="Description"
+	content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+<script src="../../js/newsite/jquery.min.js"></script>
+<script src="../../js/newsite/bootstrap.js"></script>
+<script src="../../js/newsite/getSystemPlatform.js"></script>
+<script src="../../js/newsite/wlcommon.js"></script>
+<script src="../../js/newsite/cnzz.js"></script>
+<link rel="stylesheet" href="../../style/prj/newsite/header.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/footer.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css" />
+<link rel="stylesheet" href="../../style/prj/newsite/login.css" />
+<script type="text/javascript" src="../../js/site/md5.js"></script>
+<link href="../../style/prj/newsite/bootstrapValidator.min.css" rel="stylesheet">
+<script src="../../js/newsite/bootstrapValidator.min.js"></script>
+<script	src="../../js/newsite/jquery.cookie.min.js"></script>
+<script src="../../js/joy.loader.js" modules="dataview"></script>
+<script type="text/javascript" src="http://qzonestyle.gtimg.cn/qzone/openapi/qc_loader.js" data-appid="101485101"  data-redirecturi="http://waterrower.com.cn/wl/html/callback/callback.html" charset="utf-8"></script>
+<style>
+@media screen and (max-width: 991px) {
+	.titleMargin .contentMargin {
+		margin-left: 0px;
+	}
+}
+</style>
+</head>
+
+<body>
+	<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+	<!-- 内容 -->
+	<div id="wlBody" style="margin-top: 100px; margin-bottom: 50px;">
+		<div class="container" id="login" style="margin-top: 150px;">
+			<form id="formLogin" method="post" class="form-horizontal">
+				<div class="text-center contentMargin tableTitle"
+					style="font-size: 24px;">登录</div>
+				<div class="row trMargin form-group">
+					<div class="col-md-5 text-right tableTitle">账号</div>
+					<div class="col-md-4 text-left">
+						<input type="text" name="inputAccount" id="inputAccount"
+							class="inputStyle form-control" placeholder="请输入用户名，绑定手机号后可凭手机登录" />
+					</div>
+				</div>
+				<div class="row trMargin form-group">
+					<div class="col-md-5 text-right tableTitle">密码</div>
+					<div class="col-md-4 text-left">
+						<input name="inputPwd" id="inputPwd" type="password"
+							class="inputStyle form-control" placeholder="请输入6-25位密码" />
+					</div>
+				</div>
+				<div class="row trMargin">
+					<div class="col-md-5 text-right">
+						<input id="inputRemember" type="checkbox"> <span
+							class="spanRemember">记住密码</span>
+					</div>
+					<div class="col-md-4 text-right">
+						<a href="getPassword.html"><span>忘记密码?</span> </a>
+					</div>
+				</div>
+				<div class="row trMargin">
+					<div class="col-md-4 text-right"></div>
+					<div class="col-md-6 text-left">
+						<input id="btnLogin" type="button" class="login buttonMargin"
+							value="登录" onclick="login()" />
+					</div>
+				</div>
+			</form>
+			<div class="row text-center" style="margin-top: 10px;">
+				<div class="contentMargin">
+					<span class="greyText">还不是会员？</span> <a href="register.html"
+						class="blueText">立即加入</a>
+				</div>
+			</div>
+			<div class="row text-center" style="margin-top: 20px;">
+				<div class="contentMargin">
+					<span class="greyText">更多登录方式</span><a style="text-decoration: none;" onclick=""> 
+					<!-- <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101485101&redirect_uri=http://xmgt666.xicp.io:9090/wl/html/newsite/login.html">
+						<img id="qqLogin" 
+							src="../../style/prj/images/qq_login.png" class="img-responsive"
+							style="display: inline-block; text-align: center;cursor:pointer;">
+					</a> -->
+					<img id="qqLogin"  onclick="loginQQ()"
+						src="../../style/prj/images/qq_login.png" class="img-responsive"
+						style="display: inline-block; text-align: center;cursor:pointer;">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--第一个商品结束-->
+	<!-- 内容结束 -->
+	<!--尾部开始-->
+	<div id="footerPart">
+		
+	</div>
+	<!--尾部结束-->
+
+	<script>
+		$(function() {
+			initTop();
+			initClick();
+			initBottom();
+			$('#formLogin').bootstrapValidator({
+				feedbackIcons : {
+					valid : 'glyphicon glyphicon-ok',
+					invalid : 'glyphicon glyphicon-remove',
+					validating : 'glyphicon glyphicon-refresh'
+				},
+				fields : {
+					inputAccount : {
+						validators : {
+							notEmpty : {
+								message : '不能为空！'
+							}
+							/* stringLength: {
+		                            min: 11,
+		                            max: 11,
+		                            message: '请输入11位手机号码'
+		                    },
+		                    regexp: {
+	                            regexp: /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/,
+	                            message: '请输入正确的手机号码'
+	                        } */
+						}
+					},
+					inputPwd : {
+						validators : {
+							notEmpty : {
+								message : '不能为空！'
+							},
+							stringLength : {//检测长度
+								min : 6,
+								max : 25,
+								message : '长度必须在6-25之间'
+							}
+						}
+					}
+				}
+			})
+
+			//读取cookie是否存储密码
+			if ($.cookie("rmbUser") == "true") {
+				$("#inputRemember").attr("checked", true);
+				$("#inputAccount").val($.cookie("username"));
+				$("#inputPwd").val($.cookie("password"));
+
+			}
+		});
+
+		var lgfg = true;
+		function login() {
+			if (!lgfg)
+				return;
+			var pwd = $("#inputPwd").val();
+			var userAccount = $("#inputAccount").val();
+
+			var bootstrapValidator = $('#formLogin').data('bootstrapValidator');
+			bootstrapValidator.validate();
+			if (bootstrapValidator.isValid()) {//如果校验成功后执行的操作
+				lgfg = false;
+			
+				if(isPoneAvailable(userAccount)){//手机号登录
+					var url = "../../wl/cm/wlCmMemberAction.dox?action=login";
+					//var url = "http://192.168.1.225:9093/wl/wl/cm/wlCmMemberAction.dox?action=login";
+					joy.postJSON(url, {
+						username : userAccount,
+						pwd : MD5(pwd),
+						lang_id : "-999"
+					}, function(resultObject) {
+						save();//记住密码
+						joy.showMessage("登录成功！", "success");
+						window.location = "index.html";
+
+					}, function errorFunction(resultObject) {
+						joy.showMessage(resultObject, "warning");
+						lgfg = true;
+					});
+				}else{//非手机号登录
+					var url = "../../wl/cm/wlCmMemberAction.dox?action=loginWithOldAccount";
+					joy.postJSON(url, {
+						username : userAccount,
+						pwd : MD5(pwd),
+						lang_id : "-999"
+					}, function(resultObject) {
+						save();//记住密码
+						//joy.showMessage("登录成功！", "success");
+						//window.location = "index.html";
+						lgfg=true;
+						joy.showMessageDialog(resultObject, "ok", function(e) {
+							console.log(e.btnName);
+		                    window.location = "bindPhone.html?account=" + userAccount+"&password="+MD5(pwd);
+		                });
+						
+					}, function errorFunction(resultObject) {
+						joy.showMessage(resultObject, "warning");
+						lgfg = true;
+					});
+				}
+			}
+		}
+		
+		//是否为手机号
+		function isPoneAvailable(str) {  
+          var myreg=/^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/;  
+          if (!myreg.test(str)) {  
+              return false;  
+          } else {  
+              return true;  
+          }  
+        }  
+		
+		
+		/**
+		 * 记住密码
+		 */
+		function save() {
+			if ($("#inputRemember").is(':checked')) {
+				var str_username = $("#inputAccount").val();
+				var str_password = $("#inputPwd").val();
+				$.cookie("rmbUser", "true", {
+					expires : 7
+				}); //存储一个带7天期限的cookie
+				$.cookie("username", str_username, {
+					expires : 7
+				});
+				$.cookie("password", str_password, {
+					expires : 7
+				});
+			} else {
+				$.cookie("rmbUser", "false", {
+					expire : -1
+				});
+				$.cookie("username", "", {
+					expires : -1
+				});
+				$.cookie("password", "", {
+					expires : -1
+				});
+			}
+		}
+
+		$("body").keydown(function(e) {
+			if (e.keyCode == 13) {
+				$("#btnLogin").click();
+			}
+		});
+		
+		function loginQQ(){
+			/* QC.Login.showPopup({
+			   appId:"101485101",
+			   redirectURI:"http://xmgt666.xicp.io:9090/wl/html/callback/callback.html"
+			});  */	    	
+			QC.Login.showPopup();
+		}
+		
+/* 		QC.Login.showPopup({
+			   appId:"101485101",
+			   redirectURI:"http://xmgt666.xicp.io:9090/wl/html/callback/callback.html"
+			}); */ 	
+		
+         QC.api("get_user_info")
+             .success(function(s){//成功回调
+	                 QC.Login.getMe(function(openId, accessToken){
+	                    joy.postJSON('../../wl/cm/wlCmMemberAction.dox?action=qqLogin',{name:s.data.nickname,openId:openId,otype:1,token:accessToken},function(resultObject){
+	                         
+                        	 
+                             //location.href = "/?page=0";
+                             //alert(JSON.stringify(resultObject.account));
+                             if(resultObject.account==""||resultObject.account=='undefined'){
+                            	 window.location = "bindPhone.html?qqAccount=" + openId;
+                             }else{
+                            	 joy.showMessage("恭喜你,登录成功!", "success");
+                            	 location.href = "../newsite/index.html"
+                             }
+       	                     QC.Login.signOut()
+	                     })
+	                 })
+             })
+             .error(function(f){//失败回调
+            	 joy.showMessage("登录失败!", "warning");
+                 location.href = "../newsite/login.html";
+             })
+             .complete(function(c){//完成请求回调
+             	//alert("获取用户信息完成！");
+             });
+		
+	/* 	QC.Login({
+			btnId : "qqLoginBtn", //插入按钮的节点id
+			showModal:false
+		}); */
+		
+		/*
+		* QQ登录参考
+		* http://wiki.connect.qq.com/js_sdk%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E#3..E8.87.AA.E5.AE.9A.E4.B9.89.E7.99.BB.E5.BD.95.E6.8C.89.E9.92.AE
+		* http://www.jb51.net/article/52538.htm
+		*/
+		/* function QQLogin() {
+			QC.api("get_user_info", {})
+			//指定接口访问成功的接收函数，s为成功返回Response对象 
+			.success(function(s) {
+				console.log(s);
+				//成功回调，通过s.data获取OpenAPI的返回数据 
+				alert("获取用户信息成功！当前用户昵称为：" + s.data.nickname);
+			})
+			//指定接口访问失败的接收函数，f为失败返回Response对象 
+			.error(function(f) {
+				//失败回调 
+				alert("获取用户信息失败！");
+			})
+			//指定接口完成请求后的接收函数，c为完成请求返回Response对象 
+			.complete(function(c) {
+				//完成请求回调 
+				alert("获取用户信息完成！");
+			});
+
+			//检查是否登录 
+			if (QC.Login.check()) {//如果已登录 
+				QC.Login.getMe(function(openId, accessToken) {
+					alert([ "当前登录用户的", "openId为：" + openId,
+							"accessToken为：" + accessToken ].join("\n"));
+				});
+				//这里可以调用自己的保存接口 
+				//... 
+			}
+		} */
+	</script>
+</body>
+</html>

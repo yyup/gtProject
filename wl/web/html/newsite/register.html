@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="Generator" content="waterrower Team">
+    <meta name="Author" content="waterrowerTeam">
+    <meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/bootstrap.js"></script>
+    <script src="../../js/newsite/getSystemPlatform.js"></script>
+    <script src="../../js/newsite/wlcommon.js"></script>
+    <script src="../../js/newsite/cnzz.js"></script>
+    <link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+    <link rel="stylesheet" href="../../style/prj/newsite/register.css"/>
+    <script src="../../js/joy.loader.js" modules="dataview"></script>
+    <link href="../../style/prj/newsite/bootstrapValidator.min.css" rel="stylesheet">
+	<script src="../../js/newsite/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="../../js/site/md5.js"></script>
+</head>
+
+<body>
+<!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+<!-- 内容 -->
+<div id="wlBody">
+    <div class="container contentMargin" id="register">
+        <form id="formLogin" class="form-horizontal">
+            <div class="row" style="margin-bottom: 50px;">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-11 text-center" >
+                    <span class="text-center" style="font-size: 24px; ">注册账号</span>
+                </div>
+            </div>
+
+            <div class="row form-group">
+                <div class="col-md-5 col-sm-4 textMargin text-right" >
+                    <span class="inputText">*用户账号</span>
+                </div>
+                <div class="col-md-4 col-sm-6 textMargin text-left" >
+                    <input id="inputAccount" name="inputAccount" class="inputStyle form-control" type="text"  placeholder="请输入您的手机号"/>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-5 col-sm-4 textMargin text-right" >
+                    <span style="font-family: 'Times New Roman';" class="inputText">*验&nbsp;&nbsp;证&nbsp;&nbsp;码</span>
+                </div>
+                <div class="col-md-4 col-sm-6 textMargin text-left" >
+                    <input id="inputCode" name="inputCode" class="inputStyle form-control" type="text"  placeholder="请输入验证码"/>
+                </div>
+                <div class="col-md-3 col-sm-2 text-left">
+                    <input type="button" class="getIdentifyingCodeButton" id="btnGetCode" value="获取验证码" onclick="getMsgCode()">
+                </div>
+            </div>
+            <div class="form-group" style="margin-top: -15px;" >
+                <input id="inputGetCode" name="inputGetCode" type="text" style="display: none" value="">
+            </div>
+            <div class="row form-group">
+                <div class="col-md-5 col-sm-4 textMargin text-right" >
+                    <span style="font-family: 'Times New Roman';" class="inputText">*密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                </div>
+                <div class="col-md-4 col-sm-6 textMargin text-left" >
+                    <input id="inputPwd1" name="inputPwd1" type="password" class="inputStyle form-control"   placeholder="请输入6~25位密码"/>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-5 col-sm-4 textMargin text-right" >
+                    <span class="inputText">*确认密码</span>
+                </div>
+                <div class="col-md-4 col-sm-6 textMargin text-left" >
+                    <input id="inputPwd2" name="inputPwd2" type="password" class="inputStyle form-control"   placeholder="请输入6~25位密码"/>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-5 col-sm-4 textMargin text-right" >
+                    <span class="inputText">*电子邮箱</span>
+                </div>
+                <div class="col-md-4 col-sm-6 textMargin text-left" >
+                    <input id="inputEmail" name="inputEmail" type="email" class="inputStyle form-control"   placeholder="请输入您的邮箱"/>
+                </div>
+            </div>
+            <div class="row form-group">
+                <div class="col-md-5 col-sm-4 textMargin text-right" >
+                    <span class="inputText">*如何得知</span>
+                </div>
+                <div class="col-md-4 col-sm-6 textMargin text-left" >
+                    <input style="padding-right: 10px;" id="inputOpt" name="inputOpt" type="text" class="inputStyle form-control"   placeholder="请告诉我们，您是何如得知WaterRower沃特罗伦"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 col-sm-4 textMargin " >
+                </div>
+                <div class="col-md-4 col-sm-6 textMargin text-left" >
+                    <span class="text-center aboutContent" >*请仔细阅读相关内容，并填写信息。</span>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 20px;">
+                <div class="col-md-5 col-sm-4 textMargin text-right" >
+                </div>
+                <div class="col-md-4 col-sm-6 textMargi text-left" >
+                    <input id="btnRegister" class="registerButton" type="button" value="注册" onclick="register(this)"/>
+                    <a href="login.html" class="alreadyRegister">已有账号？直接登录</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- 内容结束 -->
+<!--尾部开始-->
+<div id="footerPart">
+    
+</div>
+</body>
+</html>
+<!--尾部结束-->
+<script>
+    var lgc;
+    //进行初始化出操作
+    $(function() {
+    	
+    	initTop();
+    	initClick();
+    	initBottom();
+    	$("#inputGetCode").val("");
+        lgc = joy.getCommonLang();
+        $('#formLogin').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                inputAccount: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空！'
+                        },
+                       /*  stringLength: {
+                            min: 11,
+                            max: 11,
+                            message: '请输入11位手机号码'
+                        }, */
+                        regexp: {
+                            regexp: /^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$/,
+                            message: '请输入正确的手机号码'
+                        }
+                    }
+                },
+                inputCode: {
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空！'
+                        },
+                        identical: {//与指定控件内容比较是否相同，比如两次密码不一致
+                            field: 'inputGetCode',//指定控件name
+                            message: '验证码错误'
+                        }
+                    }
+                },
+                inputGetCode: {
+                    validators: {}
+                },
+                inputPwd1:{
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空！'
+                        },
+                        stringLength: {//检测长度
+                            min: 6,
+                            max: 25,
+                            message: '长度必须在6-25之间'
+                        },
+                        identical: {//与指定控件内容比较是否相同，比如两次密码不一致
+                            field: 'inputPwd2',//指定控件name
+                            message: '输入的密码不一致'
+                        },
+                    }
+                },
+                inputPwd2:{
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空！'
+                        },
+                        stringLength: {//检测长度
+                            min: 6,
+                            max: 25,
+                            message: '长度必须在6-25之间'
+                        },
+                        identical: {//与指定控件内容比较是否相同，比如两次密码不一致
+                            field: 'inputPwd1',//指定控件name
+                            message: '输入的密码不一致'
+                        },
+                    }
+                },
+                inputEmail:{
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空！'
+                        },
+                        emailAddress: {//验证email地址
+                            message: '不是正确的email地址'
+                        },
+                    }
+                },
+                inputOpt:{
+                    validators: {
+                        notEmpty: {
+                            message: '不能为空！'
+                        }
+                    }
+                }
+            }
+        })
+    });
+
+    /**
+     * 注册
+     */
+    function register(buttonObject) {
+
+        //注册按钮不可用，防止重复提交
+        $(buttonObject).attr("disabled","disabled");
+
+        var account = $("#inputAccount").val();
+        var password1 = $("#inputPwd1").val();
+        var password2 = $("#inputPwd2").val();
+        var email = $("#inputEmail").val();
+        var opt = $("#inputOpt").val();
+
+        if(mobile == account){
+        	var bootstrapValidator = $('#formLogin').data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(bootstrapValidator.isValid()){//如果校验成功后执行的操作
+
+                joy.getJSON("../../wl/cm/wlCmMemberAction.dox?action=saveData", {
+                    account:mobile,
+                    name:mobile,
+                    password:password1,
+                    levelId:"01",
+                    email:email,
+                    sourceWayEk:opt
+                }, function(result) {
+                    $(buttonObject).removeAttr("disabled");
+                    joy.showMessageDialog("注册成功,您是否确认登录系统？", "ok,cancel", function(e) {
+                        if (e.btnName == "ok") {
+                            var url="../../wl/cm/wlCmMemberAction.dox?action=login";
+                            joy.getJSON(url,{username:mobile,pwd:MD5(password1),lang_id:"-999"}, function(resultObject){
+                                joy.showMessage("登录成功！","success");
+                                window.location="index.html";
+                            });
+                        }
+                    });
+                });
+            }else{//校验不通过
+                joy.showMessage(lgc.validateFaile, "warning");
+                $(buttonObject).removeAttr("disabled");
+            }
+        }else{
+        	joy.showMessage("该手机与验证码手机不一致，请确认", "warning");
+        	$(buttonObject).removeAttr("disabled");
+        }
+        
+        
+    }
+
+    
+    var msgCode, mobile;
+    /**
+     * 获取验证码
+     */
+    function getMsgCode() {
+    	$('#btnGetCode').attr("disabled","disabled");//设置不可点击
+        var account = $("#inputAccount").val();
+
+        if (account == "") {
+            joy.showMessage("账户名不能为空！", "warning");
+            $('#btnGetCode').removeAttr("disabled");//设置可点击
+            return;
+        }
+        var url = "../../wl/cm/wlCmMemberAction.dox?action=getMsgCode";
+        //var url = "http://192.168.1.205:9092/wl/wl/cm/wlCmMemberAction.dox?action=getForgetPasswordMsgCode";
+        joy.postJSON(url, {mobile: account}, function (resultObject) {
+        	console.log(resultObject);
+            msgCode = resultObject;
+            $("#inputGetCode").val(msgCode);//记录下验证码
+            mobile = $("#inputAccount").val();
+            joy.showMessage("获取成功！", "success");
+            
+            timer(parseInt(60));
+        }, function errorFunction(resultObject) {
+        	joy.showMessage(resultObject, "error");
+        	$('#btnGetCode').removeAttr("disabled");//设置可点击
+        });
+
+    }
+    
+    //倒计时60s
+    function timer(intDiff){
+    	$('#btnGetCode').attr("disabled","disabled");//设置不可点击
+    	$('#btnGetCode').val('重新获取('+intDiff+'s)');
+    	intDiff--;
+    	var objTimer = window.setInterval(function(){
+        	console.log(intDiff+"s");
+        	$('#btnGetCode').val('重新获取('+intDiff+'s)');
+        if(intDiff == 0){
+        	window.clearInterval(objTimer);
+        	$('#btnGetCode').val("获取验证码");
+        	$('#btnGetCode').removeAttr("disabled");//设置可点击
+        	return;
+        }
+        intDiff--;
+        }, 1000);
+    }
+
+    
+    $("body").keydown(function(e){
+        if(e.keyCode == 13)
+        {
+            $("#btnRegister").click();
+        }
+    });
+
+</script>
+
+
+</body>
+</html>

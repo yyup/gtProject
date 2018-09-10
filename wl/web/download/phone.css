@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+*{ margin:0; padding:0;}
+
+ul,ol,li,dl,dt,dd{list-style:none;}
+
+img,a.img,img a{border:none;}
+
+a{color:#000;text-decoration:none;}
+
+a:hover,a:active{color:#000;text-decoration:underline;}
+
+.clear{clear:both; height:0;}
+
+body{ background-color:#f5f5f5; font-family:"微软雅黑"; color:#000; font-size:14px;}
+
+.wrap{ width:980px; margin:0 auto;}
+
+.phone_top{ width:100%; height:52px; background:url(phone_topbg.png) center repeat-x;}
+
+#phone_logo{ float:left; height:52px;}
+#phone_nav{ float:right; height:52px; line-height:52px;}
+#phone_nav span{ padding:0 10px;}
+
+.banner_bg{ width:100%; height:430px; background: #5b504a url(app_banner.jpg) center center no-repeat;}
+.app_banner{ width:980px; margin:0 auto; height:430px;}
+
+.wrap_app{ width:100%;  position:absolute; top:52px; }
+.app_btn{  width:980px; height:870px; margin:0 auto;}
+
+.android_btn{ position:relative; left:523px; top:187px; width:216px; height:66px;}
+.ios_btn{ position:relative; left:523px; top:205px; width:216px; height:66px;}
+.date_time{ position:relative; left:530px; top:225px; font-size:12px; color:#FFF; width:216px; }
+.date_time dd{ margin-bottom:5px;}
+.erweima{ position:relative; left:810px; top:15px; width:155px;  color:#FFF;}
+.erweima img{ border:#FFF solid 8px;}
+.erweima dd{ text-align:center; margin-top:5px;}
+
+.intro{ position:relative; width:980px; top:150px;}
+.intro ul{ width:470px; float:left;}
+.intro ul li{ float:left;}
+.intro ul li dl{ margin-left:20px; margin-top:10px; width:350px;}
+.intro ul li dl dt{ font-size:24px; margin-bottom:10px; }
+.intro ul li dl dd{ font-size:16px;}
+.ml{ margin-left:40px;}
+.mt{ margin-top:80px;}
+
+.foot{ width:100%; height:60px; background-color:#FFF; margin-top:460px;}
+.footer{ width:980px; height:60px; margin:0 auto; line-height:60px; text-align:center; }
+.footer a{ display:inline-block; padding:0 10px;}
+
+
+

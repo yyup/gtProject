@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+<link rel="stylesheet" type="text/css" href="../../style/prj/wlWmStoreCheck.css" />
+
+</head>
+<body> 
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar"> 
+		
+		
+		<div id="searchForm" class="joy-form" style="float: right"
+			layout="freedom">
+			<div class="fit1024" style="float: left; padding-right: 5px;">
+			<span class="joy-lang" label="lg:lockFlagEk"></span>: <input
+				id="text_lockFlagEk" class="joy-combobox joy-enum"
+				style="width: 120px;" placeholder="lgc:pleaseToSelect"
+				databind="value:lockFlagEk,source:LOCK_FLAG_EKEnum">
+			</div>											
+			 <input id="txt_search" class="joy-textbox" style="width: 160px;" maxByte="20">				
+			<button class="joy-button" icon="search" onClick="searchQuery"
+				label="lgc:search"></button>
+			<button class="joy-button" icon="search" onClick="openSearch"
+				label="lgc:advSearch"></button>
+		</div>
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid"  rowHeightFit="38">
+		<thead>
+			<tr>  
+				<th field="billNo" dataType="string" label="lg:billNo" colWidth="15%"></th> 
+				<th field="allItemName" dataType="string"  label="lg:itemName"	colWidth="20%"></th>  
+				<th field="wmCheckTypeEk" dataType="string" align="center" label="lg:wmCheckTypeEk" enumData="WM_CHECK_TYPE_EKEnum"	colWidth="10%"></th>   
+				<th field="storageName" dataType="string" label="lg:storageName"  colWidth="15%"></th>   
+				<!--
+				<th field="storageAreaName" dataType="string" label="lg:storageAreaName"  colWidth="15%"></th>   				
+				-->
+				<th field="checkDate"  dataFormat="yyyy-MM-dd" dataType="date"   label="lg:checkDate" colWidth="11%"></th> 				
+				<th field="createor" dataType="string" label="lg:createor" align="center" colWidth="10%"></th>   
+				<th field="lockFlagEk" dataType="string"  label="lg:lockFlagEk"  align="center" enumData="LOCK_FLAG_EKEnum" colWidth="10%"></th>
+		        
+		        <th colWidth="190px" templateType="template" align="center" >			      			  	
+			  	#if(initResult.ISENABLESmc){<!-- 锁单和解锁有权限 -->
+			  	      if(lockFlagEk=='NOLOCK'){#<!-- 解锁-->
+			  	     	<button class="k-button k-gridBtn k-button-icontext"  onClick="modifyStateEk('#:storeCheckId#','#:lockFlagEk#')"><span class="k-icon k-i-pencil"></span>#:lg.lock#</button>								        			  	     
+			  	    # }else if(lockFlagEk=='LOCK'){#<!-- 锁单-->
+			  	     	<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lg.noLock#</button>								  				  	     
+			  	    # }		  	  			  	
+			    }else{<!-- 锁单和解锁没有权限 -->
+			       if(lockFlagEk=='NOLOCK'){#<!-- 解锁-->
+			       		<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.lock#</button>								        			  	     			       
+			       #}else if(lockFlagEk=='LOCK'){#<!-- 锁单-->
+			     		<button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lg.noLock#</button>								  				  	     			     
+			       # }			     		  				  	
+			  	}#
+			  		  #if(initResult.READSmc){#<!--详细有权限 -->
+			  	        <button class="k-button k-gridBtn k-button-icontext"  onClick="openDetailWindow('#:storeCheckId#')"><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>				  
+			    	#}else{#	<!--详细没有权限-->
+			          	<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>				  
+			    	#}#	
+			   </th>
+			</tr>
+		</thead>
+	</table>
+
+	<!-- 高级查询窗口 -->
+<div id="searchWindow" class="joy-window" title="lgc:search">
+	<form  class="joy-form" >
+		<table>
+		    <tr>
+		        <td>
+			        <input class="joy-datepicker" label="lg:from" dataFormat="yyyy-MM-dd"  id="txtDate_begin" style="width:160px;"> 
+			    </td>
+			    <td>
+			        <input class="joy-datepicker" label="lg:to"  dataFormat="yyyy-MM-dd"  id="txtDate_end" style="width:160px;" > 
+			    </td>
+			</tr>	
+			    <tr>
+		        <td>
+			    		<input
+							id="storageId" label="lg:storageName" class="joy-combobox joy-enum" 
+							 placeholder="lgc:pleaseToSelect" dataTextField="storageName" dataValueField="storageId" 
+							databind="value:storageId,source:allStorageEnum" style="width:160px;">	
+			    
+			    </td>
+			    <td>
+			        <input
+							id="createor" label="lg:createor" class="joy-textbox" 
+							style="width:160px;" databind="value:createor" >	 
+			    </td>
+			</tr>		
+			 <tr>
+		        <td >
+			    		<input
+							id="wmCheckTypeEk" label="lg:wmCheckTypeEk" class="joy-combobox joy-enum" 
+							 placeholder="lgc:pleaseToSelect" 
+							databind="value:wmCheckTypeEk,source:WM_CHECK_TYPE_EKEnum" style="width:160px;">	
+			    
+			    </td>
+			    <td>
+			      
+			    </td>
+			</tr>				
+		</table>	
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lgc:search"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>		 
+	</form>
+</div>
+
+
+	<!--详情开始-->
+	<div id="detailDiv">
+		<div class="editBody">
+			<div id="detailTitle" class="headTitle"><span class="joy-lang" label="lg:detailTitle"></span></div>
+		<!--基础信息 -->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="baseBor_tit ">
+						<span class="joy-lang" label="lg:basicInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left">
+					<table id="detailTable" width="93%" align="center"
+						class="k-info-table comDetailTable" border="0" cellspacing="0"
+						cellpadding="0">
+						<tbody>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:billNo"></td>
+								<td width="230" class="joy-label" databind="value:billNo"></td>
+								<td width="100" class="joy-lang head" label="lg:wmCheckTypeEk"></td>
+								<td width="230" class="joy-label joy-enum" databind="value:wmCheckTypeEk,source:WM_CHECK_TYPE_EKEnum"  ></td>
+							</tr>
+							<tr height="25">
+								<td width="100" class="joy-lang head" label="lg:storageName"></td>
+								<td width="230" class="joy-label" databind="value:storageName" ></td>
+								<td width="100" class="joy-lang head" label="lg:checkDate"></td>
+								<td width="230" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd"  databind="value:checkDate"></td>
+							</tr>							
+							<tr height="25">
+							   <td width="100" class="joy-lang head" label="lg:createor"></td>
+								<td width="230" class="joy-label" databind="value:createor"></td>
+								<td width="100" class="joy-lang head" label="lg:createTime"></td>
+								<td width="230" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd HH:mm"  databind="value:createTime"></td>
+							</tr>
+							<tr height="25">	
+							<!--						  
+								<td width="100" class="joy-lang head"  label="lg:storageAreaName"></td>
+								<td width="230" class="joy-label" databind="value:storageAreaName"></td>-->
+								 <td width="100" class="joy-lang head" label="lg:noticeNo"></td>
+								<td width="230" colspan="3" class="joy-label" databind="value:noticeNo"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!--基础信息结束-->
+			<!--附加信息开始-->
+			<div class="detailbase" id="div_base">
+				<div class="detailbaseBor">
+					<div class="baseBor_tit ">
+						<span class="joy-lang" label="lg:itemInfo"></span>
+					</div>
+				</div>
+				<div id="" class="detail" center="true" align="left"  style="width:93%;margin:0 auto;">		
+					<table  align="center"  id="detailGrid" class="joy-grid"  reorderable="false"  resizable="false"
+										showPageControl="false"  height="240px"  >
+								<thead>
+									<tr>							
+                                            <th field="itemCd"  dataType="string" label="lg:itemCd"  colWidth="15%"></th>
+											<th field="itemName" dataType="string" label="lg:itemName" colWidth="20%"></th>
+											<th field="spec" dataType="string" label="lg:spec" colWidth="15%"></th>
+											<th field="baseUnitName" dataType="string" align="center" label="lg:baseUnitName" colWidth="10%"></th>
+											<th field="bookBaseQty" dataType="string" align="right" label="lg:bookBaseQty" colWidth="15%"></th>											
+											<th field="checkBaseQty" dataType="string" align="right" label="lg:checkBaseQty" colWidth="15%"></th>											
+											<th field="profitOrLoss" dataType="string" align="right" label="lg:profitOrLoss" colWidth="15%"></th>								
+									</tr>							
+								</thead>
+						</table>
+					<table width="100%" border="0" align="center" cellpadding="0"
+						cellspacing="0">
+						<tr>
+							<td height="50" align="right" valign="bottom">
+								<button class="joy-button joy-window-close" icon="cancel"
+									label="lg:back" onclick="detailClose"></button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		<!--附加信息结束-->
+		</div>
+	</div>
+	<!--详情结束-->
+</body>
+<script>
+	var  searchForm, grid, initResult, lgc, lg,searchWindow,detailGrid;
+	var billNoTextBox,beginDateDatePicker,endDateDatePicker,storageIdComboBox,storageIdComboBox,wmCheckTypeEkComboBox;
+	var searchUrl="../../wl/wm/wlWmStoreCheckAction.do?action=findDataList";
+	
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();
+		searchForm = $("#searchForm").getJoyForm(); 
+		searchContent =lg.searchContent;
+		$("#txt_search").attr("placeholder",searchContent);
+		searchWindow = $("#searchWindow").getJoyWindow();	
+		detailGrid= $("#detailGrid").getJoyGrid();
+		billNoTextBox=$("#txt_search").getJoyTextBox();
+		 beginDateDatePicker=$("#txtDate_begin").getJoyDatePicker();
+		   endDateDatePicker=$("#txtDate_end").getJoyDatePicker();
+		 storageIdComboBox=$("#storageId").getJoyComboBox();
+		 createorTextBox=$("#createor").getJoyTextBox();
+		 wmCheckTypeEkComboBox=$("#wmCheckTypeEk").getJoyComboBox();
+		  var date=new Date();			
+		  beginDateDatePicker.value(date.Format("yyyy-MM-dd"));
+		  endDateDatePicker.value(date.Format("yyyy-MM-dd"));
+		//数据初始化
+		joy.getJSON("../../wl/wm/wlWmStoreCheckAction.do?action=init",{enumTypes:['LOCK_FLAG_EK','WM_CHECK_TYPE_EK']},function(resultObject) {
+			initResult = resultObject;
+		    var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+			searchForm.load();
+	    	grid.fetch(initResult, searchUrl); 
+		});
+	})
+
+	/**
+	 * 搜索数据(查询)
+	 */
+		function searchQuery(){
+			var billNo=billNoTextBox.value();
+			var obj=new Object();
+			obj.billNo=billNo;
+			 obj.lockFlagEk=$("#text_lockFlagEk").getJoyComboBox().value();
+			var paraMap=joy.getParaMap(obj);
+	        grid.fetch(initResult, searchUrl, paraMap);
+		}
+	/**
+	 * 搜索数据(高级搜索)
+	 */
+	 function moreSelect(){
+		   var obj=new Object();
+		   obj.billNo=billNoTextBox.value();
+		   obj.beginDate=beginDateDatePicker.value();
+		   obj.endDate=endDateDatePicker.value();
+		   obj.storageId=storageIdComboBox.value();
+		   obj.createor=createorTextBox.value();
+		   obj.wmCheckTypeEk=wmCheckTypeEkComboBox.value();
+		   obj.lockFlagEk=$("#text_lockFlagEk").getJoyComboBox().value();
+		   var paraMap=joy.getParaMap(obj);
+	       grid.fetch(initResult, searchUrl, paraMap);
+	}
+		
+	//打开高级搜索
+	  function openSearch()
+	  {
+	  	$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+	  	$("#searchWindow").parent('.k-widget').css('left',"");
+	  	 searchWindow.open();
+	  }
+	/**
+	* 启用/锁定
+	**/
+	function modifyStateEk(storeCheckId,lockFlagEk){
+		var islockFlagEkModifyTitle;
+
+			if(lockFlagEk=="LOCK"){
+				islockFlagEkModifyTitle=lg.noLockTitle;
+				updateLockFlagState(islockFlagEkModifyTitle,storeCheckId);
+			}else{
+				joy.getJSON("../../wl/wm/wlWmStoreCheckAction.do?action=getIsProfitAndLoss",{storeCheckId:storeCheckId}, function(resultObject){	
+				    if(resultObject==""){//没损益
+						islockFlagEkModifyTitle=lg.lockTitle;
+						updateLockFlagState(islockFlagEkModifyTitle,storeCheckId);
+				    }else{//有损益
+						islockFlagEkModifyTitle=lg.lockTitle+lg.generateLossBill;
+						updateLockFlagState(islockFlagEkModifyTitle,storeCheckId);
+				    }
+				  });	
+			}			
+	}
+	function updateLockFlagState(islockFlagEkModifyTitle,storeCheckId){
+		joy.showMessageDialog(islockFlagEkModifyTitle,"ok,cancel",function(e){
+			if(e.btnName=="ok"){
+				joy.getJSON("../../wl/wm/wlWmStoreCheckAction.do?action=updateLockFlagState",{storeCheckId:storeCheckId}, function(resultObject){	
+					joy.showMessage(lgc.opSuccess, "success");
+					grid.dataSource.fetch();					
+				});
+			}
+		});	
+		
+	}
+	//打开详细窗
+	function openDetailWindow(storeCheckId){
+		//detailTable
+		 joy.getJSON("../../wl/wm/wlWmStoreCheckAction.do?action=getData", {
+			 storeCheckId :storeCheckId
+			}, function(resultObject){
+				var viewModel = joy.observable(resultObject.StoreCheck); 
+				joy.bind($("#detailTable"), viewModel);
+				detailGrid.load(initResult,resultObject.StoreCheckDetlList);//加载从表
+					var height = $(window).height();
+					$("#detailDiv").css({
+						"min-height" : height + "px",
+						"height" : "auto"
+					});
+					//$("#detailTitle").text(lg.detailTitle);										
+					$("#detailDiv").show();
+          	});			
+	
+	}
+	//关闭详细窗口
+	function detailClose(){
+		$("#detailDiv").hide();
+	}
+
+	
+</script>
+</html>

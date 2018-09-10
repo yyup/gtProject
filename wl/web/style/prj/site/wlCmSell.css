@@ -1,0 +1,98 @@
+ img{border:0;}      #productInfoBody{width:100%;}
+/*账号信息*/
+#productInfoContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#productInfoMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#productInfoMenu{
+float:left;width:230px;min-height:570px;
+}
+#productInfoContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.productTtitle{width:175px;height:38px;margin:0 auto;margin-top:20px;background: url("../images/productInfo.png") ;
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:30px;word-break: break-all;
+    word-wrap: break-word;}
+
+.item .itemContent{padding-bottom:4px;cursor:pointer;
+ }
+
+#productInfoTop,#productInfoBottom{ margin:0 auto;
+  }
+
+#productInfoTop{
+  border-bottom:1px dashed #8F8F8F;display:table;padding-top:10px;padding-bottom:10px;width:720px;
+}
+#productInfoBottom{
+margin-left:23px;
+}
+#productItemTitle{float:left;width:50%;margin-left:23px;font-size: 19px;
+    font-weight: bold;word-wrap:break-word;}
+#searchText{
+float:right;
+ margin-right:35px;
+ width:140px;
+}
+#searchText input{
+    height: 22px;
+   line-height: 22px;
+}
+#productSearch{
+  float:right;
+  width:102px;
+  height:23px;
+  margin-right:23px;
+  cursor: pointer;
+  background: url("../images/search.png") ;
+
+}
+.productInfoDetail{
+    float:left;width:246px;padding-top:20px;
+}
+.productInfoImg{
+  display:block;
+  width:220px;
+  height:138px;
+ border:1px solid #000;
+}
+.productNameInfo{
+    margin-top: 15px;
+    padding-right: 20px;
+    word-break: break-all;
+}
+.give{
+  background:#e01a00;
+  color:#fff;
+  padding-right:4px;
+}
+#noSell{
+	width:100%;
+	margin-top:40px;
+	display:none;
+}
+.last{
+   padding-left:45px !important;
+   cursor: pointer;
+}
+.defaultCursor{
+	cursor:default !important;
+}

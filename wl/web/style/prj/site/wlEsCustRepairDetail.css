@@ -1,0 +1,214 @@
+ #custRepairDetailbody{width:100%;} 
+
+#custRepairDetailbody{
+  
+  font-size:14px;
+}
+
+#custRepairDetailContainer,#basicInfo{
+  background:#B8B8B8;
+  width:1000px;
+  margin:0 auto;
+  margin-top:20px;
+  display:table;
+}
+#custRepairDetailContainer{
+  margin-bottom:20px;
+}
+.detailTitle{
+  width:100px;
+  color:#000;
+  margin-left:10px;
+  margin-top:10px;
+  font-size:16px;
+  font-weight:bold;
+}
+#basicInfoContent,#problemContent,#uploadPicturesContent,#uploadVideoContent,#handleInfoContent{
+   width:980px;
+   margin:0 auto;
+   border-top:1px dashed #000;   
+}
+#problem,#uploadPictures,#uploadVideo,#handleInfo{
+    margin-top:20px;
+}
+#handInfoReply{
+  width:980px;
+   margin:0 auto;
+   float:left;
+}
+#basicInfoContent dl{
+    clear:both;
+	margin-left:35px;
+	padding-top:20px;
+}
+#basicInfoContent dl dt,#basicInfoContent  dd{
+  display:inline;
+	  float:left;
+	  min-height:30px;
+      color:#404040;
+       word-break: break-all;
+    word-wrap: break-word;
+}
+#basicInfoContent dl dt{
+    
+      text-align:right;
+	  width:100px;
+}
+#basicInfoContent  dd{    
+      text-align:left;
+	  width:182px;	  
+}
+#problemDescript{
+  overflow:hide;
+  height:50px;
+}
+#uploadPicturesContent{
+   padding-top:20px;
+ 
+}
+#uploadPicturesContent img,#uploadVideoContent img{
+  width:192px;
+  height:120px;
+}
+
+
+
+#handleInfoContent dl{
+    clear:both;
+	margin-left:35px;
+	padding-top:20px;
+}
+#handleInfoContent dl dt,#handleInfoContent  dd{
+  display:inline;
+	  float:left;
+	  min-height:30px;
+      color:#404040;
+       word-break: break-all;
+      word-wrap: break-word;
+}
+#handleInfoContent dl dt{
+    
+      text-align:right;
+	  width:100px;
+}
+#handleInfoContent  dd{    
+      text-align:left;
+	  width:150px;	  
+}
+
+
+
+
+ .tbl-main {
+    border: 1px solid #5D5D5D;
+    table-layout: fixed;
+    width: 100%;
+	border-collapse:collapse;
+}
+.thead-tbl-grade th {
+    background: #f2f2f2 none repeat scroll 0 0;
+    border-bottom: 1px solid #5D5D5D;
+    border-top: 1px solid #5D5D5D;
+    height: 40px;
+    padding: 0 5px;
+    text-align: left;	
+	font-style: normal;
+    font-weight: 400;
+	font-weight:bold;
+	word-break: break-all;
+    word-wrap: break-word;
+}
+#handInfoReply tr{
+ background: #f2f2f2 none repeat scroll 0 0;
+    border-bottom: 1px solid #5D5D5D;
+}
+
+#handInfoReply .col-link {
+    width: 80px;
+}
+#handInfoReply .col-reply {
+    width: 200px;
+}
+#handInfoReply .col-replyMan {
+    width: 120px;
+}
+
+#handInfoReply .col-date {
+    width: 75px;
+}
+.tbl-main td{
+    padding: 5px;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+#problemContent{
+  padding-top:20px;
+   word-break: break-all;
+    word-wrap: break-word;
+}
+
+/**弹出层样式***/
+.mask{
+	height: 100%;
+	width: 100%;
+	filter:alpha(opacity:0);
+	opacity: 0;
+	background: #000;
+	position: absolute;
+	z-index: 20001;
+	left: 0;
+	top:0;
+	display: -none;
+}
+.popup{
+	background:#fff urlimages/loading.gif) no-repeat center;
+	border: 10px solid #fff;
+	position: absolute;
+	z-index: 20002;
+	overflow:-hidden;
+	width: 320px;
+	height: 240px;
+}
+.popup img{
+	height: auto;
+	width: auto;
+}
+.btn{
+	position: absolute;
+	right: 0;
+	top:0;
+	height: 100%;
+	width: 50%;
+	cursor: pointer;
+}
+.prev{
+	left: 0;
+	background: url(../images/lightbox-btn-prev.gif) no-repeat  0 50px;
+}
+.next{
+	background: url(../images/lightbox-btn-next.gif) no-repeat  right 50px;
+}
+.popupBottom{
+	position: relative;
+	z-index: 20003;
+	margin-top:8px
+}
+.popupTitle{
+	line-height: 18px;
+	color: #543424;
+	font-family: Arial;
+	font-size: 12px;
+	padding-right: 100px;
+}
+.popupClose{
+	margin-right:15px;
+	height: 22px;
+	width: 66px;
+	background: url(../images/lightbox-btn-close.gif) no-repeat;
+	cursor: pointer;
+	z-index: 4;
+	position: absolute;
+	top: 0px;
+	right: 0;
+}

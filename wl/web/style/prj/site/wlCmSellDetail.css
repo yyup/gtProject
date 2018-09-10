@@ -1,0 +1,74 @@
+/*账号信息*/
+#prodectDetailBody{width:100%;} 
+#productDetailContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+
+#productDetailBut{
+float:left;width:140px;
+}
+#productDetailContent{
+float:right;width:858px;
+}
+#productDetailTitle{
+  padding:8px 25px;
+  border-bottom:1px solid #5D5D5D;
+  word-break:break-all;
+}
+#productDetail{
+ border-top:1px solid #FFF;
+ min-height:570px;
+
+}
+.productDetailBut{
+  width:86px;
+  background: url("../img/train.png") ;
+ 
+}
+#addShoppingCar{
+  margin:50px auto 0;
+width:112px;
+height:29px;
+background: url("../images/addToCar.png") ;
+cursor:pointer;
+}
+#buy,#taoBao,#curSellInfo{
+  margin:20px auto 0;
+  width:112px;
+  height:29px;
+}
+#buy{
+	background: url("../images/buy.png") ;
+}
+#taoBao{
+ background: url("../images/taoBao.png") ;
+}
+
+
+
+
+/* 选项卡*/
+.tabs{margin-top:20px;width:700px;display:table;} 
+.tabs-nav a{color:#fff;text-decoration:none;border-top:1px solid #FFF;font-size:16px; } 
+.tabs-nav a{background:#1A1A1A;line-height:30px;padding:0 30px;display:inline-block;border-right:2px solid #F3F3F3;border-bottom:1px solid #a0b3d6;float:left;} 
+.tabs-nav .on{background:#626262;border-bottom:1px solid white;_position:relative;} 
+.tabs-content{padding:20px;border-top:1px solid #a0b3d6;margin-top:-1px;} 
+.active{
+ display:block;
+}
+.noActive{
+   display:none; 
+}
+#tabs h2{
+ float:left;
+}
+.tabsContent{
+  float:left;
+  width:810px;
+  border:1px solid #000;
+  min-height:290px;
+  margin-bottom:20px;
+}
+#productDetailBut a{
+    text-decoration:none;
+}

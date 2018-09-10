@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+</head>
+<body> 
+	<!-- 工具栏 -->
+	<div class="k-page-toolbar"> 
+		<div id="searchForm" class="joy-form" style="float: right"
+			layout="freedom">
+			<span class="joy-lang" label="lg:startTime"></span>:
+				<input class="joy-datepicker" label="lg:startTime"  style="width:120px;" dataBind="value:fromTime"> 
+			<span class="joy-lang" label="lg:endTime"></span>:
+				<input class="joy-datepicker" label="lg:endTime"  style="width:120px;" dataBind="value:toTime"> 
+			 <span class="joy-lang" label="lg:content"></span>:
+			 	<input class="joy-textbox" label="lg:content"   style="width:120px;" dataBind="value:content"> 
+				<button class="joy-button" icon="search" onClick="searchData" label="lgc:search" ></button>
+		</div>
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid"  rowHeightFit="38">
+		<thead>
+			<tr>  
+				<th field="userName" dataType="string" label="lg:user" colWidth="150px"></th> 
+				<th field="systemName" dataType="string" label="lg:systemName"
+					colWidth="200px"></th>
+				<th field="moduleName" dataType="string" label="lg:moduleName"
+					colWidth="200px"></th>  
+				<th field="content" dataType="string" label="lg:content"
+					colWidth="100"></th>   
+				<th field="nodeTime"  dataFormat="yyyy-M-d H:mm:ss" dataType="date"  label="lg:nodeTime" colWidth="150px"></th> 
+				<th colWidth="100px" templateType="button" >  
+					<button icon="insert-m" onClick="openDetailWindow('#:id#')"
+						smcBind="READSmc" label="lgc:detail"></button>
+				</th>
+			</tr>
+		</thead>
+	</table>
+  
+	<!-- 详细框 -->
+	<div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lg:detailWindowTitle"> 
+		<table id="detailTable" width="100%" align="center"
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:user"></td>
+					<td width="230" class="joy-label joy-enum"   databind="value:userName"></td> 
+					<td width="100" class="joy-lang head" label="lg:nodeTime"></td>
+					<td width="230" class="joy-label" databind="value:nodeTime"></td> 
+				</tr>   
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:content"></td>
+					<td width="230" class="joy-label" databind="value:content"></td> 
+						<td width="100" class="joy-lang head" label="lg:systemName"></td>
+					<td width="230" class="joy-label" databind="value:systemName"></td> 
+				</tr> 
+				<tr height="25">
+					<td width="100" class="joy-lang head" label="lg:moduleName"></td>
+					<td width="230" class="joy-label" databind="value:moduleName"></td> 
+					<td width="100" class="joy-lang head" label="lg:ip"></td>
+					<td width="230" class="joy-label" databind="value:ip"></td> 
+				</tr> 
+				<tr height="25" >
+					<td width="100" class="joy-lang head" label="lg:memo"></td>
+					<td width="230" class="joy-label" databind="value:memo" colspan="3"></td> 
+				</tr>
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="40" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script>
+	var dataForm, searchForm,  detailWindow, grid, initResult, lgc, lg;
+	var searchUrl = "wlCmLogAction.do?action=findPage";
+	
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();
+		dataForm = $("#dataForm").getJoyForm();
+		searchForm = $("#searchForm").getJoyForm(); 
+		detailWindow = $("#detailWindow").getJoyWindow();
+
+		//数据初始化
+		joy.getJSON("wlCmLogAction.do?action=init", function(resultObject) {
+			initResult = resultObject;
+		    var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);  
+			searchForm.load(initResult);
+	    	grid.fetch(initResult, searchUrl); 
+	    	
+		});
+		
+	
+	})
+ 
+
+	/**
+	 * 打开详细窗体
+	 */
+	function openDetailWindow(id) {
+
+		joy.getJSON("wlCmLogAction.do?action=getData", {
+			id : id
+		}, function(resultObject) {
+			var viewModel = joy.observable(resultObject);
+			joy.bind($("#detailTable"), viewModel);
+			detailWindow.open();
+			detailWindow.center();
+		});
+	}
+
+	 
+
+	/**
+	 * 搜索数据
+	 */
+	function searchData() {
+		grid.fetch(initResult, searchUrl, searchForm.getDataModel().toJSON());
+	}
+</script>
+</html>

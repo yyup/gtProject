@@ -1,0 +1,114 @@
+/*�˺���Ϣ��ʼ*/
+#accountInfoContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#accountInfoMenu,#accountInfoContent{margin-top: 15px;margin-bottom: 15px;}
+
+#accountInfoMenu{
+float:left;width:235px;border-right:1px solid #fff;min-height:670px;
+}
+#accountInfoContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.accountInfoTitle{width:145px;height:20px;margin:0 auto;margin-top:20px;background:#000;
+height:20px;text-align:center;padding:8px 14px;letter-spacing:6px;font-weight:bold;border:1px solid #DFDFDF;border-radius: 9px;
+color:#fff;font-size:19px;line-height:20px;
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px;}
+.item p:not(.itemTitle){padding-bottom:4px;
+ }
+  .item a{
+    color:#000;
+	text-decoration:none;
+ }
+
+ /*�ջ���ַ�б�*/
+#serialNumberList{
+ margin-top:70px;
+ margin-left:25px;
+ margin-right:25px;
+ font-size:14px;
+}
+
+
+#serialNumberList .tbl-main {
+    border: 1px solid #5D5D5D;
+    table-layout: fixed;
+    width: 100%;
+	border-collapse:collapse;
+}
+.thead-tbl-grade th {
+    background: #f2f2f2 none repeat scroll 0 0;
+    border-bottom: 1px solid #5D5D5D;
+    border-top: 1px solid #5D5D5D;
+    height: 40px;
+    padding: 0 5px;
+    text-align: left;
+	
+	
+	font-style: normal;
+    font-weight: 400;
+}
+#serialNumberList tr{
+ background: #f2f2f2 none repeat scroll 0 0;
+    border-bottom: 1px solid #5D5D5D;
+}
+
+#serialNumberList .col-code {
+    width: 70px;
+}
+#serialNumberList .col-mode {
+    width: 140px;
+}
+#serialNumberList .col-num {
+    width: 60px;
+}
+
+#serialNumberList .col-price {
+    width: 80px;
+}
+
+#serialNumberList .col-distributor {
+    width: 92px;
+}
+#serialNumberList .col-date {
+    width: 70px;
+}
+
+/*��ΪĬ�ϵ�ַ*/
+#serialNumberList .note{
+   background: #ffd6cc none repeat scroll 0 0;
+    border-color: #ff3800;
+    border-radius: 3px;
+    color: #f30;
+    padding: 2px 5px;
+	border: 1px solid #f60;
+	 text-decoration: none;
+}
+.setDefaultAdress{
+     background: #f60 none repeat scroll 0 0;
+    border: 1px solid #f60;
+    border-radius: 3px;
+    color: #fff;
+    padding: 2px 5px;
+    text-decoration: none;
+}
+.tbl-main td{
+    padding: 5px;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+}

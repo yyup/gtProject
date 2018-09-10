@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" /> 
+
+</head>
+<body> 
+	<!-- 工具栏 开始-->
+	<div class="k-page-toolbar">
+		<div id="searchForm" class="joy-form" style="float:left;height:100%" layout="freedom">		
+			<span class="joy-lang" label="lg:storageId" style="font-weight:bold;"></span>
+			<font class="k-form-required">*</font>: 							
+		    <input id="storageId"  class="joy-combobox joy-enum"  style="width: 180px;"
+				   placeholder="lgc:pleaseToSelect"  databind="value:storageId,source:allStorageEnum"
+				     dataTextField="storageName" dataValueField="storageId"  required="true">					
+		      <span class="joy-lang" label="lg:date" style="font-weight:bold;"></span>
+		      <font class="k-form-required">*</font>: 							
+		   <input id="date" class="joy-datepicker"    depth="month" 
+		    placeholder="请输入..." databind="value:date" style="width: 180px;" required="true">		    	
+			 <span class="joy-lang" label="lg:itemCd""  style="font-weight:bold;"></span>
+			 <font class="k-form-required">*</font>: 			  
+			<input	id="itemCd" class="joy-textbox" style="width: 180px;" databind="value:itemCd" required="true">	
+			<button class="joy-button" icon="search" onClick="searchQuery"
+				label="lgc:search"></button>	
+	    </div>
+	</div>
+		<!-- 工具栏 结束-->
+	<!-- 列表 -->
+	<div class="listContent" >
+	<table id="grid" class="joy-grid"   reorderable="false"   showPageControl="false"    >
+		<thead>
+			<tr>  
+				<th field="date"  dataFormat="yyyy-MM-dd" dataType="date"   label="lg:date" colWidth="20%"></th> 				
+				<th field="balance" dataType="string" align="center" label="lg:balance" colWidth="20%"></th>   
+				<th field="inQty" dataType="string"  align="center" label="lg:inQty" 	colWidth="20%"></th>   				  
+				<th field="outQty" dataType="string" align="center" label="lg:outQty" colWidth="20%"></th>   
+		    <th field="finalInventory" dataType="string" align="center" label="lg:finalInventory" colWidth="20%"></th>		    
+			</tr>
+		</thead>
+	</table>
+</div>
+
+</body>
+<script>
+	var  grid, initResult, lgc, lg,searchForm;
+	var searchUrl="../../wl/wm/WlWmInventoryTransferQueryAction.do?action=findDataList";
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();	
+		searchForm=$("#searchForm").getJoyForm();
+		/**数据初始化*/
+		joy.getJSON("../../wl/wm/WlWmInventoryTransferQueryAction.do?action=init",{},function(resultObject) {
+			initResult = resultObject;
+		    var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel);
+	        searchForm.load();
+		});
+	})
+	     //查询
+        function searchQuery(){
+			if (!searchForm.validate()){
+				joy.showMessage(lgc.validateFaile,"warning");
+				return;
+			}			
+			var submitData=searchForm.getDataModel().toJSON()
+			var paraMap=joy.getParaMap(submitData);
+			joy.postJSON(searchUrl,paraMap,function(resultObject) {
+		    	grid.load(initResult,resultObject); 
+			});	
+	    }
+
+		
+	
+</script>
+</html>

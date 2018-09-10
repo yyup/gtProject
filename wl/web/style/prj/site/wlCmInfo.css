@@ -1,0 +1,51 @@
+#waterRowerBody{width:100%;}
+/*账号信息*/
+#waterRowerContainer{
+display: table; background:#B8B8B8; margin:0 auto;margin-top:20px;width:1000px;
+}
+#leftBorder{
+border-left:1px solid #fff; display: table; 
+}
+#waterRowerMenu,#leftBorder{margin-top: 15px;margin-bottom: 15px;}
+
+#waterRowerMenu{
+float:left;width:230px;min-height:670px;
+}
+#waterRowerContent{
+float:right;width:763px;border-left:1px solid #5D5D5D;
+}
+.waterRowerTitle{width:173px;height:36px;margin:0 auto;
+margin-top:20px;
+}
+.MenuContent{width:180px;margin:0 auto;}
+.item{
+ padding-top:10px;padding-bottom:10px;border-bottom:1px solid #5D5D5D;border-top:1px solid #fff;
+}
+.firstItem{
+ border-top:none;
+}
+.lastItem{
+ border-bottom:none;
+}
+ .itemTitle{
+  font-weight:bold;font-size:19px;padding-bottom:7px;
+ }
+ .item p{text-align:left;padding-left:40px;cursor:pointer;padding-bottom:4px;word-break: break-all;
+    word-wrap: break-word;}
+
+ /*左边关于沃特*/
+ #aboutWaterRower{
+   margin-top:20px;
+   margin-left:20px;
+      margin-right:20px;
+       word-break: break-all;
+    word-wrap: break-word;
+   font-size: 13px;
+   letter-spacing:2px;
+ }
+ .noContent{
+   height: 145px;
+    margin: 180px auto 0;
+    width: 304px;
+    background:url('../images/noContent.png')
+ }

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	<meta name="Generator" content="waterrower Team">
+	<meta name="Author" content="waterrowerTeam">
+	<meta name="Keywords" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+	<meta name="Description" content="沃特罗伦WaterRower（直译水划船机）始创于1988年。由美国国家划船队John Duke与耶鲁大学联合设计，并获发明专利。不仅是品牌，更是划船器水阻化的标志性里程碑。">
+    <script src="../../js/newsite/jquery.min.js"></script>
+	<script src="../../js/newsite/bootstrap.js"></script>
+	<script src="../../js/newsite/getSystemPlatform.js"></script>
+	<script src="../../js/joy.loader.js" modules=""></script>
+	 <script src="../../js/newsite/wlcommon.js"></script>
+	 <script src="../../js/newsite/cnzz.js"></script>
+	<link rel="stylesheet" href="../../style/prj/newsite/header.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/footer.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/wlcommon.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/bootstrap.min.css"/>
+	<link rel="stylesheet" href="../../style/prj/newsite/productCenterDetail.css"/>
+
+</head>
+<body>
+ <!-- 头部 -->
+	<div id="top">
+		<div id="commonpath" style="display: none;" commonpath=""></div>
+	</div>
+<!---->
+  <div id="wlBody">
+    <!--经销商服务图片开始
+-->
+		      			<div id="backgroundImg" class="container row productHead">
+										 
+										 
+                         </div>
+		       <!--经销商服务图片结束-->
+			   <!--九宫格第一行开始-->
+							<div id="productContainer" class="container row productContainer">
+								  <div class="col-sm-4">
+									   <img  src="../../style/prj/images/a1-home-side.png"  class="img-responsive">
+									   <div class="grid-title">
+									        WaterRower 双轨实木水划船机
+											<a href="http://www.baidu.com" target="_Blank">
+											  <img src="../../style/prj/images/jingdong.jpg" class="mall" alt="Responsive image">
+											</a>
+											<img src="../../style/prj/images/white.png" class="whiteImg" alt="Responsive image">
+											<a href="http://www.baidu.com" target="_Blank">
+											  <img src="../../style/prj/images/tianmao.jpg" class="mall" alt="Responsive image">
+											</a>
+									   </div>
+									   <div class="grid-desc">
+										  <p>The WaterRower Signature Series uses our standard Natural model, crafted in solid Ash wood with a honey oak stain.</p>
+									  </div>
+								  </div>
+									  <div class="col-sm-4">				          
+										 <img  src="../../style/prj/images/club-side.png"  class="img-responsive">
+										 <div class="grid-title">
+										    WaterRower 单轨实木水划船机
+										    <a href="http://www.baidu.com" target="_Blank">
+											  <img src="../../style/prj/images/jingdong.jpg" class="mall" alt="Responsive image">
+											</a>
+											<img src="../../style/prj/images/white.png" class="whiteImg" alt="Responsive image">
+											<a href="http://www.baidu.com" target="_Blank">
+											  <img src="../../style/prj/images/tianmao.jpg" class="mall" alt="Responsive image">
+											</a>
+										 </div>
+										  <div class="grid-desc">
+											 <p>Solid Cherry wood frame finished in Danish oil. Includes dual rail design, commercial warranty and S4 Monitor.</p>
+										  </div>
+									  </div>
+									  <div class="col-sm-4">
+										<img  src="../../style/prj/images/natural-side.png"  class="img-responsive">
+										<div class="grid-title">
+										 WaterRower 金属水划船机
+										  <a href="http://www.baidu.com" target="_Blank">
+											  <img src="../../style/prj/images/jingdong.jpg" class="mall" alt="Responsive image">
+											</a>
+											<img src="../../style/prj/images/white.png" class="whiteImg" alt="Responsive image">
+											<a href="http://www.baidu.com" target="_Blank">
+											  <img src="../../style/prj/images/tianmao.jpg" class="mall" alt="Responsive image">
+											</a>
+										</div>
+										<div class="grid-desc">
+										  <p>Solid American Black Walnut wood frame finished in Danish oil. Includes dual rail design, commercial warranty and S4 Monitor.</p>
+										</div>
+									  </div>
+							</div>
+					<!--九宫格第一行结束-->
+	
+  </div>
+<!---->
+<!--尾部开始-->
+    <div id="footerPart">
+      
+    </div>
+</body>
+</html>
+<!--尾部结束-->
+<script>
+	var typeId,backgroundPath,typeName,pmemo;
+	$().ready(function() {
+		initTop();;
+		initClick();
+		initBottom();
+		typeId = getArgsFromHref(window.location.href, "typeId");
+		backgroundPath= getArgsFromHref(window.location.href, "backgroundPath");
+		//getBackgroundImg();
+		getLayout();
+	});
+	function getBackgroundImg(){
+		//var txt='<h1>'+typeName+'</h1> ';
+		//txt+='<p class="productHeadText">'+pmemo+'</p>';
+		var txt='<img src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ backgroundPath +'" class="img-responsive" alt="Responsive image">';
+		$("#backgroundImg").append(txt);
+	}
+	
+	function getLayout(){
+	    joy.getJSON("../../wl/cm/wlCmSellAction.dox?action=findSellList", {typeId:typeId,isThumFlag:"1",sellStateEk:"HAS_SHELVE"},function(resultObject){
+	    	if(resultObject.length>0){
+	    		typeName=resultObject[0].typeName;
+	    		pmemo=resultObject[0].pmemo;
+	    		getBackgroundImg();
+	    	}
+	    	$("#productContainer").empty();
+	    	var txt=""
+	        for(var i=0;i<resultObject.length;i++){
+	        	if(i%3==0){
+	        		txt+='<div class="row" style="margin-bottom:50px;">';
+	        	}
+	        	txt+='<div class="col-sm-4" >';
+	        	txt+='<img style="cursor:pointer;" onclick="toProductDetail(\''+resultObject[i].sellId+'\')"  src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ resultObject[i].path +'"  class="img-responsive">';
+        		txt+='<div class="grid-title" style="text-align: center;height:55px;">';
+        		txt+='<span class="sell" onclick="toProductDetail(\''+resultObject[i].sellId+'\')">';
+       			txt+=resultObject[i].productName;
+       			txt+='</span>';
+       			txt+='<div style="float:right;">';
+       			if(resultObject[i].jdLink!=""){
+	   				txt+='<a href="'+resultObject[i].jdLink+'" target="_Blank">';
+					txt+='<img src="../../style/prj/images/jingdong.jpg" class="mall" alt="Responsive image">';
+					txt+='</a>';
+					txt+='<img src="../../style/prj/images/white.png" class="whiteImg" alt="Responsive image">';
+	    	    }
+	    		if(resultObject[i].tmallLink){				
+					txt+='<a href="'+resultObject[i].tmallLink+'" target="_Blank">';
+					txt+='<img src="../../style/prj/images/tianmao.jpg" class="mall" alt="Responsive image">';
+					txt+='</a>';
+	            }
+				txt+='</div>';
+				txt+='</div>';
+				txt+='<div class="grid-desc" style="text-align: left;height:42px;overflow:hidden;">';
+				txt+='<span class="sell" onclick="toProductDetail(\''+resultObject[i].sellId+'\')">'+resultObject[i].memo+'</span>';
+				txt+=' </div>';
+				txt+='<div class="text-center"><button class="buyButton" onclick="toProductDetail(\''+resultObject[i].sellId+'\')">立即购买></button></div>';
+				txt+=' </div> ';   	
+				if(i==resultObject.length-1){
+	        		txt+='</div>';
+	        	}
+	        	if(i%3==2&&i!=resultObject.length-1){
+	        		txt+='</div>';
+	        	}
+	        }
+	    	$("#productContainer").append(txt);
+	    });
+	}
+	
+    //  函数功能：从href获得参数
+    function getArgsFromHref(sHref, sArgName) {
+        var args = sHref.split("?");
+        var retval = "";
+
+        if (args[0] == sHref) /*参数为空*/
+        {
+            return retval;
+            /*无需做任何处理*/
+        }
+        var str = args[1];
+        args = str.split("&");
+        for (var i = 0; i < args.length; i++) {
+            str = args[i];
+            var arg = str.split("=");
+            if (arg.length <= 1) continue;
+            if (arg[0] == sArgName) retval = arg[1];
+        }
+        return retval;
+    }
+    function toProductDetail(sellId){
+    	window.location = "productDetail.html?sellId=" + sellId;	
+    }
+</script>
+</body>
+</html>

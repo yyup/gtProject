@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="utf-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/prj/lightBox.js"></script>
+<script src="../../js/prj/cLodopFuncs.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/wl.common.css" />
+<link rel="stylesheet" type="text/css" href="../../style/prj/biz.wlEsRepairApply.css" />
+
+</head>
+<body >
+ <!-- 搜索栏 -->
+<div class="searchContent">
+	<div class="searchContent_l">
+		<button class="joy-button joy-smc" icon="plus" onClick="openAddWindow"
+			 label="lgc:add" dataBind="visible:ADDSmc"></button>	
+		<button class="joy-button joy-smc"  onClick="submitApply"
+			 label="lg:submit" style="width:59px" dataBind="visible:SUBMITSmc"></button>
+		 <button class="joy-button joy-smc"  onClick="submitRetract"
+			 label="lg:retract" style="width:59px" dataBind="visible:SUBMITSmc"></button>			
+	</div>
+	<div class="searchContent_r">
+			<div class="fit1024" style="float: left; padding-right: 5px;">
+				<span class="joy-lang" label="lg:deviceCd"></span>: <input
+					id="searchDeviceCd" style="width: 120px;" class="joy-textbox"
+					databind="value:deviceCd" /> 
+			</div>
+	    	<button class="joy-button" icon="search" onClick="searchGrid"
+				label="lgc:search"></button>
+			<button class="joy-button" icon="search" onClick="openSearch"
+								label="lgc:advSearch"></button>		
+	 </div>
+</div>
+<!-- 搜索栏end -->
+<table id="grid" class="joy-grid"   rowHeightFit="38">
+		<thead>
+			<tr> 
+			     <th field="repairId" templateType="checkbox" colWidth="40px" ></th>  
+				<th field="repairNo" dataType="string"  label="lg:repairNo" colWidth="10%"></th> 				
+				<th field="receiver" dataType="string"  label="lg:receiver" colWidth="10%"></th> 
+				<th field="mobile"  dataType="string" label="lg:mobile" colWidth="10%"></th>
+				<th field="serviceTime"  dataFormat="yyyy-MM-dd"  dataType="date" label="lg:serviceTime" colWidth="15%"></th>				
+				<th field="deviceCd"  label="lg:deviceCd" colWidth="10%"></th>
+				<th field="spec"   dataType="double" label="lg:spec" colWidth="10%"></th>   
+				<th field="agency"  dataType="string" label="lg:agency" colWidth="15%"></th> 
+				<th field="dealResult"  dataType="string" label="lg:dealResult" colWidth="20%"></th> 				
+				<th colWidth="280px" templateType="template" align="center" > 
+					 #if(initResult.PRINTSmc){#<!--打印有权限 -->
+						<button class="k-button k-gridBtn k-button-icontext" onClick="print('#:repairId#')"><span class="k-icon k-i-pencil"></span>#:lg.print#</button>									
+			    	#}else{#	<!--打印没有权限-->
+						<button class="k-button k-gridBtn k-button-icontext k-state-disabled"><span class="k-icon k-i-pencil"></span>#:lg.print#</button>									
+			    	#}#	
+					 #if(initResult.ADDSmc){<!--编辑有权限 -->
+				         if(processStatusEk==''){#<!--未提交处理 -->
+				          <button class="k-button k-gridBtn k-button-icontext"  onClick="openEditWindow('#:repairId#')"><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>						
+				         #}else{# <!--有权限但已提交处理 -->
+				              <button class="k-button k-gridBtn k-button-icontext k-state-disabled" ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>						
+				         # }	    
+					}else{ #<!-- 编辑没有权限 -->
+						<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-pencil"></span>#:lgc.edit#</button>
+					# }#
+				
+					#if(initResult.READSmc){#<!--详细有权限 -->
+					    <button class="k-button k-gridBtn k-button-icontext" smcBind="READSmc" onClick="openDetailWindow('#:repairId#')"><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>	
+			    	#}else{#	<!--详细没有权限-->
+				    	<button class="k-button k-gridBtn k-button-icontext k-state-disabled"  ><span class="k-icon k-i-insert-m"></span>#:lgc.detail#</button>	
+			    	#}#	
+				</th>
+			</tr>
+		</thead>
+	</table> 
+	   <!-- 详细窗口结束 -->
+		<!-- 详细窗口开始 -->
+		<div id="detailDiv" >    
+		    <div class="editBody" >
+		    		<div id="detailTitle" class="headTitle " ></div>
+				     <table id="detailTable" width="100%" align="center"
+					class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+					<tbody>
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:receiver"></td>
+							<td width="230" class="joy-label" databind="value:receiver"></td>
+							<td width="100" class="joy-lang head" label="lg:mobile"></td>
+							<td width="230" class="joy-label" databind="value:mobile"></td>
+						</tr>
+						<tr height="25">
+							<td width="100" class="joy-lang head" label="lg:addr"></td>
+							<td width="230" class="joy-label" databind="value:addr"></td>
+							<td width="100" class="joy-lang head" label="lg:serviceTime"></td>
+						    <td width="230" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd"  databind="value:serviceTime"></td>					
+						</tr>
+						<tr height="25">			
+							<td width="100" class="joy-lang head" label="lg:spec"></td>
+						   <td width="230" class="joy-label" databind="value:spec"></td>										
+							<td width="100" class="joy-lang head" label="lg:deviceCd"></td>
+						   <td width="230" class="joy-label" databind="value:deviceCd"></td>						
+						</tr>
+						<tr height="25">			
+							<td width="100" class="joy-lang head" label="lg:outDate"></td>
+						    <td width="230" class="joy-label" dataType="date" dataFormat="yyyy-MM-dd"  databind="value:outDate"></td>										
+							<td width="100" class="joy-lang head" label="lg:agency"></td>
+						   <td width="230" class="joy-label" databind="value:agency"></td>						
+						</tr>					
+						<tr height="80">
+							<td width="100" class="joy-lang head" label="lg:description"></td>
+							<td colspan="3">
+								<div class="joy-label" databind="value:description"
+									style="height: 100px; width: 630px; overflow: auto;word-break: break-all;"></div>
+							</td>
+						</tr>		
+						<tr height="80">
+							<td width="100" class="joy-lang head" label="lg:reason"></td>
+							<td colspan="3">
+								<div class="joy-label" databind="value:reason"
+									style="height: 60px; width: 630px; overflow: auto;word-break: break-all;"></div>
+							</td>
+						</tr>		
+						<tr height="80">
+							<td width="100" class="joy-lang head" label="lg:dealResult"></td>
+							<td colspan="3">
+								<div class="joy-label" databind="value:dealResult"
+									style="height: 60px; width: 630px; overflow: auto;word-break: break-all;"></div>
+							</td>
+						</tr>		
+						<tr height="80">
+							<td width="100" class="joy-lang head" label="lg:otherDescription"></td>
+							<td colspan="3">
+								<div class="joy-label" databind="value:otherDescription"
+									style="height: 60px; width: 630px; overflow: auto;word-break: break-all;"></div>
+							</td>
+						</tr>	
+						<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadPic"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px"  colspan="3">
+						<div id="picInfo" class="picInforTd" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>
+				<tr>
+					<td class="joy-lang head">
+					    <span class="joy-lang" label="lg:uploadVideo"  style="line-height:25px;"></span>
+					</td>
+					<td style="padding:5px"  colspan="3">
+						<div id="viedoInfo" style="height:130px;overflow:auto;" ></div>
+					</td>
+				</tr>		
+					</tbody>
+				</table>
+				<table width="100%" border="0" align="center" cellpadding="0"
+					cellspacing="0">
+					<tr>
+						<td height="50" align="right" valign="bottom">
+							<button class="joy-button joy-window-close" onClick="closeDetailWindow" icon="cancel"
+								label="lgc:close"></button></td>
+					</tr>
+				</table>    
+		     </div>
+	     </div>
+<!-- 编辑窗口开始 -->
+	<div id="editDiv">
+		<div class="editBody">
+			<form id="dataForm" class="joy-form">
+				<div id="editTitle" class="headTitle"></div>
+				<div class="base" id="div_base">
+				  <div class="layThree_row">
+						<div class="layThree_row_f">
+							<input id="deviceCd" class="joy-textbox" required="true"
+								label="lg:deviceCd" maxByte="20" databind="value:deviceCd" style="width: 97%">
+						</div>				
+						<div class="layThree_row_f">
+							<input id="spec" class="joy-textbox" disabled="disabled"
+								label="lg:spec" maxByte="20" databind="value:spec" style="width: 97%">
+						</div>
+						<div class="layThree_row_f">
+							<input id="name" required="true" class="joy-textbox"
+								label="lg:receiver"  maxByte="64"  databind="value:receiver" style="width: 97%">
+						</div>
+					</div>
+					<div class="layThree_row">
+						
+						<div class="layThree_row_f">
+							<input id="mobile" class="joy-textbox" required="true"
+								label="lg:mobile" dataType ="mobileTel" databind="value:mobile" style="width: 97%">
+						</div>
+						<div class="layThree_row_f">
+							<input id="addr" class="joy-textbox" required="true"
+								label="lg:addr" maxByte="128" databind="value:addr" style="width: 97%">
+						</div>
+						<div class="layThree_row_f">
+							<input class="joy-datepicker" required="true" id="serviceTime"
+								label="lg:serviceTime" databind="value:serviceTime" style="width: 97%">
+						</div>
+					</div>
+					<div class="layThree_row">					
+						
+						<div class="layThree_row_f">
+							<input id="badProductReturnEk" label="lg:badProductReturnEk" required="true"
+								class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"
+								databind="value:badProductReturnEk,source:BAD_PRODUCT_RETURN_EKEnum" style="width: 97%">
+						</div>
+						<div class="layThree_row_f">
+							<input id="warrantyTypeEk" label="lg:warrantyTypeEk" required="true"
+								class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"
+								databind="value:warrantyTypeEk,source:WARRANTY_TYPE_EKEnum" style="width: 97%">
+						</div>
+						<div class="layThree_row_f">
+							<input id="freightHomeEk" label="lg:freightHomeEk" 
+								class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"
+								databind="value:freightHomeEk,source:FREIGHT_HOME_EKEnum" style="width: 97%">
+						</div>
+					</div>
+					<div class="layThree_row">
+						
+						<div class="layThree_row_f">
+							<input id="onSiteRepairEk" label="lg:onSiteRepairEk" 
+								class="joy-combobox joy-enum" placeholder="lgc:pleaseToSelect"
+								databind="value:onSiteRepairEk,source:ON_SITE_REPAIR_EKEnum" style="width: 97%">
+						</div>
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_t">
+							<textarea id="description" class="joy-textbox" required="true"
+								label="lg:description"  maxByte="1024"   databind="value:description" style="width: 98%;resize: none;"></textarea>	
+						</div>						
+					</div>
+					<div class="layThree_row">
+						<div class="layThree_row_t">
+							<textarea id="otherDescription" class="joy-textbox" 
+								label="lg:otherDescription"  maxByte="256" databind="value:otherDescription" style="width: 98%;resize: none;"></textarea>	
+						</div>
+					</div>
+					<div class="layThree_row">	
+						<div class="layThree_row_f" style="width:49%;">
+						     <input  id="picUpload" class="joy-upload"  label="lg:uploadPic"  databind="value:path" multiple="false" 
+						                               type="file" complete="onPicBaseSuccess" select="selectPicFile"
+						                               async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.dox?action=uploadFile&sourceCode=pictureFile', removeUrl:'../../wl/cm/wlCmDocumentAction.dox?action=deleteFile'}"
+						                               allowType='jpg,png,gif' maxSize="5" />
+						</div>
+						<div class="layThree_row_f" style="width:49%;">
+							
+						     <input  id="videoUpload" class="joy-upload" label="lg:uploadVideo"  databind="value:videoPath" multiple="false" 
+						                               type="file" complete="onVideoBaseSuccess" select="selectVideoFile"
+						                               async="{saveField:'file',saveUrl:'../../wl/cm/wlCmDocumentAction.dox?action=uploadVideoFile&sourceCode=videoFile', removeUrl:'../../wl/cm/wlCmDocumentAction.dox?action=deleteVideoFile'}"
+						                               allowType='mp4,webm,ogg' maxSize="50" />
+						</div>		
+					</div>
+					  <div class="layThree_row">	
+								<div  id="custRepairImg" class="layThree_row_f" style="width:49%;">
+								   
+								</div>
+								<div id="custRepairVideo" class="layThree_row_f" style="width:49%;float:right;">
+								
+								</div>		
+					</div>
+					<!--button -->
+				<div class="layTwo_row_button" align="right">
+					<button class="joy-button" btnType="importantbtn" icon="tick"
+						onClick="save" label="lgc:save"></button>
+					<button class="joy-button" btnType="importantbtn" icon="tick"
+						onClick="saveAndSubmit" label="lg:saveAndSubmit"></button>
+					<button class="joy-button  joy-window-close" icon="cancel"
+						label="lg:back" onClick="editDivClose"></button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- 编辑窗口结束 -->
+	
+
+		<!-- 高级查询窗口开始 -->
+<div id="searchWindow" class="joy-window" title="lgc:search">
+	<form id="searchForm" class="joy-form" >
+		<table>
+		    <tr>
+		        <td>                
+					<input id="txt_receiver" class="joy-textbox" style="width: 160px;"
+				      maxByte="20" label="lg:receiver">		  
+				</td>
+			    <td>
+			        <input id="txt_mobile" class="joy-textbox" style="width: 160px;"
+				      maxByte="20" label="lg:mobile">		
+			    </td>
+			</tr>	
+			    <tr>
+		        <td>
+			    		<input class="joy-datepicker" label="lg:from"  dataFormat="yyyy-MM-dd"  
+			    		id="txt_from" style="width:160px;" > 			    
+			    </td>
+			    <td>    
+			       <input class="joy-datepicker" label="lg:to"  dataFormat="yyyy-MM-dd"  
+			    		id="txt_to" style="width:160px;" > 	           			 
+			    </td>
+			</tr>			
+		</table>	
+		<table width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button" btnType="importantbtn" icon="tick" onClick="moreSelect" label="lgc:search"></button>
+					<button class="joy-button  joy-window-close" icon="cancel" label="lgc:cancel"></button>
+				</td>
+			</tr>
+		</table>		 
+	</form>
+</div>
+		<!-- 高级查询窗口结束 -->
+		
+		<!-- 处理结果窗口开始 -->
+	<div id="dealWindow" class="joy-window " center="true"
+		title="lg:reasonAndDeal">
+		<form id="dealDataForm" class="joy-form">
+			<input type="hidden" databind="value:columnId">
+			<table cellspacing=1 cellpadding=3 width="100%" align="center"
+				border=0>
+				<tbody>
+					<tr>
+						<td align="left">
+						   <textarea id="reason" class="joy-textbox" 
+								label="lg:reason"  maxByte="256"  databind="value:reason" style="resize: none;"></textarea>							
+						</td>
+					</tr>
+					<tr>
+						<td align="left">
+						  <textarea id="dealResult" class="joy-textbox" 
+								label="lg:dealResult"  maxByte="256" databind="value:dealResult" style="resize: none;"></textarea>								
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table width="100%" border="0" align="center" cellpadding="3"
+				cellspacing="0">
+				<tr>
+					<td height="50" align="right" valign="bottom">
+						<button class="joy-button" btnType="importantbtn" icon="tick"
+							onClick="saveDealData" label="lgc:save"></button>
+						<button class="joy-button  joy-window-close" icon="cancel"
+							label="lgc:cancel"></button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<!-- 处理结果窗口结束 -->
+	<!-- 打印开始 -->
+		 <div id="print" style="display:none;">
+			   <div style="margin-top:30px;float: left;">
+			          <table id="printTable" cellspacing="0" cellpadding="0" border="0"   style="border-collapse:collapse;"> 
+						 <tr style="border-bottom:1px solid #000;">
+							<td colspan="8" height="35" style="text-align: center;text-align: center; font-weight: bold;vertical-align: top;">沃特罗伦售后维修申请表</td>
+						 </tr>
+						 <tr  height="31">
+							   <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">客户名称</td>
+							   <td  style="border: 1px solid #000; width: 43px; font-size: 12px;" class="joy-label" databind="value:receiver"></td>
+							   <td  style="border: 1px solid #000; font-weight: bold; width: 70px; font-size: 13px; text-align: center;">客户电话</td>
+							   <td  style="border: 1px solid #000; width: 90px; font-size: 12px;" class="joy-label" databind="value:mobile" ></td>
+							    <td  style="border: 1px solid #000; font-weight: bold; width: 65px; font-size: 13px;">客户地址</td>							 		    	 
+							    <td  style="border:1px solid #000;width:340px;font-size:14px;text-align: center;" colspan="3" class="joy-label" databind="value:addr" ></td>
+						 </tr>
+						  <tr  height="31">
+							   <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">型号</td>
+							   <td  style="border: 1px solid #000; width: 43px; font-size: 12px;" class="joy-label" databind="value:spec" ></td>
+							   <td  style="border: 1px solid #000; font-weight: bold; width: 70px; font-size: 13px; text-align: center;">序列号</td>
+							   <td  style="border: 1px solid #000; width: 90px; font-size: 12px;" class="joy-label" databind="value:deviceCd" ></td>
+							   <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">出货日期</td>
+							   <td  style="border: 1px solid #000; width: 87px; font-size: 12px;" datatype="date" dataformat="yyyy-MM-dd" class="joy-label" databind="value:outDate" ></td>
+							   <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">购买平台</td>
+							   <td  style="border: 1px solid #000;width:194px;font-size: 12px;" class="joy-label" databind="value:agency"></td>
+						 </tr>
+						 <tr height="39">
+						 		 <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">问题反馈</td>
+								 <td colspan="7" style="border: 1px solid #000;" class="joy-label" databind="value:description"></td>
+						 </tr>
+						  <tr height="39">
+						 		 <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">分析原因</td>
+								 <td colspan="7" style="border: 1px solid #000;" class="joy-label" databind="value:reason"></td>
+						 </tr>
+						  <tr height="39">
+						 		 <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">处理结果</td>
+								 <td colspan="7" style="border: 1px solid #000;" class="joy-label" databind="value:dealResult"></td>
+						 </tr>
+						  <tr height="39">
+						 		 <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">不良品是否返回</td>
+								 <td colspan="7" style="border: 1px solid #000;">
+								 <input name="badProductReturnEk" type="checkbox" value="1" style="margin-left:12px;" />已返回          
+								 <input name="badProductReturnEk" type="checkbox" style="margin-left:80px;" value="0"/> 待返回/返回确认_______________
+								 <input name="badProductReturnEk" type="checkbox" value="2"/>其他  </td>
+						 </tr>
+						  <tr height="39">
+						 		 <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">保修类型</td>
+								 <td colspan="7" style="border: 1px solid #000;">
+								  <input name="warrantyTypeEk" type="checkbox" style="margin-left:12px;" value="1"/>保修期内 
+                                  <input name="warrantyTypeEk" type="checkbox" style="margin-left:12px;" value="2"/>保修期外  
+								 <input name="warrantyTypeEk" type="checkbox" style="margin-left:12px;" value="3"/> 色差问题  
+								 <input name="warrantyTypeEk" type="checkbox" style="margin-left:12px;" value="4"/> 其他  					 
+								 </td>
+						 </tr>
+						  <tr height="39">
+						 		 <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">运费归属</td>
+								 <td colspan="7" style="border: 1px solid #000;">
+									 <input name="freightHomeEk" type="checkbox" style="margin-left:12px;" value="0"/> 往返运费客户承担 
+									  <input name="freightHomeEk" type="checkbox" style="margin-left:12px;" value="1"/>运费各付一半   
+									 <input name="freightHomeEk" type="checkbox" style="margin-left:12px;" value="2"/> 往返运费我司承担
+								 </td>
+						 </tr> 
+						  <tr height="39">
+						 		 <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;">是否上门维修</td>
+								 <td colspan="7" style="border: 1px solid #000;">
+								  <input name="onSiteRepairEk" type="checkbox" style="margin-left:12px;" value="0"/> 无需上门  
+								   <input name="onSiteRepairEk" type="checkbox" style="margin-left:12px;" value="1"/>需上门，安装师傅                          
+								 </td>
+						 </tr>
+						  <tr height="39">
+						 		 <td  style="border: 1px solid #000; font-weight: bold; width: 64px; font-size: 13px;"> 其他说明</td>
+								 <td colspan="7" style="border: 1px solid #000;" class="joy-label" databind="value:otherDescription"></td>
+						 </tr>
+						  <tr height="38" style="font-size:14px;">
+								 <td colspan="2" style="padding-left:11px;">审核:</td>
+								 <td colspan="2" style="padding-left:34px;">财务:</td>
+								 <td colspan="2" style="padding-left:22px;">仓库:</td>
+								 <td colspan="2" style="padding-left:26px;">申请人:</td>
+						 </tr>
+					 </table>  
+			   </div>
+			   <div  style="margin-top: 75px;margin-left:2px;float:left;"><img src="../../style/prj/images/applyRightTitle.jpg"/></div>
+		   </div>
+		   	<!-- 打印结束 -->
+	<script>
+	var searchUrl="../../wl/es/wlEsRepairApplyAction.do?action=findDataList";
+		var lgc, lg, editWindow, dataForm,searchWindow,grid,initResult,detailWindow,dealDataForm,dealWindow;
+		$().ready(function() {
+			lgc = joy.getCommonLang();
+			lg = joy.getLang();
+			dataForm = $("#dataForm").getJoyForm();
+			searchWindow=$("#searchWindow").getJoyWindow();
+			dealWindow=$("#dealWindow").getJoyWindow();
+			dealDataForm = $("#dealDataForm").getJoyForm();
+
+			grid= $("#grid").getJoyGrid();
+			$("#deviceCd").attr("placeholder",lg.pleaseEnter);
+			//数据初始化
+			joy.getJSON("../../wl/es/wlEsRepairApplyAction.do?action=init", {
+				enumTypes : [ 'BAD_PRODUCT_RETURN_EK','WARRANTY_TYPE_EK','ON_SITE_REPAIR_EK','FREIGHT_HOME_EK']
+			}, function(resultObject) {
+				initResult = resultObject;
+				//将后台action得到的枚举ENUM,和前台的databind的枚举,如果值相同进行绑定
+				var viewModel = joy.observable(initResult);
+				joy.bind($(".joy-smc,.joy-enum"), viewModel); //class为smc enum时进行绑定	
+				searchGrid();//查询
+			});
+		});
+		//打开新增窗口
+		function openAddWindow() {			
+			var height = $(window).height();
+			$("#editDiv").css({
+				"min-height" : height + "px",
+				"height" : "auto"
+			});
+			$("#editTitle").text(lg.addTitle);
+			imgCount=0;
+			$("#custRepairImg").empty();
+			$("#custRepairVideo").empty();
+			dataForm.load();
+			$("#editDiv").show();
+		}
+		//打开编辑窗口
+		function openEditWindow(repairId){
+			joy.getJSON("../../wl/es/wlEsRepairApplyAction.do?action=getData", {
+				repairId:repairId
+			}, function(resultObject) {
+				var height = $(window).height();
+				$("#editDiv").css({
+					"min-height" : height + "px",
+					"height" : "auto"
+				});
+				$("#editTitle").text(lg.addTitle);
+				dataForm.load(resultObject);
+				$("#custRepairImg").empty();
+				$("#custRepairVideo").empty();
+				imgCount=0;
+				 videoCount++;
+				for(var i=0;i<resultObject.picList.length;i++){
+					var ob=resultObject.picList[i];						
+					var txt =  '<img title="'+lg.delPic+'" ondblclick="delPic($(this),\''+ob.path+'\')" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ob.path+'"/>';
+					$("#custRepairImg").append(txt);
+					myPicModels[imgCount] = ob.path;
+				     imgCount++;
+				}
+				videoCount=0;
+				for(var i=0;i<resultObject.videoList.length;i++){
+					var ob=resultObject.videoList[i];	
+						joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=downloadVideoFile",{id:ob.path},function(result){
+							result="../../"+result;
+							var txt='<div style="float:left;">';
+							   txt+= '<video autoplay="autoplay" controls="controls" height="150" width="200">';
+							   txt+= '<source src="'+result+'">';
+							   txt+= '</source>';
+								txt+= '<object width="200" height="150" >';
+								txt+= '<embed width="100%" height="100%" src="'+result+'" />';
+								txt+= '</object>';
+								txt+= '</video>';
+							  txt+='<div title="'+lg.delVideo+'" style="width:200px;text-align:center;cursor:pointer;" ondblclick="delVideo($(this),\''+ob.path+'\')">删除</div>';
+							  txt+='</div>';
+							 $("#custRepairVideo").append(txt);
+							 myVideoModels[videoCount] = ob.path;
+							 videoCount++;
+						});
+				}
+				$("#editDiv").show();
+			});
+			
+		}
+		//关闭编辑窗口
+		function editDivClose(){
+			$("#editDiv").hide();
+		}
+		/**
+		*详细窗口
+		**/
+		function openDetailWindow(repairId){
+			joy.getJSON("../../wl/es/wlEsRepairApplyAction.do?action=getData", {
+				repairId:repairId
+			}, function(resultObject) {
+				var viewModel = joy.observable(resultObject);
+				joy.bind($("#detailTable"), viewModel);
+				//图片加载		
+				$(".imgDiv").remove();
+				for(var i=0;i<resultObject.picList.length;i++){
+						var ob=resultObject.picList[i];					
+						var txt='<div  class="imgDiv" ><img style="width:100%;height:100%;" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+ob.path+'" title="'+lg.showTitle+'"/></div>';					
+						$("#picInfo").append(txt);
+				}		
+				var lightBox=new myLightBox('picInfo',true,'src');
+				//视频加载		
+				$(".viedoDiv").remove();
+				for(var i=0;i<resultObject.videoList.length;i++){
+						var ob=resultObject.videoList[i];					
+						joy.getJSON("../../wl/cm/wlCmDocumentAction.web?action=downloadVideoFile",{id:ob.path},function(resultObject){
+									resultObject="../../"+resultObject;
+								var txt='<div  class="viedoDiv" >'; 
+							    txt+= '<video autoplay="autoplay" controls="controls" height="100%" width="100%">';
+							    txt+= '<source src="'+resultObject+'">';
+							    txt+= '</source>';
+								txt+= '<object width="100%" height="100%" >';
+								 txt+= '<embed width="100%" height="100%" src="'+resultObject+'" />';
+								txt+= '</object>';
+								txt+= '</video>';
+								txt+= '</div>';
+									$("#viedoInfo").append(txt);
+						});	
+				}
+				var height=$(window).height();
+				$("#detailTitle").text(lg.detailTitle);
+				$("#detailDiv").css({"min-height":height+"px","height":"auto"});			
+				$("#detailDiv").show();		
+			});	
+		}
+		//关闭详细窗口
+		function closeDetailWindow(){
+			$("#detailDiv").hide();
+		}
+		//保存（按钮触发的保存）
+		function save(buttonObject){
+			saveData(buttonObject,"");
+		}
+		//保存并提交(变成待处理)
+		function saveAndSubmit(buttonObject){
+			saveData(buttonObject,"0");
+		}
+		//保存
+		function saveData(buttonObject,processStatusEk) {
+			buttonObject.enable(false);
+			if (!dataForm.validate()){
+				joy.showMessage(lgc.validateFaile,"warning");
+				buttonObject.enable(true);
+				return;
+			}	
+			submitData=dataForm.getDataModel().toJSON();
+			submitData.picPathList=myPicModels;
+			submitData.videoPathList=myVideoModels;
+			submitData.processStatusEk=processStatusEk;
+			submitData.picList=new Array();
+			submitData.videoList=new Array();
+			dataForm.load(submitData);
+			dataForm.submit("../../wl/es/wlEsRepairApplyAction.do?action=saveData",
+					buttonObject, function(resultObject) {
+				        if(resultObject==""){//保存成功
+				           editDivClose();
+						   grid.dataSource.fetch();
+						   joy.showMessage(lgc.opSuccess, "success");
+				        }else{//失败
+				        	 buttonObject.enable(true);	
+				        	 deviceCd=$("#deviceCd").getJoyTextBox().value();
+				        	 joy.showMessage(deviceCd+resultObject, "warning");
+				        }
+				});	
+		}
+		//打开高级搜索
+		function openSearch()
+		{
+			$("#searchWindow").parent('.k-widget').css({'top':'40px','right':"20px"});
+			$("#searchWindow").parent('.k-widget').css('left',"");
+			//$("#searchWindow").getJoyWindow().setOptions({position:{top:40,left:200}});
+			searchWindow.open();
+		}	
+		//查询
+	    function searchGrid(){
+				var obj={};
+				obj.billSourceEk="Wl";
+				obj.keyId = "deviceCd";
+				obj.keyValue = $("#searchDeviceCd").getJoyTextBox().value();
+				var paraMap=joy.getParaMap(obj);
+				grid.fetch(initResult,searchUrl,paraMap);
+		}
+		//高级查询
+		function moreSelect(){
+			//txt_receiver  txt_mobile txt_from txt_to
+			receiver=$("#txt_receiver").getJoyTextBox().value();
+			mobile=$("#txt_mobile").getJoyTextBox().value();
+			serviceTimeStart=$("#txt_from").getJoyDatePicker().value();
+			serviceTimeEnd=$("#txt_to").getJoyDatePicker().value();
+			var obj={};
+			obj.billSourceEk="Wl";
+			obj.keyId = "deviceCd";
+			obj.keyValue = $("#searchDeviceCd").getJoyTextBox().value();
+			obj.receiver=receiver;
+			obj.mobile=mobile;
+			obj.serviceTimeStart=serviceTimeStart;
+			obj.serviceTimeEnd=serviceTimeEnd;
+			var paraMap=joy.getParaMap(obj);
+			grid.fetch(initResult,searchUrl,paraMap);
+		}
+		$("#deviceCd").keydown(function(e){//序列号输入框回车
+     	   if(e.keyCode == 13)
+     	   {
+     		  deviceCd=$("#deviceCd").getJoyTextBox().value();
+     		  joy.getJSON("../../wl/es/wlEsRepairApplyAction.do?action=getStoreOut", {
+     			 deviceCd:deviceCd
+  			   }, function(resultObject) {
+  				 receiver=""; spec="";mobile="";addr=""; 				
+  				   if(resultObject!==""){
+  					 receiver=resultObject.receiver;
+  					 spec=resultObject.spec;
+  					 mobile=resultObject.mobile;
+  					 addr=resultObject.addr;
+  				   }else{
+  					 joy.showMessage(lg.noExistDeviceCd, "warning");
+  				   }
+  				     var submitda =dataForm.getDataModel().toJSON();
+  				         submitda.deviceCd=deviceCd;
+	  				     submitda.receiver=resultObject.receiver;
+		  				 submitda.spec=resultObject.spec;
+		  				 submitda.mobile=resultObject.mobile;
+		  				 submitda.addr=resultObject.addr;
+		  				 dataForm.load(submitda);
+  			   });
+     	   }
+     	});
+		//图片上传模块
+		var imgCount=0;//上传图片数量
+		var myPicModels = new Array();
+		//上传图片时触发事件
+		function selectPicFile(){ 
+              return true;
+		}
+		//上传图片成功触发事件
+		function onPicBaseSuccess(){		
+			var id=$("#picUpload").getJoyUpload().value();
+			if(id != null &&$.trim(id) != ""){
+				var txt =  '<img title="'+lg.delPic+'" ondblclick="delPic($(this),\''+id+'\')" src="../../wl/cm/wlCmDocumentAction.dox?action=downloadFile&id='+id+'"/>';
+				$("#custRepairImg").append(txt);
+				myPicModels[imgCount] = id;
+			       imgCount++;
+			}	
+			$("#picUpload").getJoyUpload()._reflash();
+		}
+		//删除图片
+		function delPic(picObj,path){	
+			joy.showMessageDialog(lg.uploadPicTitle, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=deleteFile",{id:path},function(){
+						index=picObj.index();//当前第几张图片，从0开始
+						imgCount--;//图片减少一张
+						//图片数组删除图片
+						for(var i=0;i<myPicModels.length-1;i++){ 
+							if(i>=index){
+								var obj = myPicModels[i+1];
+								myPicModels[i]=obj;
+							}
+						}
+						myPicModels.pop(); 
+						picObj.remove();
+					});
+				}
+			});
+		}
+		//视频上传模块
+		var videoCount=0;//上传视频数量	
+		var myVideoModels = new Array();
+
+		//上传视频时触发事件
+		function selectVideoFile(){ 
+              return true;
+		}
+		//上传视频成功触发事件
+		function onVideoBaseSuccess(){		
+			var videoId=$("#videoUpload").getJoyUpload().value();
+			if(videoId != null &&$.trim(videoId) != ""){
+				joy.getJSON("../../wl/cm/wlCmDocumentAction.dox?action=downloadVideoFile",{id:videoId},function(resultObject){
+					resultObject="../../"+resultObject;
+					var txt='<div style="float:left;">';
+					   txt+= '<video autoplay="autoplay" controls="controls" height="150" width="200">';
+					   txt+= '<source src="'+resultObject+'">';
+					   txt+= '</source>';
+						txt+= '<object width="200" height="150" >';
+						txt+= '<embed width="100%" height="100%" src="'+resultObject+'" />';
+						txt+= '</object>';
+						txt+= '</video>';
+					  txt+='<div title="'+lg.delVideo+'" style="width:200px;text-align:center;cursor:pointer;" ondblclick="delVideo($(this),\''+videoId+'\')">删除</div>';
+					  txt+='</div>';
+					  $("#custRepairVideo").append(txt);
+					 myVideoModels[videoCount] = videoId;
+					 videoCount++;
+				});
+				
+			}	
+			$("#videoUpload").getJoyUpload()._reflash();
+		}
+		//删除视频
+		function delVideo(picObj,path){	
+			joy.showMessageDialog(lg.uploadVideoTitle, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/cm/wlCmDocumentAction.web?action=deleteVideoFile",{id:path},function(){
+						    index=picObj.parent().index();//当前第几个视频，从0开始
+							videoCount--;//视频减少一个
+							//视频数组删除视频
+							for(var i=0;i<myVideoModels.length-1;i++){ 
+								if(i>=index){
+									var obj =myVideoModels[i+1];
+									myVideoModels[i]=obj;
+								}
+							}
+							myVideoModels.pop(); 
+							picObj.parent().remove();
+					});
+				}
+			});
+		}
+		//提交
+		function submitApply(){
+			var ids = grid.getChecked();
+			if (ids.length == 0) {
+				joy.showMessage(lgc.chooseRecord, "warning");
+			} else {
+				joy.showMessageDialog(lg.submitTitle, "ok,cancel", function(e) {
+					if (e.btnName == "ok") {
+						joy.getJSON("../../wl/es/wlEsRepairApplyAction.do?action=updateSubmit",
+								{
+							      repairIds: ids
+								}, function(resultObject) {
+									grid.dataSource.fetch();
+									joy.showMessage(lgc.opSuccess, "success");
+								});
+					}
+				});
+			}
+		}
+		//撤回
+		function submitRetract(){
+			var ids = grid.getChecked();
+			if (ids.length == 0) {
+				joy.showMessage(lgc.chooseRecord, "warning");
+			} else {
+				joy.showMessageDialog(lg.retractTitle, "ok,cancel", function(e) {
+					if (e.btnName == "ok") {
+						joy.getJSON("../../wl/es/wlEsRepairApplyAction.do?action=updateRetract",
+								{
+							      repairIds: ids
+								}, function(resultObject) {
+									grid.dataSource.fetch();
+									joy.showMessage(lgc.opSuccess, "success");
+								});
+					}
+				});
+			}
+		}
+		function openDealWindow(repairId){
+			joy.getJSON("../../wl/es/wlEsRepairApplyAction.do?action=getData", {
+				repairId:repairId
+			}, function(resultObject) {
+				dealDataForm.load(resultObject);
+				dealWindow.open();
+				dealWindow.center();
+			});
+		}
+		//处理结果保存
+		function saveDealData(buttonObject){
+			submitData=dealDataForm.getDataModel().toJSON();
+			submitData.picList=new Array();
+			submitData.videoList=new Array();
+			submitData.sugList=new Array();
+			dealDataForm.load(submitData);
+			dealDataForm.submit("../../wl/es/wlEsRepairApplyAction.do?action=savaDealData",
+					buttonObject, function(resultObject) {
+						   grid.dataSource.fetch();
+						   dealWindow.close();
+						   joy.showMessage(lgc.opSuccess, "success");
+				});		
+		}
+		function print(repairId){
+			var LODOP=getLodop();
+			joy.getJSON("../../wl/es/wlEsRepairApplyAction.do?action=getData",{repairId:repairId},function(resultObject){
+				var viewModel = joy.observable(resultObject);
+				joy.bind($("#printTable"), viewModel);
+				$("[name=badProductReturnEk]").attr("checked",false);
+				$("[name=badProductReturnEk][value="+resultObject.badProductReturnEk+"]").attr("checked",true);
+				$("[name=onSiteRepairEk]").attr("checked",false);
+				$("[name=onSiteRepairEk][value="+resultObject.onSiteRepairEk+"]").attr("checked",true);
+				$("[name=freightHomeEk]").attr("checked",false);
+				$("[name=freightHomeEk][value="+resultObject.freightHomeEk+"]").attr("checked",true);
+				$("[name=warrantyTypeEk]").attr("checked",false);
+				$("[name=warrantyTypeEk][value="+resultObject.warrantyTypeEk+"]").attr("checked",true);	 	
+				var strHTML=document.getElementById("print").innerHTML;
+				LODOP.ADD_PRINT_HTM(0,0,"100%","100%",strHTML);
+				LODOP.NewPageA();
+				LODOP.PREVIEW();
+			});
+		}
+	</script>
+</body>
+</html>

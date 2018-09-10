@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title></title>
+<meta charset=UTF-8">
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/joy.loader.js" modules="form,dataview,advgrid,layout"></script>
+<link rel="stylesheet" type="text/css" href="../../style/prj/info.wlCmRecycleBin.css" />
+
+</head>
+<body style="height:100%">
+   <div id="gridDiv">
+  	<!-- 工具栏 -->
+	<div class="k-page-toolbar">
+	    <button class="joy-button joy-smc" icon="close" onClick="deleteData" label="lgc:delete" dataBind="visible:DELETESmc" ></button>
+		<button class="joy-button joy-smc" icon="restore" onClick="recoverData" label="lgc:recover" dataBind="visible:RECOVERSmc"></button>	
+		<div id="searchForm" class="joy-form" style="float: right" layout="freedom">
+			<span class="joy-lang" label="lg:title"></span>:
+			<input id="title" class="joy-textbox" style="width: 120px;" databind="value:title"  /> 
+			<button class="joy-button" icon="search" onClick="searchData" label="lgc:search" ></button>	
+		</div>	
+	</div>
+
+	<!-- 列表 -->
+	<table id="grid" class="joy-grid" pageSize = "10"  rowHeightFit="38">
+		<thead>
+			<tr>
+				<th field="infoId" templateType="checkbox" colWidth="40px"></th>
+				<th field="title" dataType="string" label="lg:title" colWidth="50%"></th>
+				<th field="columnId" enumData="columnNameEnum"  dataTextField="columnName" dataValueField="columnId" dataType="string" label="lg:columnName" colWidth="20%" align="center"></th>
+				<th field="issueTime"  dataType="date" dataFormat="yyyy-MM-dd HH:mm:ss" label="lg:issueTime" colWidth="23%" ></th>
+			    <th field="sequ" dataType="string" label="lg:sequ" colWidth="7%" align="right"></th>
+				<th colWidth="100px" templateType="template"  align="center" > 
+					<button class="k-button k-gridBtn k-button-icontext" smcBind="READSmc" onClick="openDetailWindow('#:infoId#')"><span class="k-icon k-i-insert-m""></span>#:lgc.detail#</button>
+				</th>
+			</tr>
+		</thead>
+	</table>	
+    </div>	
+
+    <!-- 详细 -->
+    <div id="detailWindow" class="joy-window detail" center="true"
+		align="left" title="lgc:detail"> 
+		<table id="detailTable" align="center" width="100%" 
+			class="k-info-table" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:title"></td>
+					<td width="230" class="joy-label"   databind="value:title"></td>
+					<td width="100" class="joy-lang head" label="lg:sequ"></td>
+					<td width="230" class="joy-label" databind="value:sequ"></td>					
+				</tr> 
+				<tr height="25">
+				    <td width="100" class="joy-lang head" label="lg:dataState"></td>
+					<td width="230" class="joy-label joy-enum" databind="value:issueStateEk,source:ISSUE_STATE_EKEnum"></td>
+					<td width="100" class="joy-lang head" label=""></td>
+					<td width="230" class="joy-label" databind=""></td>					
+				</tr> 
+				<tr height="80">
+					<td width="100" class="joy-lang head" label="lg:content"></td>
+					<td colspan="3">
+						<div class="joy-label" databind="value:content"
+							style="height: 100px; width: 630px; overflow: auto;"></div>
+					</td>
+				</tr> 			
+			</tbody>
+		</table>
+		<table width="100%" border="0" align="center" cellpadding="0"
+			cellspacing="0">
+			<tr>
+				<td height="50" align="right" valign="bottom">
+					<button class="joy-button joy-window-close" icon="cancel"
+						label="lgc:close"></button></td>
+			</tr>
+		</table>
+	</div>
+</body>
+<script>
+    var initResult,searchForm,detailWindow,grid,lgc,lg;
+	var searchUrl = "../../wl/cm/wlCmRecycleBinAction.do?action=findDataList";
+	
+	$().ready(function() {
+		lgc = joy.getCommonLang();
+		lg = joy.getLang();
+		grid = $("#grid").getJoyGrid();
+		searchForm = $("#searchForm").getJoyForm(); 
+		detailWindow = $("#detailWindow").getJoyWindow();
+
+		//数据初始化
+		joy.getJSON("../../wl/cm/wlCmRecycleBinAction.do?action=init",{
+				enumTypes : ['ISSUE_STATE_EK']
+		},function(resultObject) {
+			initResult = resultObject; 
+	        var viewModel = joy.observable(initResult);    
+	        joy.bind($(".joy-smc,.joy-enum"), viewModel); 
+	        searchForm.load({state:1}); 
+	    	grid.fetch(initResult, searchUrl);  
+		});
+	});
+
+	/**
+	 * 搜索数据
+	 */
+	function searchData() {
+		var obj = new Object();
+		var title = $("#title").getJoyTextBox().value();
+		obj.title = title;
+		grid.fetch(initResult, searchUrl, obj);
+	}
+	
+	/**
+	 * 打开详细窗体
+	 */
+	function openDetailWindow(infoId){
+		 
+		joy.getJSON("../../wl/cm/wlCmRecycleBinAction.do?action=getData",{infoId:infoId}, function(resultObject){	
+			var viewModel = joy.observable(resultObject); 
+			joy.bind($("#detailTable"), viewModel);			
+			detailWindow.open();
+			detailWindow.center();
+		});	
+	}
+	
+	/**
+	 * 删除数据
+	 */
+	function deleteData() {  
+		var ids = grid.getChecked(); 
+		
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.deleteConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/cm/wlCmRecycleBinAction.do?action=deleteData", 
+					  {ids:ids}, 
+					  function(resultObject) { 
+							grid.dataSource.fetch();
+							joy.showMessage(lgc.opSuccess, "success");
+					  });
+				}
+			});
+		}
+	}
+	
+	/**
+	 *恢复数据
+	 */
+	function recoverData() {  
+		var ids = grid.getChecked(); 
+		
+		if (ids.length == 0) {
+			joy.showMessage(lgc.chooseRecord, "warning");
+		} else {
+			joy.showMessageDialog(lgc.recoverConfirm, "ok,cancel", function(e) {
+				if (e.btnName == "ok") {
+					joy.getJSON("../../wl/cm/wlCmRecycleBinAction.do?action=recoverData", 
+					  {ids:ids}, 
+					  function(resultObject) { 
+							grid.dataSource.fetch();
+							joy.showMessage(lgc.opSuccess, "success");
+					  });
+				}
+			});
+		}
+	}
+</script>
+</html>
